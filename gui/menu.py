@@ -167,13 +167,11 @@ class ItemGroup(compound.Compound):
     # Add to menu origin
     coordinates.vector_add(vector, self.dimensions)
     self.invalidate()   # invalidate current layout
-    # Change origin, triggers layout
-    ## Was dimensions = 
+    # Change origin
+    ## Was dimensions = vector
     self.set_origin(vector)
-    
-    # Redo layout
-    ##self.layout(vector)  # vector is ignored
-    ##self.invalidate()
+    self.layout(vector)  # # Redo layout, vector is ignored
+    self.invalidate()   # queue redraw
     
     
    

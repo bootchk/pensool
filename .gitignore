@@ -1,0 +1,6 @@
+# lkk 2010
+# ignore edited files and compile python bytecodes
+# for all time in all clones of this repository
+# Create this file then: git config --global core.excludesfile ~/.gitignore
+*~
+*.pyc

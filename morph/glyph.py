@@ -13,6 +13,7 @@ import coordinates
 import pango
 import cairo
 import coordinates
+from decorators import *
 
 class Glyph(drawable.Drawable):
   '''
@@ -117,7 +118,8 @@ class RectGlyph(Glyph):
     # OLD
     context.rectangle(rect.x, rect.y, rect.width, rect.height)
     """
-    
+  
+  @dump_return
   def orthogonal(self, point):
     # assert rect is orthogonal to coordinate system
     if point.x >= self.dimensions.x + self.dimensions.width:

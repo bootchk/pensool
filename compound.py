@@ -102,8 +102,9 @@ class Compound(list, drawable.Drawable):
     # This triggers a warning about setting composite dimensions in set_dimensions??
     self.dimensions = rect
     # drawable.Drawable.set_origin(self, rect)
-    # Trigger layout event, which should change the origins of members
-    self.layout(rect)
+    # !!! Caller must also layout and invalidate
+    ## Trigger layout event, which should change the origins of members
+    ## self.layout(rect)
  
  
   # @dump_event
@@ -123,10 +124,17 @@ class Compound(list, drawable.Drawable):
       self[0].dimensions = self.dimensions
     
   
+  '''
+  Dimensions property.
+  !!! A compound has dimensions.  Its members also have dimensions.
+  Layout() propagates dimensions to members.
+  After changing dimensions, caller should call layout() and invalidate().
+  '''
+  
   @dump_event
   def set_dimensions(self, rect):
     '''
-    !!! Overrides drawable.set_dimensions setter for the dimensions property.
+    !!! Overrides drawable.set_dimensions, setter for the dimensions property.
     This is for a morph, which is a composite with one item.
     '''
     """
@@ -134,21 +142,25 @@ class Compound(list, drawable.Drawable):
       raise RuntimeError("Can't set dimensions on a composite with many items.")
     else:
     """
-    # It only makes sense to set the origin, but doesn't hurt to set width, h
-    # since it should soon be recalculated anyway.
-    self[0].dimensions = rect
+    # It only makes sense to set the origin, but doesn't hurt to set w,h
+    # since layout() should soon recalculate it.
+    self.dimensions = rect
  
   
   @dump_return
   def get_dimensions(self):
     '''
     !!! Overrides drawable.get_dimensions getter for the dimensions property.
-    Dimensions of a composite is the union over member items.
+    !!! Dimensions of a composite is the union over member items.
     '''
+    # Calculate dimensions
     rect = coordinates.copy(self[0].dimensions)
     for item in self:
       # print item, item.dimensions
       rect = coordinates.union(rect, item.dimensions)
+    # No need to store it in this composite, always recalculated.
+    # self.dimensions = rect  # calls Drawable.set_dimensions()
+    # TODO do the calculation once, during layout
     return rect
   
   # !!! Redeclare the property on this subclass of Drawable.
