@@ -92,8 +92,8 @@ class Compound(list, drawable.Drawable):
     self.set_dimensions(rect)
     # drawable.Drawable.set_origin(self, rect)
     # !!! Caller must also layout and invalidate
-    ## Trigger layout event, which should change the origins of members
-    ## self.layout(rect)
+    # layout changes origins of members
+    self.layout(rect)
  
  
   # @dump_event
@@ -128,17 +128,19 @@ class Compound(list, drawable.Drawable):
     TODO is this a resize?  
     Why can't you resize a composite and layout/resize all members?
     '''
-    """
     if len(self) > 1:
-      raise RuntimeError("Can't set dimensions on a composite with many items.")
+      '''
+      This is just what is asked for: layout may recompute dimensions from member
+      dimensions.
+      '''
+      drawable.Drawable.set_dimensions(self, rect)  # super
+      print "Set dimensions on a composite with many items."
     else:
-    """
-    # It only makes sense to set the origin, but doesn't hurt to set w,h
-    # since layout() should soon recalculate it.
-    self[0].set_dimensions(rect)
-    # Super
-    ## drawable.Drawable.set_dimensions(self, rect)
-    # self.layout()
+      # It only makes sense to set the origin, but doesn't hurt to set w,h
+      # since layout() should soon recalculate it.
+      self[0].set_dimensions(rect)
+      
+      # self.layout()
  
   
   @dump_return

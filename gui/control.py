@@ -89,7 +89,6 @@ class GuiControl(drawable.Drawable):
       
     !!! Note this is overridden by the bkgd manager.
     '''
-    # print "Mouse moved to", event.x, event.y
     # !!! Note events and control dimensions are in device coords
     if self.is_in_control_area(event):
       # Remember the last pointer position (not use gtk.get_pointer())
@@ -156,11 +155,11 @@ class GuiControl(drawable.Drawable):
       raise RuntimeError("Unhandled button " + event.button)
       
     
+  @dump_event
   def button_release_event_cb(self, widget, event):
     '''
     Button released inside control
     '''
-    print "Button released", repr(event), "in", repr(self)
     assert(self.has_focus)
     
     if(not event.button == self.button_pressed):
@@ -223,7 +222,7 @@ class GuiControl(drawable.Drawable):
     receiving events.)
     What if a OS window pops up under the mouse and user moves mouse?
     '''
-    print "FOCUSED ................"
+    print "WINDOW FOCUSED ................"
     # TODO grab_focus() ??  set HAS_FOCUS on the da?
     return True   # This widget took the focus, don't look further.
 
@@ -234,13 +233,13 @@ class GuiControl(drawable.Drawable):
   Highlight which control is sensitive (active?)
   Only one control is getting most low-level events.
   '''
+  @dump_event
   def take_focus(self):
-    print "Take focus", repr(self)
     self.has_focus = True
     self.invalidate()   #redraw
     
+  @dump_event
   def release_focus(self):
-    print "Release focus", repr(self)
     self.has_focus = False
     self.invalidate()   #redraw
   
@@ -287,7 +286,6 @@ class GuiControl(drawable.Drawable):
     '''
     If mouse exits the background, window manager grabs it?
     Possible to exit a non-bkgnd control directly to the window manager?
-    # print "mouse exit"
     #self.manager.deactivate_control(self, event)
     '''
     report_virtual()

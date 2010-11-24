@@ -73,25 +73,27 @@ class ItemGroup(compound.Compound):
     '''
     self.controlee = None
     '''
-    An ItemGroup is laid out on a vector.
+    An ItemGroup is laid out on a vector from an origin.
     Often, but not necessarily, linear along this vector.
+    The origin is where the user clicked.
     '''
     self.layout_vector = None
+    self._layout_origin = None
 
 
+  @dump_event
   def open(self, event, controlee=None):
     '''
     Make visible at event coords.
     Focus item at event.
     '''
-    print "Open menu *********************", repr(self)
     # Set the new controlee, since the layout may use it.
     self.controlee = controlee
-    # Position whole menu group.  Does a layout.???
+    # Remember the event coords
     rect = coordinates.coords_to_bounds(event)
+    self._layout_origin = rect
+    # Position whole menu group.  Lays out members!!!
     self.set_origin(rect) ## was event
-    # TODO center of first item?
-    ## self.layout(event)
     
     scheme.widgets.append(self)
     
@@ -107,8 +109,8 @@ class ItemGroup(compound.Compound):
     print "???Virtual layout method called"
     
     
+  @dump_event
   def close(self, event):
-    print "Closing menu *****************"
     # TODO delete only self, if many widgets can be visible
     del scheme.widgets[-1:]
     self.invalidate()
@@ -165,7 +167,7 @@ class ItemGroup(compound.Compound):
     # scale by magnitude of pixels_off_axis
     coordinates.vector_multiply_scalar(vector, math.fabs(pixels_off_axis))
     # Add to menu origin
-    coordinates.vector_add(vector, self.dimensions)
+    coordinates.vector_add(vector, self.get_dimensions())
     self.invalidate()   # invalidate current layout
     # Change origin
     ## Was dimensions = vector
@@ -204,8 +206,8 @@ class ItemGroup(compound.Compound):
     self._change_item(event, -1)
     
     
+  @dump_event
   def _activate_current(self, event, controlee):
-    print "Activate current", self.active_index
     # print self.[self.active_index].get_rect()
     guicontrolmgr.control_manager.activate_control(self[self.active_index], 
       event, controlee)
@@ -215,10 +217,7 @@ class ItemGroup(compound.Compound):
     guicontrolmgr.control_manager.deactivate_control(self[self.active_index],
        event)
 
-
   def _highlight_current(self, event, direction):
-    # 
-    print "Highlighting", self.active_index, direction
     self[self.active_index].highlight(direction)
 
   def __repr__(self):
@@ -236,18 +235,15 @@ class MenuGroup(ItemGroup):
   @dump_event
   def layout(self, event):
     '''
-    Layout (position) all items in group
-    in vertical, rectangular table.
-    Event is ignored, use dimensions,
-    which is the event from the opening,
-    or from a slide.
+    Layout (position) all items in group in vertical, rectangular table.
+    Event is ignored, use coords of most recent event (open, slide, etc.)
     '''
-    # Layout first item centered on opening event
-    temp_rect = self.dimensions
+    # Layout first item centered on opening event: menu composite dimensions
+    temp_rect = self._layout_origin
     for item in self:
       item.center_at(temp_rect)
       # Layout next item downward
-      temp_rect.y += item.dimensions.height
+      temp_rect.y += item.get_dimensions().height
 
 
 
@@ -270,7 +266,6 @@ class HandleGroup(ItemGroup):
     A handle group is laid out every time it slides.
     When exit an item, other items are already laid out.
     '''
-    print "Laying out handle group"
     # Layout first item centered on event
     temp_rect = coordinates.dimensions(event.x, event.y, 0, 0)
     
@@ -288,8 +283,8 @@ class HandleGroup(ItemGroup):
       '''
       # Multiply unit ortho vector by dimension vector; add/sub to previous coords
       # FIXME vector scale, translate
-      temp_rect.x -= layout_vector.x * item.dimensions.width/2
-      temp_rect.y -= layout_vector.y * item.dimensions.height/2
+      temp_rect.x -= layout_vector.x * item.get_dimensions().width/2
+      temp_rect.y -= layout_vector.y * item.get_dimensions().height/2
       
       
       

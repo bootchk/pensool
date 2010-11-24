@@ -53,6 +53,7 @@ class Drawable(object):
   !!! Copy, not reference, in case parameters are mutable.
   '''
   
+  @dump_event
   def set_dimensions(self, dimensions):
     # Set a copy, not a reference
     self._dimensions = coordinates.copy(dimensions)
@@ -108,6 +109,7 @@ class Drawable(object):
     return coordinates.intersect(self.get_bounds(), coordinates.coords_to_bounds(event))
   
   
+  @dump_return
   def center_at(self, event):
     '''
     Set ul at event.
@@ -117,8 +119,7 @@ class Drawable(object):
     (No redraws)
     '''
     self._dimensions = coordinates.center_on_coords(self.get_bounds(), event)
-    ###self._dimensions.x = event.x - (rect.width/2)
-    ###self._dimensions.y = event.y - (rect.height/2)
+    return self._dimensions # return rect so it is dumped
   
   def move_absolute(self, event):
     '''
@@ -249,6 +250,7 @@ class Drawable(object):
     # Assert paths cleared from context
 
     
+  @dump_event
   def highlight(self, direction):
     '''
     Cause self to be temporarily drawn in the highlight style.
