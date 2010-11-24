@@ -26,7 +26,7 @@ class LineHandleItem(itemhandle.HandleItem):
     Shape of this handle.
     '''
     self.filled = True
-    context.rectangle(self.dimensions)
+    context.rectangle(self.get_dimensions())
   
   
   @dump_event

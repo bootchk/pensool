@@ -40,7 +40,7 @@ class MoveHandleItem(itemhandle.HandleItem):
     context.set_matrix(saved)
     """
     
-    context.rectangle(self.dimensions)
+    context.rectangle(self.get_dimensions())
   
   @dump_event
   def scroll_down(self, event):
@@ -104,7 +104,7 @@ class ResizeHandleItem(itemhandle.HandleItem):
   '''
 
   def put_path_to(self, context):
-    centerx, centery, radius = coordinates.circle_from_dimensions(self.dimensions)
+    centerx, centery, radius = coordinates.circle_from_dimensions(self.get_dimensions())
     context.arc(centerx, centery, radius, 0, 2.0*math.pi)
 
   def drop(self, source, event, offset, source_control):

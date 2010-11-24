@@ -94,7 +94,7 @@ class HandleItem(gui.itemcontrol.ItemControl):
     this must mean mouse moved in axial *exit* direction.
     '''
     # Calculate the vector of mouse exit.
-    center = coordinates.center_of_dimensions(self.dimensions)
+    center = coordinates.center_of_dimensions(self.get_dimensions())
     exit_vector = coordinates.vector_from_points(center, event)
     # Tell manager, let the manager figure out if
     # the vector is in the next or previous direction.

@@ -8,6 +8,7 @@ Also similar to macros.
 
 Specifically, modify function calls with pre- and post- operations.
 '''
+import inspect  # for indent by stack depth
 
 # FIXME rename to dump_call
 def dump_event(func):
@@ -23,7 +24,9 @@ def dump_event(func):
   fname = func.func_name
   argnames = func.func_code.co_varnames[:func.func_code.co_argcount]
   def dump_func(*args, **kwargs):
-    print "Event ", fname, ",".join(
+    # Indent message by call stack depth
+    depth = len(inspect.stack())
+    print " "*depth, "Event ", fname, ",".join(
       '%s=%r' % entry
       for entry in zip(argnames,args) + kwargs.items())
     return func(*args, **kwargs)

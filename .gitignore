@@ -4,3 +4,4 @@
 # Create this file then: git config --global core.excludesfile ~/.gitignore
 *~
 *.pyc
+*/*.pyc

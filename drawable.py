@@ -51,22 +51,26 @@ class Drawable(object):
   !!! These are the dimensions, not the bounds.
   The bounds of compound drawables is computed.
   !!! Copy, not reference, in case parameters are mutable.
-  
-  Note: this is a property. Properies are not polymorphic.
-  Compound subclass of drawable override these by redeclaring dimensions
-  as a property of Compound.
   '''
+  
   def set_dimensions(self, dimensions):
     # Set a copy, not a reference
     self._dimensions = coordinates.copy(dimensions)
   def get_dimensions(self):
     # Return a copy, not a reference
     return coordinates.copy(self._dimensions)
+  
+  """
+  '''
+  Note: this is a property. Properies are not polymorphic.
+  Compound subclass of drawable override these by redeclaring dimensions
+  as a property of Compound.
+  '''
   def del_dimensions(self):
     raise RuntimeError("Can not delete dimensions.")
   dimensions = property(get_dimensions, set_dimensions, del_dimensions, 
     "GdkRectangle of dimensions in user coordinates")
-
+  """
 
   def set_origin(self, coords):
     '''

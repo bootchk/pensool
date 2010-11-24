@@ -27,12 +27,12 @@ class Glyph(drawable.Drawable):
   
   # __init__ inherited
   
+  @dump_event
   def invalidate(self):
     ''' 
     Invalidate means queue a region to redraw at expose event.
     GUI specific, not applicable to all surfaces.
     '''
-    print "drawable.invalidate", self.dump()
     user_bounds = self.get_inked_bounds()
     device_coords = self.viewport.user_to_device(user_bounds.x, user_bounds.y)
     device_distance = self.viewport.user_to_device_distance(user_bounds.width, user_bounds.height)
@@ -48,14 +48,14 @@ class Glyph(drawable.Drawable):
 
 class LineGlyph(Glyph):
   def put_path_to(self, context):
-    rect = self.dimensions
+    rect = self.get_dimensions()
     context.move_to(rect.x, rect.y)
     context.rel_line_to(rect.width, rect.height)
 
 
 class RectGlyph(Glyph):
   def put_path_to(self, context):
-    rect = self.dimensions
+    rect = self.get_dimensions()
     
     point = coordinates.center_of_dimensions(rect)
     cdims = coordinates.center_on_origin(rect)
@@ -122,11 +122,12 @@ class RectGlyph(Glyph):
   @dump_return
   def orthogonal(self, point):
     # assert rect is orthogonal to coordinate system
-    if point.x >= self.dimensions.x + self.dimensions.width:
+    rect = self.get_dimensions()
+    if point.x >= rect.x + rect.width:
       rect = coordinates.dimensions(1,0, 0,0)
-    elif point.x <= self.dimensions.x :
+    elif point.x <= rect.x :
       rect = coordinates.dimensions(-1,0, 0,0)
-    elif point.y >= self.dimensions.y + self.dimensions.height:
+    elif point.y >= rect.y + rect.height:
       rect = coordinates.dimensions(0,1, 0,0)
     else:
       rect = coordinates.dimensions(0,-1, 0,0)
@@ -136,11 +137,11 @@ class RectGlyph(Glyph):
     
 class CircleGlyph(Glyph):
   def put_path_to(self, context):
-    centerx, centery, radius = coordinates.circle_from_dimensions(self.dimensions)
+    centerx, centery, radius = coordinates.circle_from_dimensions(self.get_dimensions())
     context.arc(centerx, centery, radius, 0, 2.0*math.pi)
   
   def orthogonal(self, point):
-    centerx, centery, radius = coordinates.circle_from_dimensions(self.dimensions)
+    centerx, centery, radius = coordinates.circle_from_dimensions(self.get_dimensions())
     center_coords = coordinates.dimensions(centerx, centery, 0, 0)
     # vector from center to point on circle
     rect = coordinates.vector_from_points(center_coords, point)
@@ -161,7 +162,7 @@ class TextGlyph(Glyph):
       CAIRO_FONT_SLANT_NORMAL,
       CAIRO_FONT_WEIGHT_BOLD)
     """
-    rect = self.dimensions
+    rect = self.get_dimensions()
     context.move_to(rect.x, rect.y) # Position the text reference point
     
     """
@@ -193,7 +194,7 @@ class TextGlyph(Glyph):
     Return user coords of insertion bar.
     '''
     
-    rect = self.dimensions  # get origin
+    rect = self.get_dimensions()  # get origin
     layout = self._layout(context)  # layout the text
     x, y = layout.get_pixel_size()  # get size of layout in user coords
     # TODO more general

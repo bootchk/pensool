@@ -56,18 +56,7 @@ class Compound(list, drawable.Drawable):
     '''
     for item in self:
       item.draw(context)
-      
-  """
-  
-  @aggregate
-  def draw(self, context):
-    '''
-    Iterate draw contained objects.
-    The drawing order is important.
-    !!! Note we draw separately, not in one stroke.
-    '''
-    draw(context)
-  """
+ 
  
   
   def put_path_to(self, context):
@@ -86,8 +75,8 @@ class Compound(list, drawable.Drawable):
     print "                  TODO orthogonal of a composite>>>>>>>"
     return self[0].orthogonal(point)
     
-      
-  @dump_event    
+  
+  @dump_event
   def set_origin(self, rect):
     '''
     Move group to a new origin.
@@ -100,7 +89,7 @@ class Compound(list, drawable.Drawable):
     self.dimensions.y = rect.y
     """
     # This triggers a warning about setting composite dimensions in set_dimensions??
-    self.dimensions = rect
+    self.set_dimensions(rect)
     # drawable.Drawable.set_origin(self, rect)
     # !!! Caller must also layout and invalidate
     ## Trigger layout event, which should change the origins of members
@@ -108,7 +97,7 @@ class Compound(list, drawable.Drawable):
  
  
   # @dump_event
-  def layout(self, event):
+  def layout(self, event=None):
     '''
     Layout members.
     Usually based on origin and/or dimensions of group.
@@ -121,7 +110,7 @@ class Compound(list, drawable.Drawable):
     else:
       # Layout the single item as the dimensions of this group.
       print "Layout single item morph with group dimensions.<<<<<<"
-      self[0].dimensions = self.dimensions
+      self[0].set_dimensions(self.get_dimensions())
     
   
   '''
@@ -136,6 +125,8 @@ class Compound(list, drawable.Drawable):
     '''
     !!! Overrides drawable.set_dimensions, setter for the dimensions property.
     This is for a morph, which is a composite with one item.
+    TODO is this a resize?  
+    Why can't you resize a composite and layout/resize all members?
     '''
     """
     if len(self) > 1:
@@ -144,7 +135,10 @@ class Compound(list, drawable.Drawable):
     """
     # It only makes sense to set the origin, but doesn't hurt to set w,h
     # since layout() should soon recalculate it.
-    self.dimensions = rect
+    self[0].set_dimensions(rect)
+    # Super
+    ## drawable.Drawable.set_dimensions(self, rect)
+    # self.layout()
  
   
   @dump_return
@@ -154,17 +148,19 @@ class Compound(list, drawable.Drawable):
     !!! Dimensions of a composite is the union over member items.
     '''
     # Calculate dimensions
-    rect = coordinates.copy(self[0].dimensions)
+    rect = coordinates.copy(self[0].get_dimensions())
     for item in self:
       # print item, item.dimensions
-      rect = coordinates.union(rect, item.dimensions)
+      rect = coordinates.union(rect, item.get_dimensions())
     # No need to store it in this composite, always recalculated.
     # self.dimensions = rect  # calls Drawable.set_dimensions()
     # TODO do the calculation once, during layout
     return rect
   
+  """
   # !!! Redeclare the property on this subclass of Drawable.
   dimensions = property(get_dimensions, set_dimensions)
+  """
   
   
   

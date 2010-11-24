@@ -110,16 +110,16 @@ atext = morph.textmorph.TextMorph(a_viewport)
 scheme.glyphs.append(arect)
 scheme.glyphs.append(acirc)
 for item in scheme.glyphs:
-  item.dimensions = coordinates.dimensions(150, 150, 100, 100)
+  item.set_dimensions(coordinates.dimensions(150, 150, 100, 100))
 # !!! Width, height of text are computed??
 # atext.set_origin(coordinates.dimensions(150, 30, 0,0))
-atext.dimensions = coordinates.dimensions(150, 30, 0,0)
+atext.set_dimensions(coordinates.dimensions(150, 30, 0,0))
 scheme.glyphs.append(atext)
 
 
 arect = morph.morph.RectMorph(a_viewport)
 acirc = morph.morph.CircleMorph(a_viewport)
-acirc.dimensions = coordinates.dimensions(50, 50, 50, 50)
+acirc.set_dimensions(coordinates.dimensions(50, 50, 50, 50))
 
 agroup = compound.Compound(a_viewport)
 agroup.append(arect)

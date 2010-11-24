@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from decorators import *
 
 class ControlsManager():
   '''
@@ -27,6 +28,7 @@ class ControlsManager():
     self.port.da.connect('focus-in-event', control.focus_in_event_cb)
 
     
+  @dump_event
   def activate_control(self, control, event, controlee):
     '''
     Also deactivates the current control !!!
@@ -35,8 +37,6 @@ class ControlsManager():
     if control.has_focus:
       print "Redundant activation"
       return
-      
-    print "Activating control", repr(control)
     
     '''
     if event is not None:

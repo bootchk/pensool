@@ -221,6 +221,8 @@ class ItemGroup(compound.Compound):
     print "Highlighting", self.active_index, direction
     self[self.active_index].highlight(direction)
 
+  def __repr__(self):
+    return "Menu"
 
 
 class MenuGroup(ItemGroup):

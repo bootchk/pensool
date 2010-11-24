@@ -78,4 +78,4 @@ class MenuItem(gui.itemcontrol.ItemControl):
 class SquareMenuItem(MenuItem):
 
   def put_path_to(self, context):
-    context.rectangle(self.dimensions)
+    context.rectangle(self.get_dimensions())

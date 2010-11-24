@@ -55,6 +55,7 @@ class GuiControl(drawable.Drawable):
     self.pointer = None
 
 
+  @dump_event
   def invalidate(self):
     ''' 
     Invalidate means queue a region to redraw at expose event.
@@ -62,7 +63,6 @@ class GuiControl(drawable.Drawable):
     
     !!! A GuiControl is in device coords, does NOT transform at invalidate.
     '''
-    print "drawable.invalidate", self.dump()
     device_bounds = self.get_inked_bounds()
     self.viewport.surface.invalidate_rect( device_bounds, True )
 

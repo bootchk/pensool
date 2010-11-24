@@ -46,12 +46,12 @@ class TextSelectControl(gui.control.GuiControl):
     self.filled = True  # TODO filled?
     # TODO shape it to mask text
     # get coords from pango.x_for_index etc.
-    # print "Selection dimensions", self.dimensions
+    # print "Selection dimensions", self.get_dimensions()
     
     # FIXME temporarily just set the origin
     self.set_origin(self.text_glyph.insertion_position(context))
     
-    context.rectangle(self.dimensions)
+    context.rectangle(self.get_dimensions())
     
     
   """
