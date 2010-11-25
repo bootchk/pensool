@@ -15,6 +15,10 @@ import cairo
 import coordinates
 from decorators import *
 
+
+
+    
+    
 class Glyph(drawable.Drawable):
   '''
   Symbols in the document or model.
@@ -40,8 +44,19 @@ class Glyph(drawable.Drawable):
       device_distance.x, device_distance.y)
     self.viewport.surface.invalidate_rect( device_bounds, True )
 
+
+  def _aligned_rect_orthogonal(self, point):
+    '''
+    Return orthogonal to object with a rectangular dimensions
+    (which may be the symbol itself, or the bounding box of a composite.
+    '''
+    # assert rect is orthogonal to coordinate system
+    rect = self.get_dimensions()
+    return coordinates.rectangle_orthogonal(rect, point)
+    
+
   '''
-  API virtual methods to be implemented by base class
+  API virtual methods to be implemented by subclass
     put_path_to
     orthogonal
   '''
@@ -121,18 +136,7 @@ class RectGlyph(Glyph):
   
   @dump_return
   def orthogonal(self, point):
-    # assert rect is orthogonal to coordinate system
-    rect = self.get_dimensions()
-    if point.x >= rect.x + rect.width:
-      rect = coordinates.dimensions(1,0, 0,0)
-    elif point.x <= rect.x :
-      rect = coordinates.dimensions(-1,0, 0,0)
-    elif point.y >= rect.y + rect.height:
-      rect = coordinates.dimensions(0,1, 0,0)
-    else:
-      rect = coordinates.dimensions(0,-1, 0,0)
-    # FIXME catch errors
-    return rect
+    return self._aligned_rect_orthogonal(point)
       
     
 class CircleGlyph(Glyph):
@@ -147,6 +151,7 @@ class CircleGlyph(Glyph):
     rect = coordinates.vector_from_points(center_coords, point)
     # unitize ??
     return rect
+
 
 class TextGlyph(Glyph):
   
@@ -174,7 +179,11 @@ class TextGlyph(Glyph):
     
     layout = self._layout(context)
     context.layout_path(layout)
-   
+  
+  
+  def orthogonal(self, point):
+    return self._aligned_rect_orthogonal(point)
+
    
   def _layout(self, context):
     '''

@@ -17,6 +17,7 @@ import scheme
 import guicontrolmgr
 from decorators import *
 import math
+import layout
 
 # FIXME
 import textselectmanager
@@ -62,6 +63,10 @@ class ItemGroup(compound.Compound):
     next(), previous()
     
   Menu subclasses differ in their layout.
+  
+    An ItemGroup is laid out on a vector from an origin.
+    Often, but not necessarily, linear along this vector.
+    The origin is where the user clicked.
   '''
   
   def __init__(self, viewport):
@@ -72,13 +77,7 @@ class ItemGroup(compound.Compound):
     of its items.  Its items can later change themselves to other controlees.
     '''
     self.controlee = None
-    '''
-    An ItemGroup is laid out on a vector from an origin.
-    Often, but not necessarily, linear along this vector.
-    The origin is where the user clicked.
-    '''
-    self.layout_vector = None
-    self._layout_origin = None
+    
 
 
   @dump_event
@@ -91,7 +90,7 @@ class ItemGroup(compound.Compound):
     self.controlee = controlee
     # Remember the event coords
     rect = coordinates.coords_to_bounds(event)
-    self._layout_origin = rect
+    self.layout_spec.benchmark = rect
     # Position whole menu group.  Lays out members!!!
     self.set_origin(rect) ## was event
     
@@ -140,7 +139,7 @@ class ItemGroup(compound.Compound):
     and make the menu_vector change as the menu slides
     along a curve.
     '''
-    rect = coordinates.normalize_vector_to_vector(exit_vector, self.layout_vector)
+    rect = coordinates.normalize_vector_to_vector(exit_vector, self.layout_spec.vector)
     
     # Seems backwards, but since menu vector is opposite direction to layout,
     # inverse the sign
@@ -162,7 +161,7 @@ class ItemGroup(compound.Compound):
     Changes the origin of the menu and the layout.
     '''
     # Right handed vector orthogonal to menu's vector
-    vector = coordinates.vector_orthogonal(self.layout_vector, pixels_off_axis)
+    vector = coordinates.vector_orthogonal(self.layout_spec.vector, pixels_off_axis)
     ### if pixels_off_axis < 0 :
     # scale by magnitude of pixels_off_axis
     coordinates.vector_multiply_scalar(vector, math.fabs(pixels_off_axis))
@@ -239,7 +238,7 @@ class MenuGroup(ItemGroup):
     Event is ignored, use coords of most recent event (open, slide, etc.)
     '''
     # Layout first item centered on opening event: menu composite dimensions
-    temp_rect = self._layout_origin
+    temp_rect = self.layout_spec.origin
     for item in self:
       item.center_at(temp_rect)
       # Layout next item downward
@@ -271,7 +270,7 @@ class HandleGroup(ItemGroup):
     
     # get vector for direction of menu: orthogonal to the controlee eg glyph
     layout_vector = self.controlee.orthogonal(event)
-    self.layout_vector = layout_vector  # Remember it, items can ask for it
+    self.layout_spec.vector = layout_vector  # Remember it, items can ask for it
     
     # layout all items
     for item in self:

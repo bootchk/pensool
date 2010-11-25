@@ -13,6 +13,7 @@ import drawable
 from decorators import *
 import coordinates
 import scheme
+import layout
 
 
 
@@ -45,6 +46,7 @@ class Compound(list, drawable.Drawable):
     drawable.Drawable.__init__(self, viewport)
     self.viewport = viewport
     # self.stroke_width = 1       # TODO style
+    self.layout_spec = layout.LayoutSpec()
     
     
   #@dump_event
@@ -66,14 +68,19 @@ class Compound(list, drawable.Drawable):
     for item in self:
       item.put_path_to(context)
   
+  
   @dump_event
   def orthogonal(self, point):
     '''
     Orthogonal of a composite is ??
+    To the bounding box?
+    To hitted member and let user slide between members?
     FIXME Aggregate the orthogonal of all members that intersect the point??
     '''
     print "                  TODO orthogonal of a composite>>>>>>>"
-    return self[0].orthogonal(point)
+    rect = self.get_dimensions()
+    return coordinates.rectangle_orthogonal(rect, point)
+    ## return self[0].orthogonal(point)
     
   
   @dump_event

@@ -45,11 +45,9 @@ class MoveHandleItem(itemhandle.HandleItem):
   @dump_event
   def scroll_down(self, event):
     '''
-    Filtered event from GuiControl: scroll down.
-    This is in a handle item.
-    Make operand the next smaller morph (from compound to child)
-    that is at the benchmark of this handle menu
-    (to which this item belongs.)
+    Filtered event from GuiControl: scroll wheel down in a handle item.
+    Make operand a child of composite that is at benchmark of handle menu
+    to which this item belongs.
     '''
     print "Old controlee", self.controlee
     if len(self.controlee) > 1:
@@ -60,8 +58,11 @@ class MoveHandleItem(itemhandle.HandleItem):
         print "Child ....", repr(child)
         # TODO this is too strict
         # Coords of the benchmark of the handle menu
-        print "Benchmark..........", repr(self.group_manager.dimensions)
-        if child.is_inpath(self.group_manager.dimensions):
+        print "TODO Benchmark.........."
+        ## Bounding box of handle menu : need intersection of boxes
+        ## get_dimensions()
+        # 
+        if child.is_inpath(self.group_manager.layout_spec.benchmark):
           focusmgr.feedback_focus(child)
           self.controlee = child
           return

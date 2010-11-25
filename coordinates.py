@@ -238,7 +238,22 @@ def normalize_vector_to_vector(vector1, vector2):
   rect = gdk.Rectangle(x, y, 0, 0)
   # print "Angle", angle, "Vect1", vector1, "Vect2", vector2, "Normalized:", rect
   return rect
-  
+
+
+def rectangle_orthogonal(rect, point):
+  '''
+  Return unit vect orthogonal to a rect aligned with axises of coordinate system.
+  '''
+  if point.x >= rect.x + rect.width:
+    vect = dimensions(1,0, 0,0)
+  elif point.x <= rect.x :
+    vect = dimensions(-1,0, 0,0)
+  elif point.y >= rect.y + rect.height:
+    vect = dimensions(0,1, 0,0)
+  else:
+    vect = dimensions(0,-1, 0,0)
+  return vect
+
 
 def any_dims():
   '''
