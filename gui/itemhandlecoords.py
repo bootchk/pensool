@@ -63,7 +63,7 @@ class MoveHandleItem(itemhandle.HandleItem):
         ## get_dimensions()
         # 
         if child.is_inpath(self.group_manager.layout_spec.benchmark):
-          focusmgr.feedback_focus(child)
+          focusmgr.focus(child)
           self.controlee = child
           return
       # One must be at this event

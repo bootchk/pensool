@@ -27,34 +27,43 @@ class BoundingBox(drawable.Drawable):
   
   def put_path_to(self, context):
     '''
-    Bounding box is a rectangle aligned with the display edges.
+    Bounding box is rectangle aligned with display (screen) edges.
     !!! Not rotated.
     '''
-    context.rectangle(self.dimensions)
+    context.rectangle(self.get_dimensions())
+    scheme_index = 0
 
 
+  # TODO invalidate inherited?
+  # A bounding box is NOT a control since it doesn't receive events.
+  # Drawables do NOT have an invalidate method.
+  @dump_event
   def invalidate(self):
-    # TODO the bounding box transforms to device space
-    self.viewport.surface.invalidate_rect( self.dimensions, True )
-
+    device_bounds = self.get_inked_bounds()
+    self.viewport.surface.invalidate_rect( device_bounds, True )
+  
     
   @dump_event
   def activate(self, rect):
     '''
     Activate: make visible at given rect.  Does not receive events.
     '''
-    self.dimensions = rect
+    # !!! Dimensions of this drawable are the bounding box passed in.
+    self.set_dimensions(rect)
     self.invalidate()
     # While the bounding box is visible, user cannot change viewport
     # so bounding box is not a transformed drawable.
+    self.scheme_index = len(scheme.transformed_controls)
     scheme.transformed_controls.append(self)
 
     
-  def deactivate(self, rect):
+  @dump_event
+  def deactivate(self):
     '''
     Deactivate: make invisible.
     '''
-    delete(scheme.transformed_controls[0])
+    self.invalidate()
+    del(scheme.transformed_controls[self.scheme_index])
     
     
     

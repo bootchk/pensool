@@ -70,14 +70,10 @@ class BackgroundManager(gui.control.GuiControl):
       for morph in scheme.glyphs:
         # !!! Find morph in user coords
         if morph.is_inpath(user_coords):
-          focusmgr.feedback_focus(morph)
+          focusmgr.focus(morph)
           # !!! Open handle menu at device coords of event
           self.handle_menu.open(event, morph)
-          # Activate any persistent controls on the morph
-          # e.g. for text morph activate text select control
-          # TODO activate while inside
-          # TODO deactivate see menu.close()
-          morph.activate_controls(event)
+          # !!! Closing the handle menu cancels focus
           break # Only one handle at a time TODO intersections
     return True # Did handle event
 

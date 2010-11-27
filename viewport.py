@@ -127,6 +127,7 @@ class ViewPort(Port):
     context.set_matrix(self.matrix)
     
     for control in scheme.transformed_controls:
+      print "Drawing transformed control", repr(control)
       control.draw(context)
       
     self.draw_model(context)

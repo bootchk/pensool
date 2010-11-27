@@ -1,12 +1,12 @@
 
-import compound
+import morph
 import glyph
 import gui.textselectcontrol
 import textselectmanager
 from decorators import *
 
 
-class TextMorph(compound.Compound):
+class TextMorph(morph.Morph):
   '''
   Morph comprising a box of text.
   
@@ -22,7 +22,7 @@ class TextMorph(compound.Compound):
 
 
   def __init__(self, viewport):
-    compound.Compound.__init__(self, viewport)
+    morph.Morph.__init__(self, viewport)
     # textglyph is an attribute so that we can tell it to activate its select.
     # I suppose we could use self[0]
     self.textglyph = glyph.TextGlyph(viewport)
@@ -49,8 +49,14 @@ class TextMorph(compound.Compound):
   """  
     
   @dump_event
-  def activate_controls(self, event):
+  def activate_controls(self, direction):
     '''
-    This text has pointer focus.  Activate its text select for keyboard focus.
+    This text has gained/lost pointer focus.  
+    Activate/deactivate its text select for keyboard focus.
     '''
-    textselectmanager.activate_select_for_text(self.textglyph)
+    if direction:
+      textselectmanager.activate_select_for_text(self.textglyph)
+    else:
+      textselectmanager.deactivate_select_for_text()
+      
+    

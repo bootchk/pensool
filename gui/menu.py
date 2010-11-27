@@ -112,8 +112,8 @@ class ItemGroup(compound.Compound):
   def close(self, event):
     # TODO delete only self, if many widgets can be visible
     del scheme.widgets[-1:]
-    self.invalidate()
-    focusmgr.feedback_focus_cancel()  # Unhighlight any controlee
+    self.invalidate()   # menu
+    focusmgr.unfocus()  # any controlee, should invalidate
     
     # Deactivate current item.  This activates the background manager.
     self._deactivate_current(event)

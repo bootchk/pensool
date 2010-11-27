@@ -14,7 +14,6 @@ import morph.textmorph
 import controlinstances
 import guicontrolmgr
 import gui.backgroundcontrol
-import compound
 import coordinates
 import scheme
 
@@ -121,7 +120,7 @@ arect = morph.morph.RectMorph(a_viewport)
 acirc = morph.morph.CircleMorph(a_viewport)
 acirc.set_dimensions(coordinates.dimensions(50, 50, 50, 50))
 
-agroup = compound.Compound(a_viewport)
+agroup = morph.morph.Morph(a_viewport)
 agroup.append(arect)
 agroup.append(acirc)
 # agroup.append(atext)

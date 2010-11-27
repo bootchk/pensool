@@ -12,7 +12,6 @@ Composites can contain other composites, or primitives (guicontrols or glyphs.)
 import drawable
 from decorators import *
 import coordinates
-import scheme
 import layout
 
 
@@ -177,6 +176,7 @@ class Compound(list, drawable.Drawable):
   def move_relative(self, event, offset):
     '''
     Move origin relative. Redraw.
+    TODO set_dimensions?
     '''
     print "compound.move_relative", repr(self), "by ", offset.x, offset.y
     # Move members
@@ -189,20 +189,6 @@ class Compound(list, drawable.Drawable):
     # highlight components
     for item in self:
       item.highlight(direction)
-      
-    '''
-    If this composite has more than one component, 
-    AND if this is the top level of a tree of composites,
-    highlighting includes ghost of bounding box enclosing components.
-    Note morphs are composites of one element so do not get bounding boxes.
-    Note that bounding box keeps its state,
-    and only activates itself on the first call, for a top composite.
-    FIXME bounding box is NOT keeping state. Composite of composite 
-    highlights wrong.
-    '''
-    if direction and len(self) > 1:
-      # Activate singleton bounding box ghost
-      scheme.bounding_box.activate(self.get_dimensions())
   
   
   def invalidate(self):
@@ -211,5 +197,12 @@ class Compound(list, drawable.Drawable):
 
 
   def activate_controls(self, event):
+    '''
+    Activating controls is NOT aggregate, but only on the top level.
+    I.E. Don't activate all the controls in a tree of morphs.
+    '''
     print "Virtual activate controls"
+   
+   
+   
    

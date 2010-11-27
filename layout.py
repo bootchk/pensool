@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 
 '''
-Layout
+LayoutSpec
 
-Base geometry spec for calculating further geometry
+Base geometry spec for calculating layout geometry.
+
+A LayoutSpec does not necessarily describe the actual layout.
 '''
 
 class LayoutSpec(object):
