@@ -58,9 +58,9 @@ class ItemGroup(compound.Compound):
   Each item may control a different object.
   
   API:
-    open(), close()
+    open(), close() from a manager
     add()
-    next(), previous()
+    next(), previous() from items
     
   Menu subclasses differ in their layout.
   
@@ -86,12 +86,13 @@ class ItemGroup(compound.Compound):
     Make visible at event coords.
     Focus item at event.
     '''
-    # Set the new controlee, since the layout may use it.
+    # Set new controlee, since new_layout_spec may use it.
     self.controlee = controlee
-    # Remember the event coords
-    rect = coordinates.coords_to_bounds(event)
-    self.layout_spec.benchmark = rect
+    
+    self.new_layout_spec(event)
+    
     # Position whole menu group.  Lays out members!!!
+    rect = coordinates.copy(self.layout_spec.benchmark)
     self.set_origin(rect) ## was event
     
     scheme.widgets.append(self)
@@ -103,8 +104,14 @@ class ItemGroup(compound.Compound):
     self._highlight_current(event, True)
   
   
-  def layout(self, event):
-    ''' Layout (position) all items in group'''
+  def layout(self, event=None):
+    ''' 
+    Layout (position) all items in composite (group).
+    Input is a layout_spec, which specifies position of the group.
+    Should be relative positions of items.
+    The event precipitated the layout, but ordinarily should not be used
+    in layout calculations.
+    '''
     print "???Virtual layout method called"
     
     
@@ -155,24 +162,25 @@ class ItemGroup(compound.Compound):
   @dump_event
   def slide(self, pixels_off_axis):
     '''
-    Slide this menu orthogonally to original axis
-    by magnitude pixels_off_axis
-    in the angle left or right indicated by sign of pixels_off_axis.
-    Changes the origin of the menu and the layout.
+    Slide menu orthogonally to original axis by magnitude pixels_off_axis
+    in angle left or right indicated by sign of pixels_off_axis.
+    Changes layout spec.
     '''
-    # Right handed vector orthogonal to menu's vector
+    
+    # Calculate new layout_spec
+    
+    # Right handed unit vector orthogonal to menu's vector.
     vector = coordinates.vector_orthogonal(self.layout_spec.vector, pixels_off_axis)
     ### if pixels_off_axis < 0 :
-    # scale by magnitude of pixels_off_axis
+    # Scale by magnitude of pixels_off_axis
     coordinates.vector_multiply_scalar(vector, math.fabs(pixels_off_axis))
-    # Add to menu origin
-    coordinates.vector_add(vector, self.get_dimensions())
-    self.invalidate()   # invalidate current layout
-    # Change origin
-    ## Was dimensions = vector
-    self.set_origin(vector)
-    self.layout(vector)  # # Redo layout, vector is ignored
-    self.invalidate()   # queue redraw
+    # Offset prior benchmark
+    # !!! In-place vector addition
+    coordinates.vector_add(self.layout_spec.benchmark, vector)
+     
+    self.invalidate()
+    self.layout() ## OLD vector
+    self.invalidate()
     
     
    
@@ -210,8 +218,7 @@ class ItemGroup(compound.Compound):
     # print self.[self.active_index].get_rect()
     guicontrolmgr.control_manager.activate_control(self[self.active_index], 
       event, controlee)
-    
-    
+      
   def _deactivate_current(self, event):
     guicontrolmgr.control_manager.deactivate_control(self[self.active_index],
        event)
@@ -227,21 +234,29 @@ class MenuGroup(ItemGroup):
   '''
   Traditional menu, layout is:
     fixed position,
-    vertical, 
-    all items visible
+    vertical orientations, 
+    all items visible concurrently
   '''
   
+  def new_layout_spec(self, event):
+    # Menu benchmark is event
+    self.layout_spec.benchmark = coordinates.coords_to_bounds(event)
+    # Menu vector is None (its hardcoded in layout)
+    self.layout_spec.vector = None
+    
+    
   @dump_event
-  def layout(self, event):
+  def layout(self, event=None):
     '''
     Layout (position) all items in group in vertical, rectangular table.
     Event is ignored, use coords of most recent event (open, slide, etc.)
     '''
-    # Layout first item centered on opening event: menu composite dimensions
-    temp_rect = self.layout_spec.origin
+    # Center first item on benchmark.
+    # (Which is the same as opening event?)
+    temp_rect = coordinates.copy(self.layout_spec.benchmark)
     for item in self:
       item.center_at(temp_rect)
-      # Layout next item downward
+      # Next item downward
       temp_rect.y += item.get_dimensions().height
 
 
@@ -254,8 +269,16 @@ class HandleGroup(ItemGroup):
     layout reorients
     !!! only one item shown, as mouseovered
   '''
+  
+  def new_layout_spec(self, event):
+    #  benchmark is event
+    self.layout_spec.benchmark = coordinates.coords_to_bounds(event)
+    # axis is orthogonal to controlee
+    self.layout_spec.vector = self.controlee.orthogonal(event)
+    
+    
   @dump_event
-  def layout(self, event):
+  def layout(self, event=None):
     '''
     Layout (position) all items in group
     in a line orthogonal to the glyph
@@ -265,12 +288,16 @@ class HandleGroup(ItemGroup):
     A handle group is laid out every time it slides.
     When exit an item, other items are already laid out.
     '''
-    # Layout first item centered on event
-    temp_rect = coordinates.dimensions(event.x, event.y, 0, 0)
+    # Center first item on benchmark.  Ignore the event.
+    ## OLD temp_rect = coordinates.dimensions(event.x, event.y, 0, 0)
+    temp_rect = coordinates.copy(self.layout_spec.benchmark)
     
+    '''
     # get vector for direction of menu: orthogonal to the controlee eg glyph
     layout_vector = self.controlee.orthogonal(event)
     self.layout_spec.vector = layout_vector  # Remember it, items can ask for it
+    '''
+    layout_vector = coordinates.copy(self.layout_spec.vector)
     
     # layout all items
     for item in self:

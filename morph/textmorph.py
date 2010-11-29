@@ -58,5 +58,19 @@ class TextMorph(morph.Morph):
       textselectmanager.activate_select_for_text(self.textglyph)
     else:
       textselectmanager.deactivate_select_for_text()
-      
+   
+   
+  def is_inpath(self, user_coords):
+    """ Are coords in our path (usually edge)? """
+    context = self.viewport.user_context()
+    context.save()
+    self.textglyph.put_edge_to(context)
+    hit = context.in_stroke(user_coords.x, user_coords.y)
+    context.restore()
+    if hit:
+      print "Hit text"
+    return hit
+    
+    
+    
     

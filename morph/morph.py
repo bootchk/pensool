@@ -38,9 +38,9 @@ class Morph(compound.Compound):
     if direction:
       if len(self) > 1:
         # Activate singleton bounding box ghost
-        scheme.bounding_box.activate(self.get_dimensions())
+        scheme.bounding_box.activate(True, self.get_dimensions())
     else:
-      scheme.bounding_box.deactivate()
+      scheme.bounding_box.activate(False)
 
 
 

@@ -154,6 +154,9 @@ class CircleGlyph(Glyph):
 
 
 class TextGlyph(Glyph):
+  """
+  see GTK Reference Manual: pangocairo.CairoContext
+  """
   
   # !!! Override
   def __init__(self, viewport):
@@ -179,6 +182,19 @@ class TextGlyph(Glyph):
     
     layout = self._layout(context)
     context.layout_path(layout)
+  
+  
+  # TODO move this to drawable
+  def put_edge_to(self, context):
+    """
+    Put path of edge in the context.
+    """
+    '''
+    layout = self._layout(context)
+    ink, logical = layout.get_pixel_extents()
+    bounding_box = ink + self.get_dimensions()
+    '''
+    context.rectangle(self.get_bounds())
   
   
   def orthogonal(self, point):
@@ -211,6 +227,13 @@ class TextGlyph(Glyph):
     rect2 = coordinates.dimensions(rect.x + x, rect.y + y, 0, 0)
     # print "IB cursor", layout.get_cursor_pos(15)
     return rect2
+    
+  """
+  def get_bounding_box(self, context):
+    layout = self._layout(context)
+    x, y = layout.get_pixel_size()
+    return
+  """
     
     
     

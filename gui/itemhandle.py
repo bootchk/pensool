@@ -159,8 +159,8 @@ class HandleItem(gui.itemcontrol.ItemControl):
     """
     # vector from menu origin to mouse event
     menu_vector = self.group_manager.layout_spec.vector
-    menu_origin = self.group_manager.get_origin()
-    mouse_vector = coordinates.vector_from_points(menu_origin, event)
+    menu_benchmark = self.group_manager.layout_spec.benchmark
+    mouse_vector = coordinates.vector_from_points(menu_benchmark, event)
     # normalize to menu vector
     normal_vector = coordinates.normalize_vector_to_vector(mouse_vector, 
       menu_vector)

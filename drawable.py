@@ -92,7 +92,8 @@ class Drawable(object):
   
   def is_inpath(self, user_coords):
     '''
-    Are coords in our path? (IE the edge)?
+    Are coords in our path (usually edge)?
+    
     Note user coords, not device coords.
     '''
     # TODO pass a context  .save() and restore()

@@ -23,15 +23,16 @@ class BoundingBox(drawable.Drawable):
   Is in the scheme.
   '''
   
-  # __init__ inherited
-  
+  def __init__(self, viewport):
+    drawable.Drawable.__init__(self, viewport)
+    self.activated = False
+    
   def put_path_to(self, context):
     '''
     Bounding box is rectangle aligned with display (screen) edges.
     !!! Not rotated.
     '''
     context.rectangle(self.get_dimensions())
-    scheme_index = 0
 
 
   # TODO invalidate inherited?
@@ -44,26 +45,25 @@ class BoundingBox(drawable.Drawable):
   
     
   @dump_event
-  def activate(self, rect):
+  def activate(self, direction, rect=None):
     '''
     Activate: make visible at given rect.  Does not receive events.
     '''
-    # !!! Dimensions of this drawable are the bounding box passed in.
-    self.set_dimensions(rect)
-    self.invalidate()
-    # While the bounding box is visible, user cannot change viewport
-    # so bounding box is not a transformed drawable.
-    self.scheme_index = len(scheme.transformed_controls)
-    scheme.transformed_controls.append(self)
-
+    if direction:
+      # !!! Dimensions of this drawable are the bounding box passed in.
+      self.set_dimensions(rect)
+      self.invalidate()
+      # While the bounding box is visible, user cannot change viewport
+      # so bounding box is not a transformed drawable.
+      self.scheme_index = len(scheme.transformed_controls)
+      scheme.transformed_controls.append(self)
+      self.activated = True
+    elif self.activated:
+      # Deactivate
+      self.activated = False
+      self.invalidate()
+      del(scheme.transformed_controls[self.scheme_index])
     
-  @dump_event
-  def deactivate(self):
-    '''
-    Deactivate: make invisible.
-    '''
-    self.invalidate()
-    del(scheme.transformed_controls[self.scheme_index])
     
     
     

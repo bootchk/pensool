@@ -207,7 +207,7 @@ def vector_orthogonal(vect, handedness):
  
 def vector_multiply_scalar(vect, scalar):
   '''
-  Multiply a vector by scalar in place.
+  Multiply vector by scalar in place.
   '''
   vect.x = vect.x * scalar
   vect.y = vect.y * scalar

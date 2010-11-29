@@ -25,7 +25,7 @@ def dump_event(func):
   argnames = func.func_code.co_varnames[:func.func_code.co_argcount]
   def dump_func(*args, **kwargs):
     depth = len(inspect.stack())  # Indent message by call stack depth
-    print " "*depth, "Event ", fname, ",".join(
+    print " "*depth, fname, ",".join(
       '%s=%r' % entry
       for entry in zip(argnames,args) + kwargs.items())
     return func(*args, **kwargs)
@@ -41,7 +41,7 @@ def dump_return(func):
   def dump_return(*args, **kwargs):
     value = func(*args, **kwargs)
     depth = len(inspect.stack())  # Indent message by call stack depth
-    print " "*depth, "Return:", value, "from ", fname, ",".join(
+    print " "*depth, fname, "returns", value, ",".join(
         '%s=%r' % entry for entry in zip(argnames,args) + kwargs.items())
     return value
   return dump_return

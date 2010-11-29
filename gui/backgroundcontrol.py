@@ -36,6 +36,7 @@ class BackgroundManager(gui.control.GuiControl):
     self.printerport = printer_port
     self.fileport = file_port
     # !!! Controls self, ie the document
+    # FIXME this is wierd.  None?  Document model?
     self.controlee = self
 
   
