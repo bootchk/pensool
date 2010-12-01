@@ -42,6 +42,7 @@ from gtk import gdk
 import math
 import cairo
 from decorators import *
+import base.vector as vector
 
 
 class UserCoords(object):
@@ -188,21 +189,7 @@ def vector_from_points(start_point, end_point):
     end_point.y - start_point.y,
     0,0)
     
-@dump_return
-def vector_orthogonal(vect, handedness):
-  '''
-  Return a vector orthogonal to given.
-  Swap x, y and negate one.
-  Note that there are many orthogonal vectors to a line, 
-  this is the orthogonal from the origin.
-  Note also that there are two handednesses: right and left handed.
-  Handeness negative is left, postive is right.
-  Alternative implementation is to use rotate by an angle, +-
-  '''
-  if handedness < 0: # left
-    return gdk.Rectangle(vect.y, -vect.x, 0, 0)
-  else :
-    return gdk.Rectangle(-vect.y, vect.x, 0, 0)
+
  
  
 def vector_multiply_scalar(vect, scalar):
@@ -239,22 +226,10 @@ def normalize_vector_to_vector(vector1, vector2):
   # print "Angle", angle, "Vect1", vector1, "Vect2", vector2, "Normalized:", rect
   return rect
 
-def get_vector_length(vect):
-  '''
-  Return the length of vector
-  '''
-  return math.sqrt(vect.x**2 + vect.y**2)
-  
-def unitize_vector(vect):
-  '''
-  Return normalized vector (unit vector) for vect.
-  '''
-  length = get_vector_length(vect)
-  return gdk.Rectangle(vect.x/length, vect.y/length, 0, 0)
   
   
 '''
-Orthogonals
+Orthogonal vectors
 '''
 
 def rectangle_orthogonal(rect, point):
@@ -263,13 +238,13 @@ def rectangle_orthogonal(rect, point):
   The rect must be aligned with axises of coordinate system.
   '''
   if point.x >= rect.x + rect.width:
-    vect = dimensions(1,0, 0,0)
+    vect = vector.Vector(1,0)
   elif point.x <= rect.x :
-    vect = dimensions(-1,0, 0,0)
+    vect = vector.Vector(-1,0)
   elif point.y >= rect.y + rect.height:
-    vect = dimensions(0,1, 0,0)
+    vect = vector.Vector(0,1)
   else:
-    vect = dimensions(0,-1, 0,0)
+    vect = vector.Vector(0,-1)
   return vect
 
 @dump_return
@@ -278,10 +253,10 @@ def line_orthogonal(rect, point):
   Return unit vect orthogonal to line from point.
   Where line is diagonal of rect.
   '''
-  # Make vector from rectangle
-  vect = gdk.Rectangle(rect.width, rect.height, 0, 0)
-  # left handed orthogonal
-  return unitize_vector(vector_orthogonal(vect, -1))
+  # vector diagonal of rectangle
+  vect = vector.Vector(rect.width, rect.height)
+  orthogonal = vect.orthogonal(-1)  # left handed
+  return orthogonal.unitize()
   
   
 

@@ -180,13 +180,14 @@ class ItemGroup(compound.Compound):
     # Calculate new layout_spec
     
     # Right handed unit vector orthogonal to menu's vector.
-    vector = coordinates.vector_orthogonal(self.layout_spec.vector, pixels_off_axis)
+    vect = self.layout_spec.vector.orthogonal(pixels_off_axis)
     ### if pixels_off_axis < 0 :
     # Scale by magnitude of pixels_off_axis
-    coordinates.vector_multiply_scalar(vector, math.fabs(pixels_off_axis))
+    vect = vect * math.fabs(pixels_off_axis)
     # Offset prior benchmark
     # !!! In-place vector addition
-    coordinates.vector_add(self.layout_spec.benchmark, vector)
+    coordinates.vector_add(self.layout_spec.benchmark, vect)
+    # FIXME should be: self.layout_spec.benchmark += vect
     
     self.invalidate()
     self.layout() ## OLD vector

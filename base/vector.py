@@ -1,8 +1,12 @@
+#!/usr/bin/env python
+
 import math
 
 class Vector:
     ''''
-    2D vectors
+    2D mathematical vectors
+    
+    (Not a vector in the sense of a sequence or array.)
     '''
     
     def __init__(self, x = 0, y = 0):
@@ -62,8 +66,33 @@ class Vector:
     
     def copy(self):
       return Vector(self.x, self.y)
+      
+    def unitize(self):
+      '''
+      Return normalized vector (unit vector).
+      '''
+      length = self.length()
+      return Vector(self.x/length, self.y/length)
+    
+    def orthogonal(self, handedness):
+      '''
+      Return a vector orthogonal to self.
+      Swap x, y and negate one.
+      Note that there are many orthogonal vectors to a line, 
+      this is the orthogonal from the origin.
+      Note also that there are two handednesses: right and left handed.
+      Handeness negative is left, postive is right.
+      Alternative implementation is to use rotate by an angle, +-
+      '''
+      if handedness < 0: # left
+        return Vector(self.y, -self.x)
+      else :
+        return Vector(-self.y, self.x)
 
-        
+    def length(self):
+      'Return distance length'
+      return math.sqrt( self.x**2 + self.y**2 )
+
 Point = Vector
         
 def DistanceSqrd( point1, point2 ):
@@ -73,14 +102,6 @@ def DistanceSqrd( point1, point2 ):
 def Distance( point1, point2 ):
     'Returns the distance between two points'
     return math.sqrt( DistanceSqrd(point1,point2) )
-    
-def LengthSqrd( vec ):
-    'Returns the length of a vector sqaured. Faster than Length(), but only marginally'
-    return vec[0]**2 + vec[1]**2
-    
-def Length( vec ):
-    'Returns the length of a vector'
-    return math.sqrt( LengthSqrd(vec) )
     
 def Normalize( vec ):
     'Returns a new vector that has the same direction as vec, but has a length of one.'
@@ -98,4 +119,7 @@ def ProjectOnto( w,v ):
     
 def downward_vector():
   return Vector(0, 1)
+  
+
+  
 
