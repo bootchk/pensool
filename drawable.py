@@ -223,9 +223,10 @@ class Drawable(object):
     raise NotImplementedError("Virtual")
 
 
-  def orthogonal(self, point):
+  def get_orthogonal(self, point):
     '''
-    Return an orthogonal unit vector at the given point on the boundary.
+    Return an orthogonal unit vector at given point on boundary.
+    
     Virtual: each subclass knows its own shape.
     '''
     print self

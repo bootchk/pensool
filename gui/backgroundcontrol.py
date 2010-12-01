@@ -141,6 +141,8 @@ class BackgroundManager(gui.control.GuiControl):
     # if they are in the window.
     if self.pointer_x != 0 :
       rect = coordinates.dimensions(self.pointer_x, self.pointer_y, 0, 0)
+      # !!! controlee is the top-level morph i.e. the whole drawing
+      # FIXME rename scheme.glyphs
       self.handle_menu.open(rect, controlee=scheme.glyphs)
     else:
       gdk.beep()

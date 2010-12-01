@@ -18,6 +18,8 @@ import guicontrolmgr
 from decorators import *
 import math
 import layout
+import base.vector as vector
+import copy
 
 # FIXME
 import textselectmanager
@@ -59,10 +61,15 @@ class ItemGroup(compound.Compound):
   
   API:
     open(), close() from a manager
-    add()
+    add() creation time
     next(), previous() from items
     
   Menu subclasses differ in their layout.
+  A layout_spec specifies a layout.
+  Subclasses must implement:
+    new_layout_spec()
+    layout()
+  For moveable menus, events change the layout_spec, then call layout().
   
     An ItemGroup is laid out on a vector from an origin.
     Often, but not necessarily, linear along this vector.
@@ -77,6 +84,7 @@ class ItemGroup(compound.Compound):
     of its items.  Its items can later change themselves to other controlees.
     '''
     self.controlee = None
+    #self.layout_spec = None
     
 
 
@@ -107,10 +115,10 @@ class ItemGroup(compound.Compound):
   def layout(self, event=None):
     ''' 
     Layout (position) all items in composite (group).
-    Input is a layout_spec, which specifies position of the group.
+    
+    Input is a self.layout_spec, which specifies position of the group.
     Should be relative positions of items.
-    The event precipitated the layout, but ordinarily should not be used
-    in layout calculations.
+    Event precipitated layout, but ordinarily should not be used in layout.
     '''
     print "???Virtual layout method called"
     
@@ -162,7 +170,9 @@ class ItemGroup(compound.Compound):
   @dump_event
   def slide(self, pixels_off_axis):
     '''
-    Slide menu orthogonally to original axis by magnitude pixels_off_axis
+    Slide menu orthogonally to original axis.
+    
+    By magnitude pixels_off_axis
     in angle left or right indicated by sign of pixels_off_axis.
     Changes layout spec.
     '''
@@ -177,7 +187,7 @@ class ItemGroup(compound.Compound):
     # Offset prior benchmark
     # !!! In-place vector addition
     coordinates.vector_add(self.layout_spec.benchmark, vector)
-     
+    
     self.invalidate()
     self.layout() ## OLD vector
     self.invalidate()
@@ -271,11 +281,33 @@ class HandleGroup(ItemGroup):
   '''
   
   def new_layout_spec(self, event):
+    """
+    Create layout_spec based on this event.
+    Event opens the menu.
+    TODO abstract opening with moving.
+    """
+    """
+    OLD
+    """
     #  benchmark is event
     self.layout_spec.benchmark = coordinates.coords_to_bounds(event)
-    # axis is orthogonal to controlee
-    self.layout_spec.vector = self.controlee.orthogonal(event)
     
+    assert self.controlee
+    
+    if self.controlee is scheme.glyphs:
+      # Handle menu opened on background, controls the document
+      self.layout_spec.vector = vector.downward_vector()
+    else:
+      # axis is orthogonal to controlee
+      self.layout_spec.vector = self.controlee.get_orthogonal(event)
+      
+    """
+    NEW
+    # center menu on the edge of controlee
+    # center is intersection of orthogonal and controlee edge
+    ray tracing algorithm
+    # benchmark: from center proceed half menu length in direction of orthogonal
+    """
     
   @dump_event
   def layout(self, event=None):
@@ -290,27 +322,27 @@ class HandleGroup(ItemGroup):
     '''
     # Center first item on benchmark.  Ignore the event.
     ## OLD temp_rect = coordinates.dimensions(event.x, event.y, 0, 0)
-    temp_rect = coordinates.copy(self.layout_spec.benchmark)
-    
+    ### !!! This causes a seg fault temp_rect = copy.copy(self.layout_spec.benchmark)
+    temp_rect = self.layout_spec.benchmark.copy()
     '''
     # get vector for direction of menu: orthogonal to the controlee eg glyph
-    layout_vector = self.controlee.orthogonal(event)
+    layout_vector = self.controlee.get_orthogonal(event)
     self.layout_spec.vector = layout_vector  # Remember it, items can ask for it
     '''
-    layout_vector = coordinates.copy(self.layout_spec.vector)
+    layout_vector = self.layout_spec.vector.copy()
     
     # layout all items
     for item in self:
       item.center_at(temp_rect)
-      
       ''' Dumbed down version
       # Layout next item leftward
       temp_rect.x -= item.dimensions.width/2
       '''
       # Multiply unit ortho vector by dimension vector; add/sub to previous coords
       # FIXME vector scale, translate
-      temp_rect.x -= layout_vector.x * item.get_dimensions().width/2
-      temp_rect.y -= layout_vector.y * item.get_dimensions().height/2
+      temp_rect.x -= self.layout_spec.vector.x * item.get_dimensions().width/2
+      temp_rect.y -= self.layout_spec.vector.y * item.get_dimensions().height/2
+    print "returned from layout"
       
       
       

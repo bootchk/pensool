@@ -47,8 +47,9 @@ class Glyph(drawable.Drawable):
 
   def _aligned_rect_orthogonal(self, point):
     '''
-    Return orthogonal to object with a rectangular dimensions
-    (which may be the symbol itself, or the bounding box of a composite.
+    Return orthogonal to object with rectangular dimensions or bounding box.
+    
+    Symbol itself need not be rectangular.
     '''
     # assert rect is orthogonal to coordinate system
     rect = self.get_dimensions()
@@ -58,14 +59,27 @@ class Glyph(drawable.Drawable):
   '''
   API virtual methods to be implemented by subclass
     put_path_to
-    orthogonal
+    get_orthogonal
   '''
 
+
 class LineGlyph(Glyph):
+  '''
+  A straight line.
+  
+  Traditionally a line is defined by two points.
+  Here a line is defined by a rect: 
+  x,y is first point
+  x+width, y+height is second point.
+  '''
   def put_path_to(self, context):
     rect = self.get_dimensions()
     context.move_to(rect.x, rect.y)
     context.rel_line_to(rect.width, rect.height)
+    
+  def get_orthogonal(self, point):
+    return coordinates.line_orthogonal(self.get_dimensions(), point)
+
 
 
 class RectGlyph(Glyph):
@@ -135,7 +149,7 @@ class RectGlyph(Glyph):
     """
   
   @dump_return
-  def orthogonal(self, point):
+  def get_orthogonal(self, point):
     return self._aligned_rect_orthogonal(point)
       
     
@@ -144,7 +158,7 @@ class CircleGlyph(Glyph):
     centerx, centery, radius = coordinates.circle_from_dimensions(self.get_dimensions())
     context.arc(centerx, centery, radius, 0, 2.0*math.pi)
   
-  def orthogonal(self, point):
+  def get_orthogonal(self, point):
     centerx, centery, radius = coordinates.circle_from_dimensions(self.get_dimensions())
     center_coords = coordinates.dimensions(centerx, centery, 0, 0)
     # vector from center to point on circle
@@ -197,7 +211,7 @@ class TextGlyph(Glyph):
     context.rectangle(self.get_bounds())
   
   
-  def orthogonal(self, point):
+  def get_orthogonal(self, point):
     return self._aligned_rect_orthogonal(point)
 
    

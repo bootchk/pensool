@@ -12,11 +12,14 @@ Thus we can always append to a controlee,
 instead of continually checking for a primitive glyph.
 
 Morphs can have associated controls, but don't contain them.
+  ghost bounding box
+  text select (insertion bar)
 '''
 
 import compound
 import glyph
 import scheme # for bounding box
+import coordinates
 
 
 class Morph(compound.Compound):
@@ -27,9 +30,11 @@ class Morph(compound.Compound):
   def __init__(self, viewport):
     compound.Compound.__init__(self, viewport)
 
-  # Some morphs default to have no controls
   def activate_controls(self, direction):
     '''
+    Activate associated controls.
+    
+    Some morphs default to have no controls
     If this composite has more than one component, 
     AND if this is the top level of a tree of composites,
     activate control: ghost of bounding box enclosing components.
@@ -42,6 +47,25 @@ class Morph(compound.Compound):
     else:
       scheme.bounding_box.activate(False)
 
+
+  def get_orthogonal(self, point):
+    '''
+    Orthogonal of a morph with one member is orthogonal of member.
+    
+    TODO rip get_orthogonal out of compound???
+    '''
+    if len(self) > 1:
+      print "Orthogonal of a composite morph is orthog to bounding box?????"
+      '''
+      To hitted member and let user slide between members?
+      FIXME Aggregate the orthogonal of all members that intersect the point??
+      '''
+      rect = self.get_dimensions()
+      return coordinates.rectangle_orthogonal(rect, point)
+    else:
+      return self[0].get_orthogonal(point)
+    
+    
 
 
 class LineMorph(Morph):

@@ -53,17 +53,13 @@ class MenuItem(gui.itemcontrol.ItemControl):
     # Depends on the side exited
     # Traditional, square menus
     bounds = self.get_bounds()
-    if event.y < bounds.y:
-      print "Exit above"
+    if event.y < bounds.y:  # above
       self.group_manager.previous(event)
-    elif event.y > bounds.y + bounds.height:
-      print "Exit below"
+    elif event.y > bounds.y + bounds.height:  # below
       self.group_manager.next(event)
-    elif event.x < bounds.x :
-      print "Exit left"
+    elif event.x < bounds.x : # left
       self.group_manager.close(event)
-    elif event.x > bounds.x + bounds.width:
-      print "Exit right"
+    elif event.x > bounds.x + bounds.width: # right
       # TODO traditional cascading
       self.group_manager.close(event)
    
