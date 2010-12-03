@@ -90,16 +90,28 @@ class Drawable(object):
     return coordinates.UserCoords(self._dimensions.x, self._dimensions.y)
 
   
+  def put_edge_to(self, context):
+    '''
+    Put my boundary in the context.
+    For most drawables (e.g. circle), the path is the boundary.
+    If NOT path is boundary, override.
+    '''
+    self.put_path_to(context)
+    
+    
   def is_inpath(self, user_coords):
     '''
-    Are coords in our path (usually edge)?
+    Does mouse hit this drawable?
+    Are coords in my edge?
     
     Note user coords, not device coords.
     '''
     # TODO pass a context  .save() and restore()
     context = self.viewport.user_context()
-    self.put_path_to(context)
+    context.set_line_width(25)
+    self.put_edge_to(context)
     hit = context.in_stroke(user_coords.x, user_coords.y)
+    context.set_line_width(1)
     return hit
   
   

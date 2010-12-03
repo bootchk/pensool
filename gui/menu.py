@@ -100,8 +100,7 @@ class ItemGroup(compound.Compound):
     self.new_layout_spec(event)
     
     # Position whole menu group.  Lays out members!!!
-    rect = coordinates.copy(self.layout_spec.benchmark)
-    self.set_origin(rect) ## was event
+    self.set_origin(self.layout_spec.benchmark) ## was event
     
     scheme.widgets.append(self)
     
@@ -250,11 +249,12 @@ class MenuGroup(ItemGroup):
   '''
   
   def new_layout_spec(self, event):
-    # Menu benchmark is event
-    self.layout_spec.benchmark = coordinates.coords_to_bounds(event)
-    # Menu vector is None (its hardcoded in layout)
-    self.layout_spec.vector = None
-    
+    '''
+    Layout spec for traditional menu: vector is None (its hardcoded in layout)
+    '''
+    self.layout_spec = layout.LayoutSpec(event, event, vector=None)
+    ## OLD .benchmark = coordinates.coords_to_bounds(event)
+
     
   @dump_event
   def layout(self, event=None):
@@ -264,7 +264,7 @@ class MenuGroup(ItemGroup):
     '''
     # Center first item on benchmark.
     # (Which is the same as opening event?)
-    temp_rect = coordinates.copy(self.layout_spec.benchmark)
+    temp_rect = self.layout_spec.benchmark.copy()
     for item in self:
       item.center_at(temp_rect)
       # Next item downward
@@ -283,27 +283,23 @@ class HandleGroup(ItemGroup):
   
   def new_layout_spec(self, event):
     """
-    Create layout_spec based on this event.
-    Event opens the menu.
+    New layout_spec for a handle menu.
+    
+    Event opens the menu, here the event is a hit on a morph edge.
     TODO abstract opening with moving.
     """
-    """
-    OLD
-    """
-    #  benchmark is event
-    self.layout_spec.benchmark = coordinates.coords_to_bounds(event)
-    
     assert self.controlee
     
     if self.controlee is scheme.glyphs:
       # Handle menu opened on background, controls the document
-      self.layout_spec.vector = vector.downward_vector()
+      axis = vector.downward_vector()
     else:
       # axis is orthogonal to controlee
-      self.layout_spec.vector = self.controlee.get_orthogonal(event)
-      
+      axis = self.controlee.get_orthogonal(event)
+    self.layout_spec = layout.LayoutSpec(event, event, axis)
+    
     """
-    NEW
+    FIXME center on event, and open on middle item, benchmark away from hotspot
     # center menu on the edge of controlee
     # center is intersection of orthogonal and controlee edge
     ray tracing algorithm

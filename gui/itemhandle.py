@@ -73,8 +73,7 @@ class HandleItem(gui.itemcontrol.ItemControl):
     pixels_off_axis = self.pixels_off_menu_axis(event)
     # allow for jitter
     # TODO isolate this
-    if pixels_off_axis > MOUSE_OFF_AXIS_PIXELS \
-      or pixels_off_axis < -MOUSE_OFF_AXIS_PIXELS:
+    if abs(pixels_off_axis) > MOUSE_OFF_AXIS_PIXELS :
       # Layout my whole group, which will redraw this item
       self.group_manager.slide(pixels_off_axis)
     else:

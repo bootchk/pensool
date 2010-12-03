@@ -82,23 +82,26 @@ class Compound(list, drawable.Drawable):
     
   
   @dump_event
-  def set_origin(self, rect):
+  def set_origin(self, point):
     '''
     Move group to a new origin.
     Width and height depend on members.
     '''
-    """
-    # Each one of these triggers the dimensions property setter
-    # and that adjusts the width, height each time !!!!
-    self.dimensions.x = rect.x
-    self.dimensions.y = rect.y
-    """
+    drawable.Drawable.set_origin(self, point)  # super
+    if len(self) > 1:
+      print "Set origin on a composite with many items."
+    else:
+      self[0].set_origin(point)
+    # FIXME No need for all this.  Just set super then layout, always.
+    '''
+    OLD
     # This triggers a warning about setting composite dimensions in set_dimensions??
     self.set_dimensions(rect)
     # drawable.Drawable.set_origin(self, rect)
     # !!! Caller must also layout and invalidate
-    # layout changes origins of members
-    self.layout(rect)
+    '''
+    # Layout changes origins of members
+    self.layout(point)
  
  
   # @dump_event
