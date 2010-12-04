@@ -7,6 +7,8 @@ class Vector:
     2D mathematical vectors
     
     (Not a vector in the sense of a sequence or array.)
+    
+    Note all operators except increment, decrement return a copy.
     '''
     
     def __init__(self, x = 0, y = 0):
@@ -66,13 +68,6 @@ class Vector:
     
     def copy(self):
       return Vector(self.x, self.y)
-      
-    def unitize(self):
-      '''
-      Return normalized vector (unit vector).
-      '''
-      length = self.length()
-      return Vector(self.x/length, self.y/length)
     
     def orthogonal(self, handedness):
       '''
@@ -92,8 +87,21 @@ class Vector:
     def length(self):
       'Return distance length'
       return math.sqrt( self.x**2 + self.y**2 )
+      
+    def normal( vec ):
+      'Returns a new vector that has the same direction as vec, but has a length of one.'
+      if( vec[0] == 0. and vec[1] == 0. ):
+          return Vector(0.,0.)
+      return vec / vec.length()
 
 Point = Vector
+
+# Constant vector
+def downward_vector():
+  return Vector(0, 1)
+  
+  
+"""
         
 def DistanceSqrd( point1, point2 ):
     'Returns the distance between two points squared. Marginally faster than Distance()'
@@ -103,12 +111,6 @@ def Distance( point1, point2 ):
     'Returns the distance between two points'
     return math.sqrt( DistanceSqrd(point1,point2) )
     
-def Normalize( vec ):
-    'Returns a new vector that has the same direction as vec, but has a length of one.'
-    if( vec[0] == 0. and vec[1] == 0. ):
-        return Vector(0.,0.)
-    return vec / Length(vec)
-    
 def Dot( a,b ):
     'Computes the dot product of a and b'
     return a[0]*b[0] + a[1]*b[1]
@@ -116,9 +118,9 @@ def Dot( a,b ):
 def ProjectOnto( w,v ):
     'Projects w onto v.'
     return v * Dot(w,v) / LengthSqrd(v)
-    
-def downward_vector():
-  return Vector(0, 1)
+"""
+  
+
   
 
   

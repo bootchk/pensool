@@ -14,6 +14,7 @@ import pango
 import cairo
 import coordinates
 from decorators import *
+import base
 
 
 
@@ -158,13 +159,13 @@ class CircleGlyph(Glyph):
     centerx, centery, radius = coordinates.circle_from_dimensions(self.get_dimensions())
     context.arc(centerx, centery, radius, 0, 2.0*math.pi)
   
+  @dump_return
   def get_orthogonal(self, point):
     centerx, centery, radius = coordinates.circle_from_dimensions(self.get_dimensions())
-    center_coords = coordinates.dimensions(centerx, centery, 0, 0)
+    vect_to_center = base.vector.Vector(centerx, centery)
     # vector from center to point on circle
-    rect = coordinates.vector_from_points(center_coords, point)
-    # unitize ??
-    return rect
+    vect_center_to_point = base.vector.Vector(point.x, point.y) - vect_to_center
+    return vect_center_to_point.normal()
 
 
 class TextGlyph(Glyph):

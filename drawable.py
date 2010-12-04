@@ -105,13 +105,12 @@ class Drawable(object):
     Are coords in my edge?
     
     Note user coords, not device coords.
+    To hit path from a distance, ink the path wider: context.set_line_width(25)
     '''
     # TODO pass a context  .save() and restore()
     context = self.viewport.user_context()
-    context.set_line_width(25)
     self.put_edge_to(context)
     hit = context.in_stroke(user_coords.x, user_coords.y)
-    context.set_line_width(1)
     return hit
   
   

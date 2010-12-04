@@ -18,8 +18,7 @@ import guicontrolmgr
 from decorators import *
 import math
 import layout
-import base.vector as vector
-import copy
+import base.vector
 
 # FIXME
 import textselectmanager
@@ -105,7 +104,7 @@ class ItemGroup(compound.Compound):
     scheme.widgets.append(self)
     
     self.invalidate()
-    self.active_index = 0 # activate first
+    self.active_index = self.layout_spec.opening_item   # not necessarily first
     # !!! Pass the controlee to the items
     self._activate_current(event, controlee)
     self._highlight_current(event, True)
@@ -240,6 +239,8 @@ class ItemGroup(compound.Compound):
     return "Menu"
 
 
+
+
 class MenuGroup(ItemGroup):
   '''
   Traditional menu, layout is:
@@ -250,9 +251,11 @@ class MenuGroup(ItemGroup):
   
   def new_layout_spec(self, event):
     '''
-    Layout spec for traditional menu: vector is None (its hardcoded in layout)
+    Layout spec for traditional menu: 
+      vector is None (its hardcoded in layout)
+      opening item is 0
     '''
-    self.layout_spec = layout.LayoutSpec(event, event, vector=None)
+    self.layout_spec = layout.LayoutSpec(event, event, vector=None, opening_item=0)
     ## OLD .benchmark = coordinates.coords_to_bounds(event)
 
     
@@ -292,11 +295,21 @@ class HandleGroup(ItemGroup):
     
     if self.controlee is scheme.glyphs:
       # Handle menu opened on background, controls the document
-      axis = vector.downward_vector()
+      axis = base.vector.downward_vector()
     else:
       # axis is orthogonal to controlee
       axis = self.controlee.get_orthogonal(event)
-    self.layout_spec = layout.LayoutSpec(event, event, axis)
+      
+    # Calculate benchmark from event.
+    # Since opening on middle item, benchmark at first item is half length away.
+    to_benchmark = axis.copy()
+    to_benchmark *= 10  # scale by half length of menu - half width of item
+    # Here menu is 3 items of 20 overlapping by 10 = 40 / 2 -10
+    benchmark = base.vector.Point(event.x, event.y) + to_benchmark
+    print "EB", event, benchmark
+    
+    # FIXME hardcoded to open at 1, should be the middle of the menu
+    self.layout_spec = layout.LayoutSpec(event, benchmark, axis, opening_item=1)
     
     """
     FIXME center on event, and open on middle item, benchmark away from hotspot
@@ -339,7 +352,7 @@ class HandleGroup(ItemGroup):
       # FIXME vector scale, translate
       temp_rect.x -= self.layout_spec.vector.x * item.get_dimensions().width/2
       temp_rect.y -= self.layout_spec.vector.y * item.get_dimensions().height/2
-    print "returned from layout"
+    print "returned from layout", self.layout_spec
       
       
       

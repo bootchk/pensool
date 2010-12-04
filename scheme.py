@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 
 '''
-The scheme, container of things to be drawn.
+The scheme, containers of things to be drawn.
 
 A singleton, one per application instance.
 '''
 import compound
 import gui.boundingbox
 
-# Visible untransformed GUI control widgets
+# Visible untransformed GUI controls widgets
 widgets = []
 
-# Transformed GUI control widgets e.g. text selections
+# Transformed GUI controls widgets e.g. text selections
 transformed_controls = []
 
 # Singleton controls
