@@ -88,12 +88,18 @@ class Vector:
       'Return distance length'
       return math.sqrt( self.x**2 + self.y**2 )
       
-    def normal( vec ):
+    def normal( self ):
       'Returns a new vector that has the same direction as vec, but has a length of one.'
-      if( vec[0] == 0. and vec[1] == 0. ):
+      if( self[0] == 0. and self[1] == 0. ):
           return Vector(0.,0.)
-      return vec / vec.length()
+      return self / self.length()
 
+    def angle(self):
+      ''' Returns angle in radians [-pi, pi] '''
+      # !!! atan2(y,x)
+      return math.atan2(self.y, self.x)  # 
+      
+      
 Point = Vector
 
 # Constant vector

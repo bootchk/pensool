@@ -9,16 +9,13 @@ There is another manager that enforces a policy over the whole application.
 '''
 
 
-import drawable
 import compound
-import coordinates
+import coordinates  # TODO base.vector
 import focusmgr
 import scheme
 import guicontrolmgr
 from decorators import *
-import math
 import layout
-import base.vector
 
 # FIXME
 import textselectmanager
@@ -168,27 +165,16 @@ class ItemGroup(compound.Compound):
   @dump_event
   def slide(self, pixels_off_axis):
     '''
-    Slide menu orthogonally to original axis.
+    Slide menu substantially orthogonal to original axis.
+    Substantially means: follow a curve.
     
     By magnitude pixels_off_axis
     in angle left or right indicated by sign of pixels_off_axis.
-    Changes layout spec.
     '''
-    
-    # Calculate new layout_spec
-    
-    # Right handed unit vector orthogonal to menu's vector.
-    vect = self.layout_spec.vector.orthogonal(pixels_off_axis)
-    ### if pixels_off_axis < 0 :
-    # Scale by magnitude of pixels_off_axis
-    vect = vect * math.fabs(pixels_off_axis)
-    # Offset prior benchmark
-    # !!! In-place vector addition
-    coordinates.vector_add(self.layout_spec.benchmark, vect)
-    # FIXME should be: self.layout_spec.benchmark += vect
-    
+    # layout.slide_layout_spec(self.layout_spec, pixels_off_axis)
+    layout.slide_layout_spec_follow(self.controlee, self.layout_spec, pixels_off_axis)
     self.invalidate()
-    self.layout() ## OLD vector
+    self.layout()
     self.invalidate()
     
     
@@ -254,9 +240,9 @@ class MenuGroup(ItemGroup):
     Layout spec for traditional menu: 
       vector is None (its hardcoded in layout)
       opening item is 0
+      benchmark is at event (under the opening item.)
     '''
     self.layout_spec = layout.LayoutSpec(event, event, vector=None, opening_item=0)
-    ## OLD .benchmark = coordinates.coords_to_bounds(event)
 
     
   @dump_event
@@ -276,91 +262,4 @@ class MenuGroup(ItemGroup):
 
 
 
-class HandleGroup(ItemGroup):
-  '''
-  Handle menu, layout is:
-    moveable,
-    layout reorients
-    !!! only one item shown, as mouseovered
-  '''
-  
-  def new_layout_spec(self, event):
-    """
-    New layout_spec for a handle menu.
-    
-    Event opens the menu, here the event is a hit on a morph edge.
-    TODO abstract opening with moving.
-    """
-    assert self.controlee
-    
-    if self.controlee is scheme.glyphs:
-      # Handle menu opened on background, controls the document
-      axis = base.vector.downward_vector()
-    else:
-      # axis is orthogonal to controlee
-      axis = self.controlee.get_orthogonal(event)
-      
-    # Calculate benchmark from event.
-    # Since opening on middle item, benchmark at first item is half length away.
-    to_benchmark = axis.copy()
-    to_benchmark *= 10  # scale by half length of menu - half width of item
-    # Here menu is 3 items of 20 overlapping by 10 = 40 / 2 -10
-    benchmark = base.vector.Point(event.x, event.y) + to_benchmark
-    print "EB", event, benchmark
-    
-    # FIXME hardcoded to open at 1, should be the middle of the menu
-    self.layout_spec = layout.LayoutSpec(event, benchmark, axis, opening_item=1)
-    
-    """
-    FIXME center on event, and open on middle item, benchmark away from hotspot
-    # center menu on the edge of controlee
-    # center is intersection of orthogonal and controlee edge
-    ray tracing algorithm
-    # benchmark: from center proceed half menu length in direction of orthogonal
-    """
-    
-  @dump_event
-  def layout(self, event=None):
-    '''
-    Layout (position) all items in group
-    in a line orthogonal to the glyph
-    in an order towards the center of the glyph
-    (anti direction of orthogonal vector.)
-    
-    A handle group is laid out every time it slides.
-    When exit an item, other items are already laid out.
-    '''
-    # Center first item on benchmark.  Ignore the event.
-    ## OLD temp_rect = coordinates.dimensions(event.x, event.y, 0, 0)
-    ### !!! This causes a seg fault temp_rect = copy.copy(self.layout_spec.benchmark)
-    temp_rect = self.layout_spec.benchmark.copy()
-    '''
-    # get vector for direction of menu: orthogonal to the controlee eg glyph
-    layout_vector = self.controlee.get_orthogonal(event)
-    self.layout_spec.vector = layout_vector  # Remember it, items can ask for it
-    '''
-    layout_vector = self.layout_spec.vector.copy()
-    
-    # layout all items
-    for item in self:
-      item.center_at(temp_rect)
-      ''' Dumbed down version
-      # Layout next item leftward
-      temp_rect.x -= item.dimensions.width/2
-      '''
-      # Multiply unit ortho vector by dimension vector; add/sub to previous coords
-      # FIXME vector scale, translate
-      temp_rect.x -= self.layout_spec.vector.x * item.get_dimensions().width/2
-      temp_rect.y -= self.layout_spec.vector.y * item.get_dimensions().height/2
-    print "returned from layout", self.layout_spec
-      
-      
-      
-   
-  def draw(self, context):
-    '''
-    Draw only the current item.
-    !!! Overrides group draw.
-    '''
-    self[self.active_index].draw(context)
- 
+

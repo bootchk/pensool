@@ -5,6 +5,7 @@ Builds controls for the app.
 '''
 
 import gui.menu
+import gui.menuhandle
 import gui.itemmenu
 import gui.itemhandleline
 import gui.itemhandlecoords
@@ -12,7 +13,7 @@ import gui.itemhandlecoords
 def build_handle_menu(viewport):
   '''
   '''
-  handle_group = gui.menu.HandleGroup(viewport)
+  handle_group = gui.menuhandle.HandleGroup(viewport)
   handle_control = gui.itemhandleline.LineHandleItem(viewport)
   handle_group.add(handle_control)
   handle_control = gui.itemhandlecoords.MoveHandleItem(viewport)

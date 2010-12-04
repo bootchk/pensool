@@ -178,7 +178,8 @@ def union(bounds1, bounds2):
 
 # vectors
 
-
+"""
+"""
 
 def vector_from_points(start_point, end_point):
   '''
@@ -190,7 +191,6 @@ def vector_from_points(start_point, end_point):
     0,0)
     
 
- 
  
 def vector_multiply_scalar(vect, scalar):
   '''
@@ -215,8 +215,7 @@ def normalize_vector_to_vector(vector1, vector2):
   Return second vector with same transform.
   '''
   # Make transform to normalize and align vector2 with x-axis
-  # !!! atan2(y,x)
-  angle = math.atan2(vector2.y, vector2.x)  # radians [-pi, pi]
+  angle = vector2.angle()
   # inverse the angle.  Cairo's sign for angle is opposite of conventional.
   rotate_transform = cairo.Matrix().init_rotate(-angle)
   # Not scaled, but if would transform.scale, the scale done before rotation
@@ -225,7 +224,8 @@ def normalize_vector_to_vector(vector1, vector2):
   rect = gdk.Rectangle(x, y, 0, 0)
   # print "Angle", angle, "Vect1", vector1, "Vect2", vector2, "Normalized:", rect
   return rect
-
+"""
+"""
   
   
 '''

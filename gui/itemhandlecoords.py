@@ -46,27 +46,22 @@ class MoveHandleItem(itemhandle.HandleItem):
   def scroll_down(self, event):
     '''
     Filtered event from GuiControl: scroll wheel down in a handle item.
-    Make operand a child of composite that is at benchmark of handle menu
+    Make operand a child of composite that is at hotspot of handle menu
     to which this item belongs.
     '''
     print "Old controlee", self.controlee
     if len(self.controlee) > 1:
-      # Iterate children to find first at benchmark of handle menu.
-      # TODO If more than one at benchmark?
+      # Iterate children to find first at hotspot of handle menu.
+      # TODO If more than one at hotspot?
       # Then cycle through siblings ie walk depth first
       for child in self.controlee:
         print "Child ....", repr(child)
-        # TODO this is too strict
-        # Coords of the benchmark of the handle menu
-        print "TODO Benchmark.........."
-        ## Bounding box of handle menu : need intersection of boxes
-        ## get_dimensions()
-        # 
-        if child.is_inpath(self.group_manager.layout_spec.benchmark):
+        # TODO Too strict?  Allow jitter?
+        if child.is_inpath(self.group_manager.layout_spec.hotspot):
           focusmgr.focus(child)
           self.controlee = child
           return
-      # One must be at this event
+      # Assert one must be at this event, else we would not have opened menu.
       raise RuntimeError("No morph found for handle menu")
     else:
     ## OLD except TypeError: # if not iterable
