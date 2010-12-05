@@ -102,7 +102,7 @@ class RectGlyph(Glyph):
     # 2. paths in object coords (centered on origin)
     context.save()
     context.translate(point.x, point.y)
-    context.rotate(0.0)   # TODO use rotation of glyph
+    context.rotate(1.0)   # TODO use rotation of glyph
     context.rectangle(cdims)
     context.restore()
     """

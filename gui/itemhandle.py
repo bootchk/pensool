@@ -8,6 +8,7 @@ import gui.itemcontrol
 import coordinates
 import dropmanager
 from decorators import *
+import base.vector
 
 
 # Count pixels mouse must leave axis before menu slides
@@ -94,7 +95,8 @@ class HandleItem(gui.itemcontrol.ItemControl):
     '''
     # Calculate the vector of mouse exit.
     center = coordinates.center_of_dimensions(self.get_dimensions())
-    exit_vector = coordinates.vector_from_points(center, event)
+    exit_vector = base.vector.Point(event.x, event.y) - center
+    ## OLD coordinates.vector_from_points(center, event)
     # Tell manager, let the manager figure out if
     # the vector is in the next or previous direction.
     self.group_manager.do_item_exit(event, exit_vector)
@@ -159,7 +161,8 @@ class HandleItem(gui.itemcontrol.ItemControl):
     # vector from menu origin to mouse event
     menu_vector = self.group_manager.layout_spec.vector
     menu_benchmark = self.group_manager.layout_spec.benchmark
-    mouse_vector = coordinates.vector_from_points(menu_benchmark, event)
+    mouse_vector = base.vector.Point(event.x, event.y) - menu_benchmark
+    # OLD coordinates.vector_from_points(menu_benchmark, event)
     # normalize to menu vector
     normal_vector = coordinates.normalize_vector_to_vector(mouse_vector, 
       menu_vector)

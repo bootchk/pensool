@@ -178,35 +178,6 @@ def union(bounds1, bounds2):
 
 # vectors
 
-"""
-"""
-
-def vector_from_points(start_point, end_point):
-  '''
-  Vector subtraction ?
-  Return vector (x,y) from start_point to end_point.
-  '''
-  return gdk.Rectangle(end_point.x - start_point.x, 
-    end_point.y - start_point.y,
-    0,0)
-    
-
- 
-def vector_multiply_scalar(vect, scalar):
-  '''
-  Multiply vector by scalar in place.
-  '''
-  vect.x = vect.x * scalar
-  vect.y = vect.y * scalar
-  
-def vector_add(vector1, vector2):
-  '''
-  Add vector2 to vector1 in place.
-  '''
-  vector1.x += vector2.x 
-  vector1.y += vector2.y
-    
-    
 def normalize_vector_to_vector(vector1, vector2):
   '''
   Normalize first vector to second.
@@ -224,8 +195,6 @@ def normalize_vector_to_vector(vector1, vector2):
   rect = gdk.Rectangle(x, y, 0, 0)
   # print "Angle", angle, "Vect1", vector1, "Vect2", vector2, "Normalized:", rect
   return rect
-"""
-"""
   
   
 '''
