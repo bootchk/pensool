@@ -30,6 +30,8 @@ class Glyph(drawable.Drawable):
   is that a glyph does coordinate transformation at invalidate. ????
   
   A Glyph is in "natural" coordinates, i.e. at the origin and unit dimensions.
+  A Glyph is a Drawable, and has a transform, but it is NOT USED.
+  !!! Makes not sense to call get_dimensions() or self.transform
   '''
   
   # __init__ inherited
@@ -87,9 +89,7 @@ class LineGlyph(Glyph):
 
 class RectGlyph(Glyph):
   def put_path_to(self, context):
-  
-    # Unit rectangle at origin
-    context.rectangle(0,0,1,1)
+    context.rectangle(0,0,1,1)  # Unit rectangle at origin
     return
     
     rect = self.get_dimensions()
@@ -187,23 +187,47 @@ class TextGlyph(Glyph):
   # !!! Override
   def __init__(self, viewport):
     self.text = "Most relationships seem so transitory"
+    # self.font = 
     drawable.Drawable.__init__(self, viewport) # super
     
+  
+  def _put_box_path_to(self, context):
+    '''
+    The box is NOT the same as the bounds since bounds are aligned with x-axis.
+    '''
+    # Assert the context is scaled for the box.
+    context.rectangle(0,0,1,1)  # Unit rectangle at origin
     
-  def put_path_to(self, context):
-    """
-    context.cairo_select_font_face( "Purisa",
-      CAIRO_FONT_SLANT_NORMAL,
-      CAIRO_FONT_WEIGHT_BOLD)
-    context.set_font_size(13)
-    """
+  def _put_text_path_to(self,  context):
+    # Unscale the context for the text, which is laid out at scale 1?
+    dims = self.get_dimensions()
+    print "Dims", dims
+    transform = cairo.Matrix()
+    transform.scale(1.0/dims.width, 1.0/dims.height)
+    context.transform(transform)
     
+    # self.font.put_to(context) # FIXME
     # With hierarchal modeling, glyph origin is (0,0), morph has translation
     context.move_to(0, 0)
     # Layout text to any new specifications
     layout = self._layout(context)
     # Put paths instead of text so path_extents will be right.
     context.layout_path(layout)
+  
+  
+  def put_path_to(self, context):
+    """
+    Put shape to context.
+    
+    TextGlyph has two primitive shapes:
+      bounding box
+      text
+    """
+    self._put_box_path_to(context)
+    self._put_text_path_to(context)
+    return
+    
+    
   
   
   # TODO move this to drawable
@@ -232,8 +256,16 @@ class TextGlyph(Glyph):
     # TODO persistent layout?
     layout = context.create_layout()
     layout.set_wrap(pango.WRAP_WORD)
-    layout.set_width(200050)  
-    # in pango units: 1 device unit = pango.SCALE pango units
+    # FIXME
+    # If user chose clipping to box
+    # Get the width in device units
+    dims = self.get_dimensions()
+    # Scale to pangounits.
+    # 200k with set_dims(scale=1) wraps into two sentences
+    width = dims.width * pango.SCALE
+    print 'Text width', width
+    layout.set_width( width )   # pangounits
+    # 1 device unit = pango.SCALE pangounits
     layout.set_text(self.text)
     layout.context_changed()
     return layout
@@ -253,11 +285,18 @@ class TextGlyph(Glyph):
     # print "IB cursor", layout.get_cursor_pos(15)
     return rect2
     
+    
+    
   """
   def get_bounding_box(self, context):
     layout = self._layout(context)
     x, y = layout.get_pixel_size()
     return
+    
+    context.cairo_select_font_face( "Purisa",
+      CAIRO_FONT_SLANT_NORMAL,
+      CAIRO_FONT_WEIGHT_BOLD)
+    context.set_font_size(13)
   """
     
     

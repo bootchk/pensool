@@ -9,6 +9,17 @@ from decorators import *
 class TextMorph(morph.Morph):
   '''
   Morph comprising a box of text.
+  User can:
+    manipulate the box.
+    set font and size of text.
+    enter keystrokes into the text.
+    constrain: box sides
+    constrain: text clipping or auto box expand
+    
+  Text does layout to fit the box.
+  
+  For now, the box is virtual (not a separate morph.)
+  Use the standard grouping method to make a boxed text where box is visible?
   
   It is a compound containing one primitive TextGlyph.
   (For reasons discussed elsewhere.)

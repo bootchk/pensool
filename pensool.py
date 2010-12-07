@@ -114,7 +114,7 @@ for item in scheme.glyphs:
 # atext.set_origin(coordinates.dimensions(150, 30, 0,0))
 # TextMorph creates it's own selection
 atext = morph.textmorph.TextMorph(a_viewport)
-atext.set_dimensions(coordinates.dimensions(150, 30, 1, 1))
+atext.set_dimensions(coordinates.dimensions(150, 30, 200, 200))
 scheme.glyphs.append(atext)
 
 """
