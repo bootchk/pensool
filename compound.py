@@ -48,24 +48,27 @@ class Compound(list, drawable.Drawable):
     self.layout_spec = layout.LayoutSpec() # TODO only menu uses this, move it there
     
     
-  #@dump_event
+  @dump_event
   def draw(self, context):
     '''
     Iterate draw contained objects.
     The drawing order is important.
     !!! Note we draw separately, not in one stroke.
     '''
+    self.put_transform_to(context)
     for item in self:
       item.draw(context)
- 
+    context.restore()
  
   
   def put_path_to(self, context):
     '''
     Aggregate the paths of members.
     '''
+    self.put_transform_to(context)
     for item in self:
       item.put_path_to(context)
+    context.restore()
   
   
   @dump_event
@@ -119,37 +122,7 @@ class Compound(list, drawable.Drawable):
       # Layout the single item as the dimensions of this group.
       print "Layout single item morph with group dimensions.<<<<<<"
       self[0].set_dimensions(self.get_dimensions())
-    
   
-  '''
-  Dimensions property.
-  !!! A compound has dimensions.  Its members also have dimensions.
-  Layout() propagates dimensions to members.
-  After changing dimensions, caller should call layout() and invalidate().
-  '''
-  
-  @dump_event
-  def set_dimensions(self, rect):
-    '''
-    !!! Overrides drawable.set_dimensions, setter for the dimensions property.
-    This is for a morph, which is a composite with one item.
-    TODO is this a resize?  
-    Why can't you resize a composite and layout/resize all members?
-    '''
-    if len(self) > 1:
-      '''
-      This is just what is asked for: layout may recompute dimensions from member
-      dimensions.
-      '''
-      drawable.Drawable.set_dimensions(self, rect)  # super
-      print "Set dimensions on a composite with many items."
-    else:
-      # It only makes sense to set the origin, but doesn't hurt to set w,h
-      # since layout() should soon recalculate it.
-      self[0].set_dimensions(rect)
-      
-      # self.layout()
- 
   
   @dump_return
   def get_dimensions(self):
@@ -166,13 +139,6 @@ class Compound(list, drawable.Drawable):
     # self.dimensions = rect  # calls Drawable.set_dimensions()
     # TODO do the calculation once, during layout
     return rect
-  
-  """
-  # !!! Redeclare the property on this subclass of Drawable.
-  dimensions = property(get_dimensions, set_dimensions)
-  """
-  
-  
   
   
   def move_relative(self, event, offset):

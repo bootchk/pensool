@@ -27,7 +27,9 @@ class Glyph(drawable.Drawable):
   
   A Glyph is in user coordinate system.
   The primary difference from a drawable
-  is that a glyph does coordinate transformation at invalidate.
+  is that a glyph does coordinate transformation at invalidate. ????
+  
+  A Glyph is in "natural" coordinates, i.e. at the origin and unit dimensions.
   '''
   
   # __init__ inherited
@@ -59,8 +61,8 @@ class Glyph(drawable.Drawable):
 
   '''
   API virtual methods to be implemented by subclass
-    put_path_to
-    get_orthogonal
+    put_path_to()
+    get_orthogonal()
   '''
 
 
@@ -85,6 +87,11 @@ class LineGlyph(Glyph):
 
 class RectGlyph(Glyph):
   def put_path_to(self, context):
+  
+    # Unit rectangle at origin
+    context.rectangle(0,0,1,1)
+    return
+    
     rect = self.get_dimensions()
     
     point = coordinates.center_of_dimensions(rect)
@@ -102,7 +109,7 @@ class RectGlyph(Glyph):
     # 2. paths in object coords (centered on origin)
     context.save()
     context.translate(point.x, point.y)
-    context.rotate(1.0)   # TODO use rotation of glyph
+    context.rotate(0.0)   # TODO use rotation of glyph
     context.rectangle(cdims)
     context.restore()
     """
@@ -156,6 +163,10 @@ class RectGlyph(Glyph):
     
 class CircleGlyph(Glyph):
   def put_path_to(self, context):
+    # Unit circle
+    context.arc(0, 0, 1, 0, 2.0*math.pi)
+    return
+    
     centerx, centery, radius = coordinates.circle_from_dimensions(self.get_dimensions())
     context.arc(centerx, centery, radius, 0, 2.0*math.pi)
   
@@ -184,18 +195,14 @@ class TextGlyph(Glyph):
     context.cairo_select_font_face( "Purisa",
       CAIRO_FONT_SLANT_NORMAL,
       CAIRO_FONT_WEIGHT_BOLD)
-    """
-    rect = self.get_dimensions()
-    context.move_to(rect.x, rect.y) # Position the text reference point
-    
-    """
-    # TODO this is cairo toy API
     context.set_font_size(13)
-    # Put paths instead of text so path_extents will be right.
-    context.text_path(text)
     """
     
+    # With hierarchal modeling, glyph origin is (0,0), morph has translation
+    context.move_to(0, 0)
+    # Layout text to any new specifications
     layout = self._layout(context)
+    # Put paths instead of text so path_extents will be right.
     context.layout_path(layout)
   
   
@@ -216,6 +223,7 @@ class TextGlyph(Glyph):
     return self._aligned_rect_orthogonal(point)
 
    
+  @dump_event
   def _layout(self, context):
     '''
     Pango layout, for sophisticated text layout.
@@ -223,9 +231,11 @@ class TextGlyph(Glyph):
     '''
     # TODO persistent layout?
     layout = context.create_layout()
-    layout.set_text(self.text)
     layout.set_wrap(pango.WRAP_WORD)
-    layout.set_width(20)
+    layout.set_width(200050)  
+    # in pango units: 1 device unit = pango.SCALE pango units
+    layout.set_text(self.text)
+    layout.context_changed()
     return layout
     
     

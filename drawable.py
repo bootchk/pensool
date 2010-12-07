@@ -5,6 +5,7 @@ import coordinates
 from gtk import gdk
 import style
 from decorators import *
+import cairo
 
 
 def report_virtual():
@@ -44,8 +45,59 @@ class Drawable(object):
     self.viewport = viewport
     self.style = style.Style()
     self.filled = False
+    self.transform = cairo.Matrix() # initially identity transform
 
+
+  def put_transform_to(self, context):
+    '''
+    and style?
+    '''
+    context.save()  # !!! caller must do a matching restore
+    try:
+      context.transform(self.transform)
+    except cairo.Error:
+      print self.transform
+      raise
+    print "Transform", context.get_matrix()
+    self.style.put_to(context)
+    
   
+  # @dump_event  # Uncomment this to see drawables drawn.
+  def draw(self, context):
+    '''
+    Draw self using context.
+    
+    Note this is standard hierarchal modeling:
+    apply my transform to the current transform.
+    '''
+    # print "drawable.draw ", self.dump()
+    
+    self.put_transform_to(context)
+    self.put_path_to(context)
+    if self.filled:
+      context.fill()  # Filled, up to path
+    else:
+      context.stroke()  # Outline, with line width
+    # Assert fill or stroke clears paths from context
+    context.restore()
+    
+
+    
+  @dump_event
+  def highlight(self, direction):
+    '''
+    Cause self to be temporarily drawn in the highlight style.
+    Highlighting is a GUI focus issue, not a user document issue.
+    '''
+    self.style.highlight(direction)
+    self.invalidate()
+      
+      
+  def dump(self):
+    return repr(self) + " " + repr(self._dimensions) 
+    # print "Extents:", context.path_extents()
+    
+    
   '''
   Dimensions: GdkRectangle of dimensions in user coordinates.
   !!! These are the dimensions, not the bounds.
@@ -53,10 +105,37 @@ class Drawable(object):
   !!! Copy, not reference, in case parameters are mutable.
   '''
   
+  def translate(self, point):
+    '''
+    transform.translate
+    '''
+    pass
+    
+    
+    
+    
   @dump_event
   def set_dimensions(self, dimensions):
+    '''
+    Set the translationg and scale of an object.
+    For testing: ordinarily, transforms are set by user actions using other methods.
+    '''
+    assert dimensions.width > 0
+    assert dimensions.height > 0
+    
+    # Should be a non-empty morph (a compound)
+    assert len(self) > 0
+    
     # Set a copy, not a reference
     self._dimensions = coordinates.copy(dimensions)
+    
+    self.transform = cairo.Matrix()
+    # Standard sequence: rotate, scale, translate
+    # TODO rotate
+    self.transform.scale(dimensions.width/1.0, dimensions.height/1.0)
+    matrix = cairo.Matrix(x0=dimensions.x, y0=dimensions.y)
+    self.transform *= matrix
+    
   def get_dimensions(self):
     # Return a copy, not a reference
     return coordinates.copy(self._dimensions)
@@ -247,34 +326,6 @@ class Drawable(object):
     
     
 
-  # Uncomment this to see drawables drawn.
-  # @dump_event
-  def draw(self, context):
-    '''
-    Draw self using context.
-    '''
-    # print "drawable.draw ", self.dump()
-    self.style.put_to(context)
-    self.put_path_to(context)
-    if self.filled:
-      context.fill()  # Filled, up to path
-    else:
-      context.stroke()  # Outline, with line width
-    # Assert paths cleared from context
-
-    
-  @dump_event
-  def highlight(self, direction):
-    '''
-    Cause self to be temporarily drawn in the highlight style.
-    Highlighting is a GUI focus issue, not a user document issue.
-    '''
-    self.style.highlight(direction)
-    self.invalidate()
-      
-      
-  def dump(self):
-    return repr(self) + " " + repr(self._dimensions) 
-    # print "Extents:", context.path_extents()
+  
       
 

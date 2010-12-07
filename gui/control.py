@@ -236,12 +236,12 @@ class GuiControl(drawable.Drawable):
   @dump_event
   def take_focus(self):
     self.has_focus = True
-    self.invalidate()   #redraw
+    self.invalidate()
     
   @dump_event
   def release_focus(self):
     self.has_focus = False
-    self.invalidate()   #redraw
+    self.invalidate()
   
  
 

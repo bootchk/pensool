@@ -38,9 +38,6 @@ class TextMorph(morph.Morph):
    
     
   """
-  Since dimensions are a property, this is bypassed anyway.
-  Possibly reclare dimensions property.
-  
   def set_dimensions(self, rect):
     '''
     TODO set the dimensions changes font size or just lays it out differently.

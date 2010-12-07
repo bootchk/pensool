@@ -100,33 +100,39 @@ TODO
 '''
 scheme.initialize(a_viewport)
 
+"""
+# Make separate morphs
 arect = morph.morph.RectMorph(a_viewport)
 acirc = morph.morph.CircleMorph(a_viewport)
-# TextMorph creates it's own selection
-atext = morph.textmorph.TextMorph(a_viewport)
-
 
 scheme.glyphs.append(arect)
 scheme.glyphs.append(acirc)
 for item in scheme.glyphs:
   item.set_dimensions(coordinates.dimensions(150, 150, 100, 100))
+"""
 # !!! Width, height of text are computed??
 # atext.set_origin(coordinates.dimensions(150, 30, 0,0))
-atext.set_dimensions(coordinates.dimensions(150, 30, 0,0))
+# TextMorph creates it's own selection
+atext = morph.textmorph.TextMorph(a_viewport)
+atext.set_dimensions(coordinates.dimensions(150, 30, 1, 1))
 scheme.glyphs.append(atext)
 
-
+"""
+# Make a group
 arect = morph.morph.RectMorph(a_viewport)
+arect.set_dimensions(coordinates.dimensions(50, 50, 50, 50))
 acirc = morph.morph.CircleMorph(a_viewport)
-acirc.set_dimensions(coordinates.dimensions(50, 50, 50, 50))
+acirc.set_dimensions(coordinates.dimensions(0, 0, 50, 50))
 
 agroup = morph.morph.Morph(a_viewport)
 agroup.append(arect)
 agroup.append(acirc)
+# Group at 30,30, scale 1
+agroup.set_dimensions(coordinates.dimensions(30,30,1,1))
 # agroup.append(atext)
 
 scheme.glyphs.append(agroup)
-
+"""
 
 
 ''' 
