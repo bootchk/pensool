@@ -24,11 +24,13 @@ import coordinates
 
 class Morph(compound.Compound):
   '''
-  A Morph is a composite glyph with associated controls.
+  A Morph is a Composite with associated controls.
+  A composite of Morphs and Glyphs.
   '''
 
   def __init__(self, viewport):
     compound.Compound.__init__(self, viewport)
+
 
   def activate_controls(self, direction):
     '''

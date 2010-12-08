@@ -9,7 +9,7 @@ Composites can contain other composites, or primitives (guicontrols or glyphs.)
 '''
 # FIXME rename to composite
 
-import drawable
+import transformer
 from decorators import *
 import coordinates
 import layout
@@ -24,8 +24,9 @@ or to have-a container instead of be-a container.
 
 
 
+## WAS drawable.Drawable
 
-class Compound(list, drawable.Drawable):
+class Compound(list, transformer.Transformer):
   '''
   A container of Drawables.
   
@@ -42,7 +43,7 @@ class Compound(list, drawable.Drawable):
   '''
   
   def __init__(self, viewport):
-    drawable.Drawable.__init__(self, viewport)
+    transformer.Transformer.__init__(self, viewport)
     self.viewport = viewport
     # self.stroke_width = 1       # TODO style
     self.layout_spec = layout.LayoutSpec() # TODO only menu uses this, move it there
@@ -54,6 +55,9 @@ class Compound(list, drawable.Drawable):
     Iterate draw contained objects.
     The drawing order is important.
     !!! Note we draw separately, not in one stroke.
+    
+    Note this is standard hierarchal modeling:
+    apply my transform to the current transform matrix of the context (CTM).
     '''
     self.put_transform_to(context)
     for item in self:
@@ -90,7 +94,7 @@ class Compound(list, drawable.Drawable):
     Move group to a new origin.
     Width and height depend on members.
     '''
-    drawable.Drawable.set_origin(self, point)  # super
+    transformer.Transformer.set_origin(self, point)  # super
     if len(self) > 1:
       print "Set origin on a composite with many items."
     else:

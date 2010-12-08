@@ -101,6 +101,7 @@ TODO
 scheme.initialize(a_viewport)
 
 """
+"""
 # Make separate morphs
 arect = morph.morph.RectMorph(a_viewport)
 acirc = morph.morph.CircleMorph(a_viewport)
@@ -109,7 +110,7 @@ scheme.glyphs.append(arect)
 scheme.glyphs.append(acirc)
 for item in scheme.glyphs:
   item.set_dimensions(coordinates.dimensions(150, 150, 100, 100))
-"""
+
 # !!! Width, height of text are computed??
 # atext.set_origin(coordinates.dimensions(150, 30, 0,0))
 # TextMorph creates it's own selection

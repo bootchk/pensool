@@ -184,27 +184,33 @@ class TextGlyph(Glyph):
   see GTK Reference Manual: pangocairo.CairoContext
   """
   
-  # !!! Override
+  # !!! Override with additional attribute: text
   def __init__(self, viewport):
     self.text = "Most relationships seem so transitory"
     # self.font = 
     drawable.Drawable.__init__(self, viewport) # super
     
   
+  """
   def _put_box_path_to(self, context):
     '''
     The box is NOT the same as the bounds since bounds are aligned with x-axis.
     '''
     # Assert the context is scaled for the box.
     context.rectangle(0,0,1,1)  # Unit rectangle at origin
-    
+  """
+   
+  @dump_event
   def _put_text_path_to(self,  context):
     # Unscale the context for the text, which is laid out at scale 1?
+    """
     dims = self.get_dimensions()
     print "Dims", dims
     transform = cairo.Matrix()
-    transform.scale(1.0/dims.width, 1.0/dims.height)
+    foo = 1.0/200 # 1.0/dims.width
+    transform.scale(foo, foo)
     context.transform(transform)
+    """
     
     # self.font.put_to(context) # FIXME
     # With hierarchal modeling, glyph origin is (0,0), morph has translation
@@ -223,7 +229,7 @@ class TextGlyph(Glyph):
       bounding box
       text
     """
-    self._put_box_path_to(context)
+    # self._put_box_path_to(context)
     self._put_text_path_to(context)
     return
     
@@ -262,7 +268,7 @@ class TextGlyph(Glyph):
     dims = self.get_dimensions()
     # Scale to pangounits.
     # 200k with set_dims(scale=1) wraps into two sentences
-    width = dims.width * pango.SCALE
+    width = 200 * pango.SCALE
     print 'Text width', width
     layout.set_width( width )   # pangounits
     # 1 device unit = pango.SCALE pangounits
@@ -271,6 +277,7 @@ class TextGlyph(Glyph):
     return layout
     
     
+  @dump_event
   def insertion_position(self, context):
     '''
     Return user coords of insertion bar.

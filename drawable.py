@@ -5,7 +5,6 @@ import coordinates
 from gtk import gdk
 import style
 from decorators import *
-import cairo
 
 
 def report_virtual():
@@ -45,21 +44,6 @@ class Drawable(object):
     self.viewport = viewport
     self.style = style.Style()
     self.filled = False
-    self.transform = cairo.Matrix() # initially identity transform
-
-
-  def put_transform_to(self, context):
-    '''
-    and style?
-    '''
-    context.save()  # !!! caller must do a matching restore
-    try:
-      context.transform(self.transform)
-    except cairo.Error:
-      print self.transform
-      raise
-    print "Transform", context.get_matrix()
-    self.style.put_to(context)
     
   
   # @dump_event  # Uncomment this to see drawables drawn.
@@ -67,19 +51,14 @@ class Drawable(object):
     '''
     Draw self using context.
     
-    Note this is standard hierarchal modeling:
-    apply my transform to the current transform.
+    !!! Note untransformed.
     '''
-    # print "drawable.draw ", self.dump()
-    
-    self.put_transform_to(context)
     self.put_path_to(context)
     if self.filled:
       context.fill()  # Filled, up to path
     else:
       context.stroke()  # Outline, with line width
     # Assert fill or stroke clears paths from context
-    context.restore()
     
 
     
@@ -117,8 +96,8 @@ class Drawable(object):
   @dump_event
   def set_dimensions(self, dimensions):
     '''
-    Set the translationg and scale of an object.
-    For testing: ordinarily, transforms are set by user actions using other methods.
+    Set the translation and scale of an object.
+    For testing: ordinarily, transforms by user actions using other methods.
     '''
     assert dimensions.width > 0
     assert dimensions.height > 0
@@ -128,13 +107,7 @@ class Drawable(object):
     
     # Set a copy, not a reference
     self._dimensions = coordinates.copy(dimensions)
-    
-    self.transform = cairo.Matrix()
-    # Standard sequence: rotate, scale, translate
-    # TODO rotate
-    self.transform.scale(dimensions.width/1.0, dimensions.height/1.0)
-    matrix = cairo.Matrix(x0=dimensions.x, y0=dimensions.y)
-    self.transform *= matrix
+ 
     
   def get_dimensions(self):
     # Return a copy, not a reference

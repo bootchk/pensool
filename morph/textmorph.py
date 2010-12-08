@@ -37,10 +37,11 @@ class TextMorph(morph.Morph):
     # textglyph is an attribute so that we can tell it to activate its select.
     # I suppose we could use self[0]
     self.textglyph = glyph.TextGlyph(viewport)
+    self.frame = glyph.RectGlyph(viewport)  # TODO singleton?
     self.append(self.textglyph)
     
     '''
-    TextMorph has a selection but it is not a member of the compound.
+    TextMorph has a selection but it is not a member of the composite.
     Hashed by the TextGlyph, not the TextMorph
     '''
     # The textglyph will save a reference to this selection control.
@@ -70,6 +71,33 @@ class TextMorph(morph.Morph):
    
   def put_edge_to(self, context):
     self.textglyph.put_edge_to(context)
+  
+  
+  # !!! Override
+  @dump_event
+  def draw(self, context):
+    '''
+    This is a composite, but the single member is a textglyph.
+    Has a frame: virtual, optional member
+    '''
+    # Draw the frame, transformed
+    self.put_transform_to(context)
+    self.frame.draw(context)
+    context.restore()
+    
+    # Draw my single text glyph.
+    # Translate, but don't scale.
+    # Set width to device CS width of frame
+    context.save()
+    # !!! Don't get the union dimensions, just the origin of this morph.
+    dims = self.get_origin()
+    print dims
+    context.translate(dims.x, dims.y)
+    self[0].draw(context)
+    context.restore()
+    
+    
+    
     
   '''
   def is_inpath(self, user_coords):
