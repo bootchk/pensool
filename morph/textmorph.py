@@ -1,12 +1,13 @@
 
 import morph
 import glyph
+import textglyph
 import gui.textselectcontrol
 import textselectmanager
 from decorators import *
 
 
-class TextMorph(morph.Morph):
+class TextMorph(morph.PrimitiveMorph):
   '''
   Morph comprising a box of text.
   User can:
@@ -17,6 +18,7 @@ class TextMorph(morph.Morph):
     constrain: text clipping or auto box expand
     
   Text does layout to fit the box.
+  set_dimensions of the box should layout.
   
   For now, the box is virtual (not a separate morph.)
   Use the standard grouping method to make a boxed text where box is visible?
@@ -34,10 +36,15 @@ class TextMorph(morph.Morph):
 
   def __init__(self, viewport):
     morph.Morph.__init__(self, viewport)
+    
+    # Three members: text, frame, and text_select_control
+    # !!! However, since they are transformed differently,
+    # only one is a member of the composite.
+    
+    self.frame = glyph.RectGlyph(viewport)  # TODO singleton?
     # textglyph is an attribute so that we can tell it to activate its select.
     # I suppose we could use self[0]
-    self.textglyph = glyph.TextGlyph(viewport)
-    self.frame = glyph.RectGlyph(viewport)  # TODO singleton?
+    self.textglyph = textglyph.TextGlyph(viewport)
     self.append(self.textglyph)
     
     '''
@@ -45,8 +52,7 @@ class TextMorph(morph.Morph):
     Hashed by the TextGlyph, not the TextMorph
     '''
     # The textglyph will save a reference to this selection control.
-    # Here discard the reference to textglyph
-    bar = gui.textselectcontrol.TextSelectControl(viewport, self.textglyph)
+    self.text_select = gui.textselectcontrol.TextSelectControl(viewport, self.textglyph)
    
     
   """
@@ -70,7 +76,12 @@ class TextMorph(morph.Morph):
    
    
   def put_edge_to(self, context):
-    self.textglyph.put_edge_to(context)
+    '''
+    !!! Hit detection is on the frame, not the text glyphs
+    '''
+    self.put_transform_to(context)
+    self.frame.put_edge_to(context)
+    context.restore()
   
   
   # !!! Override
@@ -80,21 +91,36 @@ class TextMorph(morph.Morph):
     This is a composite, but the single member is a textglyph.
     Has a frame: virtual, optional member
     '''
-    # Draw the frame, transformed
+    # Draw the frame transformed.
+    # !!! Scaling unit rectangle.
     self.put_transform_to(context)
     self.frame.draw(context)
     context.restore()
     
     # Draw my single text glyph.
-    # Translate, but don't scale.
+    # Translate, but don't scale (Pango text unscaled.)
     # Set width to device CS width of frame
     context.save()
     # !!! Don't get the union dimensions, just the origin of this morph.
+    # That is, the text is translated to the same place as the frame.
     dims = self.get_origin()
-    print dims
     context.translate(dims.x, dims.y)
     self[0].draw(context)
     context.restore()
+    
+    # Draw text select control
+    # Translate, but scale to size of font, not size of morph
+    # FIXME scale to size of font, draw unit rect for IB
+    context.save()
+    # Translate to frame origin
+    dims = self.get_origin()
+    context.translate(dims.x, dims.y)
+    print "drawing text select"
+    # Text select control knows its own translation within frame
+    self.text_select.draw(context)
+    context.restore()
+    
+ 
     
     
     

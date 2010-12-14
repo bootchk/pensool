@@ -80,6 +80,7 @@ class ItemGroup(compound.Compound):
     of its items.  Its items can later change themselves to other controlees.
     '''
     self.controlee = None
+    # FIXME this is an attribute but what is good initializer?
     #self.layout_spec = None
     
 

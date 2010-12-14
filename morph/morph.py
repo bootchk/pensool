@@ -20,12 +20,13 @@ import compound
 import glyph
 import scheme # for bounding box
 import coordinates
+import base.vector as vector
 
 
 class Morph(compound.Compound):
   '''
   A Morph is a Composite with associated controls.
-  A composite of Morphs and Glyphs.
+  A composite of Morphs or Glyphs.
   '''
 
   def __init__(self, viewport):
@@ -67,22 +68,58 @@ class Morph(compound.Compound):
     else:
       return self[0].get_orthogonal(point)
     
-    
+
+class PrimitiveMorph(Morph):
+  '''
+  A PrimitiveMorph is a Composite of only Glyphs.
+  Cannot append a Morph to a PrimitiveMorph.
+  '''
+  def is_primitive(self):
+    return True
 
 
-class LineMorph(Morph):
+class LineMorph(PrimitiveMorph):
   def __init__(self, viewport):
     Morph.__init__(self, viewport)
     self.append(glyph.LineGlyph(viewport))
     
+    
+  def set_by_drag(self, start_coords, event, controlee):
+    '''
+    Set my transform according to a drag operation.
+    My glyph is a unit line.
+    Set my transform to scale, translate, and rotate within
+    my group's coordinate system (GCS).
+    
+    '''
+    # start_coords and event coords are in device DCS
+    start_coords_UCS = self.viewport.device_to_user(start_coords.x, start_coords.y)
+    event_coords_UCS = self.viewport.device_to_user(event.x, event.y)
+    drag_vector_UCS = event_coords_UCS - start_coords_UCS
+    
+    # Rotate
+    # TODO
+    
+    # Scale
+    # TODO transform to GCS
+    drag_length_UCS = drag_vector_UCS.length()
+    
+    # Translate
+    # TODO transform to GCS
+    
+    # TODO set RTS
+    dimensions = coordinates.dimensions(start_coords_UCS.x, start_coords_UCS.y, 
+      drag_length_UCS, drag_length_UCS)
+    self.set_dimensions(dimensions)
 
-class RectMorph(Morph):
+
+class RectMorph(PrimitiveMorph):
   def __init__(self, viewport):
     Morph.__init__(self, viewport)
     self.append(glyph.RectGlyph(viewport))
     
     
-class CircleMorph(Morph):
+class CircleMorph(PrimitiveMorph):
   def __init__(self, viewport):
     Morph.__init__(self, viewport)
     self.append(glyph.CircleGlyph(viewport))

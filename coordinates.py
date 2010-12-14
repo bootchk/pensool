@@ -45,25 +45,6 @@ from decorators import *
 import base.vector as vector
 
 
-class UserCoords(object):
-  '''
-  A simple class that takes a tuple 
-  and returns a structure with named attributes.
-  This type is only used for the user coordinate system.
-  '''
-  def __init__(self, x, y):
-    self.x = x
-    self.y = y
-    
-class DeviceCoords(object):
-  '''
-  A simple class that takes a tuple 
-  and returns a structure with named attributes.
-  This type is only used for the device coordinate system.
-  '''
-  def __init__(self, x, y):
-    self.x = x
-    self.y = y
 
 
 def copy(dim):

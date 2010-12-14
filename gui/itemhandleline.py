@@ -19,8 +19,8 @@ class LineHandleItem(itemhandle.HandleItem):
   A handle that stretches a line from the controlee, when a drag starts within.
   Another control (bkgd mgr usually)
   gets involved when drag moves out of this item control.
-  
   '''
+  
   def put_path_to(self, context):
     '''
     Shape of this handle.
@@ -39,6 +39,22 @@ class LineHandleItem(itemhandle.HandleItem):
     pass
   
   
+  def group_with_controlee(self, morph):
+    '''
+    Group morph with controlee.
+    Controlee is in scheme, so no need to add line to scheme.
+    If the controlee is a primitive morph, expand to group morph?
+    '''
+    if self.controlee.is_primitive():
+      print "...............NOT grouping with primitive", repr(self.controlee)
+      # FIXME for now, put in scheme
+      # should be, create a new group containing primitive and self
+      scheme.glyphs.append(morph) # FIXME rename
+    else:
+      print "...............Grouping with ", repr(self.controlee)
+      self.controlee.append(line)
+    
+  
   @dump_event
   def start_drag(self, event):
     '''
@@ -51,19 +67,10 @@ class LineHandleItem(itemhandle.HandleItem):
     # TODO generically create any morph
     
     line = morph.morph.LineMorph(scheme.viewport) # Create
-    
-    # line is initially zero length at user_coords
-    # TODO at the hot spot of the handle menu
-    user_coords = self.viewport.device_to_user(event.x, event.y)
-    dimensions = coordinates.dimensions(user_coords.x, user_coords.y, 0, 0)
-    line.set_dimensions(dimensions)
-    
+    line.set_by_drag(self.group_manager.layout_spec.hotspot, event, self.controlee)
     dropmanager.dropmgr.set_draggee(line)  # Remember line morph being dragged
+    self.group_with_controlee(line)
     
-    # Group morph with controlee.
-    # Controlee is in scheme, so no need to add line to scheme.
-    print "...............Grouping with ", repr(self.controlee)
-    self.controlee.append(line)
     
     # No need to invalidate yet, size is zero
     
@@ -76,12 +83,8 @@ class LineHandleItem(itemhandle.HandleItem):
     event, offset, increment are in device coord system
     '''
     # TODO look for suitable target
-    user_coords = self.viewport.device_to_user(event.x, event.y)
-    user_distance = self.viewport.device_to_user_distance(offset.x, offset.y)
-    dimensions = coordinates.dimensions( 
-      user_coords.x - user_distance.x, user_coords.y - user_distance.y, user_distance.x, user_distance.y)
     line = dropmanager.dropmgr.get_draggee()
-    line.set_dimensions(dimensions)
+    line.set_by_drag(self.group_manager.layout_spec.hotspot, event, self.controlee)
     line.invalidate()
     
     

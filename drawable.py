@@ -5,6 +5,7 @@ import coordinates
 from gtk import gdk
 import style
 from decorators import *
+import base.vector as vector
 
 
 def report_virtual():
@@ -44,6 +45,7 @@ class Drawable(object):
     self.viewport = viewport
     self.style = style.Style()
     self.filled = False
+    self.drawn_dims = coordinates.any_dims()
     
   
   # @dump_event  # Uncomment this to see drawables drawn.
@@ -54,11 +56,17 @@ class Drawable(object):
     !!! Note untransformed.
     '''
     self.put_path_to(context)
+    
+    # Cache my drawn dimensions
+    self.drawn_dims = coordinates.dimensions_from_extents(*self.get_drawn_extents(context))
+    
     if self.filled:
       context.fill()  # Filled, up to path
     else:
       context.stroke()  # Outline, with line width
     # Assert fill or stroke clears paths from context
+    
+    
     
 
     
@@ -139,14 +147,19 @@ class Drawable(object):
   
   def get_origin(self):
     # don't return a reference, return a copy
-    return coordinates.UserCoords(self._dimensions.x, self._dimensions.y)
+    return vector.Vector(self._dimensions.x, self._dimensions.y)
 
+  def get_drawn_origin(self):
+    ''' Return user coords of origin where drawn.'''
+    return vector.Vector(self.drawn_dims.x, self.drawn_dims.y)
+  
   
   def put_edge_to(self, context):
     '''
     Put my boundary in the context.
     For most drawables (e.g. circle), the path is the boundary.
-    If NOT path is boundary, override.
+    If NOT path is boundary, override.  E.G. text has a frame.
+    This is used for hit detection.
     '''
     self.put_path_to(context)
     
@@ -205,6 +218,17 @@ class Drawable(object):
     self._dimensions.y += offset.y
     self.invalidate() # Schedule redraw at new origin
 
+  def get_drawn_extents(self, context):
+    '''
+    Extents in user coords as drawn (subject to any transformations.)
+    '''
+    extents = context.path_extents()
+    # stroke_extents are float, avert deprecation warning
+    # Truncate upper left via int()
+    map(math.ceil, extents[2:3])  # ceiling bottom right
+    return [int(x) for x in extents]
+    
+    
 
   def get_bounds(self):
     '''

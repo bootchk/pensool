@@ -4,8 +4,8 @@
 import dropmanager
 import drawable
 from gtk import gdk
-import coordinates
 from decorators import *
+import base.vector as vector
 
 
 def report_virtual():
@@ -52,7 +52,7 @@ class GuiControl(drawable.Drawable):
     self.has_focus = False
     self.is_dragging = False
     self.button_pressed = 0
-    self.pointer = None
+    self.pointer_DCS = None
 
 
   @dump_event
@@ -92,7 +92,7 @@ class GuiControl(drawable.Drawable):
     # !!! Note events and control dimensions are in device coords
     if self.is_in_control_area(event):
       # Remember the last pointer position (not use gtk.get_pointer())
-      self.pointer = coordinates.DeviceCoords(event.x, event.y)
+      self.pointer_DCS = vector.Vector(event.x, event.y)
       # print "Inside", repr(self)
       if self.is_dragging:
         # Drop manager knows which control is in charge (source or target.)

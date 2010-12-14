@@ -16,8 +16,7 @@ Receives key presses when parent text glyph is active operand.
 
 import gui.control
 import textselectmanager  # Manages set of text selection controls.
-import scheme
-from gtk import gdk
+from decorators import *
 
 
 class TextSelectControl(gui.control.GuiControl):
@@ -34,14 +33,19 @@ class TextSelectControl(gui.control.GuiControl):
     self.text_glyph = textglyph
     # a manager maps text to its textselectcontrol etc.
     textselectmanager.new_select(self, textglyph, 0)
-    # put in drawing scheme
-    scheme.transformed_controls.append(self)
+    
+    ## OLD scheme.transformed_controls.append(self) # put in drawing scheme
     # Note dimensions are defaults until drawn
   
   
+  @dump_event
   def put_path_to(self, context):
     '''
     Shape of this control.
+    
+    Note this is inside a text box, which might be transformed.
+    The same transform applies here.
+    That is, this is called when walking the hierachal model.
     '''
     self.filled = True  # TODO filled?
     # TODO shape it to mask text
@@ -49,8 +53,11 @@ class TextSelectControl(gui.control.GuiControl):
     # print "Selection dimensions", self.get_dimensions()
     
     # FIXME temporarily just set the origin
-    self.set_origin(self.text_glyph.insertion_position(context))
-    
+    # self.set_origin(position)
+    position = self.text_glyph.insertion_position(context)
+    # Translate within text box
+    context.translate(position.x, position.y)
+    print self.get_dimensions(), context.get_matrix()
     context.rectangle(self.get_dimensions())
     
     
@@ -73,15 +80,17 @@ class TextSelectControl(gui.control.GuiControl):
     Key pressed in a text select.
     Replace select with key.
     '''
-    # This control will move (and possibly resize).
+    # FIXME for now append to text glyph
+    self.text_glyph.text += event.string
+    
+    # This control probably move and possibly resize.
     # Queue redraw at current.
     self.invalidate()
+    
+    # FIXME relayout changed text
     # Queue redraw changed text
     self.text_glyph.invalidate()
-    
-    keystring = event.string
-    # FIXME for now append to text glyph
-    self.text_glyph.text += keystring
+
     
     
     

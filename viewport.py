@@ -6,7 +6,7 @@ import cairo
 import os
 import scheme
 import style
-import coordinates
+import base.vector as vector
 
 
 # TODO subclasses: window and printer page
@@ -63,7 +63,7 @@ class ViewPort(Port):
     self.surface = da.window
     self.da = da
     # self.da.set_double_buffered(False)  # for animation TODO
-    self.matrix = cairo.Matrix() # The transform matrix
+    self.matrix = cairo.Matrix() # The viewing transform matrix
     Port.__init__(self)
     self.style = style.Style()
   
@@ -140,7 +140,7 @@ class ViewPort(Port):
     
   def device_to_user(self, x, y):
     '''
-    Transform coordinates from device to UserCoords.
+    Transform coordinates from device to user coordinate systems.
 
     From cairo docs:
     context.device_to_user() returns tuple (float, float)
@@ -149,12 +149,12 @@ class ViewPort(Port):
     '''
     context = self.da.window.cairo_create()
     context.set_matrix(self.matrix)
-    return coordinates.UserCoords(*context.device_to_user(x, y))
+    return vector.Vector(*context.device_to_user(x, y))
   
   def user_to_device(self, x, y):
     context = self.da.window.cairo_create()
     context.set_matrix(self.matrix)
-    return coordinates.DeviceCoords(*context.user_to_device(x, y))
+    return vector.Vector(*context.user_to_device(x, y))
 
 
   def device_to_user_distance(self, x, y):
@@ -165,12 +165,12 @@ class ViewPort(Port):
     '''
     context = self.da.window.cairo_create()
     context.set_matrix(self.matrix)
-    return coordinates.UserCoords(*context.device_to_user_distance(x, y))
+    return vector.Vector(*context.device_to_user_distance(x, y))
     
   def user_to_device_distance(self, x, y):
     context = self.da.window.cairo_create()
     context.set_matrix(self.matrix)
-    return coordinates.DeviceCoords(*context.user_to_device_distance(x, y))
+    return vector.Vector(*context.user_to_device_distance(x, y))
 
 
 

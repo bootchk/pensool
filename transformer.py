@@ -23,6 +23,7 @@ class Transformer(drawable.Drawable):
     self.transform = cairo.Matrix() # initially identity transform
   
   
+  # @dump_return
   def put_transform_to(self, context):
     '''
     and style?
@@ -33,8 +34,8 @@ class Transformer(drawable.Drawable):
     except cairo.Error:
       print self.transform
       raise
-    print "Transform", context.get_matrix()
     self.style.put_to(context)
+    return self.transform
   
   
   @dump_event
@@ -56,7 +57,7 @@ class Transformer(drawable.Drawable):
     # TODO rotate
     self.transform.scale(dimensions.width/1.0, dimensions.height/1.0) 
     translation_matrix = cairo.Matrix(x0=dimensions.x, y0=dimensions.y) # Translate
-    # Multiply in correct order. Note self.transform.translate() would not work.
+    # Multiply in correct order. Note self.transform.translate() would not work??
     self.transform *= translation_matrix  
     
     
