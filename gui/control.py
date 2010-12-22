@@ -27,7 +27,7 @@ class GuiControl(drawable.Drawable):
   Is active when events are connected to its callbacks.
   (Callbacks are not always connected.)
 
-  Inherits Drawable.draw(), invalidate(), put_path_to(), is_inbounds()
+  Inherits Drawable.draw(), put_path_to(), is_inbounds()
   !!! Overrides is_in_control_area see below.
   '''
   
@@ -50,13 +50,13 @@ class GuiControl(drawable.Drawable):
     Local means: there is other state, such as global dragging.
     '''
     self.has_focus = False
-    self.is_dragging = False
+    ## self.is_dragging = False
     self.button_pressed = 0
     self.pointer_DCS = None
 
 
   @dump_event
-  def invalidate(self):
+  def invalidate(self, context):
     ''' 
     Invalidate means queue a region to redraw at expose event.
     GUI specific, not applicable to all surfaces.
@@ -64,6 +64,7 @@ class GuiControl(drawable.Drawable):
     !!! A GuiControl is in device coords, does NOT transform at invalidate.
     '''
     device_bounds = self.get_inked_bounds()
+    # TODO transforms on controls
     self.viewport.surface.invalidate_rect( device_bounds, True )
 
 
@@ -94,7 +95,7 @@ class GuiControl(drawable.Drawable):
       # Remember the last pointer position (not use gtk.get_pointer())
       self.pointer_DCS = vector.Vector(event.x, event.y)
       # print "Inside", repr(self)
-      if self.is_dragging:
+      if dropmanager.dropmgr.is_drag():   ### self.is_dragging:
         # Drop manager knows which control is in charge (source or target.)
         dropmanager.dropmgr.continued(event, target=self)
       else:
@@ -105,8 +106,6 @@ class GuiControl(drawable.Drawable):
       It might not be visible.
       Another control will take focus.
       '''
-      # Reset local state. Global drag state by the dropmanager.
-      ### Was self.is_dragging = False 
       self._reset_state()
       self.mouse_exit(event)  # Filtered event to subclasses
     return True
@@ -162,24 +161,24 @@ class GuiControl(drawable.Drawable):
     '''
     assert(self.has_focus)
     
+    # TODO Check for wierd chording: press, press, release, release
+    # TODO If items are large enough, a short drag stays in an item.
     if(not event.button == self.button_pressed):
+      # By design, pop-up menus open on press in one button, can release in other buttons.
       print "Button released outside control button was pressed in", self.button_pressed
-      # If this control is an item in a group
-      if self.group_manager:
-        # Button was pressed to open a menu, moved to this item, then
-        # released to choose this item.
-        self._dispatch_button_release(event)
-        # TODO robustness: insure button is same one as opened group?
-      else:
-        # This control is NOT a menu.
-        # Assume it is the background mgr? TODO verify
-        # A global drag is in operation, do it.
-        # TODO could be a wierd chording of the buttons
-        # Cannot assert(self.is_dragging) because dragging started in other
-        dropmanager.dropmgr.end(self, event)  # self is target
-    else: 
-      # Released in same control as pressed
+    else:  # Released in same control as pressed
+      print "Button release in same control."
+       
+    if dropmanager.dropmgr.is_drag():
+      # Drag may have started in another control.
+      dropmanager.dropmgr.end(self, event)  # self is target
+    elif self.group_manager:  # If control is item in group
+      # User pressed to open menu, moved to this item, then released to choose.
       self._dispatch_button_release(event)
+    else: 
+      # This control is NOT a menu AND no drag in effect.
+      # Typically: press to open a pop-up, move out, then release to cancel.
+      print "Button release outside menu with no drag."
     return True
     
   
@@ -191,6 +190,7 @@ class GuiControl(drawable.Drawable):
       self.scroll_up(event)
     else :
       self.scroll_down(event)
+    return True
     
     
   '''
@@ -209,6 +209,7 @@ class GuiControl(drawable.Drawable):
       self.control_key_release(event)
     else:
       self.bland_key_release(event)
+    return True
 
 
   @dump_event
@@ -233,15 +234,12 @@ class GuiControl(drawable.Drawable):
   Highlight which control is sensitive (active?)
   Only one control is getting most low-level events.
   '''
+  # TODO direction
   @dump_event
-  def take_focus(self):
-    self.has_focus = True
-    self.invalidate()
-    
-  @dump_event
-  def release_focus(self):
-    self.has_focus = False
-    self.invalidate()
+  def take_focus(self, direction):
+    self.has_focus = direction
+    self.invalidate(self.viewport.controls_context())
+
   
  
 

@@ -11,7 +11,7 @@ import drawable
 import math
 import coordinates
 from decorators import *
-import base.vector
+import base.vector as vector
 
 
 
@@ -33,18 +33,21 @@ class Glyph(drawable.Drawable):
   
   # __init__ inherited
   
-  @dump_event
-  def invalidate(self):
+  @dump_return
+  def invalidate(self, context):
     ''' 
     Invalidate means queue a region to redraw at expose event.
     GUI specific, not applicable to all surfaces.
     '''
     user_bounds = self.get_inked_bounds()
-    device_coords = self.viewport.user_to_device(user_bounds.x, user_bounds.y)
-    device_distance = self.viewport.user_to_device_distance(user_bounds.width, user_bounds.height)
+    ##device_coords = self.viewport.user_to_device(user_bounds.x, user_bounds.y)
+    ##device_distance = self.viewport.user_to_device_distance(user_bounds.width, user_bounds.height)
+    device_coords = vector.Vector(*context.user_to_device(user_bounds.x, user_bounds.y))
+    device_distance = vector.Vector(*context.user_to_device_distance(user_bounds.width, user_bounds.height))
     device_bounds = coordinates.dimensions(device_coords.x, device_coords.y, 
       device_distance.x, device_distance.y)
     self.viewport.surface.invalidate_rect( device_bounds, True )
+    return device_bounds
 
 
   def _aligned_rect_orthogonal(self, point):
@@ -175,9 +178,9 @@ class CircleGlyph(Glyph):
   @dump_return
   def get_orthogonal(self, point):
     centerx, centery, radius = coordinates.circle_from_dimensions(self.get_dimensions())
-    vect_to_center = base.vector.Vector(centerx, centery)
+    vect_to_center = vector.Vector(centerx, centery)
     # vector from center to point on circle
-    vect_center_to_point = base.vector.Vector(point.x, point.y) - vect_to_center
+    vect_center_to_point = vector.Vector(point.x, point.y) - vect_to_center
     return vect_center_to_point.normal()
 
 

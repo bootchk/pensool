@@ -31,7 +31,7 @@ class HandleGroup(menu.ItemGroup):
     """
     assert self.controlee
     
-    if self.controlee is scheme.glyphs:
+    if self.controlee is scheme.model:
       # Handle menu opened on background, controls the document
       axis = base.vector.downward_vector()
     else:

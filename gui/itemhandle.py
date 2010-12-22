@@ -46,8 +46,8 @@ class HandleItem(gui.itemcontrol.ItemControl):
     '''
     # TODO drag any button?
     # TODO drag 3 pixels first ie distinguish drag from click
-    assert(not self.is_dragging)
-    self.is_dragging = True
+    ###assert(not self.is_dragging)
+    ###self.is_dragging = True
     self.start_drag(event)
 
 

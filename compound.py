@@ -6,7 +6,19 @@ Composite drawables i.e. groups i.e. containers of drawables.
 Subclasses are menus and morphs.
 
 Composites can contain other composites, or primitives (guicontrols or glyphs.)
+
+Embodies:
+   an op on composite is an iterated op on its members or elements.
+   hiearchal modeling: drawing a composite transforms its members
+
+Certain ops are iterated on members, e.g. highlight.
+Certain ops are not iterated, but are ops on composite's transform, e.g. move.
+For those, see transformer.py
+
+The signature and documentation for each method
+is the same as for methods on the members.
 '''
+
 # FIXME rename to composite
 
 import transformer
@@ -36,10 +48,17 @@ class Compound(list, transformer.Transformer):
   (Members inherit properties from parents.)
   
   !!! inherits from Drawable:
-    invalidate() 
     is_inpath() 
     get_bounds()
   They call put_path_to() which comes here and it does the right thing.
+  
+  These ops are directly transformed for hierarchal modeling:
+    draw()
+    put_path_to()
+  
+  invalidate() is indirectly  transformed.
+  From invalidate() there is a call chain to put_path_to which gets transformed
+    coordinates.  See glyph.invalidate().
   '''
   
   def __init__(self, viewport):
@@ -75,6 +94,14 @@ class Compound(list, transformer.Transformer):
     context.restore()
   
   
+  @dump_event
+  def invalidate(self, context):
+    self.put_transform_to(context)
+    for item in self:
+      item.invalidate(context)
+    context.restore()
+
+
   @dump_event
   def get_orthogonal(self, point):
     '''
@@ -145,29 +172,26 @@ class Compound(list, transformer.Transformer):
     return rect
   
   
+  """
+  
+  OLD
+  @dump_event
   def move_relative(self, event, offset):
     '''
     Move origin relative. Redraw.
     TODO set_dimensions?
     '''
-    print "compound.move_relative", repr(self), "by ", offset.x, offset.y
-    # Move members
     for item in self:
       item.move_relative(event, offset)
-
+  """
   
   @dump_event
   def highlight(self, direction):
-    # highlight components
+    # TODO transform??
     for item in self:
       item.highlight(direction)
   
   
-  def invalidate(self):
-    for item in self:
-      item.invalidate()
-
-
   def activate_controls(self, event):
     '''
     Activating controls is NOT aggregate, but only on the top level.

@@ -89,16 +89,18 @@ a_viewport = viewport.ViewPort(da)
 a_printerport = viewport.PrinterPort()
 a_fileport = viewport.FilePort()
 
+scheme.initialize(a_viewport)
+
 # Show so allocation becomes valid
 window.show_all()
 
 
 # The document, IE model.
-''' morphs
-Initial: load from file.
+'''
+Initial model load from file.
 TODO
 '''
-scheme.initialize(a_viewport)
+
 
 """
 """
@@ -106,9 +108,9 @@ scheme.initialize(a_viewport)
 arect = morph.morph.RectMorph(a_viewport)
 acirc = morph.morph.CircleMorph(a_viewport)
 
-scheme.glyphs.append(arect)
-scheme.glyphs.append(acirc)
-for item in scheme.glyphs:
+scheme.model.append(arect)
+scheme.model.append(acirc)
+for item in scheme.model:
   item.set_dimensions(coordinates.dimensions(150, 150, 100, 100))
 
 # !!! Width, height of text are computed??
@@ -116,7 +118,7 @@ for item in scheme.glyphs:
 # TextMorph creates it's own selection
 atext = morph.textmorph.TextMorph(a_viewport)
 atext.set_dimensions(coordinates.dimensions(150, 30, 200, 200))
-scheme.glyphs.append(atext)
+scheme.model.append(atext)
 
 """
 # Make a group
@@ -132,7 +134,7 @@ agroup.append(acirc)
 agroup.set_dimensions(coordinates.dimensions(30,30,1,1))
 # agroup.append(atext)
 
-scheme.glyphs.append(agroup)
+scheme.model.append(agroup)
 """
 
 
@@ -168,9 +170,9 @@ Controlee is the bkgd_control itself.
 '''
 guicontrolmgr.control_manager.activate_control(bkgd_control, None, bkgd_control)
 
-a_viewport.set_model(scheme.glyphs)
-a_printerport.set_model(scheme.glyphs)
-a_fileport.set_model(scheme.glyphs)
+a_viewport.set_model(scheme.model)
+a_printerport.set_model(scheme.model)
+a_fileport.set_model(scheme.model)
 
 gtk.main()
 

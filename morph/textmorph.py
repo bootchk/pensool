@@ -115,7 +115,6 @@ class TextMorph(morph.PrimitiveMorph):
     # Translate to frame origin
     dims = self.get_origin()
     context.translate(dims.x, dims.y)
-    print "drawing text select"
     # Text select control knows its own translation within frame
     self.text_select.draw(context)
     context.restore()

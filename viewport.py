@@ -7,7 +7,7 @@ import os
 import scheme
 import style
 import base.vector as vector
-
+from decorators import *
 
 # TODO subclasses: window and printer page
 
@@ -28,19 +28,18 @@ class Port():
     a fileport might have extra data
   '''
   def __init__(self):
-    # The model
-    self.glyphs = None
+    self.model = None
     pass
     
-  def set_model(self, glyphs):
-    self.glyphs = glyphs
+  def set_model(self, model):
+    self.model = model
     
+  @dump_event
   def draw_model(self, context):
-      self.glyphs.draw(context)
+      self.model.draw(context)
       # Not all ports draw control widgets
     
   
-
 class ViewPort(Port):
   '''
   A Port on a display device
@@ -58,15 +57,19 @@ class ViewPort(Port):
   def __init__(self, da):
     # formerly subclassed: gtk.DrawingArea.__init__(self)
     da.connect("expose_event", self.expose)
+    
+    # scraps for a pixbuf background
     # global pb
     # self.connect_after('draw_background', self.draw_background, pb)
+    
     self.surface = da.window
     self.da = da
     # self.da.set_double_buffered(False)  # for animation TODO
-    self.matrix = cairo.Matrix() # The viewing transform matrix
+    ###self.matrix = cairo.Matrix() # The viewing transform matrix
     Port.__init__(self)
     self.style = style.Style()
   
+  """
   '''
   Fundamental operations on the viewport
   
@@ -84,7 +87,7 @@ class ViewPort(Port):
     #FIXME
     (x,y) = self.device_to_user_distance(delta_x, delta_y)
     self.matrix.translate(x, y)
-    self.redraw()
+    self.invalidate()
     
   def zoom(self, delta, event):
     '''
@@ -98,24 +101,28 @@ class ViewPort(Port):
     self.matrix.translate(user_coords.x, user_coords.y)
     self.matrix.scale(delta, delta)
     self.matrix.translate(-user_coords.x, -user_coords.y)
-    self.redraw()
-    
-  def redraw(self):
-    # Redraw all, force expose event on entire window
-    # Invalidate the rect of the drawing area
+    self.invalidate()
+  """
+  
+  
+  # TODO this might not be used
+  # The alternative is to invalidate the scheme, which might be a smaller rect
+  def invalidate(self):
+    """ Queue expose event on entire port window"""
     self.surface.invalidate_rect(self.da.allocation, False)
- 
+  
     
   def expose(self, widget, event):
     '''
-    Draw things: glyphs and control groups
+    Draw things: model and control groups
     '''
-    print "Expose*************"
+    print "Expose ************* area", event.area
     '''
     !!! Note that due to double-buffering, 
     Cairo contexts created in a GTK+ expose event handler cannot be cached 
     and reused between different expose events.
     '''
+    # TODO event.area to clipping in context
     context = self.da.window.cairo_create()
     self.style.put_to(context)
     
@@ -124,17 +131,19 @@ class ViewPort(Port):
       widget.draw(context)
       
     # Draw model and persistent controls in transformed coords
-    context.set_matrix(self.matrix)
-    
-    for control in scheme.transformed_controls:
-      print "Drawing transformed control", repr(control)
-      control.draw(context)
-      
+    # Viewport has no transformation.
+    # The top level of the scheme has the viewing transformation.
+    ## OLD context.set_matrix(self.matrix)
+    scheme.transformed_controls.draw(context)
     self.draw_model(context)
 
   
   def user_context(self):
     # Return a context in user coords ie doc
+    return self.da.window.cairo_create()
+  
+  def controls_context(self):
+    # Return a context for drawing controls
     return self.da.window.cairo_create()
 
     
@@ -147,13 +156,13 @@ class ViewPort(Port):
     Transform a coordinate from device space to user space 
     by multiplying the given point by the inverse of the current transformation matrix (CTM).
     '''
-    context = self.da.window.cairo_create()
-    context.set_matrix(self.matrix)
+    context = self.user_context()
+    ### context.set_matrix(self.matrix)
     return vector.Vector(*context.device_to_user(x, y))
   
   def user_to_device(self, x, y):
-    context = self.da.window.cairo_create()
-    context.set_matrix(self.matrix)
+    context = self.user_context()
+    ### context.set_matrix(self.matrix)
     return vector.Vector(*context.user_to_device(x, y))
 
 
@@ -164,12 +173,12 @@ class ViewPort(Port):
     See cairo docs
     '''
     context = self.da.window.cairo_create()
-    context.set_matrix(self.matrix)
+    ### context.set_matrix(self.matrix)
     return vector.Vector(*context.device_to_user_distance(x, y))
     
   def user_to_device_distance(self, x, y):
     context = self.da.window.cairo_create()
-    context.set_matrix(self.matrix)
+    ### context.set_matrix(self.matrix)
     return vector.Vector(*context.user_to_device_distance(x, y))
 
 

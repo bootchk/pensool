@@ -67,8 +67,8 @@ class BackgroundManager(gui.control.GuiControl):
       # TODO find probe suitable targets
       dropmanager.dropmgr.continued(event, self)
     else:
-      # Activate handle controls as approach edge of objects
-      for morph in scheme.glyphs:
+      # Activate handle controls as approach edge of top-level objects
+      for morph in scheme.model:
         # !!! Find morph in user coords
         if morph.is_inpath(user_coords):
           focusmgr.focus(morph)
@@ -102,7 +102,7 @@ class BackgroundManager(gui.control.GuiControl):
   def button_release_left(self, event):
     '''
     This defines that the background manager accepts a left drop.
-    From self into self???
+    From self into self: becomes drop()
     Drops from not self to self handled differently, see guicontrol.
     '''
     dropmanager.dropmgr.end(self, event)
@@ -123,12 +123,15 @@ class BackgroundManager(gui.control.GuiControl):
     Convert to zoom op on *document*.
     '''
     print "Scrolling", repr(event)
-    self.viewport.zoom(0.5, event)
+    # Zoom is an operation on the viewing transformation and model
+    scheme.model.zoom(0.5, event, self.viewport.user_context())
+    ##self.viewport.zoom(0.5, event)
     # FIXME constant for zoom speed
   
   
   def scroll_down(self, event):
-    self.viewport.zoom(2, event)
+    scheme.model.zoom(2.0, event, self.viewport.user_context())
+    ## self.viewport.zoom(2, event)
     
   
   @dump_event
@@ -141,9 +144,8 @@ class BackgroundManager(gui.control.GuiControl):
     # if they are in the window.
     if self.pointer_x != 0 :
       rect = coordinates.dimensions(self.pointer_x, self.pointer_y, 0, 0)
-      # !!! controlee is the top-level morph i.e. the whole drawing
-      # FIXME rename scheme.glyphs
-      self.handle_menu.open(rect, controlee=scheme.glyphs)
+      # !!! controlee is model i.e. the whole drawing
+      self.handle_menu.open(rect, controlee=scheme.model)
     else:
       gdk.beep()
     
@@ -161,20 +163,16 @@ class BackgroundManager(gui.control.GuiControl):
     
     
   """
-  def dispatch_drop():
-    '''
-    Handle drop by what control drag begin.
-    '''
+  Drag and drop.
   """ 
 
   @dump_event
   def start_drag(self, event):
     '''
-    Mouse starts moving with button down.
     controlee is the view ie the entire doc?? TODO
     '''
-    self.is_dragging = True
-    dropmanager.dropmgr.begin(event, controlee=scheme.glyphs, control=self)
+    ### self.is_dragging = True
+    dropmanager.dropmgr.begin(event, controlee=scheme.model, control=self)
     
   
   @dump_event
@@ -183,7 +181,6 @@ class BackgroundManager(gui.control.GuiControl):
     animate/ghost document being dragged in the viewport
     '''
     #TODO ghosting
-    pass
     
     
   @dump_event
@@ -195,13 +192,16 @@ class BackgroundManager(gui.control.GuiControl):
       morph (middle)
       control (foreground, close)
     !!! The background is agnostic about drops: tell source control to act.
+    !!! Except if the background is the source of the drag.
     '''
-    # Is a drag starting in the background?
-    if self.is_dragging:
+    
+    ###if self.is_dragging:
+    if source_control is self:  # Did drag start in background?
+      # backgroundctl controls viewport
+      source.invalidate()
       source.move_relative(event, offset)
-      self.is_dragging = False  # Local drag state
-    else:
-      # Drag started in another control
+    ###  self.is_dragging = False  # Local drag state
+    else:    # Drag started in another control
       source_control.drop(source, event, offset, source_control)
     
     
@@ -229,10 +229,11 @@ class BackgroundManager(gui.control.GuiControl):
     rect = self.dimensions
     context.rectangle(rect.x, rect.y, rect.width, rect.height)
   
-  
+  """
   '''
   Commands (undoable?)
   '''
+  # FIXME this should be inherited  from transformer.  Viewport is a transformer
   def move_relative(self, event, offset):
     '''
     Left drag op from background to background.
@@ -243,7 +244,7 @@ class BackgroundManager(gui.control.GuiControl):
     Offset: from start drag to drop in window coords
     '''
     self.viewport.scroll(offset.x, offset.y)
-
+  """
 
     
     

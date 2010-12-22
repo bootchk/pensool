@@ -81,6 +81,7 @@ class MoveHandleItem(itemhandle.HandleItem):
     self.controlee.move_relative(event, increment)
  
 
+  @dump_event
   def drop(self, source, event, offset, source_control):
     '''
     Some control was the target of a drop that started in this control.

@@ -48,7 +48,7 @@ class ControlsManager():
     
     # Reconnect mouse events
     if self.current_control is not None:
-      self.current_control.release_focus()
+      self.current_control.take_focus(False)
       self.port.da.disconnect(self.current_motion_handler)
       self.port.da.disconnect(self.current_press_handler)
       self.port.da.disconnect(self.current_release_handler)
@@ -60,7 +60,7 @@ class ControlsManager():
     
     self.current_control = control
     
-    control.take_focus()  # feedback focus change to user
+    control.take_focus(True)  # feedback focus change to user
     control.controlee = controlee
     
   def draw_active_control(self, context):

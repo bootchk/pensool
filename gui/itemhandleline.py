@@ -49,7 +49,7 @@ class LineHandleItem(itemhandle.HandleItem):
       print "...............NOT grouping with primitive", repr(self.controlee)
       # FIXME for now, put in scheme
       # should be, create a new group containing primitive and self
-      scheme.glyphs.append(morph) # FIXME rename
+      scheme.model.append(morph)
     else:
       print "...............Grouping with ", repr(self.controlee)
       self.controlee.append(line)

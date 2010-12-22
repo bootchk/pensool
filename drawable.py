@@ -76,8 +76,10 @@ class Drawable(object):
     Cause self to be temporarily drawn in the highlight style.
     Highlighting is a GUI focus issue, not a user document issue.
     '''
+    # Assume highlight is same bounds, i.e. don't invalidate before and after
     self.style.highlight(direction)
-    self.invalidate()
+    ## TODO need to invalidate?  how get context?
+    ## self.invalidate(context)
       
       
   def dump(self):
@@ -278,21 +280,18 @@ class Drawable(object):
 
 
   # Virtual methods
+  
   '''
+  Invalidate is virtual.
   Invalidate differs among subclasses:
   composite drawables: invalidate is aggregate
   primitive drawables: know their shape and may invalidate their shape, 
-    but generally they invalidate a bounding box
+    but generally they invalidate a bounding box.
+
+  Each subclass knows whether it is inked and transformed,
+  and thus how to invalidate the proper rectangle in the viewport.
+  !!! Note this is only a concern for the viewport and not other device ports.
   '''
-  
-  def invalidate(self):
-    '''
-    Virtual: each subclass knows whether it is inked and transformed,
-    and thus how to invalidate the proper rectangle in the viewport.
-    !!! Note this is only a concern for the viewport and not other device ports.
-    '''
-    raise NotImplementedError("Virtual")
-  
   
   def is_in_control_area(self, event):
     '''
