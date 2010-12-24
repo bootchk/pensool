@@ -28,7 +28,7 @@ class Transformer(drawable.Drawable):
     self.rotation = 0.0
   
   
-  @dump_return
+  # @dump_return
   def put_transform_to(self, context):
     '''
     Apply my transform to the current transform in the context.
@@ -41,7 +41,7 @@ class Transformer(drawable.Drawable):
       print self.transform
       raise
     self.style.put_to(context)
-    print "CTM", context.get_matrix()
+    # print "CTM", context.get_matrix()
     return self.transform
   
   
@@ -80,17 +80,23 @@ class Transformer(drawable.Drawable):
     
     
   @dump_event
+  @view_altering
   def move_relative(self, event, offset):
-    '''
-    Move origin by offset in device CS.  Offset is a delta.
-    '''
-    self.invalidate()
+    ''' Move origin by offset in dCS.  Offset is a delta. '''
     # TODO calculate local coordinates by using parent transform.
     self.translation += offset
     self.derive_transform()
-    self.invalidate()
+  
+  
+  # TBD not used
+  @dump_event
+  @view_altering
+  def move_absolute(self, event):
+    ''' Move origin absolute to coords in DCS. '''
+    print "drawable.move_absolute", repr(self), "to ", event.x, event.y
+    self.center_at(event)
     
- 
+    
   def device_to_user(self, x, y):
     # TODO do I need the model context?
     context = self.viewport.da.window.cairo_create()
@@ -98,13 +104,19 @@ class Transformer(drawable.Drawable):
     return vector.Vector(*context.device_to_user(x, y))
   
   
+  @dump_event
+  @view_altering
   def zoom(self, delta, event, context):
     '''
     Scale on point.
+    
+    Currently, the user can only do this on the document
+    (not on smaller morphs.)
+    
     Standard sequence of 3 transformations:
       translate
       scale
-      inverse translation
+      inverse translate
     '''
     """
     When part of viewport was
@@ -113,10 +125,8 @@ class Transformer(drawable.Drawable):
     self.transform.scale(delta, delta)
     self.transform.translate(-user_coords.x, -user_coords.y)
     """
-    self.invalidate(context)
     self.scale *= delta
     print "Zoomed scale is", self.scale
     self.derive_transform()
-    self.invalidate(context)
     
  

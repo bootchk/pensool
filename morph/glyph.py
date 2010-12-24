@@ -33,6 +33,12 @@ class Glyph(drawable.Drawable):
   
   # __init__ inherited
   
+  @dump_event
+  def invalidate_will_draw(self):
+    pass
+
+
+
   @dump_return
   def invalidate(self, context):
     ''' 

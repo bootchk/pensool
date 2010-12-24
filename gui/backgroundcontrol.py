@@ -197,11 +197,10 @@ class BackgroundManager(gui.control.GuiControl):
     
     ###if self.is_dragging:
     if source_control is self:  # Did drag start in background?
-      # backgroundctl controls viewport
-      source.invalidate()
+      # backgroundctl controls viewport.  Assert source is the scheme.
       source.move_relative(event, offset)
     ###  self.is_dragging = False  # Local drag state
-    else:    # Drag started in another control
+    else:    # Drag started in another control.
       source_control.drop(source, event, offset, source_control)
     
     

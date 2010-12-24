@@ -68,7 +68,7 @@ class Compound(list, transformer.Transformer):
     self.layout_spec = layout.LayoutSpec() # TODO only menu uses this, move it there
     
     
-  @dump_event
+  @dump_return
   def draw(self, context):
     '''
     Iterate draw contained objects.
@@ -79,9 +79,16 @@ class Compound(list, transformer.Transformer):
     apply my transform to the current transform matrix of the context (CTM).
     '''
     self.put_transform_to(context)
+    total_dims = None
     for item in self:
-      item.draw(context)
+      drawn_dims = item.draw(context)
+      if total_dims is None:
+        total_dims = drawn_dims
+      else:
+        total_dims = total_dims.union(drawn_dims)
     context.restore()
+    self.drawn_dims = total_dims
+    return self.drawn_dims
  
   
   def put_path_to(self, context):
@@ -92,15 +99,15 @@ class Compound(list, transformer.Transformer):
     for item in self:
       item.put_path_to(context)
     context.restore()
-  
-  
-  @dump_event
+      
+    
+  """
   def invalidate(self, context):
     self.put_transform_to(context)
     for item in self:
       item.invalidate(context)
     context.restore()
-
+  """
 
   @dump_event
   def get_orthogonal(self, point):

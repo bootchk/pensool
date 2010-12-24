@@ -89,12 +89,14 @@ class TextMorph(morph.PrimitiveMorph):
   def draw(self, context):
     '''
     This is a composite, but the single member is a textglyph.
-    Has a frame: virtual, optional member
+    Has a frame: virtual, optional member.
+    Return the drawn_dims of the frame,
+    which surrounds everything else (text and selection.)
     '''
     # Draw the frame transformed.
     # !!! Scaling unit rectangle.
     self.put_transform_to(context)
-    self.frame.draw(context)
+    drawn_dims = self.frame.draw(context)
     context.restore()
     
     # Draw my single text glyph.
@@ -118,6 +120,8 @@ class TextMorph(morph.PrimitiveMorph):
     # Text select control knows its own translation within frame
     self.text_select.draw(context)
     context.restore()
+    
+    return drawn_dims
     
  
     

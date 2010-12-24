@@ -8,15 +8,13 @@ from decorators import *
 import base.vector as vector
 
 
-def report_virtual():
-  # During devt..
-  import sys
-  print "??? Override virtual method", sys._getframe(1).f_code.co_name
+
 
 
 class Drawable(object):
   '''
-  Things that can be drawn (glyphs and controls).
+  Things that can be drawn (morphs, glyphs, and controls).
+  (Dimensions: see transformer.py.  Style: see style.py) 
   
   DRAWING:
   See below draw()
@@ -31,7 +29,7 @@ class Drawable(object):
   Controls are specific to a GUI, but there is no reason
   controls could not be drawn to another surface.
   
-  Some controls might not actually be drawn (the background manager), 
+  Some controls are not actually be drawn (the background manager), 
   but data is there to support it.
   
   COORDINATES:
@@ -48,17 +46,18 @@ class Drawable(object):
     self.drawn_dims = coordinates.any_dims()
     
   
-  # @dump_event  # Uncomment this to see drawables drawn.
+  # @dump_return  # Uncomment this to see drawables drawn.
   def draw(self, context):
     '''
     Draw self using context.
+    Return bounds in DCS for later use to invalidate.
     
-    !!! Note untransformed.
+    !!! Transformation must already be in the context CTM.
     '''
     self.put_path_to(context)
     
     # Cache my drawn dimensions
-    self.drawn_dims = coordinates.dimensions_from_extents(*self.get_drawn_extents(context))
+    self.drawn_dims = self.get_path_bounds(context)
     
     if self.filled:
       context.fill()  # Filled, up to path
@@ -66,20 +65,38 @@ class Drawable(object):
       context.stroke()  # Outline, with line width
     # Assert fill or stroke clears paths from context
     
+    return self.drawn_dims
     
     
+  @dump_return
+  def invalidate_as_drawn(self):
+    ''' 
+    Invalidate means queue a region to redraw at expose event.
+    GUI specific, not applicable to all surfaces.
+    
+    This is for composite and primitive drawables: every drawable has drawn_dims.
+    '''
+    self.viewport.surface.invalidate_rect( 
+      coordinates.round_rect(self.drawn_dims), True )
+    return self.drawn_dims
+   
 
+  '''
+  invalidate_will_draw is virtual: different for composites, etc.
+  '''
+  def invalidate_will_draw(self):
+    print "Invalidate will draw"
+    pass
     
   @dump_event
+  @view_altering
   def highlight(self, direction):
     '''
     Cause self to be temporarily drawn in the highlight style.
     Highlighting is a GUI focus issue, not a user document issue.
     '''
-    # Assume highlight is same bounds, i.e. don't invalidate before and after
+    # TODO Assume highlight is same bounds, i.e. don't invalidate before and after?
     self.style.highlight(direction)
-    ## TODO need to invalidate?  how get context?
-    ## self.invalidate(context)
       
       
   def dump(self):
@@ -200,41 +217,33 @@ class Drawable(object):
     self._dimensions = coordinates.center_on_coords(self.get_bounds(), event)
     return self._dimensions # return rect so it is dumped
   
-  def move_absolute(self, event):
+  
+  def get_path_bounds(self, context):
     '''
-    Move origin absolute. Redraw.
+    Get bounding rect in DCS of path in context as inked.
     '''
-    print "drawable.move_absolute", repr(self), "to ", event.x, event.y
-    self.invalidate() # Schedule erase at old origin
-    self.center_at(event)
-    self.invalidate() # Schedule redraw at new origin
-
-
-  def move_relative(self, event, offset):
-    '''
-    Move origin relative. Redraw.
-    '''
-    print "drawable.move_relative", repr(self), "by ", offset.x, offset.y
-    self.invalidate() # Schedule erase at old origin
-    self._dimensions.x += offset.x
-    self._dimensions.y += offset.y
-    self.invalidate() # Schedule redraw at new origin
-
+    x1, y1, x2, y2 = context.stroke_extents()
+    x1, y1 = context.user_to_device(x1, y1)
+    x2, y2 = context.user_to_device(x2, y2)
+    bounds = coordinates.dimensions_from_float_extents(x1, y1, x2, y2)
+    return bounds
+    
+    
   def get_drawn_extents(self, context):
     '''
-    Extents in user coords as drawn (subject to any transformations.)
+    Extents in UCS as drawn (subject to any transformations.)
     '''
     extents = context.path_extents()
     # stroke_extents are float, avert deprecation warning
     # Truncate upper left via int()
     map(math.ceil, extents[2:3])  # ceiling bottom right
     return [int(x) for x in extents]
-    
+   
     
 
   def get_bounds(self):
     '''
-    Return rect of ideal bounding box.
+    Return calculate rect of ideal bounding box.
     !!! Note path_extents is not ink, excludes the width of lines.
     Contrast to stroke_extents.
     '''

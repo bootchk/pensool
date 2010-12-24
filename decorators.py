@@ -10,6 +10,11 @@ Specifically, modify function calls with pre- and post- operations.
 '''
 import inspect  # for indent by stack depth
 
+
+'''
+Development decorators
+'''
+
 # FIXME rename to dump_call
 def dump_event(func):
   '''
@@ -45,7 +50,32 @@ def dump_return(func):
         '%s=%r' % entry for entry in zip(argnames,args) + kwargs.items())
     return value
   return dump_return
+
+
+
+'''
+Production decorators
+'''
+def view_altering(func):
+  '''
+  Decorator: wrap decorated func in invalidates.
+  Decorated func alters the view: transform or style.
+  Self is a drawable.
   
+  When view is altered, must redraw:
+  the former region (possibly erased)
+  AND the new region (possibly different)
+  Former region, as already drawn.
+  New region, not drawn yet, must calculate.
+  '''
+  def view_altering_decor(self, *args, **kwargs):
+    
+    self.invalidate_as_drawn()
+    value =func(self, *args, **kwargs)
+    self.invalidate_will_draw()
+    return value
+  return view_altering_decor
+
 
 def coords_translated(func):
   '''

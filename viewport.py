@@ -124,6 +124,7 @@ class ViewPort(Port):
     '''
     # TODO event.area to clipping in context
     context = self.da.window.cairo_create()
+    print "Clipping", context.clip_extents()
     self.style.put_to(context)
     
     # Draw ephemeral controls untransformed
@@ -146,10 +147,13 @@ class ViewPort(Port):
     # Return a context for drawing controls
     return self.da.window.cairo_create()
 
-    
+  # The UCS is the coordinate system at the scheme and model level.
+  # Each submorph is in it's own coordinate system.
+  
+  
   def device_to_user(self, x, y):
     '''
-    Transform coordinates from device to user coordinate systems.
+    Transform coordinates from device DCS to user UCS.
 
     From cairo docs:
     context.device_to_user() returns tuple (float, float)
@@ -159,11 +163,13 @@ class ViewPort(Port):
     context = self.user_context()
     ### context.set_matrix(self.matrix)
     return vector.Vector(*context.device_to_user(x, y))
-  
+
+"""    
   def user_to_device(self, x, y):
     context = self.user_context()
     ### context.set_matrix(self.matrix)
     return vector.Vector(*context.user_to_device(x, y))
+
 
 
   def device_to_user_distance(self, x, y):
@@ -180,7 +186,7 @@ class ViewPort(Port):
     context = self.da.window.cairo_create()
     ### context.set_matrix(self.matrix)
     return vector.Vector(*context.user_to_device_distance(x, y))
-
+"""
 
 
 class PrinterPort(Port):

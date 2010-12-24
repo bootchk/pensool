@@ -90,6 +90,7 @@ class ItemGroup(compound.Compound):
     self.invalidate(self.viewport.controls_context())
 
   @dump_event
+  @view_altering
   def open(self, event, controlee=None):
     '''
     Make visible at event coords.
@@ -105,7 +106,6 @@ class ItemGroup(compound.Compound):
     
     scheme.widgets.append(self)
     
-    self._invalidate()
     self.active_index = self.layout_spec.opening_item   # not necessarily first
     # !!! Pass the controlee to the items
     self._activate_current(event, controlee)
@@ -124,10 +124,11 @@ class ItemGroup(compound.Compound):
     
     
   @dump_event
+  @ view_altering
   def close(self, event):
     # TODO delete only self, if many widgets can be visible
     del scheme.widgets[-1:]
-    self._invalidate()   # menu
+    ## self._invalidate()   # menu
     focusmgr.unfocus()  # any controlee, should invalidate
     
     # Deactivate current item.  This activates the background manager.
@@ -168,6 +169,7 @@ class ItemGroup(compound.Compound):
     
     
   @dump_event
+  @view_altering
   def slide(self, pixels_off_axis):
     '''
     Slide menu substantially orthogonal to original axis.
@@ -178,9 +180,8 @@ class ItemGroup(compound.Compound):
     '''
     # layout.slide_layout_spec(self.layout_spec, pixels_off_axis)
     layout.slide_layout_spec_follow(self.controlee, self.layout_spec, pixels_off_axis)
-    self._invalidate()
     self.layout()
-    self._invalidate()
+
     
     
    

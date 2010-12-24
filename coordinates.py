@@ -48,9 +48,25 @@ import base.vector as vector
 
 
 def copy(dim):
+  ''' Copy GDKRectangle.  TODO superfluous'''
   return gdk.Rectangle(dim.x, dim.y, dim.width, dim.height)
 
 
+def round_rect(rect):
+  '''
+  Expand rect of postive floats to rect of ints.
+  Most drawing math in floats.
+  Round off to integral pixels.
+  '''
+  # LR ceiling to next pixel
+  width = int(math.ceil(rect.width))
+  height = int(math.ceil(rect.height))
+  # UL floor to previous pixel
+  x = int(rect.x)
+  y = int(rect.y)
+  return gdk.Rectangle(x, y, width, height)
+  
+  
 def circle_from_dimensions(dim):
   '''
   Return parameters of a circle from a dimension rect.
@@ -96,11 +112,24 @@ def dimensions_from_extents(ulx, uly, lrx, lry):
   '''
   Convert extents to a dimensions rect
   '''
+  assert isinstance(ulx, int)
   width = lrx - ulx
   height = lry - uly
   return gdk.Rectangle(ulx, uly, width, height)
-  
-  
+
+
+def dimensions_from_float_extents(ulx, uly, lrx, lry):
+  '''
+  Convert extents to a dimensions rect
+  '''
+  assert isinstance(ulx, float)
+  width = math.ceil(lrx - ulx)
+  height = math.ceil(lry - uly)
+  # Rectangle() will convert to ints
+  return gdk.Rectangle(ulx, uly, width, height)
+
+
+
 """
 def dimensions_to_bounds(dim):
   '''
