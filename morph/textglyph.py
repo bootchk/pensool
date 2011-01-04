@@ -5,6 +5,8 @@ import glyph
 import pango
 from decorators import *
 import base.vector
+import config
+import cairo
 
 
 
@@ -14,14 +16,42 @@ class TextGlyph(glyph.Glyph):
   see GTK Reference Manual: pangocairo.CairoContext
   """
   
-  # !!! Override with additional attribute: text
   def __init__(self, viewport):
+    '''
+    !!! Override: extra attribute: text
+    '''
     self.text = "Most relationships seem so transitory"
     # self.font = 
     drawable.Drawable.__init__(self, viewport) # super
     self.layout = None  # cache the layout
     
   
+  @dump_return
+  def draw(self, context):
+    '''
+    !!! Override: pango draws without scaling
+    '''
+    context.save()
+    ## context.set_matrix( cairo.Matrix() )
+    
+    context.scale(1.0/self.parent.scale.x, 1.0/self.parent.scale.y)  # inverse parent scale
+    # assert the context is already translated to the proper origin
+    self.put_path_to(context)
+    
+    self.bounds = self.get_path_bounds(context)
+    # !!! Outline fonts invisible at some scales
+    context.fill()
+    """
+    if self.style.is_filled():
+      context.fill()  # Filled, up to path
+    else:
+      context.stroke()  # Outline, with line width
+    """
+    # Assert fill or stroke clears paths from context
+    context.restore()
+    return self.bounds
+  
+    
   """
   def _put_box_path_to(self, context):
     '''
@@ -65,28 +95,46 @@ class TextGlyph(glyph.Glyph):
     Pango layout, for sophisticated text layout.
     Note pycairo context already supports pango
     '''
+    ''' Layout seems to need a unit transform. '''
+    ##context.save()
+    ##context.set_matrix( cairo.Matrix() )
+    
     # TODO persistent layout?
     layout = context.create_layout()
+    
+    '''Layout parameters: wrap, width, text, font, etc.'''
     layout.set_wrap(pango.WRAP_WORD)
     # FIXME
     # If user chose clipping to box
-    # Get the width in device units
-    dims = self.get_dimensions()
+    
+    ''' Set layout width in pangounits.
+    1 device unit = pango.SCALE pangounits
+    '''
+    #dims = self.get_dimensions()  # dimensions in pensool units
     # Scale to pangounits.
     # 200k with set_dims(scale=1) wraps into two sentences
     width = 200 * pango.SCALE
+    #print "matrix", context.get_matrix()
+    # print "dims.width", dims.width, "layout width", width
+    # FIXME, get parent scale to multiply pango.SCALE
     layout.set_width( width )   # pangounits
-    # 1 device unit = pango.SCALE pangounits
+    
     layout.set_text(self.text)
+    ##context.restore()
     return layout
     
     
   @dump_return
   def insertion_position(self, context):
     '''
-    Return user coords of insertion bar.
+    Return the offset of the selection.
+    Offset in local coordinate system GCS of the textmorph.
+    Used by the text_select_control to draw itself.
     
-    FIXME for now, lower right corner
+    OLD Return user coords of insertion bar.
+    
+    FIXME for now, lower right corner.
+    More generally, the user can move it.
     '''
     
     ## rect = self.get_dimensions()  # get origin
@@ -97,7 +145,7 @@ class TextGlyph(glyph.Glyph):
       size = base.vector.Point(* self.layout.get_pixel_size())  # size in user coords
     else:
       size = base.vector.Point(0,0)
-    return size + self.get_drawn_origin()
+    return size  # OLD + self.get_drawn_origin()
 
     ### print "IB cursor", layout.get_cursor_pos(15)
     

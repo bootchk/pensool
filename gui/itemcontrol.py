@@ -19,7 +19,8 @@ class ItemControl(gui.control.GuiControl):
     Draggable (button press)
     
   Sublasses MUST override:
-     put_path_to to define shape
+     __init__ to define the contained glyph shape (an item is a morph)
+      (NOT put_path_to(), which is done by the glyph)
      mouse_move to define behavior under mouse movement inside item
   
   Group behavior primarily is defined by mouse_exit().

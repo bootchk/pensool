@@ -1,16 +1,18 @@
 #!/usr/bin/env python
 
 import gui.itemcontrol
+import morph.glyph
 from gtk import gdk
 from decorators import *
+import config
 
 
 class MenuItem(gui.itemcontrol.ItemControl):
   '''
-  A menu item control:
-  -appears anywhere (locatable)
-  -fixed location after appears
-  -doesn't dissappear on mouseexit
+  A classic menu item control:
+    -appears anywhere (locatable)
+    -fixed location after appears
+    -doesn't dissappear on mouseexit
   
   For use in menus:
   
@@ -50,9 +52,14 @@ class MenuItem(gui.itemcontrol.ItemControl):
   
   @dump_event
   def mouse_exit(self, event):
-    # Depends on the side exited
-    # Traditional, square menus
-    bounds = self.get_bounds()
+    '''
+    Handler for filtered mouse_exit event.
+    Tell my group manager which direction to go,
+    depending on the side exited.
+    For traditional, square menu items.
+    '''
+    # Note both bounds and event in DCS
+    bounds = self.bounds.value
     if event.y < bounds.y:  # above
       self.group_manager.previous(event)
     elif event.y > bounds.y + bounds.height:  # below
@@ -65,13 +72,21 @@ class MenuItem(gui.itemcontrol.ItemControl):
    
   # @dump_event
   def mouse_move(self, event):
-    '''
-    Pass: defines that: conventional menu items do not move.
-    '''
+    ''' Pass because classic menu items do not move i.e. track the pointer. '''
     pass
     
     
 class SquareMenuItem(MenuItem):
+  
+  def __init__(self, port):
+    MenuItem.__init__(self, port)
+    self.append(morph.glyph.RectGlyph(port))
+    # define my size
+    self.scale_uniformly(config.ITEM_SIZE)
+    ## , morph.morph.RectMorph
+    ## ??? Doesn't work: super(SquareMenuItem, self).__init__(port)
 
+  """
   def put_path_to(self, context):
     context.rectangle(self.get_dimensions())
+  """

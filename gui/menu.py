@@ -16,6 +16,8 @@ import scheme
 import guicontrolmgr
 from decorators import *
 import layout
+import base.vector as vector
+import config
 
 # FIXME
 import textselectmanager
@@ -24,7 +26,7 @@ import textselectmanager
 
 # TODO abstract ControlGroup from Menu and HandleMenu and Dock
 
-# TODO a single GuiControl
+# TODO a single, ungrouped GuiControl
 
 class ItemGroup(compound.Compound):
   '''
@@ -101,8 +103,13 @@ class ItemGroup(compound.Compound):
     
     self.new_layout_spec(event)
     
-    # Position whole menu group.  Lays out members!!!
+    # Position whole menu group.
     self.set_origin(self.layout_spec.benchmark) ## was event
+    
+    # A menu must layout at least when opened.
+    # Some menu types can layout only at creation time.
+    # Some menu types layout after open time.
+    self.layout(event)  # FIXME is event needed
     
     scheme.widgets.append(self)
     
@@ -120,11 +127,11 @@ class ItemGroup(compound.Compound):
     Should be relative positions of items.
     Event precipitated layout, but ordinarily should not be used in layout.
     '''
-    print "???Virtual layout method called"
+    raise RuntimeError( "Virtual method called: layout()" )
     
     
   @dump_event
-  @ view_altering
+  @view_altering
   def close(self, event):
     # TODO delete only self, if many widgets can be visible
     del scheme.widgets[-1:]
@@ -135,11 +142,14 @@ class ItemGroup(compound.Compound):
     self._deactivate_current(event)
     
     # FIXME for now, deactivate text select when handle menu closes
-    textselectmanager.deactivate_select_for_text()
+    textselectmanager.activate_select_for_text(False)
     
     
   def add(self, item):
-    self.append(item)
+    ''' Append item.
+    Overrides composite.append() make item reference its manager.
+    '''
+    self.append(item) # super ? list or composite
     item.set_group_manager(self)
   
   
@@ -236,8 +246,9 @@ class ItemGroup(compound.Compound):
 class MenuGroup(ItemGroup):
   '''
   Traditional menu, layout is:
-    fixed position,
-    vertical orientations, 
+    fixed position (menu does not track cursor)
+    static layout (items in same relation every open)
+    vertical layout (items one above the other), 
     all items visible concurrently
   '''
   
@@ -254,9 +265,22 @@ class MenuGroup(ItemGroup):
   @dump_event
   def layout(self, event=None):
     '''
-    Layout (position) all items in group in vertical, rectangular table.
-    Event is ignored, use coords of most recent event (open, slide, etc.)
+    Layout (position) all items in group.
+    In vertical, rectangular table, with non-overlapping items.
+    Relative positioning within the parent GCS.
+    
+    Event is ignored, use coords of most recent event (open, slide, etc.).
     '''
+    point = vector.Point(0,0)
+    for item in self:
+      item.center_at(point)
+      # Next item downward
+      # FIXME more generally, get the size of an item
+      # point.y += item.get_dimensions().height
+      point.y += config.ITEM_SIZE # HEIGHT?
+      
+    """
+    OLD using non-transformed layout
     # Center first item on benchmark.
     # (Which is the same as opening event?)
     temp_rect = self.layout_spec.benchmark.copy()
@@ -264,6 +288,7 @@ class MenuGroup(ItemGroup):
       item.center_at(temp_rect)
       # Next item downward
       temp_rect.y += item.get_dimensions().height
+    """
 
 
 

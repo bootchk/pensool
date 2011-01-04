@@ -12,6 +12,7 @@ import gui.itemhandlecoords
 
 def build_handle_menu(viewport):
   '''
+  Handle menu that pops up on edges of graphics.
   '''
   handle_group = gui.menuhandle.HandleGroup(viewport)
   handle_control = gui.itemhandleline.LineHandleItem(viewport)
@@ -24,7 +25,9 @@ def build_handle_menu(viewport):
   
 
 def build_popup_menu(viewport):
-
+  '''
+  Classic style pop-up menu
+  '''
   menu_item = gui.itemmenu.SquareMenuItem(viewport)
   menu_item2 = gui.itemmenu.SquareMenuItem(viewport)
   menu_item3 = gui.itemmenu.SquareMenuItem(viewport)

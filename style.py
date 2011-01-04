@@ -5,12 +5,15 @@
 class Style(object):
   
   def __init__(self):
+    # attributes of style
     self.stroke_width = 1
-    self.color = (0, 0, 0)
+    self.color = (0, 0, 0)  # black
+    self.filled = False
+    # other
     self.previous_color = None
     
   def put_to(self, context):
-    context.set_source_rgba(self.color[0], self.color[1], self.color[2], 0.5) # black pen, 50% opacity
+    context.set_source_rgba(self.color[0], self.color[1], self.color[2], 0.5) # color, 50% opacity
     # Line width is subject to transform CTM.
     # The spec in a style is in device coords (pixels.)
     # Convert to user coords.
@@ -18,6 +21,10 @@ class Style(object):
     if ux < uy :
       ux = uy
     context.set_line_width(ux)
+    # !!! The fill is special, not in the context.
+    
+  def is_filled(self):
+    return self.filled
     
   def highlight(self, direction):
     if direction:

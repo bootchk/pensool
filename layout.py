@@ -3,16 +3,28 @@
 '''
 LayoutSpec
 
-For menu layout geometry.
+Specifications (parameters) for layout.
+For menu layout.
 For other composites?
 
+Controls are transformed.
+Scheme has a group of all controls not belonging to a graphical morph.
+The transform of that group is the transform for top-level controls.
+The transform only scales (according to user preference or degree of zoom?)
+
+A menu is a group.
+Thus the hierarchy of transforms for items is:
+  scheme control group transform (scales)
+  menu group transform (translates and rotates)
+  item transform (scales a unit glyph)
+ 
 A LayoutSpec does not necessarily describe the actual layout.
-For example, vector may not be used, but hardcoded.
+For example, layout() may ignore vector in LayoutSpec and instead use a hardcoded vector.
 '''
 import base.vector
-import math
 import cairo
 from decorators import *
+
 
 class LayoutSpec(object):
 

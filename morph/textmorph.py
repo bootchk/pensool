@@ -9,19 +9,19 @@ from decorators import *
 
 class TextMorph(morph.PrimitiveMorph):
   '''
-  Morph comprising a box of text.
+  Morph comprising framed text.
   User can:
-    manipulate the box.
+    manipulate frame.
     set font and size of text.
     enter keystrokes into the text.
-    constrain: box sides
-    constrain: text clipping or auto box expand
+    constrain: frame sides
+    constrain: text clipping or auto frame expand
     
-  Text does layout to fit the box.
-  set_dimensions of the box should layout.
+  Text does layout to fit the frame.
+  set_dimensions of the frame should layout.
   
-  For now, the box is virtual (not a separate morph.)
-  Use the standard grouping method to make a boxed text where box is visible?
+  For now, the frame is virtual (not a separate morph.)
+  Use the standard grouping method to make a frameed text where frame is visible?
   
   It is a compound containing one primitive TextGlyph.
   (For reasons discussed elsewhere.)
@@ -37,11 +37,16 @@ class TextMorph(morph.PrimitiveMorph):
   def __init__(self, viewport):
     morph.Morph.__init__(self, viewport)
     
-    # Three members: text, frame, and text_select_control
-    # !!! However, since they are transformed differently,
-    # only one is a member of the composite.
-    
+    """
+    Three members: 
+      text, a glyph
+      frame, a glyph
+      text_select_control, a morph with its transform
+    !!! Note however that textglyph overrides draw and futzes with scale.
+    """
     self.frame = glyph.RectGlyph(viewport)  # TODO singleton?
+    self.append(self.frame)
+    
     # textglyph is an attribute so that we can tell it to activate its select.
     # I suppose we could use self[0]
     self.textglyph = textglyph.TextGlyph(viewport)
@@ -53,7 +58,7 @@ class TextMorph(morph.PrimitiveMorph):
     '''
     # The textglyph will save a reference to this selection control.
     self.text_select = gui.textselectcontrol.TextSelectControl(viewport, self.textglyph)
-   
+    self.append(self.text_select)
     
   """
   def set_dimensions(self, rect):
@@ -69,10 +74,7 @@ class TextMorph(morph.PrimitiveMorph):
     This text has gained/lost pointer focus.  
     Activate/deactivate its text select for keyboard focus.
     '''
-    if direction:
-      textselectmanager.activate_select_for_text(self.textglyph)
-    else:
-      textselectmanager.deactivate_select_for_text()
+    textselectmanager.activate_select_for_text(direction, self.textglyph)
    
    
   def put_edge_to(self, context):
@@ -83,20 +85,20 @@ class TextMorph(morph.PrimitiveMorph):
     self.frame.put_edge_to(context)
     context.restore()
   
-  
+  """
   # !!! Override
   @dump_event
   def draw(self, context):
     '''
     This is a composite, but the single member is a textglyph.
     Has a frame: virtual, optional member.
-    Return the drawn_dims of the frame,
+    Return the bounds of the frame,
     which surrounds everything else (text and selection.)
     '''
     # Draw the frame transformed.
     # !!! Scaling unit rectangle.
     self.put_transform_to(context)
-    drawn_dims = self.frame.draw(context)
+    bounds = self.frame.draw(context)
     context.restore()
     
     # Draw my single text glyph.
@@ -121,12 +123,8 @@ class TextMorph(morph.PrimitiveMorph):
     self.text_select.draw(context)
     context.restore()
     
-    return drawn_dims
-    
- 
-    
-    
-    
+    return bounds
+    """
     
   '''
   def is_inpath(self, user_coords):

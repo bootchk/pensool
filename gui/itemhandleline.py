@@ -13,6 +13,7 @@ import scheme
 import dropmanager
 
 from decorators import *
+from config import *
 
 class LineHandleItem(itemhandle.HandleItem):
   '''
@@ -21,13 +22,10 @@ class LineHandleItem(itemhandle.HandleItem):
   gets involved when drag moves out of this item control.
   '''
   
-  def put_path_to(self, context):
-    '''
-    Shape of this handle.
-    '''
-    self.filled = True
-    context.rectangle(self.get_dimensions())
-  
+  def __init__(self, port):
+    itemhandle.HandleItem.__init__(self, port)
+    self.append(morph.glyph.RectGlyph(port))
+    self.scale_uniformly(ITEM_SIZE)
   
   @dump_event
   def scroll_down(self, event):
@@ -72,9 +70,6 @@ class LineHandleItem(itemhandle.HandleItem):
     self.group_with_controlee(line)
     
     
-    # No need to invalidate yet, size is zero
-    
-    
   @dump_event
   def continue_drag(self, event, offset, increment):
     '''
@@ -85,7 +80,6 @@ class LineHandleItem(itemhandle.HandleItem):
     # TODO look for suitable target
     line = dropmanager.dropmgr.get_draggee()
     line.set_by_drag(self.group_manager.layout_spec.hotspot, event, self.controlee)
-    line.invalidate()
     
     
   @dump_event

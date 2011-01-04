@@ -8,12 +8,10 @@ These items move and resize the controlee.
 import itemhandle
 import coordinates
 from decorators import *
+from config import *
 import focusmgr
-
-# TODO isolate these
-import cairo
-import math
-from gtk import gdk   
+import morph.glyph
+import base.alert
 
 
 class MoveHandleItem(itemhandle.HandleItem):
@@ -24,23 +22,11 @@ class MoveHandleItem(itemhandle.HandleItem):
   Scrolling descends/rises into controlee when it is composite(compound.)
   '''
   
-  def put_path_to(self, context):
-    """
-    #context.save()
-    saved = context.get_matrix()
-    transformation = cairo.Matrix()
-    transformation.rotate(0.5)
-    print ">>>>>>>>>", self.dimensions
-    transformation.scale(self.dimensions.width, self.dimensions.height)
-    transformation.translate(self.dimensions.x, self.dimensions.y)
-    context.transform(transformation)
-    # context.set_matrix(transformation)
-    context.rectangle(-0.5, -0.5, 1, 1)
-    #context.restore()
-    context.set_matrix(saved)
-    """
-    
-    context.rectangle(self.get_dimensions())
+  def __init__(self, port):
+    itemhandle.HandleItem.__init__(self, port)
+    self.append(morph.glyph.RectGlyph(port))
+    self.scale_uniformly(ITEM_SIZE)
+  
   
   @dump_event
   def scroll_down(self, event):
@@ -65,8 +51,7 @@ class MoveHandleItem(itemhandle.HandleItem):
       raise RuntimeError("No morph found for handle menu")
     else:
     ## OLD except TypeError: # if not iterable
-      gdk.beep()
-      print "Can't scroll past primitive morph"
+      base.alert.alert("Can't scroll past primitive morph")
   
   
   @dump_event
@@ -99,10 +84,16 @@ class ResizeHandleItem(itemhandle.HandleItem):
   
   Scrolling alters constraints on resize. TODO
   '''
-
+  def __init__(self, port):
+    itemhandle.HandleItem.__init__(self, port)
+    self.append(morph.glyph.CircleGlyph(port))
+    self.scale_uniformly(ITEM_SIZE)
+  
+  """
   def put_path_to(self, context):
     centerx, centery, radius = coordinates.circle_from_dimensions(self.get_dimensions())
     context.arc(centerx, centery, radius, 0, 2.0*math.pi)
+  """
 
   def drop(self, source, event, offset, source_control):
     '''

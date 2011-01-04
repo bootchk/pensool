@@ -43,16 +43,32 @@ import math
 import cairo
 from decorators import *
 import base.vector as vector
+import collections
 
 
-
+Rectangle = collections.namedtuple('Rectangle', 'x y width height')
 
 def copy(dim):
   ''' Copy GDKRectangle.  TODO superfluous'''
-  return gdk.Rectangle(dim.x, dim.y, dim.width, dim.height)
+  return Rectangle(dim.x, dim.y, dim.width, dim.height)
 
 
-def round_rect(rect):
+def integral_extents(x1, y1, x2, y2):
+  '''
+  Expand extents of postive floats to extents of ints.
+  Most drawing math in floats.
+  Round off to integral pixels.
+  '''
+  # LR ceiling to next pixel
+  x2 = int(math.ceil(x2))
+  y2 = int(math.ceil(y2))
+  # UL floor to previous pixel
+  x1 = int(x1)
+  y1 = int(y1)
+  return (x1, y1, x2, y2)
+  
+  
+def integral_rect(rect):
   '''
   Expand rect of postive floats to rect of ints.
   Most drawing math in floats.
@@ -156,12 +172,13 @@ def coords_to_bounds(coords):
   return gdk.Rectangle(coords.x, coords.y, 1, 1)
 
  
+"""
 def dimensions(left_x, left_y, width, height):
   '''
   Create a dimensions rectangle from args.
   '''
-  return gdk.Rectangle(left_x, left_y, width, height)
-
+  return Rectangle(left_x, left_y, width, height)
+"""
 
 def intersect(bounds1, bounds2):
   '''
@@ -216,6 +233,8 @@ def rectangle_orthogonal(rect, point):
   Return unit vect orthogonal to a rect from a point.
   The rect must be aligned with axises of coordinate system.
   '''
+  assert rect is not None
+  assert point is not None
   if point.x >= rect.x + rect.width:
     vect = vector.Vector(1,0)
   elif point.x <= rect.x :
@@ -235,7 +254,7 @@ def line_orthogonal(rect, point):
   # vector diagonal of rectangle
   vect = vector.Vector(rect.width, rect.height)
   orthogonal = vect.orthogonal(-1)  # left handed
-  return orthogonal.unitize()
+  return orthogonal.normal()
   
   
 
@@ -247,7 +266,7 @@ def any_dims():
   '''
   Return an arbitrary Dimensions instance.
   '''
-  return gdk.Rectangle(10, 10, 20, 20)
+  return Rectangle(10, 10, 20, 20)
   
   
 

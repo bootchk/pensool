@@ -25,6 +25,7 @@ import transformer
 from decorators import *
 import coordinates
 import layout
+import base.bounds as bounds
 
 
 
@@ -36,11 +37,9 @@ or to have-a container instead of be-a container.
 
 
 
-## WAS drawable.Drawable
-
 class Compound(list, transformer.Transformer):
   '''
-  A container of Drawables.
+  A container of Transformer:Drawables.
   
   Isolates hierarchy aspects:
   Compounds aggregate properties from their members.
@@ -56,9 +55,11 @@ class Compound(list, transformer.Transformer):
     draw()
     put_path_to()
   
-  invalidate() is indirectly  transformed.
-  From invalidate() there is a call chain to put_path_to which gets transformed
-    coordinates.  See glyph.invalidate().
+  The invalidate operation is aggregate and transformed
+  It invalidates the union region of members.
+  However, invalidate may be cached.
+  And invalidate may aggregate and be transformed via the recursion of put_path_to.
+  So you don't see invalidate as a method of compound.
   '''
   
   def __init__(self, viewport):
@@ -67,7 +68,20 @@ class Compound(list, transformer.Transformer):
     # self.stroke_width = 1       # TODO style
     self.layout_spec = layout.LayoutSpec() # TODO only menu uses this, move it there
     
-    
+  
+  def append(self, item):
+    '''
+    override list.append to keep parent of each list element
+    That is, hierachal model tree is digraph with bidirectional links.
+    '''
+    item.parent = self
+    list.append(self, item)
+  
+  
+  def get_parent(self):
+    return self.parent
+
+  
   @dump_return
   def draw(self, context):
     '''
@@ -78,17 +92,20 @@ class Compound(list, transformer.Transformer):
     Note this is standard hierarchal modeling:
     apply my transform to the current transform matrix of the context (CTM).
     '''
+    # !!! context saved by caller but restored here
     self.put_transform_to(context)
-    total_dims = None
+    self.style.put_to(context)
+    union_bounds = None
     for item in self:
-      drawn_dims = item.draw(context)
-      if total_dims is None:
-        total_dims = drawn_dims
+      item_bounds = item.draw(context)
+      if union_bounds is None:
+        union_bounds = item_bounds
       else:
-        total_dims = total_dims.union(drawn_dims)
+        union_bounds.union(item_bounds)
+      # print "Matrix for item:", context.get_matrix()
     context.restore()
-    self.drawn_dims = total_dims
-    return self.drawn_dims
+    self.bounds = union_bounds
+    return self.bounds
  
   
   def put_path_to(self, context):
@@ -96,18 +113,11 @@ class Compound(list, transformer.Transformer):
     Aggregate the paths of members.
     '''
     self.put_transform_to(context)
+    self.style.put_to(context)
     for item in self:
       item.put_path_to(context)
     context.restore()
       
-    
-  """
-  def invalidate(self, context):
-    self.put_transform_to(context)
-    for item in self:
-      item.invalidate(context)
-    context.restore()
-  """
 
   @dump_event
   def get_orthogonal(self, point):
@@ -121,6 +131,9 @@ class Compound(list, transformer.Transformer):
     rect = self.get_dimensions()
     return coordinates.rectangle_orthogonal(rect, point)
     
+  
+  """
+  Using transforms, propagation not necessary.
   
   @dump_event
   def set_origin(self, point):
@@ -139,11 +152,11 @@ class Compound(list, transformer.Transformer):
     # This triggers a warning about setting composite dimensions in set_dimensions??
     self.set_dimensions(rect)
     # drawable.Drawable.set_origin(self, rect)
-    # !!! Caller must also layout and invalidate
+    # !!! Caller must also layout and invalidate ??
     '''
     # Layout changes origins of members
     self.layout(point)
- 
+  """
  
   # @dump_event
   def layout(self, event=None):
@@ -161,7 +174,8 @@ class Compound(list, transformer.Transformer):
       print "Layout single item morph with group dimensions.<<<<<<"
       self[0].set_dimensions(self.get_dimensions())
   
-  
+  # FIXME the dimensions of a compound are not useful
+  # only the bounds???
   @dump_return
   def get_dimensions(self):
     '''

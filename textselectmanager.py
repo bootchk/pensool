@@ -23,19 +23,18 @@ active_text_select = None
 
 
 @dump_event
-def activate_select_for_text(text):
+def activate_select_for_text(direction, text = None):
   '''
   '''
   global active_text_select
-  active_text_select = text_select[text]
-
-
-def deactivate_select_for_text():
-  '''
-  '''
-  global active_text_select
-  active_text_select = None
-  
+  if direction:
+    try:
+      active_text_select = text_select[text]
+    except KeyError:
+      print "Text glyph without a text select?"
+  else:
+    active_text_select = None
+    
   
 def get_active_select():
   '''

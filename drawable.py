@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 
-import math
 import coordinates
-from gtk import gdk
+import base.bounds as bounds
 import style
 from decorators import *
 import base.vector as vector
@@ -42,8 +41,9 @@ class Drawable(object):
     self._dimensions = coordinates.any_dims()
     self.viewport = viewport
     self.style = style.Style()
-    self.filled = False
-    self.drawn_dims = coordinates.any_dims()
+    # bounds is initially a zero size bounds: it is unioned with member bounds
+    self.bounds = bounds.Bounds()
+    self.parent = None
     
   
   # @dump_return  # Uncomment this to see drawables drawn.
@@ -52,41 +52,72 @@ class Drawable(object):
     Draw self using context.
     Return bounds in DCS for later use to invalidate.
     
+    !!! This is the primitive draw.  See also composite.draw().
+    
     !!! Transformation must already be in the context CTM.
+    My parent transforms me.
+    
+    !!! Style is already in the context.
+    I inherit my parent style, but I can override.
     '''
-    self.put_path_to(context)
+    self.put_path_to(context) # recursive
+    self.style.put_to(context)
+    # TODO is this right, or do need to save context?
     
-    # Cache my drawn dimensions
-    self.drawn_dims = self.get_path_bounds(context)
+    # Cache my drawn bounds
+    self.bounds = self.get_path_bounds(context)
     
-    if self.filled:
+    if self.style.is_filled():
       context.fill()  # Filled, up to path
     else:
       context.stroke()  # Outline, with line width
     # Assert fill or stroke clears paths from context
     
-    return self.drawn_dims
+    return self.bounds
     
-    
+  '''
+  Invalidate means queue a region to redraw at expose event.
+  The region is rectangular, axis aligned, in DCS.
+  GUI specific, not applicable to all surfaces.
+  
+  !!!
+  Invalidate functions can be called outside a complete walk of model tree.
+  Invalidate functions are NOT recursively called.
+  Thus they fabricate a new context out of parent transform and style.
+  And call a recursive function, put_path_to().
+  '''
+  
   @dump_return
   def invalidate_as_drawn(self):
     ''' 
-    Invalidate means queue a region to redraw at expose event.
-    GUI specific, not applicable to all surfaces.
-    
-    This is for composite and primitive drawables: every drawable has drawn_dims.
+    Invalidate as previously drawn.
+    This is an optimization: caching drawn bounds.
+    This is for composite and primitive drawables: every drawable has bounds.
     '''
+    """
+    OLD
     self.viewport.surface.invalidate_rect( 
-      coordinates.round_rect(self.drawn_dims), True )
-    return self.drawn_dims
+      coordinates.integral_rect(self.drawn_dims), True )
+    """
+    self.viewport.surface.invalidate_rect(self.bounds.value, True)
+    return self.bounds
    
 
-  '''
-  invalidate_will_draw is virtual: different for composites, etc.
-  '''
+  @dump_event
   def invalidate_will_draw(self):
-    print "Invalidate will draw"
-    pass
+    '''
+    Invalidate as will be drawn (hasn't been drawn yet.)
+    This walks a branch of model to determine bounds.
+    '''
+    context = self.viewport.user_context()
+    # Put parent transform in new context, unless at top
+    if self.parent:
+      self.parent.style.put_to(context)
+      self.parent.put_transform_to(context)
+    self.put_path_to(context)   # recursive
+    will_bounds_DCS = self.get_path_bounds(context) # inked
+    self.viewport.surface.invalidate_rect( will_bounds_DCS.value, True )
+    
     
   @dump_event
   @view_altering
@@ -103,23 +134,13 @@ class Drawable(object):
     return repr(self) + " " + repr(self._dimensions) 
     # print "Extents:", context.path_extents()
     
-    
+  """
   '''
   Dimensions: GdkRectangle of dimensions in user coordinates.
   !!! These are the dimensions, not the bounds.
   The bounds of compound drawables is computed.
   !!! Copy, not reference, in case parameters are mutable.
   '''
-  
-  def translate(self, point):
-    '''
-    transform.translate
-    '''
-    pass
-    
-    
-    
-    
   @dump_event
   def set_dimensions(self, dimensions):
     '''
@@ -140,17 +161,6 @@ class Drawable(object):
     # Return a copy, not a reference
     return coordinates.copy(self._dimensions)
   
-  """
-  '''
-  Note: this is a property. Properies are not polymorphic.
-  Compound subclass of drawable override these by redeclaring dimensions
-  as a property of Compound.
-  '''
-  def del_dimensions(self):
-    raise RuntimeError("Can not delete dimensions.")
-  dimensions = property(get_dimensions, set_dimensions, del_dimensions, 
-    "GdkRectangle of dimensions in user coordinates")
-  """
 
   def set_origin(self, coords):
     '''
@@ -167,10 +177,11 @@ class Drawable(object):
   def get_origin(self):
     # don't return a reference, return a copy
     return vector.Vector(self._dimensions.x, self._dimensions.y)
-
+  """
+  
   def get_drawn_origin(self):
-    ''' Return user coords of origin where drawn.'''
-    return vector.Vector(self.drawn_dims.x, self.drawn_dims.y)
+    ''' Return device coords of origin where drawn.'''
+    return vector.Vector(self.bounds.x, self.bounds.y)
   
   
   def put_edge_to(self, context):
@@ -199,83 +210,33 @@ class Drawable(object):
   
   
   def is_inbounds(self, event):
-    ''' Is the event in our bounding box?'''
-    # Use intersection of rectangles.
-    # Convert event point to rectangle of width one.
-    return coordinates.intersect(self.get_bounds(), coordinates.coords_to_bounds(event))
-  
-  
-  @dump_return
-  def center_at(self, event):
+    ''' 
+    Is event in our bounding box?
+    Intersect bounding rect with event point converted to rectangle of width one.
     '''
-    Set ul at event.
-    Center the bounding box at event.
-    Assert bounding box is a rectangle.
-    ??? Dimensions might not be a rectangle? TODO
-    (No redraws)
-    '''
-    self._dimensions = coordinates.center_on_coords(self.get_bounds(), event)
-    return self._dimensions # return rect so it is dumped
+    ## return coordinates.intersect(self.get_bounds(), coordinates.coords_to_bounds(event))
+    return self.bounds.is_intersect(event)
   
   
   def get_path_bounds(self, context):
     '''
-    Get bounding rect in DCS of path in context as inked.
+    Compute bounding rect in DCS of path in context as inked.
+    !!! Note not recursive, takes path from context.
     '''
     x1, y1, x2, y2 = context.stroke_extents()
     x1, y1 = context.user_to_device(x1, y1)
     x2, y2 = context.user_to_device(x2, y2)
-    bounds = coordinates.dimensions_from_float_extents(x1, y1, x2, y2)
-    return bounds
+    # !!! Note still floats.
+    a_bounds = bounds.Bounds()
+    a_bounds.from_extents(x1, y1, x2, y2)
+    ### bounds = coordinates.dimensions_from_float_extents(x1, y1, x2, y2)
+    return a_bounds
     
     
-  def get_drawn_extents(self, context):
-    '''
-    Extents in UCS as drawn (subject to any transformations.)
-    '''
-    extents = context.path_extents()
-    # stroke_extents are float, avert deprecation warning
-    # Truncate upper left via int()
-    map(math.ceil, extents[2:3])  # ceiling bottom right
-    return [int(x) for x in extents]
-   
-    
-
-  def get_bounds(self):
-    '''
-    Return calculate rect of ideal bounding box.
-    !!! Note path_extents is not ink, excludes the width of lines.
-    Contrast to stroke_extents.
-    '''
-    context = self.viewport.user_context()
-    self.put_path_to(context)
-    extents = context.path_extents()
-    # stroke_extents are float, avert deprecation warning
-    # Truncate upper left via int()
-    map(math.ceil, extents[2:3])  # ceiling bottom right
-    int_extents = [int(x) for x in extents] 
-    bounds = coordinates.dimensions_from_extents(*int_extents)
-    # print "Bounds", bounds
-    return bounds
   
-    
-  # TODO consolidate
-  def get_inked_bounds(self):
-    '''
-    Return rect of inked bounding box in user coordinates.
-    !!! Note stroke_extents includes the width of lines.
-    '''
-    context = self.viewport.user_context()
-    self.put_path_to(context)
-    extents = context.stroke_extents()
-    # stroke_extents are float, avert deprecation warning
-    # Truncate upper left via int()
-    map(math.ceil, extents[2:3])  # ceiling bottom right
-    int_extents = [int(x) for x in extents] 
-    bounds = coordinates.dimensions_from_extents(*int_extents)
-    # print "Bounds", bounds
-    return bounds
  
+    
+   
       
   @dump_return
   def get_center(self):

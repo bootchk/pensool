@@ -2,15 +2,16 @@
 
 
 '''
-Handle subclass of menu.
+The Handle subclass of menu, i.e. a menu of type "handle menu".
 See itemhandle.py for the handle subclass of menu item.
 '''
 
 import menu
 import scheme
-import base.vector
+import base.vector as vector
 import layout
 from decorators import *
+import config
 
 
 
@@ -33,7 +34,7 @@ class HandleGroup(menu.ItemGroup):
     
     if self.controlee is scheme.model:
       # Handle menu opened on background, controls the document
-      axis = base.vector.downward_vector()
+      axis = vector.downward_vector()
     else:
       # axis is orthogonal to controlee
       axis = self.controlee.get_orthogonal(event)
@@ -54,14 +55,37 @@ class HandleGroup(menu.ItemGroup):
   @dump_event
   def layout(self, event=None):
     '''
-    Layout (position) all items in group
-    in a line orthogonal to the glyph
-    in an order towards the center of the glyph
-    (anti direction of orthogonal vector.)
+    Layout (position) all items in group.
+    
+    For Handle Menu:
+      In line orthogonal to glyph.
+      Ordered towards center of glyph (anti direction of orthogonal vector.)
+      Overlapping items.
     
     A handle group is laid out every time it slides.
     When exit an item, other items are already laid out.
     '''
+    point = vector.Point(0,0)
+    
+    ## TODO ??? is this is in spec?
+    ## layout_vector = self.controlee.get_orthogonal(event)
+    ## FIXME is event ever passed?
+   
+    # FIXME Offset by half count of items
+    point.x += self.layout_spec.vector.x * config.ITEM_SIZE/2
+    point.y += self.layout_spec.vector.y * config.ITEM_SIZE/2
+    
+    for item in self:
+      item.center_at(point)
+      # Space next item along vector
+      # FIXME more generally, get the size (width, height) of an item
+      # point.y += item.get_dimensions().height
+      point.x -= self.layout_spec.vector.x * config.ITEM_SIZE/2
+      point.y -= self.layout_spec.vector.y * config.ITEM_SIZE/2
+ 
+    """
+    OLD untransformed.
+    
     # Center first item on benchmark.  Ignore the event.
     ## OLD temp_rect = coordinates.dimensions(event.x, event.y, 0, 0)
     ### !!! This causes a seg fault temp_rect = copy.copy(self.layout_spec.benchmark)
@@ -85,14 +109,21 @@ class HandleGroup(menu.ItemGroup):
       temp_rect.x -= self.layout_spec.vector.x * item.get_dimensions().width/2
       temp_rect.y -= self.layout_spec.vector.y * item.get_dimensions().height/2
     print "returned from layout", self.layout_spec
-      
+    """
       
       
    
   def draw(self, context):
     '''
-    Draw only the current item.
-    !!! Overrides group draw.
+    Draw Handle Menu.
+    Specializes Menu: only draw the current item.
+    !!! Overrides composite.draw() (but follows the template.)
     '''
-    self[self.active_index].draw(context)
+    # !!! context saved by caller but restored here
+    self.put_transform_to(context)
+    self.style.put_to(context)
+    item_bounds = self[self.active_index].draw(context)
+    context.restore()
+    self.bounds = item_bounds
+    return self.bounds
  

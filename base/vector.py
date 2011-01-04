@@ -97,7 +97,7 @@ class Vector:
     def angle(self):
       ''' Returns angle in radians [-pi, pi] '''
       # !!! atan2(y,x)
-      return math.atan2(self.y, self.x)  # 
+      return math.atan2(self.y, self.x)
       
       
 Point = Vector

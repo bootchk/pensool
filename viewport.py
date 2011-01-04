@@ -9,7 +9,6 @@ import style
 import base.vector as vector
 from decorators import *
 
-# TODO subclasses: window and printer page
 
 class Port():
   '''
@@ -42,15 +41,23 @@ class Port():
   
 class ViewPort(Port):
   '''
-  A Port on a display device
+  A Port on a display device (screen, monitor).
   
   Understands that controls (widgets) drawn also.
-  '''
-  '''
-  A Port on a window in a display.
+  
+  A ViewPort is a window in a display.
   EG surface is a window, viewport defines the being-viewed rect on the doc.
+  
   A transform from doc(user) to device coords defines the view.
-  Has-a transform.
+  The scheme is a transformer, not a port.
+  The viewing transformation is the top transform in the scheme's hierarchical model.
+  
+  Conceptually, fundamental operations on a viewport:
+    Operation on the documents under (in) the port (see scheme):
+      scroll (pan)
+      zoom (on a point)
+    Operation on the port itself are handled by the window manager:
+      move, resize, close, minimize
   '''
   
   
@@ -58,51 +65,15 @@ class ViewPort(Port):
     # formerly subclassed: gtk.DrawingArea.__init__(self)
     da.connect("expose_event", self.expose)
     
-    # scraps for a pixbuf background
+    # TODO scraps for a pixbuf background
     # global pb
     # self.connect_after('draw_background', self.draw_background, pb)
     
     self.surface = da.window
     self.da = da
     # self.da.set_double_buffered(False)  # for animation TODO
-    ###self.matrix = cairo.Matrix() # The viewing transform matrix
     Port.__init__(self)
     self.style = style.Style()
-  
-  """
-  '''
-  Fundamental operations on the viewport
-  
-  Operation on the documents under the port:
-    scroll
-    zoom
-  Operation on the port itself are handled by the window manager
-    move, resize, close, minimize
-  '''
-  def scroll(self, delta_x, delta_y):
-    '''
-    Scroll (pan) document under port.
-    delta_x, delta_y in window coords.
-    '''
-    #FIXME
-    (x,y) = self.device_to_user_distance(delta_x, delta_y)
-    self.matrix.translate(x, y)
-    self.invalidate()
-    
-  def zoom(self, delta, event):
-    '''
-    Scale on point.
-    Standard sequence of 3 transformations:
-      translate
-      scale
-      inverse translation
-    '''
-    user_coords = self.device_to_user(event.x, event.y)
-    self.matrix.translate(user_coords.x, user_coords.y)
-    self.matrix.scale(delta, delta)
-    self.matrix.translate(-user_coords.x, -user_coords.y)
-    self.invalidate()
-  """
   
   
   # TODO this might not be used
@@ -124,7 +95,10 @@ class ViewPort(Port):
     '''
     # TODO event.area to clipping in context
     context = self.da.window.cairo_create()
-    print "Clipping", context.clip_extents()
+    x1, y1, x2, y2 = context.clip_extents()
+    print "Clipping: UCS", x1, y1, x2, y2
+    print "Clipping: DCS", context.user_to_device(x1,y1), context.user_to_device(x2,x2)
+    print "Matrix: ", context.get_matrix()
     self.style.put_to(context)
     
     # Draw ephemeral controls untransformed

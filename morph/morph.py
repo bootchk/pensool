@@ -21,6 +21,7 @@ import glyph
 import scheme # for bounding box
 import coordinates
 import base.vector as vector
+from decorators import *
 
 
 class Morph(compound.Compound):
@@ -53,18 +54,21 @@ class Morph(compound.Compound):
 
   def get_orthogonal(self, point):
     '''
-    Orthogonal of a morph with one member is orthogonal of member.
+    Orthogonal of a morph with one member is orthogonal of member,
+    under my transform.  FIXME apply my transform
     
     TODO rip get_orthogonal out of compound???
     '''
     if len(self) > 1:
       print "Orthogonal of a composite morph is orthog to bounding box?????"
       '''
+      It might be better to selectively hit only the frame primitive of some composites.
+      But is the frame always drawn?
       To hitted member and let user slide between members?
       FIXME Aggregate the orthogonal of all members that intersect the point??
       '''
-      rect = self.get_dimensions()
-      return coordinates.rectangle_orthogonal(rect, point)
+      # Note both bounds and point are in DCS
+      return coordinates.rectangle_orthogonal(self.bounds.value, point)
     else:
       return self[0].get_orthogonal(point)
     
@@ -78,18 +82,19 @@ class PrimitiveMorph(Morph):
     return True
 
 
+
 class LineMorph(PrimitiveMorph):
   def __init__(self, viewport):
     Morph.__init__(self, viewport)
     self.append(glyph.LineGlyph(viewport))
     
     
+  @dump_event
   def set_by_drag(self, start_coords, event, controlee):
     '''
     Set my transform according to a drag operation.
     My glyph is a unit line.
-    Set my transform to scale, translate, and rotate within
-    my group's coordinate system (GCS).
+    Set my transform within my group's coordinate system (GCS).
     
     '''
     # start_coords and event coords are in device DCS
@@ -97,24 +102,21 @@ class LineMorph(PrimitiveMorph):
     event_coords_UCS = self.viewport.device_to_user(event.x, event.y)
     drag_vector_UCS = event_coords_UCS - start_coords_UCS
     
-    # Rotate
-    # TODO
-    
-    # Scale
-    # TODO transform to GCS
+    # Scale both axis by vector length
     drag_length_UCS = drag_vector_UCS.length()
+    scale = vector.Vector(drag_length_UCS, drag_length_UCS)
     
-    # Translate
-    # TODO transform to GCS
-    
-    # TODO set RTS
+    self.set_transform(start_coords_UCS, scale, drag_vector_UCS.angle())
+    """
     dimensions = coordinates.dimensions(start_coords_UCS.x, start_coords_UCS.y, 
       drag_length_UCS, drag_length_UCS)
     self.set_dimensions(dimensions)
+    """
 
 
 class RectMorph(PrimitiveMorph):
   def __init__(self, viewport):
+    print "init rectmorph"
     Morph.__init__(self, viewport)
     self.append(glyph.RectGlyph(viewport))
     

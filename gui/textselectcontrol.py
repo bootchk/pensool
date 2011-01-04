@@ -7,7 +7,7 @@ Pensool only has selections in text.
 
 This is an overlay (e.g. gray or transparent) over text that is selected.
 
-A control because it does not appear in renderings other than GUI displays.
+A control: does not appear in renderings on ports other than viewport displays.
 
 Receives key presses when parent text glyph is active operand.
 
@@ -17,6 +17,7 @@ Receives key presses when parent text glyph is active operand.
 import gui.control
 import textselectmanager  # Manages set of text selection controls.
 from decorators import *
+import morph
 
 
 class TextSelectControl(gui.control.GuiControl):
@@ -36,7 +37,14 @@ class TextSelectControl(gui.control.GuiControl):
     
     ## OLD scheme.transformed_controls.append(self) # put in drawing scheme
     # Note dimensions are defaults until drawn
+    
+    # self if a morph comprising a group of rectangles
+    # Initially, self is a single rectangle for an insertion bar.
+    self.append(morph.glyph.RectGlyph(viewport))
   
+  #FIXME morph.put_path_to should suffice
+  # and any changes to the text glyph should change the transform of the selection
+  """
   
   @dump_event
   def put_path_to(self, context):
@@ -45,7 +53,7 @@ class TextSelectControl(gui.control.GuiControl):
     
     Note this is inside a text box, which might be transformed.
     The same transform applies here.
-    That is, this is called when walking the hierachal model.
+    That is, this is called when walking the hierarchical model.
     '''
     self.filled = True  # TODO filled?
     # TODO shape it to mask text
@@ -57,9 +65,15 @@ class TextSelectControl(gui.control.GuiControl):
     position = self.text_glyph.insertion_position(context)
     # Translate within text box
     context.translate(position.x, position.y)
-    print self.get_dimensions(), context.get_matrix()
-    context.rectangle(self.get_dimensions())
+    # print self.get_dimensions(), context.get_matrix()
     
+    # more generally, a rectangle with cutouts to fit a block of text
+    # i.e. a group of rectangles
+    # FIXME
+    # For now, one rectangle
+    ## context.rectangle(self.get_dimensions())
+    self[0].put_path_to(context)
+  """
     
   """
   def attach_to(self, text, context):
@@ -74,25 +88,22 @@ class TextSelectControl(gui.control.GuiControl):
     self.set_dimensions(rect)
   """ 
   
-  
+  @view_altering  # key alters this control
   def key(self, event):
     '''
     Key pressed in a text select.
-    Replace select with key.
+    Replace select with key in the text.
+    Move the select to following the key in the text.
     '''
     # FIXME for now append to text glyph
     self.text_glyph.text += event.string
     
     # This control probably move and possibly resize.
     # Queue redraw at current.
-    self.invalidate()
+    ## self.invalidate()
     
     # FIXME relayout changed text
     # Queue redraw changed text
     self.text_glyph.invalidate()
 
-    
-    
-    
-    
-  # TODO key events
+

@@ -38,15 +38,18 @@ class BackgroundManager(gui.control.GuiControl):
     # !!! Controls self, ie the document
     # FIXME this is wierd.  None?  Document model?
     self.controlee = self
-
-  
+    self.set_background_bounds()
+    
+  def set_background_bounds(self):
+    ''' Set the invisible, undrawn bounds of the background.'''
+    self.bounds.from_rect(self.viewport.da.allocation)
   
   def configure_event_cb(self, widget, event):
-    '''
+    ''' 
     Window size changed.
-    We don't care about window moves.
+    We don't care about window moves?
     '''
-    self.dimensions = self.viewport.da.allocation
+    self.set_background_bounds()
   
   
   # @dump_event

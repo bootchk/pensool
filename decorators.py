@@ -31,7 +31,7 @@ def dump_event(func):
   def dump_func(*args, **kwargs):
     depth = len(inspect.stack())  # Indent message by call stack depth
     print " "*depth, fname, ",".join(
-      '%s=%r' % entry
+      '%s=%s' % entry
       for entry in zip(argnames,args) + kwargs.items())
     return func(*args, **kwargs)
   return dump_func
@@ -46,8 +46,9 @@ def dump_return(func):
   def dump_return(*args, **kwargs):
     value = func(*args, **kwargs)
     depth = len(inspect.stack())  # Indent message by call stack depth
+    # use %r for repr() %s for str()
     print " "*depth, fname, "returns", value, ",".join(
-        '%s=%r' % entry for entry in zip(argnames,args) + kwargs.items())
+        '%s=%s' % entry for entry in zip(argnames,args) + kwargs.items())
     return value
   return dump_return
 

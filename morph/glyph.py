@@ -12,6 +12,7 @@ import math
 import coordinates
 from decorators import *
 import base.vector as vector
+from config import *
 
 
 
@@ -22,6 +23,10 @@ class Glyph(drawable.Drawable):
   Symbols in the document or model.
   Subclasses of Glyph differ in path.
   
+  API: virtual methods to be implemented by subclass:
+    put_path_to()
+    get_orthogonal()
+  
   A Glyph is in user coordinate system.
   The primary difference from a drawable
   is that a glyph does coordinate transformation at invalidate. ????
@@ -29,143 +34,68 @@ class Glyph(drawable.Drawable):
   A Glyph is in "natural" coordinates, i.e. at the origin and unit dimensions.
   A Glyph is a Drawable, and has a transform, but it is NOT USED.
   !!! Makes not sense to call get_dimensions() or self.transform
-  '''
   
+  Prototype for get_orthogonal(self, point):
+    Return some vector orthogonal to self at this point on self.
+    Assert point is in DCS and is on self.
+    Returned orthogonal can be any length; only angle matters.
+    Returned orthogonal is in DCS (angle is to screen aligned axis.)
+  '''
   # __init__ inherited
   
-  @dump_event
-  def invalidate_will_draw(self):
-    pass
-
-
-
-  @dump_return
-  def invalidate(self, context):
-    ''' 
-    Invalidate means queue a region to redraw at expose event.
-    GUI specific, not applicable to all surfaces.
-    '''
-    user_bounds = self.get_inked_bounds()
-    ##device_coords = self.viewport.user_to_device(user_bounds.x, user_bounds.y)
-    ##device_distance = self.viewport.user_to_device_distance(user_bounds.width, user_bounds.height)
-    device_coords = vector.Vector(*context.user_to_device(user_bounds.x, user_bounds.y))
-    device_distance = vector.Vector(*context.user_to_device_distance(user_bounds.width, user_bounds.height))
-    device_bounds = coordinates.dimensions(device_coords.x, device_coords.y, 
-      device_distance.x, device_distance.y)
-    self.viewport.surface.invalidate_rect( device_bounds, True )
-    return device_bounds
-
-
+  def __repr__(self):
+    #  Simplfied reprt.  Omit this to get address of instance.
+    return self.__class__.__name__
+    
+    
   def _aligned_rect_orthogonal(self, point):
     '''
-    Return orthogonal to object with rectangular dimensions or bounding box.
+    Return orthogonal to object with rectangular bounds.
     
     Symbol itself need not be rectangular.
     '''
-    # assert rect is orthogonal to coordinate system
-    rect = self.get_dimensions()
-    return coordinates.rectangle_orthogonal(rect, point)
+    # assert bounds and point in same coordinate system (DCS)
+    # assert bounds aligned with axis of coordinate system
+    # TODO more general for other CS?
+    return coordinates.rectangle_orthogonal(self.bounds.value, point)
     
 
-  '''
-  API virtual methods to be implemented by subclass
-    put_path_to()
-    get_orthogonal()
-  '''
+  
 
 
 class LineGlyph(Glyph):
   '''
-  A straight line.
-  
-  Traditionally a line is defined by two points.
-  Here a line is defined by a rect: 
-  x,y is first point
-  x+width, y+height is second point.
+  Unit line along the x-axis.
   '''
   def put_path_to(self, context):
-    # unit line along x-axis
     context.move_to(0, 0)
-    context.rel_line_to(1, 0)
+    context.rel_line_to(1.0, 0)
     return
-    
-    rect = self.get_dimensions()
-    context.move_to(rect.x, rect.y)
-    context.rel_line_to(rect.width, rect.height)
+
     
   def get_orthogonal(self, point):
-    return coordinates.line_orthogonal(self.get_dimensions(), point)
+    '''
+    Return unit orthogonal to self at this point on self.
+    Assert point is in DCS and is on self.
+    
+    For a line, point is immaterial.
+    The point is on (or near?) the line and so some ortho to the line
+    MUST hit the point (the point can't be on the extension
+    of a finite line.)
+    For a line, there are two orthogonals to a point.
+    TODO choose one?
+    '''
+    return coordinates.line_orthogonal(self.bounds.value, point)
 
 
 
 class RectGlyph(Glyph):
+  
+  # @dump_event
   def put_path_to(self, context):
-    context.rectangle(0,0,1,1)  # Unit rectangle at origin
+    context.rectangle(0,0,1.0,1.0)  # Unit rectangle at origin
     return
-    
-    rect = self.get_dimensions()
-    
-    point = coordinates.center_of_dimensions(rect)
-    cdims = coordinates.center_on_origin(rect)
-    
-    """
-    # 1.  tr, rot, tr, the standard way
-    context.save()
-    context.translate(-point.x, -point.y)
-    context.rotate(0.5)
-    context.translate(point.x, point.y)
-    context.rectangle(rect)
-    context.restore()
-    """
-    # 2. paths in object coords (centered on origin)
-    context.save()
-    context.translate(point.x, point.y)
-    context.rotate(0.0)   # TODO use rotation of glyph
-    context.rectangle(cdims)
-    context.restore()
-    """
-    context.transform(transformation)
-    # context.set_matrix(transformation)
-    context.rectangle(rect.x, rect.y, rect.width, rect.height)
-    context.restore()
-    """
-    """
-    context.save()
-    context.translate(point.x, point.y)
-    context.rotate(0.5)
-    context.translate(point.x, point.y)
-    context.rectangle(rect.x, rect.y, rect.width, rect.height)
-    context.stroke()  # ???? Restore destroy the path?
-    context.restore()
-    """
-    """
-    context.save()
-    transformation = cairo.Matrix()
-    transformation.translate(-rect.x, -rect.y)
-    transformation.rotate(0.5)
-    transformation.translate(rect.x, rect.y)
-    context.set_matrix(transformation)
-    context.rectangle(rect.x, rect.y, rect.width, rect.height)
-    context.restore()
-    """
-    """
-    print "Rect", rect
-    saved = context.get_matrix()
-    print "Original matrix", saved
-    transformation = cairo.Matrix()
-    transformation.rotate(0.5)
-    transformation.scale(rect.width, rect.height)
-    transformation.translate(rect.x, rect.y)
-    # context.transform(transformation)
-    context.set_matrix(transformation)
-    context.rectangle(-0.5, -0.5, 1, 1)
-    #context.restore()
-    context.set_matrix(saved)
-    """
-    """
-    # OLD
-    context.rectangle(rect.x, rect.y, rect.width, rect.height)
-    """
+ 
   
   @dump_return
   def get_orthogonal(self, point):
@@ -173,18 +103,36 @@ class RectGlyph(Glyph):
       
     
 class CircleGlyph(Glyph):
+  '''
+  Unit circle.
+  Unit diameter.
+  Bounding box origin at 0,0
+  '''
   def put_path_to(self, context):
     # Unit circle
-    context.arc(0, 0, 1, 0, 2.0*math.pi)
+    # x, y, radius, ?, radians
+    ## context.arc(0, 0, 1.0, 0, 2.0*math.pi)
+    context.arc(0.5, 0.5, 0.5, 0, 2.0*math.pi)
     return
     
+    """ OLD
     centerx, centery, radius = coordinates.circle_from_dimensions(self.get_dimensions())
     context.arc(centerx, centery, radius, 0, 2.0*math.pi)
+    """
   
   @dump_return
   def get_orthogonal(self, point):
-    centerx, centery, radius = coordinates.circle_from_dimensions(self.get_dimensions())
+    '''
+    '''
+    # Working in DCS
+    # Assert the center of the bounds is the same as the center of the circle.
+    """
+    OLD
+    centerx, centery, radius = coordinates.circle_from_dimensions(self.bounds())
     vect_to_center = vector.Vector(centerx, centery)
+    """
+    center_DCS = self.bounds.center_of()
+    vect_to_center = vector.Vector(center_DCS.x, center_DCS.y)
     # vector from center to point on circle
     vect_center_to_point = vector.Vector(point.x, point.y) - vect_to_center
     return vect_center_to_point.normal()

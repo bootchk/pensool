@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 # import config
+# import transformer
+import morph.morph
 import dropmanager
 import drawable
 from gtk import gdk
@@ -14,7 +16,10 @@ def report_virtual():
   print "??? Override virtual method", sys._getframe(1).f_code.co_name
 
 
-class GuiControl(drawable.Drawable):
+## was drawable.Drawable
+## transformer.Transformer
+## morph.morph.Morph
+class GuiControl(morph.morph.Morph):
   '''
   Base class for GUI controls i.e. widgets.
   
@@ -27,6 +32,15 @@ class GuiControl(drawable.Drawable):
   Is active when events are connected to its callbacks.
   (Callbacks are not always connected.)
 
+  A control is a morph because it has-a glyph that is transformed.
+  That is, controls are transformable drawables.
+  
+  Some controls are in a different scheme than the graphic morphs the user is editing.
+  The topmost transform for such controls is a user setting or preference.
+  
+  Other controls are members of another morph, and transformed by their parent morph.
+  e.g. a text selection.
+  
   Inherits Drawable.draw(), put_path_to(), is_inbounds()
   !!! Overrides is_in_control_area see below.
   '''
@@ -41,7 +55,16 @@ class GuiControl(drawable.Drawable):
     self.group_manager = None # Coordination among group subset of controls
     
     # Super init
-    drawable.Drawable.__init__(self, port )
+    # TODO document that using super
+    # drawable.Drawable.__init__(self, port )
+    super(GuiControl, self).__init__(port)
+    
+    # !!! This is an empty morph (composite.)  Subclasses should append a glyph.
+  
+  
+  def __repr__(self):
+    ''' Represent by the class name'''
+    return self.__class__.__name__
     
     
   def _reset_state(self):
@@ -55,6 +78,7 @@ class GuiControl(drawable.Drawable):
     self.pointer_DCS = None
 
 
+  """
   @dump_event
   def invalidate(self, context):
     ''' 
@@ -66,8 +90,9 @@ class GuiControl(drawable.Drawable):
     device_bounds = self.get_inked_bounds()
     # TODO transforms on controls
     self.viewport.surface.invalidate_rect( device_bounds, True )
+  """
 
-
+  # @dump_return
   def is_in_control_area(self, event):
     '''
     Is the event in the hot area?
@@ -238,7 +263,7 @@ class GuiControl(drawable.Drawable):
   @dump_event
   def take_focus(self, direction):
     self.has_focus = direction
-    self.invalidate(self.viewport.controls_context())
+    self.invalidate_will_draw()  ### self.viewport.controls_context())
 
   
  

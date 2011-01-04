@@ -14,7 +14,7 @@ Design goals:
   Flexible GUI: 
   Themeable: only to the extent that GTK supports
   
-  Idiomatic: use patterns, Python idioms, etc.  almost everything is NIH (not invented here)
+  Idiomatic: use patterns, Python idioms, recipes etc.  almost everything is NIH (not invented here)
   High level: Python, C only where necessary for performance
   
   Innovation only in Handle Menus

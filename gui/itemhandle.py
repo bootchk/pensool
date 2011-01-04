@@ -93,8 +93,9 @@ class HandleItem(gui.itemcontrol.ItemControl):
     Since a handle menu follows the mouse in orthogonal directions,
     this must mean mouse moved in axial *exit* direction.
     '''
-    # Calculate the vector of mouse exit.
-    center = coordinates.center_of_dimensions(self.get_dimensions())
+    # Calculate vector in DCS of mouse exit.
+    ## OLD center = coordinates.center_of_dimensions(self.get_dimensions())
+    center = self.bounds.center_of()
     exit_vector = base.vector.Point(event.x, event.y) - center
     ## OLD coordinates.vector_from_points(center, event)
     # Tell manager, let the manager figure out if
@@ -102,18 +103,6 @@ class HandleItem(gui.itemcontrol.ItemControl):
     self.group_manager.do_item_exit(event, exit_vector)
     return
     
-    """
-    # OLD
-    
-    bounds = self.get_bounds()
-    # If exited forward or backward
-    if event.x <= bounds.x:
-      # the *next* exit side
-      self.group_manager.next(event)
-    else:
-      # the *previous* exit side
-      self.group_manager.previous(event)
-    """
   
   
   '''

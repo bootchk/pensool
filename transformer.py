@@ -1,18 +1,26 @@
 #!/usr/bin/env python
 
 '''
-Transformer: drawable that transforms its members
+Transformer: transforms its members.
 
-Understands transforms and hierarchal modeling.
+Transforms are part of hierarchal modeling.
+Primitives are unit shapes and leaves in the hierarchy.
+Composites are branches of the hierarchy and transformers of their members.
+
+Drawables are transformers.
+A view is also a transformer and the root of the hierarchy.
 
 Note Transformer does NOT override draw(), but Composite does.
 !!! But Composite.draw() can be overridden, for composites having both transformed and untransformed shapes.
 '''
 
+# TODO style part of transformation?
+
 import drawable
 import cairo
 import base.vector as vector
 from decorators import *
+import config
 
 
 
@@ -21,8 +29,11 @@ class Transformer(drawable.Drawable):
 
   def __init__(self, viewport):
     drawable.Drawable.__init__(self, viewport)
-    self.transform = cairo.Matrix() # initially identity transform
     
+    # A transformer defaults to the identity transform.
+    self.transform = cairo.Matrix() # assert identity transform
+    
+    # Specs for identity transform
     self.translation = vector.Vector(0, 0)
     self.scale = vector.Vector(1.0, 1.0)
     self.rotation = 0.0
@@ -45,25 +56,45 @@ class Transformer(drawable.Drawable):
     return self.transform
   
   
-  @dump_event
+  @dump_return
   def derive_transform(self):
     '''
-    Calculate my transform from my drawing specs.
+    Set my transform from my drawing specs.
     '''
     self.transform = cairo.Matrix()
     # Standard sequence: rotate, scale, translate
-    # TODO rotate
+    self.transform.rotate(self.rotation)
     self.transform.scale(self.scale.x, self.scale.y)  # Scale
     translation_matrix = cairo.Matrix(x0=self.translation.x, 
       y0=self.translation.y) # Translate
     # Multiply in correct order. Note self.transform.translate() would not work??
-    self.transform *= translation_matrix  
+    self.transform *= translation_matrix
+    return self.transform
     
   
+  '''
+  Setters of transform.
+  Differ by component set: all, translation, scale, rotation, and pairs of.
+  '''  
+
   @dump_event
+  @view_altering
+  def set_transform(self, translation, scaltion, rotation):
+    '''
+    Set the specs for transform, and derive transform from specs.
+    '''
+    # assert no need to copy these vectors?
+    self.translation = translation
+    self.scale = scaltion
+    self.rotation = rotation
+    self.derive_transform()
+    
+    
+  @dump_event
+  @view_altering
   def set_dimensions(self, dimensions):
     '''
-    Set the translation and scale of an object.
+    Set the translation and scale (not rotation) of an object.
     For testing: ordinarily, transforms are set by user actions using other methods.
     '''
     assert dimensions.width > 0
@@ -72,17 +103,27 @@ class Transformer(drawable.Drawable):
     # Should be a non-empty morph (a compound)
     assert len(self) > 0
     
-    drawable.Drawable.set_dimensions(self, dimensions)  # Super
     self.translation = vector.Vector(dimensions.x, dimensions.y)
     self.scale = vector.Vector(dimensions.width/1.0, dimensions.height/1.0)
     self.derive_transform()
     
     
+  @dump_event
+  @view_altering
+  def set_origin(self, event):
+    ''' Set translation '''
+    # FIXME floats?  CS conversions?
+    self.translation = vector.Vector(event.x, event.y)
+    self.derive_transform()
+    
     
   @dump_event
   @view_altering
   def move_relative(self, event, offset):
-    ''' Move origin by offset in dCS.  Offset is a delta. '''
+    ''' 
+    Translate.
+    Move origin by offset.  Offset is a delta DCS. 
+    '''
     # TODO calculate local coordinates by using parent transform.
     self.translation += offset
     self.derive_transform()
@@ -102,6 +143,13 @@ class Transformer(drawable.Drawable):
     context = self.viewport.da.window.cairo_create()
     ### context.set_matrix(self.matrix)
     return vector.Vector(*context.device_to_user(x, y))
+  
+  
+  @dump_event
+  @view_altering
+  def scale_uniformly(self, delta):
+    self.scale *= delta
+    self.derive_transform()
   
   
   @dump_event
@@ -129,4 +177,29 @@ class Transformer(drawable.Drawable):
     print "Zoomed scale is", self.scale
     self.derive_transform()
     
+  @dump_event
+  def center_at(self, point):
+    '''
+    ??? This only works for controls,
+    where the scale is equivalent to pixels in DCS.
+    
+    Currently, there is no user command to center a graphical morph.
+    '''
+    delta_x = self.scale.x / 2
+    delta_y = self.scale.y / 2
+    self.translation = vector.Vector(point.x - delta_x, point.y - delta_y )
+    self.derive_transform()
+    
+    """
+    OLD
+    '''
+    Set ul at event.
+    Center the bounding box at event.
+    Assert bounding box is a rectangle.
+    ??? Dimensions might not be a rectangle? TODO
+    (No redraws)
+    '''
+    self._dimensions = coordinates.center_on_coords(self.get_bounds(), event)
+    return self._dimensions # return rect so it is dumped
+    """
  

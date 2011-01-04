@@ -16,6 +16,7 @@ import guicontrolmgr
 import gui.backgroundcontrol
 import coordinates
 import scheme
+from config import *
 
 
 
@@ -111,27 +112,27 @@ acirc = morph.morph.CircleMorph(a_viewport)
 scheme.model.append(arect)
 scheme.model.append(acirc)
 for item in scheme.model:
-  item.set_dimensions(coordinates.dimensions(150, 150, 100, 100))
+  item.set_dimensions(coordinates.Rectangle(150.0/PENSOOL_UNIT, 150.0/PENSOOL_UNIT, 100.0/PENSOOL_UNIT, 100.0/PENSOOL_UNIT))
 
 # !!! Width, height of text are computed??
-# atext.set_origin(coordinates.dimensions(150, 30, 0,0))
+# atext.set_origin(coordinates.Rectangle(150.0/PENSOOL_UNIT, 30.0/PENSOOL_UNIT, 0,0))
 # TextMorph creates it's own selection
 atext = morph.textmorph.TextMorph(a_viewport)
-atext.set_dimensions(coordinates.dimensions(150, 30, 200, 200))
+atext.set_dimensions(coordinates.Rectangle(150.0/PENSOOL_UNIT, 30.0/PENSOOL_UNIT, 200.0/PENSOOL_UNIT, 200.0/PENSOOL_UNIT))
 scheme.model.append(atext)
 
 """
 # Make a group
 arect = morph.morph.RectMorph(a_viewport)
-arect.set_dimensions(coordinates.dimensions(50, 50, 50, 50))
+arect.set_dimensions(coordinates.Rectangle(50.0/PENSOOL_UNIT, 50, 50, 50))
 acirc = morph.morph.CircleMorph(a_viewport)
-acirc.set_dimensions(coordinates.dimensions(0, 0, 50, 50))
+acirc.set_dimensions(coordinates.Rectangle(0, 0, 50, 50))
 
 agroup = morph.morph.Morph(a_viewport)
 agroup.append(arect)
 agroup.append(acirc)
 # Group at 30,30, scale 1
-agroup.set_dimensions(coordinates.dimensions(30,30,1,1))
+agroup.set_dimensions(coordinates.Rectangle(30,30,1,1))
 # agroup.append(atext)
 
 scheme.model.append(agroup)
