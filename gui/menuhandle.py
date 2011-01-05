@@ -111,8 +111,21 @@ class HandleGroup(menu.ItemGroup):
     print "returned from layout", self.layout_spec
     """
       
-      
-   
+  @view_altering
+  @dump_event
+  def slide(self, pixels_off_axis):
+    '''
+    Slide menu substantially orthogonal to original axis.
+    Substantially means: follow a curve.
+    
+    By magnitude pixels_off_axis
+    in angle left or right indicated by sign of pixels_off_axis.
+    '''
+    # layout.slide_layout_spec(self.layout_spec, pixels_off_axis)
+    layout.slide_layout_spec_follow(self.controlee, self.layout_spec, pixels_off_axis)
+    self.layout()   
+  
+  
   def draw(self, context):
     '''
     Draw Handle Menu.

@@ -66,6 +66,7 @@ class Drawable(object):
     
     # Cache my drawn bounds
     self.bounds = self.get_path_bounds(context)
+    assert self.bounds.value.width >= 0
     
     if self.style.is_filled():
       context.fill()  # Filled, up to path
@@ -103,7 +104,7 @@ class Drawable(object):
     return self.bounds
    
 
-  @dump_event
+  @dump_return
   def invalidate_will_draw(self):
     '''
     Invalidate as will be drawn (hasn't been drawn yet.)
@@ -117,6 +118,7 @@ class Drawable(object):
     self.put_path_to(context)   # recursive
     will_bounds_DCS = self.get_path_bounds(context) # inked
     self.viewport.surface.invalidate_rect( will_bounds_DCS.value, True )
+    return will_bounds_DCS  # for debugging
     
     
   @dump_event
@@ -214,10 +216,11 @@ class Drawable(object):
     Is event in our bounding box?
     Intersect bounding rect with event point converted to rectangle of width one.
     '''
-    ## return coordinates.intersect(self.get_bounds(), coordinates.coords_to_bounds(event))
+    print "inbounds", self.bounds, event
     return self.bounds.is_intersect(event)
   
   
+  @dump_return
   def get_path_bounds(self, context):
     '''
     Compute bounding rect in DCS of path in context as inked.
@@ -226,9 +229,8 @@ class Drawable(object):
     x1, y1, x2, y2 = context.stroke_extents()
     x1, y1 = context.user_to_device(x1, y1)
     x2, y2 = context.user_to_device(x2, y2)
-    # !!! Note still floats.
-    a_bounds = bounds.Bounds()
-    a_bounds.from_extents(x1, y1, x2, y2)
+    # !!! Note still floats and might be negative width
+    a_bounds = bounds.Bounds().from_extents(x1, y1, x2, y2)
     ### bounds = coordinates.dimensions_from_float_extents(x1, y1, x2, y2)
     return a_bounds
     

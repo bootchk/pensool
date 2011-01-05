@@ -92,7 +92,7 @@ class GuiControl(morph.morph.Morph):
     self.viewport.surface.invalidate_rect( device_bounds, True )
   """
 
-  # @dump_return
+  @dump_return
   def is_in_control_area(self, event):
     '''
     Is the event in the hot area?
@@ -106,6 +106,7 @@ class GuiControl(morph.morph.Morph):
   '''
   GTK callbacks
   '''
+  @dump_event
   def motion_notify_event_cb(self, widget, event):
     '''
     Fundamental mouse interaction with controls:

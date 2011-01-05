@@ -77,8 +77,8 @@ class Transformer(drawable.Drawable):
   Differ by component set: all, translation, scale, rotation, and pairs of.
   '''  
 
-  @dump_event
   @view_altering
+  @dump_event
   def set_transform(self, translation, scaltion, rotation):
     '''
     Set the specs for transform, and derive transform from specs.
@@ -90,8 +90,8 @@ class Transformer(drawable.Drawable):
     self.derive_transform()
     
     
-  @dump_event
   @view_altering
+  @dump_return
   def set_dimensions(self, dimensions):
     '''
     Set the translation and scale (not rotation) of an object.
@@ -108,8 +108,8 @@ class Transformer(drawable.Drawable):
     self.derive_transform()
     
     
-  @dump_event
   @view_altering
+  @dump_event
   def set_origin(self, event):
     ''' Set translation '''
     # FIXME floats?  CS conversions?
@@ -117,8 +117,8 @@ class Transformer(drawable.Drawable):
     self.derive_transform()
     
     
-  @dump_event
   @view_altering
+  @dump_event
   def move_relative(self, event, offset):
     ''' 
     Translate.
@@ -145,8 +145,8 @@ class Transformer(drawable.Drawable):
     return vector.Vector(*context.device_to_user(x, y))
   
   
-  @dump_event
   @view_altering
+  @dump_event
   def scale_uniformly(self, delta):
     self.scale *= delta
     self.derive_transform()

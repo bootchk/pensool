@@ -97,7 +97,7 @@ class Compound(list, transformer.Transformer):
     self.style.put_to(context)
     union_bounds = None
     for item in self:
-      item_bounds = item.draw(context)
+      item_bounds = item.draw(context)  # walk tree
       if union_bounds is None:
         union_bounds = item_bounds
       else:

@@ -7,19 +7,31 @@ Wraps gdk.Rectangle.
 
 Bounds are in device coords DCS.
 Bounds are integers of pixel units.
+
+Bounds x,y can be negative (outside the window upper left, clipped.)
+Bounds width,height should not be negative.
 '''
 
 from gtk import gdk
+import math
 import base.vector as vector
 
 class Bounds(object):
   
-  def __init__(self, x=0.0, y=0.0, width=0.0, height=0.0):
-    # !!! A zero width gdk.Rectangle intersects and unions incorrectly.
+  def __init__(self, x=0, y=0, width=0, height=0):
+    # !!! A negative or zero width gdk.Rectangle intersects and unions incorrectly.
+    assert width >= 0
+    assert height >= 0
+    # A null bounds has zero width and height.  
+    # It doesn't intersect with any other bounds but does union.
+    self.value = gdk.Rectangle(x, y, width, height)
+    """
+    OLD
     if width > 0 and height > 0:
       self.value = gdk.Rectangle(x, y, width, height)
-    else:
+    else: # zero width or height
       self.value = None
+    """
   
   def __repr__(self):
     # repr by tuple
@@ -53,11 +65,15 @@ class Bounds(object):
     '''
     Set value from an extent tuple.
     Typically cairo extents, floats, inked, converted to DCS.
+    !!! ulx may be greater than lrx, etc.
     '''
-    width = lrx - ulx
-    height = lry - uly
-    # FIXME round the rect
-    self.value = gdk.Rectangle(int(ulx), int(uly), int(width), int(height))
+    width = abs(lrx - ulx)
+    height = abs(lry - uly)
+    x = min(ulx, lrx)
+    y = min(uly, lry)
+    # expand float rect to outside integral pixel
+    self.value = gdk.Rectangle(int(x), int(y), int(math.ceil(width)), int(math.ceil(height)))
+    return self
     
 
   def from_rect(self, rect):

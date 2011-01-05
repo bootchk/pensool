@@ -4,7 +4,7 @@
 Builds controls for the app.
 '''
 
-import gui.menu
+import gui.menutraditional
 import gui.menuhandle
 import gui.itemmenu
 import gui.itemhandleline
@@ -32,7 +32,7 @@ def build_popup_menu(viewport):
   menu_item2 = gui.itemmenu.SquareMenuItem(viewport)
   menu_item3 = gui.itemmenu.SquareMenuItem(viewport)
 
-  menu_group = gui.menu.MenuGroup(viewport)
+  menu_group = gui.menutraditional.MenuGroup(viewport)
   menu_group.add(menu_item)
   menu_group.add(menu_item2)
   menu_group.add(menu_item3)

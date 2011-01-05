@@ -15,9 +15,9 @@ import focusmgr
 import scheme
 import guicontrolmgr
 from decorators import *
-import layout
+## import layout
 import base.vector as vector
-import config
+## import config
 
 # FIXME
 import textselectmanager
@@ -67,11 +67,13 @@ class ItemGroup(compound.Compound):
   Subclasses must implement:
     new_layout_spec()
     layout()
+    
   For moveable menus, events change the layout_spec, then call layout().
+  Moveable menus implement slide() or similar.
   
-    An ItemGroup is laid out on a vector from an origin.
-    Often, but not necessarily, linear along this vector.
-    The origin is where the user clicked.
+  An ItemGroup is laid out on a vector from an origin.
+  Often, but not necessarily, linear along this vector.
+  The origin is where the user clicked.
   '''
   
   def __init__(self, viewport):
@@ -91,8 +93,8 @@ class ItemGroup(compound.Compound):
     # Controls drawn with distinct context from the model context
     self.invalidate(self.viewport.controls_context())
 
-  @dump_event
   @view_altering
+  @dump_event
   def open(self, event, controlee=None):
     '''
     Make visible at event coords.
@@ -101,10 +103,17 @@ class ItemGroup(compound.Compound):
     # Set new controlee, since new_layout_spec may use it.
     self.controlee = controlee
     
+    # A layout spec is the data for postioning menu and layouting items.
     self.new_layout_spec(event)
     
     # Position whole menu group.
-    self.set_origin(self.layout_spec.benchmark) ## was event
+    # TODO Differ for subclasses.
+    # A menu is scaled by parent transform (the controls context.)
+    # A menu group rotates and translates  the group of its items.
+    ##self.set_origin(self.layout_spec.benchmark) ## was event
+    ##self.rotate(self.layout_spec.axis)
+    unit_vect = vector.Vector(1.0, 1.0)
+    self.set_transform(self.layout_spec.benchmark, unit_vect, self.layout_spec.vector.angle())
     
     # A menu must layout at least when opened.
     # Some menu types can layout only at creation time.
@@ -130,8 +139,8 @@ class ItemGroup(compound.Compound):
     raise RuntimeError( "Virtual method called: layout()" )
     
     
-  @dump_event
   @view_altering
+  @dump_event
   def close(self, event):
     # TODO delete only self, if many widgets can be visible
     del scheme.widgets[-1:]
@@ -175,24 +184,6 @@ class ItemGroup(compound.Compound):
       self._change_item(event, -1)
     #  TODO recode this without an if
     # direction = - ( rect.x/rect.x)  # TODO is the normal already unit vector?
-    
-    
-    
-  @dump_event
-  @view_altering
-  def slide(self, pixels_off_axis):
-    '''
-    Slide menu substantially orthogonal to original axis.
-    Substantially means: follow a curve.
-    
-    By magnitude pixels_off_axis
-    in angle left or right indicated by sign of pixels_off_axis.
-    '''
-    # layout.slide_layout_spec(self.layout_spec, pixels_off_axis)
-    layout.slide_layout_spec_follow(self.controlee, self.layout_spec, pixels_off_axis)
-    self.layout()
-
-    
     
    
   @dump_event
@@ -243,52 +234,7 @@ class ItemGroup(compound.Compound):
 
 
 
-class MenuGroup(ItemGroup):
-  '''
-  Traditional menu, layout is:
-    fixed position (menu does not track cursor)
-    static layout (items in same relation every open)
-    vertical layout (items one above the other), 
-    all items visible concurrently
-  '''
-  
-  def new_layout_spec(self, event):
-    '''
-    Layout spec for traditional menu: 
-      vector is None (its hardcoded in layout)
-      opening item is 0
-      benchmark is at event (under the opening item.)
-    '''
-    self.layout_spec = layout.LayoutSpec(event, event, vector=None, opening_item=0)
 
-    
-  @dump_event
-  def layout(self, event=None):
-    '''
-    Layout (position) all items in group.
-    In vertical, rectangular table, with non-overlapping items.
-    Relative positioning within the parent GCS.
-    
-    Event is ignored, use coords of most recent event (open, slide, etc.).
-    '''
-    point = vector.Point(0,0)
-    for item in self:
-      item.center_at(point)
-      # Next item downward
-      # FIXME more generally, get the size of an item
-      # point.y += item.get_dimensions().height
-      point.y += config.ITEM_SIZE # HEIGHT?
-      
-    """
-    OLD using non-transformed layout
-    # Center first item on benchmark.
-    # (Which is the same as opening event?)
-    temp_rect = self.layout_spec.benchmark.copy()
-    for item in self:
-      item.center_at(temp_rect)
-      # Next item downward
-      temp_rect.y += item.get_dimensions().height
-    """
 
 
 

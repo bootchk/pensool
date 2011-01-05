@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
 import gui.control
-import coordinates
 import dropmanager
 import focusmgr
 import scheme
 from decorators import *
-from gtk import gdk
+import base.alert as alert
+import base.vector as vector
 import textselectmanager
 
 
@@ -18,7 +18,7 @@ class BackgroundManager(gui.control.GuiControl):
   Understands:
     bkgd context menu
     bkgd handle menu
-    interaction with morphs via handles
+    interaction with morphs via handle menus
     inside morphs
     via the bkgd context menus:
       controlling ports:
@@ -46,7 +46,7 @@ class BackgroundManager(gui.control.GuiControl):
   
   def configure_event_cb(self, widget, event):
     ''' 
-    Window size changed.
+    Event from window manager: window size changed.
     We don't care about window moves?
     '''
     self.set_background_bounds()
@@ -61,8 +61,9 @@ class BackgroundManager(gui.control.GuiControl):
     # TODO activate background controls ie handles on inside of window frame?
     # TODO draw the page frame
     user_coords = self.viewport.device_to_user(event.x, event.y)
-    self.pointer_x = event.x
-    self.pointer_y = event.y
+    
+    self.pointer_DCS = vector.Vector(event.x, event.y) # save for later key events
+    
     # TODO not handling mouse exit see guicontrol.py
       
     # TODO dragging
@@ -140,17 +141,16 @@ class BackgroundManager(gui.control.GuiControl):
   @dump_event
   def control_key_release(self, event):
     '''
-    Background mgr shows handle menu for creating morphs.
+    Show handle menu control so user can create independent morphs at top level of scheme.
     '''
     # Handle menu on the entire document (composite.)
-    # Not the passed event, which is a key, but the current mouse coords
-    # if they are in the window.
-    if self.pointer_x != 0 :
-      rect = coordinates.dimensions(self.pointer_x, self.pointer_y, 0, 0)
-      # !!! controlee is model i.e. the whole drawing
-      self.handle_menu.open(rect, controlee=scheme.model)
-    else:
-      gdk.beep()
+    # Not passed event, which is KeyEvent, but current pointer coords
+    # if they are in window and not inside a graphic morph.
+    try:
+      # !!! controlee is model i.e. document i.e. group of graphics
+      self.handle_menu.open(self.pointer_DCS, controlee=scheme.model)
+    except:
+      alert.alert("??? Mouse not in background?")
     
   @dump_event
   def bland_key_release(self, event):
@@ -161,7 +161,7 @@ class BackgroundManager(gui.control.GuiControl):
     if selection:
       selection.key(event)
     else:
-      gdk.beep()
+      alert.alert("No text selection is active to receive keys.")
      
     
     
