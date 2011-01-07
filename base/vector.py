@@ -66,6 +66,9 @@ class Vector:
     def __str__(self):
         return "(" + str(self.x) + "," + str(self.y) + ")"
     
+    def __repr__(self):
+      return str(self)
+      
     def copy(self):
       return Vector(self.x, self.y)
     

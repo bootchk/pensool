@@ -46,7 +46,7 @@ class Drawable(object):
     self.parent = None
     
   
-  # @dump_return  # Uncomment this to see drawables drawn.
+  @dump_return  # Uncomment this to see drawables drawn.
   def draw(self, context):
     '''
     Draw self using context.
@@ -66,7 +66,7 @@ class Drawable(object):
     
     # Cache my drawn bounds
     self.bounds = self.get_path_bounds(context)
-    assert self.bounds.value.width >= 0
+    assert not self.bounds.is_null()
     
     if self.style.is_filled():
       context.fill()  # Filled, up to path
@@ -74,7 +74,7 @@ class Drawable(object):
       context.stroke()  # Outline, with line width
     # Assert fill or stroke clears paths from context
     
-    return self.bounds
+    return self.bounds.copy()   # Return reference to copy, not self
     
   '''
   Invalidate means queue a region to redraw at expose event.
@@ -211,12 +211,12 @@ class Drawable(object):
     return hit
   
   
+  @dump_return
   def is_inbounds(self, event):
     ''' 
     Is event in our bounding box?
     Intersect bounding rect with event point converted to rectangle of width one.
     '''
-    print "inbounds", self.bounds, event
     return self.bounds.is_intersect(event)
   
   
@@ -227,6 +227,8 @@ class Drawable(object):
     !!! Note not recursive, takes path from context.
     '''
     x1, y1, x2, y2 = context.stroke_extents()
+    assert x2 - x1 >= 0
+    assert y2 - y1 >= 0
     x1, y1 = context.user_to_device(x1, y1)
     x2, y2 = context.user_to_device(x2, y2)
     # !!! Note still floats and might be negative width

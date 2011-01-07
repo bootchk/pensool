@@ -95,17 +95,15 @@ class Compound(list, transformer.Transformer):
     # !!! context saved by caller but restored here
     self.put_transform_to(context)
     self.style.put_to(context)
-    union_bounds = None
+    union_bounds = bounds.Bounds()  # null 
     for item in self:
       item_bounds = item.draw(context)  # walk tree
-      if union_bounds is None:
-        union_bounds = item_bounds
-      else:
-        union_bounds.union(item_bounds)
+      union_bounds = union_bounds.union(item_bounds)
       # print "Matrix for item:", context.get_matrix()
     context.restore()
     self.bounds = union_bounds
-    return self.bounds
+    # !!! Note empty composites return null bounds
+    return self.bounds.copy()
  
   
   def put_path_to(self, context):
