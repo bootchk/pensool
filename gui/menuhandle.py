@@ -23,26 +23,34 @@ class HandleGroup(menu.ItemGroup):
     !!! only one item shown, as mouseovered
   '''
   
+  @dump_return
   def new_layout_spec(self, event):
     """
-    New layout_spec for a handle menu.
+    New layout_spec for a handle menu:
+      vector is orthogonal to glyph
+      benchmark is an offset from the glyph (so middle item is on glyph)
+      opening item is the middle item
     
     Event opens the menu, here the event is a hit on a morph edge.
     TODO abstract opening with moving.
     """
     assert self.controlee
     
+    """
     if self.controlee is scheme.model:
       # Handle menu opened on background, controls the document
       axis = vector.downward_vector()
     else:
-      # axis is orthogonal to controlee
-      axis = self.controlee.get_orthogonal(event)
+    """
+    # axis is orthogonal to controlee.
+    # Controlee is usually a graphic morph or background.
+    axis = self.controlee.get_orthogonal(event)
       
     benchmark = layout.benchmark_from_hotspot(axis, event)
     
     # FIXME hardcoded to open at 1, should be the middle of the menu
     self.layout_spec = layout.LayoutSpec(event, benchmark, axis, opening_item=1)
+    return self.layout_spec # for debug
     
     """
     FIXME center on event, and open on middle item, benchmark away from hotspot
@@ -62,9 +70,20 @@ class HandleGroup(menu.ItemGroup):
       Ordered towards center of glyph (anti direction of orthogonal vector.)
       Overlapping items.
     
-    A handle group is laid out every time it slides.
+    A handle group lays out all items even though only one is shown.
     When exit an item, other items are already laid out.
+    
+    Using transforms, a menu only needs to be layed out once.
+    A change to layoutspec can require updates to the transform or the layout.
     '''
+    point = vector.Point(0,0)
+    for item in self:
+      item.center_at(point)
+      # Next item along a line (the x-axis).
+      # FIXME more generally, get the size of an item
+      # point.y += item.get_dimensions().height
+      point.x += config.ITEM_SIZE/2 # HEIGHT?
+    """
     point = vector.Point(0,0)
     
     ## TODO ??? is this is in spec?
@@ -82,7 +101,7 @@ class HandleGroup(menu.ItemGroup):
       # point.y += item.get_dimensions().height
       point.x -= self.layout_spec.vector.x * config.ITEM_SIZE/2
       point.y -= self.layout_spec.vector.y * config.ITEM_SIZE/2
- 
+    """
     """
     OLD untransformed.
     
@@ -120,11 +139,15 @@ class HandleGroup(menu.ItemGroup):
     
     By magnitude pixels_off_axis
     in angle left or right indicated by sign of pixels_off_axis.
+    
+    !!! Does not layout menu's items: self.layout() 
     '''
-    # layout.slide_layout_spec(self.layout_spec, pixels_off_axis)
+    ## OLD layout.slide_layout_spec(self.layout_spec, pixels_off_axis)
+    # Update the layout spec
     layout.slide_layout_spec_follow(self.controlee, self.layout_spec, pixels_off_axis)
-    self.layout()   
-  
+    # Reposition: update the menu's transform
+    self.position()
+
   
   def draw(self, context):
     '''
@@ -135,6 +158,7 @@ class HandleGroup(menu.ItemGroup):
     # !!! context saved by caller but restored here
     self.put_transform_to(context)
     self.style.put_to(context)
+    # !!! Only draw one of my items.
     item_bounds = self[self.active_index].draw(context)
     context.restore()
     self.bounds = item_bounds

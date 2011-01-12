@@ -5,6 +5,7 @@ import glyph
 import pango
 from decorators import *
 import base.vector
+import base.orthogonal as orthogonal
 import config
 import cairo
 
@@ -86,7 +87,7 @@ class TextGlyph(glyph.Glyph):
   
   
   def get_orthogonal(self, point):
-    return self._aligned_rect_orthogonal(point)
+    return orthogonal.rect_orthogonal(self.bounds.value, point)
 
    
   # @dump_event

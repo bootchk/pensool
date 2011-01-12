@@ -27,7 +27,6 @@ class MenuGroup(menu.ItemGroup):
       opening item is 0 (the topmost item)
       benchmark is at event (under the opening item.)
     '''
-    ## was vector = None
     down_vect = vector.Vector(0, 1.0)
     self.layout_spec = layout.LayoutSpec(event, event, down_vect, opening_item=0)
 

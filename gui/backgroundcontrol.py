@@ -60,6 +60,10 @@ class BackgroundManager(gui.control.GuiControl):
     '''
     # TODO activate background controls ie handles on inside of window frame?
     # TODO draw the page frame
+    
+    # FIXME naming top_coords
+    # Transform device coords of event to top coords (TCS)
+    # by inverting the viewing transformation.
     user_coords = self.viewport.device_to_user(event.x, event.y)
     
     self.pointer_DCS = vector.Vector(event.x, event.y) # save for later key events

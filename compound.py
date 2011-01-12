@@ -82,7 +82,7 @@ class Compound(list, transformer.Transformer):
     return self.parent
 
   
-  @dump_return
+  # @dump_return  # Uncomment to debug composite draw()
   def draw(self, context):
     '''
     Iterate draw contained objects.
@@ -117,18 +117,10 @@ class Compound(list, transformer.Transformer):
     context.restore()
       
 
-  @dump_event
   def get_orthogonal(self, point):
-    '''
-    Get orthogonal of a composite.
-    
-    FIXME now makes no sense for composite controls.
-    '''
+    # Defined in morph.py
     raise RuntimeError("Orthogonal of composite.")
-    print "                  TODO orthogonal of a composite>>>>>>>"
-    rect = self.get_dimensions()
-    return coordinates.rectangle_orthogonal(rect, point)
-    
+
   
   """
   Using transforms, propagation not necessary.

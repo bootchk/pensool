@@ -96,9 +96,8 @@ class ViewPort(Port):
     # TODO event.area to clipping in context
     context = self.da.window.cairo_create()
     x1, y1, x2, y2 = context.clip_extents()
-    print "Clipping: UCS", x1, y1, x2, y2
-    print "Clipping: DCS", context.user_to_device(x1,y1), context.user_to_device(x2,x2)
-    print "Matrix: ", context.get_matrix()
+    # print "Clipping: UCS", x1, y1, x2, y2, "DCS", context.user_to_device(x1,y1), context.user_to_device(x2,x2)
+    # print "Matrix: ", context.get_matrix()
     self.style.put_to(context)
     
     # Draw ephemeral controls untransformed

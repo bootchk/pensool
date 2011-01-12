@@ -46,7 +46,7 @@ class Drawable(object):
     self.parent = None
     
   
-  @dump_return  # Uncomment this to see drawables drawn.
+  # @dump_return  # Uncomment to debug primitive draw().
   def draw(self, context):
     '''
     Draw self using context.
@@ -88,7 +88,7 @@ class Drawable(object):
   And call a recursive function, put_path_to().
   '''
   
-  @dump_return
+  # @dump_return
   def invalidate_as_drawn(self):
     ''' 
     Invalidate as previously drawn.
@@ -104,7 +104,7 @@ class Drawable(object):
     return self.bounds
    
 
-  @dump_return
+  # @dump_return
   def invalidate_will_draw(self):
     '''
     Invalidate as will be drawn (hasn't been drawn yet.)
@@ -196,18 +196,26 @@ class Drawable(object):
     self.put_path_to(context)
     
     
-  def is_inpath(self, user_coords):
+  def is_inpath(self, coords):
     '''
-    Does mouse hit this drawable?
-    Are coords in my edge?
+    Does coords hit edge of this drawable?
+    Stroke: hit on inked, visible.
+    Edge: not including possible interior features, just the hittable boundary.
+    Distinguish from a bounding box, which is a rectangle in DCS.
     
-    Note user coords, not device coords.
+    Note coords are in top TCS, not device DCS.
     To hit path from a distance, ink the path wider: context.set_line_width(25)
     '''
     # TODO pass a context  .save() and restore()
     context = self.viewport.user_context()
-    self.put_edge_to(context)
-    hit = context.in_stroke(user_coords.x, user_coords.y)
+    
+    # Jan. 9 2011 TODO put my parent's matrix?
+    # Or undo the viewing transform?
+    # self.put_transform_to(context)
+    # self.style.put_to(context)
+    
+    self.put_edge_to(context) # recursive, with transforms
+    hit = context.in_stroke(coords.x, coords.y)
     return hit
   
   
@@ -220,7 +228,7 @@ class Drawable(object):
     return self.bounds.is_intersect(event)
   
   
-  @dump_return
+  # @dump_return
   def get_path_bounds(self, context):
     '''
     Compute bounding rect in DCS of path in context as inked.

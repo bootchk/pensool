@@ -275,15 +275,6 @@ class GuiControl(morph.morph.Morph):
   Filtered and translated according to state of control,
   EG a mouse move translated to a drag if button is down.
   '''
-
-  def start_drag(self, event):
-    report_virtual()
-    
-  def continue_drag(self, event):
-    report_virtual()  
-  
-  def drop(self, source, event, offset, source_control):
-    report_virtual()
  
   def mouse_move(self, event):
     '''
@@ -326,7 +317,7 @@ class GuiControl(morph.morph.Morph):
   def start_drag(self, event):
     report_virtual()
     
-  def continue_drag(self, event):
+  def continue_drag(self, event, offset, increment):
     report_virtual()  
   
   def drop(self, source, event, offset, source_control):

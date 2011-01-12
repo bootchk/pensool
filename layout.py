@@ -20,6 +20,10 @@ Thus the hierarchy of transforms for items is:
  
 A LayoutSpec does not necessarily describe the actual layout.
 For example, layout() may ignore vector in LayoutSpec and instead use a hardcoded vector.
+
+Coordinates: currently in DCS.
+A menu is drawn in DCS effectively since controls drawn in their own context.
+FIXME should be in GCS of glyph?
 '''
 import base.vector
 import cairo
@@ -34,8 +38,11 @@ class LayoutSpec(object):
     if benchmark:
       self.benchmark = base.vector.Point(benchmark.x, benchmark.y) # starting point of layout
     self.vector = vector  # axis
-    self.opening_item = opening_item
+    self.opening_item = opening_item  # index of item within menu sequence
     
+  def __str__(self):
+    return str(self.hotspot) + str(self.benchmark) + str(self.vector) + str(self.opening_item)
+  
   
 def slide_layout_spec(spec, pixels_off_axis):
   '''
@@ -57,8 +64,7 @@ def slide_layout_spec(spec, pixels_off_axis):
 def make_slide_transform(spec, pixels_off_axis):
   '''
   Make a transform matrix
-  from vectors aligned with x axis
-  to vectors aligned orthogonal to menu axis
+  rotated from vector aligned with x axis to vector aligned orthogonal to menu axis
   translated to hotspot.
   '''
   # Rotation in direction of slide
@@ -67,7 +73,8 @@ def make_slide_transform(spec, pixels_off_axis):
   m1 = cairo.Matrix()
   m1.rotate(vect.angle())
   
-  # Translation to prior hotspot
+  # Translation to prior hotspot.
+  # Since hotspot is in DCS, this transform is in DCS
   m2 = cairo.Matrix()
   m2.translate(spec.hotspot.x, spec.hotspot.y)
   
@@ -75,18 +82,26 @@ def make_slide_transform(spec, pixels_off_axis):
 
 
 def find_new_hotspot(controlee, spec, pixels_off_axis):
+  '''
+  Find new hotspot (intersection of menu axis and glyph.)
+  
+  Returns
+  '''
 
+  # Hit pattern is a line of pixels orthogonal to x-axis at distance 2
   hit_pattern = (base.vector.Point(2,-2),
     base.vector.Point(2,-1),
     base.vector.Point(2,0),
     base.vector.Point(2,1),
     base.vector.Point(2,2))
   
+  # Make transform of hit pattern to bring it into relation with menu
   matrix = make_slide_transform(spec, pixels_off_axis)
   
-  print "Old hotspot", spec.hotspot
+  # print "Old hotspot", spec.hotspot
   for point in hit_pattern:
     transformed_point = base.vector.Point(*matrix.transform_point(point.x, point.y))
+    # transformed_point now in DCS
     print "Transformed", transformed_point
     if controlee.is_inpath(transformed_point):
       return transformed_point
@@ -100,7 +115,7 @@ def benchmark_from_hotspot(axis, hotspot):
   Since opening on middle item, benchmark at first item is half length away.
   '''
   to_benchmark = axis.copy()
-  to_benchmark *= 10  # scale by half length of menu - half width of item
+  to_benchmark *= -10  # scale by half length of menu - half width of item
   # Here menu is 3 items of 20 overlapping by 10 = 40 / 2 -10
   benchmark = base.vector.Point(hotspot.x, hotspot.y) + to_benchmark
   return benchmark
@@ -110,8 +125,7 @@ def slide_layout_spec_follow(controlee, spec, pixels_off_axis):
   '''
   Slide this layout spec orthogonally.
   
-  This version limits sliding
-  and follows controllee's curve.
+  This limits sliding and follows controllee's curve.
   
   Algorithm: we know the cursor moved just a little.
   Brute force search a pattern in the direction of movement,
@@ -119,7 +133,7 @@ def slide_layout_spec_follow(controlee, spec, pixels_off_axis):
   '''
   spot = find_new_hotspot(controlee, spec, pixels_off_axis)
   if spot:
-    print "New hotspot ", spot
+    print "Hotspot old", spec.hotspot, " new ", spot
     spec.hotspot = spot
     # new hotspot engenders new axis, then benchmark
     spec.vector = controlee.get_orthogonal(spot)

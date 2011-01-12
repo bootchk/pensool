@@ -9,6 +9,7 @@ See morph.py for discussion of strategy for instantiating.
 
 import drawable
 import math
+import base.orthogonal as orthogonal
 import coordinates
 from decorators import *
 import base.vector as vector
@@ -33,7 +34,7 @@ class Glyph(drawable.Drawable):
   
   A Glyph is in "natural" coordinates, i.e. at the origin and unit dimensions.
   A Glyph is a Drawable, and has a transform, but it is NOT USED.
-  !!! Makes not sense to call get_dimensions() or self.transform
+  !!! Makes no sense to call get_dimensions() or self.transform
   
   Prototype for get_orthogonal(self, point):
     Return some vector orthogonal to self at this point on self.
@@ -48,6 +49,8 @@ class Glyph(drawable.Drawable):
     return self.__class__.__name__
     
     
+  """
+  OLD
   def _aligned_rect_orthogonal(self, point):
     '''
     Return orthogonal to object with rectangular bounds.
@@ -58,7 +61,7 @@ class Glyph(drawable.Drawable):
     # assert bounds aligned with axis of coordinate system
     # TODO more general for other CS?
     return coordinates.rectangle_orthogonal(self.bounds.value, point)
-    
+  """ 
 
   
 
@@ -85,6 +88,7 @@ class LineGlyph(Glyph):
     For a line, there are two orthogonals to a point.
     TODO choose one?
     '''
+    # FIXME orthogonal.line_..
     return coordinates.line_orthogonal(self.bounds.value, point)
 
 
@@ -96,10 +100,10 @@ class RectGlyph(Glyph):
     context.rectangle(0,0,1.0,1.0)  # Unit rectangle at origin
     return
  
-  
   @dump_return
   def get_orthogonal(self, point):
-    return self._aligned_rect_orthogonal(point)
+    # FIXME, should be the rotated glyph?
+    return orthogonal.rect_orthogonal(self.bounds, point)
       
     
 class CircleGlyph(Glyph):
@@ -109,16 +113,11 @@ class CircleGlyph(Glyph):
   Bounding box origin at 0,0
   '''
   def put_path_to(self, context):
-    # Unit circle
     # x, y, radius, ?, radians
     ## context.arc(0, 0, 1.0, 0, 2.0*math.pi)
     context.arc(0.5, 0.5, 0.5, 0, 2.0*math.pi)
     return
-    
-    """ OLD
-    centerx, centery, radius = coordinates.circle_from_dimensions(self.get_dimensions())
-    context.arc(centerx, centery, radius, 0, 2.0*math.pi)
-    """
+
   
   @dump_return
   def get_orthogonal(self, point):
@@ -126,16 +125,20 @@ class CircleGlyph(Glyph):
     '''
     # Working in DCS
     # Assert the center of the bounds is the same as the center of the circle.
+    return orthogonal.circle_orthogonal(self.bounds.center_of(),  point)
     """
     OLD
     centerx, centery, radius = coordinates.circle_from_dimensions(self.bounds())
     vect_to_center = vector.Vector(centerx, centery)
     """
+    """
+    OLD
     center_DCS = self.bounds.center_of()
     vect_to_center = vector.Vector(center_DCS.x, center_DCS.y)
     # vector from center to point on circle
     vect_center_to_point = vector.Vector(point.x, point.y) - vect_to_center
     return vect_center_to_point.normal()
+    """
 
 
 

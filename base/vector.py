@@ -9,6 +9,20 @@ class Vector:
     (Not a vector in the sense of a sequence or array.)
     
     Note all operators except increment, decrement return a copy.
+    
+    Examples:
+    
+    # Test setup
+    >>> a = Vector(1,1)
+    >>> b = Vector(0,1)
+    >>> c = Vector(0,-1)
+    
+    >>> b.scalar_projection(a)
+    0.70710678118654746
+    
+    >>> c.scalar_projection(a)
+    -0.70710678118654746
+    
     '''
     
     def __init__(self, x = 0, y = 0):
@@ -74,10 +88,10 @@ class Vector:
     
     def orthogonal(self, handedness):
       '''
-      Return a vector orthogonal to self.
+      Return some vector orthogonal to self.
       Swap x, y and negate one.
       Note that there are many orthogonal vectors to a line, 
-      this is the orthogonal from the origin.
+      this is an orthogonal vector to a vector (from the origin.)
       Note also that there are two handednesses: right and left handed.
       Handeness negative is left, postive is right.
       Alternative implementation is to use rotate by an angle, +-
@@ -88,21 +102,38 @@ class Vector:
         return Vector(-self.y, self.x)
 
     def length(self):
-      'Return distance length'
+      '''
+      Return scalar distance length.
+      Distance is non-negative.
+      '''
       return math.sqrt( self.x**2 + self.y**2 )
       
     def normal( self ):
-      'Returns a new vector that has the same direction as vec, but has a length of one.'
+      'Return new vector that has same direction as vec, but has length of one.'
       if( self[0] == 0. and self[1] == 0. ):
           return Vector(0.,0.)
       return self / self.length()
 
     def angle(self):
-      ''' Returns angle in radians [-pi, pi] '''
+      ''' Return scalar angle in radians [-pi, pi] '''
       # !!! atan2(y,x)
       return math.atan2(self.y, self.x)
+    
+    def dot( self, b ):
+      '''Return scalar dot product of self and b'''
+      return self[0]*b[0] + self[1]*b[1]
       
+    def scalar_projection(self, b):
+      '''
+      Return scalar projection of self onto b.
+      Scalar projection is the magnitude of the projection of a onto b.
+      The sign is significant:  Negative means in the opposite direction of b.
+      '''
+      return self.dot(b/b.length())
       
+    
+    
+# Point is a synonym for the Vector class: they behave the same.
 Point = Vector
 
 # Constant vector
@@ -113,11 +144,11 @@ def downward_vector():
 """
         
 def DistanceSqrd( point1, point2 ):
-    'Returns the distance between two points squared. Marginally faster than Distance()'
+    'Return the distance between two points squared. Marginally faster than Distance()'
     return ( (point1[0]-point2[0])**2 + (point1[1]-point2[1])**2)
     
 def Distance( point1, point2 ):
-    'Returns the distance between two points'
+    'Return the distance between two points'
     return math.sqrt( DistanceSqrd(point1,point2) )
     
 def Dot( a,b ):

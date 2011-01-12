@@ -94,12 +94,11 @@ class HandleItem(gui.itemcontrol.ItemControl):
     this must mean mouse moved in axial *exit* direction.
     '''
     # Calculate vector in DCS of mouse exit.
-    ## OLD center = coordinates.center_of_dimensions(self.get_dimensions())
     center = self.bounds.center_of()
     exit_vector = base.vector.Point(event.x, event.y) - center
-    ## OLD coordinates.vector_from_points(center, event)
+    
     # Tell manager, let the manager figure out if
-    # the vector is in the next or previous direction.
+    # the vector is in the next or previous direction in seq of items.
     self.group_manager.do_item_exit(event, exit_vector)
     return
     
@@ -155,6 +154,7 @@ class HandleItem(gui.itemcontrol.ItemControl):
     # normalize to menu vector
     normal_vector = coordinates.normalize_vector_to_vector(mouse_vector, 
       menu_vector)
+    print "mouse", mouse_vector, "menu", menu_vector, "normal", normal_vector
     return normal_vector.y
   
   

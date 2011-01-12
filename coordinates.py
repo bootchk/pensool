@@ -228,6 +228,8 @@ def normalize_vector_to_vector(vector1, vector2):
 Orthogonal vectors
 '''
 
+"""
+OLD see base.orthogonal
 def rectangle_orthogonal(rect, point):
   '''
   Return unit vect orthogonal to a rect from a point.
@@ -255,7 +257,7 @@ def line_orthogonal(rect, point):
   vect = vector.Vector(rect.width, rect.height)
   orthogonal = vect.orthogonal(-1)  # left handed
   return orthogonal.normal()
-  
+"""
   
 
 '''

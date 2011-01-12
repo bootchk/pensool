@@ -16,6 +16,7 @@ Bounds width,height should not be negative.
 from gtk import gdk
 import math
 import base.vector as vector
+import itertools
 
 class Bounds(object):
   """
@@ -35,12 +36,27 @@ class Bounds(object):
   False
   
   # Zero width and height is the null bounds
-  >>> Bounds(0,0,0,0)
-  bounds:(0, 0, 0, 0)
+  >>> Bounds(0,0,0,0).is_null()
+  True
+  
+  # Assertion raised on floats
+  >>> Bounds(0,0,1.0,1)
+  Traceback (most recent call last):
+  ...
+  AssertionError
+
   
   # a bounds intersects a point
   >>> Bounds(0,0,1,1).is_intersect(vector.Vector(0,0))
   True
+  
+  # a bounds intersects a floating point
+  >>> Bounds(0,0,1,1).is_intersect(vector.Vector(0.1, 0.2))
+  True
+  
+  # bounds NOT intersect a point at lower left of bounds
+  >>> Bounds(0,0,1,1).is_intersect(vector.Vector(1, 1))
+  False
   
   # Two bounds sharing a point do NOT intersect
   # TODO bounds intersection >>> Bounds(0,0,1,1).is_intersect(vector.Vector(0,0))
@@ -94,6 +110,20 @@ class Bounds(object):
   >>> a.copy()
   bounds:(1, 1, 1, 1)
   
+  # iteration
+  >>> for corner in Bounds(1,1,1,1): corner
+  (1.0,1.0)
+  (2.0,1.0)
+  (2.0,2.0)
+  (1.0,2.0)
+  
+  # generate sides
+  >>> for side in Bounds(1,1,1,1).sides(): side
+  ((1.0,1.0), (2.0,1.0))
+  ((2.0,1.0), (2.0,2.0))
+  ((2.0,2.0), (1.0,2.0))
+  ((1.0,2.0), (1.0,1.0))
+
   TODO from_rect
   
   TODO negative width
@@ -106,6 +136,10 @@ class Bounds(object):
     assert height >= 0
     # A null bounds has zero width and height.  
     # It doesn't intersect with any other bounds but does union.
+    assert isinstance(width, int)
+    assert isinstance(height, int)
+    assert isinstance(x, int)
+    assert isinstance(y, int)
     self.value = gdk.Rectangle(x, y, width, height)
     """
     OLD
@@ -115,6 +149,37 @@ class Bounds(object):
       self.value = None
     """
     
+    
+  def __iter__(self):
+    ''' 
+    Iteration on Bounds returns the corner points. 
+    !!! Don't mutate the bounds while iterating.
+    '''
+    return itertools.islice( [vector.Vector(self.value.x, self.value.y),
+      vector.Vector(self.value.x + self.value.width, self.value.y),
+      vector.Vector(self.value.x + self.value.width, self.value.y + self.value.height),
+      vector.Vector(self.value.x, self.value.y + self.value.height)], None )
+
+  def sides(self):
+    '''
+    Generator of sides.
+    '''
+    # build list of sides
+    previous_corner = None
+    sides = []
+    for corner in self:
+      if previous_corner:
+        sides.append((previous_corner, corner))
+      else:
+        first_corner = corner
+      previous_corner = corner
+    # last side
+    sides.append((previous_corner, first_corner))
+    
+    for side in sides:
+      yield side
+
+
   def copy(self):
     if self.value is None:
       return None # FIXME error
@@ -154,9 +219,10 @@ class Bounds(object):
   def is_intersect(self, point):
     '''
     Return boolean whether point intersects self.
+    Point can be float.
     Value attributes are gdk.Rectangles, use their intersect() method.
     '''
-    bound = Bounds(point.x, point.y, 1, 1)  # single pixel bound
+    bound = Bounds(int(point.x), int(point.y), 1, 1)  # single pixel bound
     # note gdk.Rectangle.intersect returns a new gdk.Rectangle
     intersection = self.value.intersect(bound.value)
     # if no intersection, all zeros

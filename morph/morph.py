@@ -19,8 +19,8 @@ Morphs can have associated controls, but don't contain them.
 import compound
 import glyph
 import scheme # for bounding box
-import coordinates
 import base.vector as vector
+import base.orthogonal as orthogonal
 from decorators import *
 
 
@@ -52,6 +52,7 @@ class Morph(compound.Compound):
       scheme.bounding_box.activate(False)
 
 
+  @dump_return
   def get_orthogonal(self, point):
     '''
     Orthogonal of a morph with one member is orthogonal of member,
@@ -68,15 +69,21 @@ class Morph(compound.Compound):
       FIXME Aggregate the orthogonal of all members that intersect the point??
       '''
       # Note both bounds and point are in DCS
-      return coordinates.rectangle_orthogonal(self.bounds.value, point)
+      return orthogonal.rect_orthogonal(self.bounds, point)
     else:
       return self[0].get_orthogonal(point)
+    
+  
+  """ Virtual"""
+  def resize(self, event, offset):
+    print "Virtual resize morph"
+    
     
 
 class PrimitiveMorph(Morph):
   '''
   A PrimitiveMorph is a Composite of only Glyphs.
-  Cannot append a Morph to a PrimitiveMorph.
+  Cannot append a Morph to a PrimitiveMorph.  TODO enforce?
   '''
   def is_primitive(self):
     return True
@@ -116,7 +123,6 @@ class LineMorph(PrimitiveMorph):
 
 class RectMorph(PrimitiveMorph):
   def __init__(self, viewport):
-    print "init rectmorph"
     Morph.__init__(self, viewport)
     self.append(glyph.RectGlyph(viewport))
     

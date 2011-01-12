@@ -93,6 +93,24 @@ class ItemGroup(compound.Compound):
     # Controls drawn with distinct context from the model context
     self.invalidate(self.viewport.controls_context())
 
+
+  @dump_event
+  def position(self):
+    '''
+    Position menu according to layout spec.
+    Called on opening and on movement (slide.)
+    # TODO Differ for subclasses.
+    
+    A menu is scaled by parent transform (the controls context.)
+    A menu group rotates and translates  the group of its items.
+    Position is a change to this menu's transform, translate and rotate.
+    
+    This is view_altering, but caller must do view_altering
+    '''
+    unit_vect = vector.Vector(1.0, 1.0)
+    self.set_transform(self.layout_spec.benchmark, unit_vect, self.layout_spec.vector.angle())
+    
+    
   @view_altering
   @dump_event
   def open(self, event, controlee=None):
@@ -103,17 +121,8 @@ class ItemGroup(compound.Compound):
     # Set new controlee, since new_layout_spec may use it.
     self.controlee = controlee
     
-    # A layout spec is the data for postioning menu and layouting items.
-    self.new_layout_spec(event)
-    
-    # Position whole menu group.
-    # TODO Differ for subclasses.
-    # A menu is scaled by parent transform (the controls context.)
-    # A menu group rotates and translates  the group of its items.
-    ##self.set_origin(self.layout_spec.benchmark) ## was event
-    ##self.rotate(self.layout_spec.axis)
-    unit_vect = vector.Vector(1.0, 1.0)
-    self.set_transform(self.layout_spec.benchmark, unit_vect, self.layout_spec.vector.angle())
+    self.new_layout_spec(event) # Set data for position and layout.
+    self.position() # Set transform for menu group
     
     # A menu must layout at least when opened.
     # Some menu types can layout only at creation time.
@@ -122,6 +131,7 @@ class ItemGroup(compound.Compound):
     
     scheme.widgets.append(self)
     
+    # Make open menu display an active item.
     self.active_index = self.layout_spec.opening_item   # not necessarily first
     # !!! Pass the controlee to the items
     self._activate_current(event, controlee)
@@ -178,13 +188,13 @@ class ItemGroup(compound.Compound):
     
     # Seems backwards, but since menu vector is opposite direction to layout,
     # inverse the sign
-    if rect.x < 0 :
+    if rect.x > 0 :  # Jan. 8
       self._change_item(event, 1)
     else :
       self._change_item(event, -1)
     #  TODO recode this without an if
     # direction = - ( rect.x/rect.x)  # TODO is the normal already unit vector?
-    
+
    
   @dump_event
   def _change_item(self, event, direction):
