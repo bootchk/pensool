@@ -98,7 +98,7 @@ class RectGlyph(Glyph):
   # @dump_event
   def put_path_to(self, context):
     context.rectangle(0,0,1.0,1.0)  # Unit rectangle at origin
-    return
+
  
   @dump_return
   def get_orthogonal(self, point):
@@ -112,6 +112,7 @@ class CircleGlyph(Glyph):
   Unit diameter.
   Bounding box origin at 0,0
   '''
+  @dump_event
   def put_path_to(self, context):
     # x, y, radius, ?, radians
     ## context.arc(0, 0, 1.0, 0, 2.0*math.pi)

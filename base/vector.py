@@ -115,10 +115,18 @@ class Vector:
       return self / self.length()
 
     def angle(self):
-      ''' Return scalar angle in radians [-pi, pi] '''
+      ''' 
+      Return scalar angle in radians [-pi, pi] to the x-axis.
+      '''
       # !!! atan2(y,x)
       return math.atan2(self.y, self.x)
     
+    def angle_to(self, b):
+      '''
+      Return scalar angle in radians of self to vector b.
+      '''
+      return b.angle() - self.angle()
+      
     def dot( self, b ):
       '''Return scalar dot product of self and b'''
       return self[0]*b[0] + self[1]*b[1]
@@ -131,6 +139,16 @@ class Vector:
       '''
       return self.dot(b/b.length())
       
+      '''
+      Alternate implementation?
+      For three points p0, p1, p2.
+      p1 and p2 define a line.
+      (p0.x-p1.x)*(p2.y-p1.y) - (p2.x-p1.x)*(p0.y-p1.y)
+      Yields:
+        0 p0 on line
+        + p0 left of line
+        - p0 right of line
+      '''
     
     
 # Point is a synonym for the Vector class: they behave the same.

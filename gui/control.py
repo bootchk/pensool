@@ -57,6 +57,7 @@ class GuiControl(morph.morph.Morph):
     # Super init
     # TODO document that using super
     # drawable.Drawable.__init__(self, port )
+    # super is Transformer, then Drawable
     super(GuiControl, self).__init__(port)
     
     # !!! This is an empty morph (composite.)  Subclasses should append a glyph.
@@ -260,11 +261,10 @@ class GuiControl(morph.morph.Morph):
   Highlight which control is sensitive (active?)
   Only one control is getting most low-level events.
   '''
-  # TODO direction
   @dump_event
   def take_focus(self, direction):
     self.has_focus = direction
-    self.invalidate_will_draw()  ### self.viewport.controls_context())
+    self.invalidate_will_draw()
 
   
  

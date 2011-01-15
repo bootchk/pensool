@@ -46,7 +46,7 @@ class Drawable(object):
     self.parent = None
     
   
-  # @dump_return  # Uncomment to debug primitive draw().
+  @dump_return  # Uncomment to debug primitive draw().
   def draw(self, context):
     '''
     Draw self using context.
@@ -60,13 +60,12 @@ class Drawable(object):
     !!! Style is already in the context.
     I inherit my parent style, but I can override.
     '''
-    self.put_path_to(context) # recursive
     self.style.put_to(context)
+    self.put_path_to(context) # recursive, except this should be terminal
     # TODO is this right, or do need to save context?
     
     # Cache my drawn bounds
     self.bounds = self.get_path_bounds(context)
-    assert not self.bounds.is_null()
     
     if self.style.is_filled():
       context.fill()  # Filled, up to path
@@ -228,12 +227,13 @@ class Drawable(object):
     return self.bounds.is_intersect(event)
   
   
-  # @dump_return
+  @dump_return
   def get_path_bounds(self, context):
     '''
     Compute bounding rect in DCS of path in context as inked.
     !!! Note not recursive, takes path from context.
     '''
+    # print "get path bounds context.matrix", context.get_matrix(), context
     x1, y1, x2, y2 = context.stroke_extents()
     assert x2 - x1 >= 0
     assert y2 - y1 >= 0
@@ -241,7 +241,9 @@ class Drawable(object):
     x2, y2 = context.user_to_device(x2, y2)
     # !!! Note still floats and might be negative width
     a_bounds = bounds.Bounds().from_extents(x1, y1, x2, y2)
-    ### bounds = coordinates.dimensions_from_float_extents(x1, y1, x2, y2)
+    # assert not self.bounds.is_null()
+    if a_bounds.is_null():
+      print "!!!!! Null a_bounds", self, x1, y1, x2, y2
     return a_bounds
     
     

@@ -82,7 +82,7 @@ class Compound(list, transformer.Transformer):
     return self.parent
 
   
-  # @dump_return  # Uncomment to debug composite draw()
+  @dump_return  # Uncomment to debug composite draw()
   def draw(self, context):
     '''
     Iterate draw contained objects.
@@ -92,7 +92,7 @@ class Compound(list, transformer.Transformer):
     Note this is standard hierarchal modeling:
     apply my transform to the current transform matrix of the context (CTM).
     '''
-    # !!! context saved by caller but restored here
+    context.save()
     self.put_transform_to(context)
     self.style.put_to(context)
     union_bounds = bounds.Bounds()  # null 
@@ -106,10 +106,12 @@ class Compound(list, transformer.Transformer):
     return self.bounds.copy()
  
   
+  @dump_event
   def put_path_to(self, context):
     '''
     Aggregate the paths of members.
     '''
+    context.save()
     self.put_transform_to(context)
     self.style.put_to(context)
     for item in self:

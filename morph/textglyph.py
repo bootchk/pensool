@@ -126,7 +126,7 @@ class TextGlyph(glyph.Glyph):
     
     
   @dump_return
-  def insertion_position(self, context):
+  def insertion_position(self):
     '''
     Return the offset of the selection.
     Offset in local coordinate system GCS of the textmorph.
@@ -145,7 +145,7 @@ class TextGlyph(glyph.Glyph):
     if self.layout:
       size = base.vector.Point(* self.layout.get_pixel_size())  # size in user coords
     else:
-      size = base.vector.Point(0,0)
+      size = base.vector.Point(10,10)
     return size  # OLD + self.get_drawn_origin()
 
     ### print "IB cursor", layout.get_cursor_pos(15)

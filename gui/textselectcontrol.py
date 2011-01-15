@@ -17,6 +17,7 @@ Receives key presses when parent text glyph is active operand.
 import gui.control
 import textselectmanager  # Manages set of text selection controls.
 from decorators import *
+import base.vector as vector
 import morph
 
 
@@ -38,9 +39,31 @@ class TextSelectControl(gui.control.GuiControl):
     ## OLD scheme.transformed_controls.append(self) # put in drawing scheme
     # Note dimensions are defaults until drawn
     
-    # self if a morph comprising a group of rectangles
+    # Self is morph comprising a group of rect glyphs that cover lines of selected text.
     # Initially, self is a single rectangle for an insertion bar.
     self.append(morph.glyph.RectGlyph(viewport))
+    
+    # Self transforms the group of rect glyphs.
+    # Initial scale of insertion bar is size of font.
+    # Initial translation of insertion bar is end of text.
+    self.position_selection()
+    print "Bounds of initial text select", self.bounds
+  
+  @dump_return
+  def position_selection(self):
+    '''
+    Translate and scale the text selection.
+    Self is morph transformer of IB.
+    '''
+    # Get position of IB relative to TextMorph origin.
+    ## position = self.text_glyph.insertion_position()
+    position = vector.Vector(0.1,0.1)
+    self.translation = position
+    # !!!  scale and translation is some fraction of the TextMorph unit?
+    self.scale = vector.Vector(0.1,0.1)
+    self.derive_transform() # !!! If change specs, derive
+    ## return position
+  
   
   #FIXME morph.put_path_to should suffice
   # and any changes to the text glyph should change the transform of the selection
@@ -89,9 +112,12 @@ class TextSelectControl(gui.control.GuiControl):
   """ 
   
   @view_altering  # key alters this control
+  @dump_event
   def key(self, event):
     '''
-    Key pressed in a text select.
+    Filtered event from background manager's callback.
+    
+    Key pressed in active text select.
     Replace select with key in the text.
     Move the select to following the key in the text.
     '''
@@ -99,11 +125,9 @@ class TextSelectControl(gui.control.GuiControl):
     self.text_glyph.text += event.string
     
     # This control probably move and possibly resize.
-    # Queue redraw at current.
-    ## self.invalidate()
+    # FIXME
     
-    # FIXME relayout changed text
-    # Queue redraw changed text
-    self.text_glyph.invalidate()
+    # FIXME relayout changed text (with invalidation)
+    
 
 

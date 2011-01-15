@@ -9,7 +9,8 @@ from decorators import *
 
 class TextMorph(morph.PrimitiveMorph):
   '''
-  Morph comprising framed text.
+  Morph comprising frame, text, selection control.
+  
   User can:
     manipulate frame.
     set font and size of text.
@@ -81,10 +82,13 @@ class TextMorph(morph.PrimitiveMorph):
     '''
     !!! Hit detection is on the frame, not the text glyphs
     '''
+    context.save()
     self.put_transform_to(context)
     self.frame.put_edge_to(context)
     context.restore()
   
+  
+    
   """
   # !!! Override
   @dump_event

@@ -18,7 +18,7 @@ Development decorators
 # FIXME rename to dump_call
 def dump_event(func):
   '''
-  Decorator: dumps a call:  name and params.
+  Decorator: dumps a call:  name and args.
   Use for tracing execution.
   
   Since self is a parameter, when used on a class method,
@@ -26,29 +26,29 @@ def dump_event(func):
   This is useful since many events are handled by different handlers 
   with same method names in different classes and instances.
   '''
-  fname = func.func_name
+  fname = func.__module__ + "." + func.func_name
   argnames = func.func_code.co_varnames[:func.func_code.co_argcount]
   def dump_func(*args, **kwargs):
     depth = len(inspect.stack())  # Indent message by call stack depth
     print " "*depth, fname, ",".join(
-      '%s=%s' % entry
-      for entry in zip(argnames,args) + kwargs.items())
+      '%s=%s' % entry for entry in zip(argnames,args) + kwargs.items())
     return func(*args, **kwargs)
   return dump_func
 
 
 def dump_return(func):
   '''
-  Decorator: dumps return values, name, and args
+  Decorator: dumps bracket: name and args on entry, return values on exit
   '''
-  fname = func.func_name
+  fname = func.__module__ + "." + func.func_name
   argnames = func.func_code.co_varnames[:func.func_code.co_argcount]
   def dump_return(*args, **kwargs):
-    value = func(*args, **kwargs)
     depth = len(inspect.stack())  # Indent message by call stack depth
+    print " "*depth, fname, ",".join(
+      '%s=%s' % entry for entry in zip(argnames,args) + kwargs.items())
+    value = func(*args, **kwargs)
     # use %r for repr() %s for str()
-    print " "*depth, fname, "returns", value, ",".join(
-        '%s=%s' % entry for entry in zip(argnames,args) + kwargs.items())
+    print " "*depth, fname, "returns", value
     return value
   return dump_return
 

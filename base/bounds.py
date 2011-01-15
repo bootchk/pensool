@@ -92,6 +92,10 @@ class Bounds(object):
   >>> Bounds().from_extents(1,1,2,2)
   bounds:(1, 1, 1, 1)
   
+  # bounds from extents snaps to outside pixel boundary
+  >>> Bounds().from_extents(.75, .75, 1.2, 1.2)
+  bounds:(0, 0, 2, 2)
+  
   # calculate center
   >>> Bounds(0,0,2,2).center_of()
   (1.0,1.0)
@@ -234,15 +238,34 @@ class Bounds(object):
   def from_extents(self, ulx, uly, lrx, lry):
     '''
     Set value from an extent tuple.
-    Typically cairo extents, floats, inked, converted to DCS.
-    !!! ulx may be greater than lrx, etc.
+    For example, cairo extents, floats, inked, converted to DCS.
+    
+    !!! ulx may be greater than lrx, etc. due to transformations
+    
+    !!! Extents may be either path (ideal) or stroke (inked).
+    The ideal extent of a line can have zero width or height.
+    
+    !!! User may zoom out enough that bounds approach zero,
+    even equal zero?
+    
+    !!! Parameters are float i.e. fractional.
+    Bounds are snapped to the outside pixel boundary.
     '''
-    width = abs(lrx - ulx)
-    height = abs(lry - uly)
-    x = min(ulx, lrx)
-    y = min(uly, lry)
-    # expand float rect to outside integral pixel
-    self.value = gdk.Rectangle(int(x), int(y), int(math.ceil(width)), int(math.ceil(height)))
+    # Snap to integer boundaries and order on the number line
+    minxi = int(min(ulx, lrx))
+    minyi = int(min(uly, lry))
+    maxxi = math.ceil(max(ulx, lrx))
+    maxyi = math.ceil(max(uly, lry))
+    width = maxxi - minxi
+    height = maxyi - minyi
+    # width or height or both can be zero, for example setting transform on empty model
+    
+    # snap float rect to outside integral pixel
+    self.value = gdk.Rectangle(minxi, minyi, width, height)
+    # not assert x,y positive
+    # assert self.value.width >= 0  # since abs used
+    if self.is_null():
+      print "!!!!!!!!!!!! Null bounds", self
     return self
     
 

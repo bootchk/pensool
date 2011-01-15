@@ -155,7 +155,7 @@ class HandleGroup(menu.ItemGroup):
     Specializes Menu: only draw the current item.
     !!! Overrides composite.draw() (but follows the template.)
     '''
-    # !!! context saved by caller but restored here
+    context.save()
     self.put_transform_to(context)
     self.style.put_to(context)
     # !!! Only draw one of my items.

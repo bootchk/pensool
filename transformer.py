@@ -27,6 +27,7 @@ import config
 
 class Transformer(drawable.Drawable):
 
+  @dump_event
   def __init__(self, viewport):
     drawable.Drawable.__init__(self, viewport)
     
@@ -39,21 +40,21 @@ class Transformer(drawable.Drawable):
     self.rotation = 0.0
   
   
-  # @dump_return
+  @dump_return
   def put_transform_to(self, context):
     '''
     Apply my transform to the current transform in the context.
     and style?
     '''
-    context.save()  # !!! caller must do a matching restore
     try:
       context.transform(self.transform)
     except cairo.Error:
       print self.transform
       raise
     self.style.put_to(context)
-    # print "CTM", context.get_matrix()
-    return self.transform
+    # print "CTM", self.transform, context.get_matrix()
+    return context.get_matrix()
+    
   
   
   @dump_return
@@ -83,10 +84,10 @@ class Transformer(drawable.Drawable):
     '''
     Set the specs for transform, and derive transform from specs.
     '''
-    # assert no need to copy these vectors?
-    self.translation = translation
-    self.scale = scaltion
-    self.rotation = rotation
+    # copy these vectors so they stay in correspondence with the transform
+    self.translation = translation.copy()
+    self.scale = scaltion.copy()
+    self.rotation = rotation  # scalar
     self.derive_transform()
     
     
