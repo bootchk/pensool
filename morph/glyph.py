@@ -15,8 +15,6 @@ from decorators import *
 import base.vector as vector
 from config import *
 
-
-
     
     
 class Glyph(drawable.Drawable):
@@ -47,7 +45,16 @@ class Glyph(drawable.Drawable):
   def __repr__(self):
     #  Simplfied reprt.  Omit this to get address of instance.
     return self.__class__.__name__
-    
+  
+  
+  @dump_return
+  def pick(self, context, point):
+    self.put_path_to(context)
+    # x, y = 
+    if context.in_stroke(*context.device_to_user(point.x, point.y)):
+      return self.parent  # !!! Don't return a glyph, return glyph's parent morph
+    else:
+      return None
     
   """
   OLD

@@ -15,6 +15,8 @@ import inspect  # for indent by stack depth
 Development decorators
 '''
 
+DEBUG = False
+
 # FIXME rename to dump_call
 def dump_event(func):
   '''
@@ -29,9 +31,10 @@ def dump_event(func):
   fname = func.__module__ + "." + func.func_name
   argnames = func.func_code.co_varnames[:func.func_code.co_argcount]
   def dump_func(*args, **kwargs):
-    depth = len(inspect.stack())  # Indent message by call stack depth
-    print " "*depth, fname, ",".join(
-      '%s=%s' % entry for entry in zip(argnames,args) + kwargs.items())
+    if DEBUG:
+      depth = len(inspect.stack())  # Indent message by call stack depth
+      print " "*depth, fname, ",".join(
+        '%s=%s' % entry for entry in zip(argnames,args) + kwargs.items())
     return func(*args, **kwargs)
   return dump_func
 
@@ -43,12 +46,14 @@ def dump_return(func):
   fname = func.__module__ + "." + func.func_name
   argnames = func.func_code.co_varnames[:func.func_code.co_argcount]
   def dump_return(*args, **kwargs):
-    depth = len(inspect.stack())  # Indent message by call stack depth
-    print " "*depth, fname, ",".join(
-      '%s=%s' % entry for entry in zip(argnames,args) + kwargs.items())
+    if DEBUG:
+      depth = len(inspect.stack())  # Indent message by call stack depth
+      print " "*depth, fname, ",".join(
+        '%s=%s' % entry for entry in zip(argnames,args) + kwargs.items())
     value = func(*args, **kwargs)
-    # use %r for repr() %s for str()
-    print " "*depth, fname, "returns", value
+    if DEBUG:
+      # use %r for repr() %s for str()
+      print " "*depth, fname, "returns", value
     return value
   return dump_return
 

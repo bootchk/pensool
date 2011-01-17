@@ -76,14 +76,20 @@ class BackgroundManager(gui.control.GuiControl):
       dropmanager.dropmgr.continued(event, self)
     else:
       # Activate handle controls as approach edge of top-level objects
+      """ OLD
       for morph in scheme.model:
         # !!! Find morph in user coords
         if morph.is_inpath(user_coords):
-          focusmgr.focus(morph)
-          # !!! Open handle menu at device coords of event
-          self.handle_menu.open(event, morph)
-          # !!! Closing the handle menu cancels focus
-          break # Only one handle at a time TODO intersections
+        ...
+        break # Only one handle at a time TODO intersections
+      """
+      context = self.viewport.user_context()
+      picked_morph = scheme.model.pick(context, self.pointer_DCS) # user_coords)
+      if picked_morph:
+        focusmgr.focus(picked_morph)
+        self.handle_menu.open(event, picked_morph) # !!! Open at event DCS
+        # !!! Closing handle menu cancels focus
+          
     return True # Did handle event
 
 

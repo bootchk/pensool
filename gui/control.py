@@ -16,9 +16,6 @@ def report_virtual():
   print "??? Override virtual method", sys._getframe(1).f_code.co_name
 
 
-## was drawable.Drawable
-## transformer.Transformer
-## morph.morph.Morph
 class GuiControl(morph.morph.Morph):
   '''
   Base class for GUI controls i.e. widgets.
@@ -34,6 +31,7 @@ class GuiControl(morph.morph.Morph):
 
   A control is a morph because it has-a glyph that is transformed.
   That is, controls are transformable drawables.
+  Is-a Morph is-a Transformer is-a Drawable.
   
   Some controls are in a different scheme than the graphic morphs the user is editing.
   The topmost transform for such controls is a user setting or preference.
@@ -41,7 +39,7 @@ class GuiControl(morph.morph.Morph):
   Other controls are members of another morph, and transformed by their parent morph.
   e.g. a text selection.
   
-  Inherits Drawable.draw(), put_path_to(), is_inbounds()
+  Inherits Drawable.draw(), put_path_to(), is_inbounds(), invalidate_will_draw()
   !!! Overrides is_in_control_area see below.
   '''
   
@@ -76,22 +74,8 @@ class GuiControl(morph.morph.Morph):
     self.has_focus = False
     ## self.is_dragging = False
     self.button_pressed = 0
-    self.pointer_DCS = None
+    self.pointer_DCS = None # FIXME a singleton?
 
-
-  """
-  @dump_event
-  def invalidate(self, context):
-    ''' 
-    Invalidate means queue a region to redraw at expose event.
-    GUI specific, not applicable to all surfaces.
-    
-    !!! A GuiControl is in device coords, does NOT transform at invalidate.
-    '''
-    device_bounds = self.get_inked_bounds()
-    # TODO transforms on controls
-    self.viewport.surface.invalidate_rect( device_bounds, True )
-  """
 
   @dump_return
   def is_in_control_area(self, event):
@@ -265,6 +249,11 @@ class GuiControl(morph.morph.Morph):
   def take_focus(self, direction):
     self.has_focus = direction
     self.invalidate_will_draw()
+    # Tooltips
+    if direction:
+      # FIXME more specific.  For now, the class of the control.
+      print "Focus", self
+      
 
   
  

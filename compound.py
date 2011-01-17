@@ -106,6 +106,18 @@ class Compound(list, transformer.Transformer):
     return self.bounds.copy()
  
   
+  @dump_return
+  def pick(self, context, point):
+    context.save()
+    self.put_transform_to(context)
+    morph = None
+    for item in self:
+      morph = item.pick(context, point)
+      if morph:
+        break
+    context.restore()
+    return morph
+    
   @dump_event
   def put_path_to(self, context):
     '''
