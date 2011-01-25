@@ -26,21 +26,28 @@ import config
 
 
 class Transformer(drawable.Drawable):
+  '''
+  A transformer (of coordinate systems) 
+  '''
 
   @dump_event
   def __init__(self, viewport):
     drawable.Drawable.__init__(self, viewport)
     
-    # A transformer defaults to the identity transform.
+    # My transform.
+    # Default to identity transform.
     self.transform = cairo.Matrix() # assert identity transform
     
-    # Specs for identity transform
+    # Retained transform: saved cumulative transform from walking hierarchy.
+    self.retained_transform = None
+    
+    # Specs for self transform
     self.translation = vector.Vector(0, 0)
     self.scale = vector.Vector(1.0, 1.0)
     self.rotation = 0.0
   
   
-  @dump_return
+  # @dump_return
   def put_transform_to(self, context):
     '''
     Apply my transform to the current transform in the context.
@@ -53,7 +60,9 @@ class Transformer(drawable.Drawable):
       raise
     self.style.put_to(context)
     # print "CTM", self.transform, context.get_matrix()
-    return context.get_matrix()
+    self.retained_transform = context.get_matrix()
+    # assert is a copy TODO
+    return self.retained_transform
     
   
   

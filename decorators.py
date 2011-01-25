@@ -15,7 +15,7 @@ import inspect  # for indent by stack depth
 Development decorators
 '''
 
-DEBUG = False
+DEBUG = True
 
 # FIXME rename to dump_call
 def dump_event(func):

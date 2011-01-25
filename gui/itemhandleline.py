@@ -36,7 +36,8 @@ class LineHandleItem(itemhandle.HandleItem):
     print ">>>>>>>>>>>>Next line kind"
     pass
   
-  
+  """
+  OLD
   def group_with_controlee(self, morph):
     '''
     Group morph with controlee.
@@ -51,7 +52,7 @@ class LineHandleItem(itemhandle.HandleItem):
     else:
       print "...............Grouping with ", repr(self.controlee)
       self.controlee.append(line)
-    
+  """ 
   
   @dump_event
   def start_drag(self, event):
@@ -67,7 +68,7 @@ class LineHandleItem(itemhandle.HandleItem):
     line = morph.morph.LineMorph(scheme.viewport) # Create
     line.set_by_drag(self.group_manager.layout_spec.hotspot, event, self.controlee)
     dropmanager.dropmgr.set_draggee(line)  # Remember line morph being dragged
-    self.group_with_controlee(line)
+    self.controlee.insert(line)  # Insert line into controlee's group
     
     
   @dump_event

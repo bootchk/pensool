@@ -62,11 +62,15 @@ class Compound(list, transformer.Transformer):
   So you don't see invalidate as a method of compound.
   '''
   
-  def __init__(self, viewport):
+  def __init__(self, viewport, parent=None):
     transformer.Transformer.__init__(self, viewport)
     self.viewport = viewport
     # self.stroke_width = 1       # TODO style
     self.layout_spec = layout.LayoutSpec() # TODO only menu uses this, move it there
+    if parent:
+      self.parent = None
+    else:
+      self.parent = parent
     
   
   def append(self, item):
@@ -82,7 +86,7 @@ class Compound(list, transformer.Transformer):
     return self.parent
 
   
-  @dump_return  # Uncomment to debug composite draw()
+  # @dump_return  # Uncomment to debug composite draw()
   def draw(self, context):
     '''
     Iterate draw contained objects.
@@ -106,7 +110,7 @@ class Compound(list, transformer.Transformer):
     return self.bounds.copy()
  
   
-  @dump_return
+  # @dump_return
   def pick(self, context, point):
     context.save()
     self.put_transform_to(context)
@@ -118,7 +122,7 @@ class Compound(list, transformer.Transformer):
     context.restore()
     return morph
     
-  @dump_event
+  # @dump_event
   def put_path_to(self, context):
     '''
     Aggregate the paths of members.
@@ -196,19 +200,6 @@ class Compound(list, transformer.Transformer):
     # TODO do the calculation once, during layout
     return rect
   
-  
-  """
-  
-  OLD
-  @dump_event
-  def move_relative(self, event, offset):
-    '''
-    Move origin relative. Redraw.
-    TODO set_dimensions?
-    '''
-    for item in self:
-      item.move_relative(event, offset)
-  """
   
   @dump_event
   def highlight(self, direction):

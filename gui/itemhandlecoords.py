@@ -29,6 +29,11 @@ class MoveHandleItem(itemhandle.HandleItem):
   
   
   @dump_event
+  def _change_controlee(self, new_controlee):
+    focusmgr.focus(new_controlee)
+    self.controlee = new_controlee
+    
+  @dump_event
   def scroll_down(self, event):
     '''
     Filtered event from GuiControl: scroll wheel down in a handle item.
@@ -44,14 +49,22 @@ class MoveHandleItem(itemhandle.HandleItem):
         print "Child ....", repr(child)
         # TODO Too strict?  Allow jitter?
         if child.is_inpath(self.group_manager.layout_spec.hotspot):
-          focusmgr.focus(child)
-          self.controlee = child
+          self._change_controlee(child)
           return
       # Assert one must be at this event, else we would not have opened menu.
       raise RuntimeError("No morph found for handle menu")
     else:
     ## OLD except TypeError: # if not iterable
       base.alert.alert("Can't scroll past primitive morph")
+  
+  
+  @dump_event
+  def scroll_up(self, event):
+    '''
+    Filtered event from GuiControl: scroll wheel UP in a handle item.
+    Parent of this item's controlee becomes new controlee.
+    '''
+    self._change_controlee(self.controlee.parent)
   
   
   @dump_event

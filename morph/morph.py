@@ -30,15 +30,32 @@ class Morph(compound.Compound):
   A composite of Morphs or Glyphs.
   '''
 
-  def __init__(self, viewport):
-    compound.Compound.__init__(self, viewport)
+  def __init__(self, viewport, parent=None):
+    compound.Compound.__init__(self, viewport, parent)
 
+  @dump_event
+  def insert(self, morph):
+    '''
+    Insert morph into this group.
+    If self is a primitive morph, insert new group morph in hierarchy.
+    '''
+    if self.is_primitive():
+      # Standard insert branch into tree.
+      parent = self.parent
+      branch = Morph(self.viewport)  # new branch, parented soon, on append
+      branch.append(self) # child of parent
+      branch.append(morph) # new child
+      parent.remove(self) # break child from parent
+      parent.append(branch) # parent has new child, a branch
+    else:
+      print "...............Grouping with ", repr(self.controlee)
+      self.append(morph)
 
   def activate_controls(self, direction):
     '''
     Activate associated controls.
     
-    Some morphs default to have no controls
+    Some morphs default to have no controls.
     If this composite has more than one component, 
     AND if this is the top level of a tree of composites,
     activate control: ghost of bounding box enclosing components.
@@ -47,7 +64,7 @@ class Morph(compound.Compound):
     if direction:
       if len(self) > 1:
         # Activate singleton bounding box ghost
-        scheme.bounding_box.activate(True, self.get_dimensions())
+        scheme.bounding_box.activate(True, self.bounds.value)
     else:
       scheme.bounding_box.activate(False)
 
@@ -83,6 +100,7 @@ class Morph(compound.Compound):
 class PrimitiveMorph(Morph):
   '''
   A PrimitiveMorph is a Composite of only Glyphs.
+  The transform of a PrimitiveMorph defines aspect of its glyph, a unit shape.
   Cannot append a Morph to a PrimitiveMorph.  TODO enforce?
   '''
   def is_primitive(self):

@@ -12,7 +12,7 @@ class TextMorph(morph.PrimitiveMorph):
   Morph comprising frame, text, selection control.
   
   User can:
-    manipulate frame.
+    pick and manipulate frame as representative of whole
     set font and size of text.
     enter keystrokes into the text.
     constrain: frame sides
@@ -36,8 +36,8 @@ class TextMorph(morph.PrimitiveMorph):
 
 
   def __init__(self, viewport):
-    morph.Morph.__init__(self, viewport)
-    
+    # morph.Morph.__init__(self, viewport)
+    super(TextMorph, self).__init__(viewport)
     """
     Three members: 
       text, a glyph
@@ -80,7 +80,8 @@ class TextMorph(morph.PrimitiveMorph):
    
   def put_edge_to(self, context):
     '''
-    !!! Hit detection is on the frame, not the text glyphs
+    !!! Override: Hit detection is just on frame, not text glyphs
+    TODO hit detection on TextSelect control
     '''
     context.save()
     self.put_transform_to(context)

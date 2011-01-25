@@ -46,7 +46,7 @@ class Drawable(object):
     self.parent = None
     
   
-  @dump_return  # Uncomment to debug primitive draw().
+  # @dump_return  # Uncomment to debug primitive draw().
   def draw(self, context):
     '''
     Draw self using context.
@@ -227,7 +227,29 @@ class Drawable(object):
     return self.bounds.is_intersect(event)
   
   
-  @dump_return
+  # @dump_return
+  def in_fill(self, event):
+    '''
+    Is event in our filled shape?
+    Bounding box is DCS axis aligned, drawn fill is NOT, so use cairo in_fill().
+    '''
+    # For functions that can be called outside a walk of the hierarchy:
+    # set up fresh context with retained transform and style.
+    # fresh top level context
+    # TODO styled?
+    context = self.viewport.user_context()
+    if self.parent: # None if in background ctl
+      parent_transform = self.parent.retained_transform 
+      context.set_matrix(parent_transform)
+      
+    self.put_path_to(context) # recursive, with transforms
+    hit = context.in_fill(*context.device_to_user(event.x, event.y))
+    # if not hit:
+    #  print "OUT FILL", event.x, event.y, self.bounds.value # context.fill_extents(), parent_transform
+    return hit
+  
+  
+  # @dump_return
   def get_path_bounds(self, context):
     '''
     Compute bounding rect in DCS of path in context as inked.

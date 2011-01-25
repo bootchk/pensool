@@ -84,8 +84,10 @@ class GuiControl(morph.morph.Morph):
     For some controls the hot area is not same as the bounding box.
     Can be overridden.
     '''
-    # For most square shaped controls: the bounding box.
-    return self.is_inbounds(event)
+    # TODO For most square shaped controls: the bounding box.
+    # Faster if use bounding box?
+    # Jan. 24 2011 return self.is_inbounds(event)
+    return self.in_fill(event)
       
     
   '''

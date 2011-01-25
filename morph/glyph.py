@@ -14,7 +14,8 @@ import coordinates
 from decorators import *
 import base.vector as vector
 from config import *
-
+# import traceback
+# traceback.print_stack()
     
     
 class Glyph(drawable.Drawable):
@@ -31,8 +32,7 @@ class Glyph(drawable.Drawable):
   is that a glyph does coordinate transformation at invalidate. ????
   
   A Glyph is in "natural" coordinates, i.e. at the origin and unit dimensions.
-  A Glyph is a Drawable, and has a transform, but it is NOT USED.
-  !!! Makes no sense to call get_dimensions() or self.transform
+  A Glyph is a Drawable, usually transformed, but not a Transformer.
   
   Prototype for get_orthogonal(self, point):
     Return some vector orthogonal to self at this point on self.
@@ -47,7 +47,7 @@ class Glyph(drawable.Drawable):
     return self.__class__.__name__
   
   
-  @dump_return
+  # @dump_return
   def pick(self, context, point):
     self.put_path_to(context)
     # x, y = 
@@ -85,18 +85,30 @@ class LineGlyph(Glyph):
     
   def get_orthogonal(self, point):
     '''
-    Return unit orthogonal to self at this point on self.
+    Return unit orthogonal to drawn self at this point on self.
     Assert point is in DCS and is on self.
+    Note drawn self means in the DCS.
+    Note the orthogonal does NOT necessarily pass through the point.
+    TODO return one of two directional orthogonal vectors,
+    the one that is in the direction of the mouse trail (not the point.)
     
     For a line, point is immaterial.
-    The point is on (or near?) the line and so some ortho to the line
+    The point is on (or near) the line and so some ortho to the line
     MUST hit the point (the point can't be on the extension
     of a finite line.)
+    
     For a line, there are two orthogonals to a point.
-    TODO choose one?
+    This is a somewhat arbitray one for now.
     '''
-    # FIXME orthogonal.line_..
-    return coordinates.line_orthogonal(self.bounds.value, point)
+    # The bounds are in DCS.  
+    # Assert the line is one of the diagonals of the bounds, but which one?
+    
+    x, y = self.parent.retained_transform.transform_point(0,0)
+    point1 = vector.Vector(x,y)
+    x, y = self.parent.retained_transform.transform_point(1.0,0)
+    point2 = vector.Vector(x,y)
+    return orthogonal.line_orthogonal(point1, point2)
+    ### return coordinates.line_orthogonal(self.bounds.value, point)
 
 
 
@@ -119,7 +131,7 @@ class CircleGlyph(Glyph):
   Unit diameter.
   Bounding box origin at 0,0
   '''
-  @dump_event
+  # @dump_event
   def put_path_to(self, context):
     # x, y, radius, ?, radians
     ## context.arc(0, 0, 1.0, 0, 2.0*math.pi)

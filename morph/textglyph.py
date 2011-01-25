@@ -111,7 +111,6 @@ class TextGlyph(glyph.Glyph):
     ''' Set layout width in pangounits.
     1 device unit = pango.SCALE pangounits
     '''
-    #dims = self.get_dimensions()  # dimensions in pensool units
     # Scale to pangounits.
     # 200k with set_dims(scale=1) wraps into two sentences
     width = 200 * pango.SCALE
@@ -137,9 +136,7 @@ class TextGlyph(glyph.Glyph):
     FIXME for now, lower right corner.
     More generally, the user can move it.
     '''
-    
-    ## rect = self.get_dimensions()  # get origin
-    ##layout = self._layout(context)  # layout the text
+    ##layout = self._layout(context)
     
     # If laid out already, use cached layout
     if self.layout:
