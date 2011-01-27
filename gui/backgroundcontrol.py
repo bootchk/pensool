@@ -44,6 +44,7 @@ class BackgroundManager(gui.control.GuiControl):
     ''' Set the invisible, undrawn bounds of the background.'''
     self.bounds.from_rect(self.viewport.da.allocation)
   
+  
   def configure_event_cb(self, widget, event):
     ''' 
     Event from window manager: window size changed.
@@ -211,7 +212,7 @@ class BackgroundManager(gui.control.GuiControl):
     ###if self.is_dragging:
     if source_control is self:  # Did drag start in background?
       # backgroundctl controls viewport.  Assert source is the scheme.
-      source.move_relative(event, offset)
+      source.move_relative(offset)
     ###  self.is_dragging = False  # Local drag state
     else:    # Drag started in another control.
       source_control.drop(source, event, offset, source_control)
@@ -240,23 +241,6 @@ class BackgroundManager(gui.control.GuiControl):
     '''
     rect = self.dimensions
     context.rectangle(rect.x, rect.y, rect.width, rect.height)
-  
-  """
-  '''
-  Commands (undoable?)
-  '''
-  # FIXME this should be inherited  from transformer.  Viewport is a transformer
-  def move_relative(self, event, offset):
-    '''
-    Left drag op from background to background.
-    
-    Command to pan view of *document*.
-    
-    Event: point dropped
-    Offset: from start drag to drop in window coords
-    '''
-    self.viewport.scroll(offset.x, offset.y)
-  """
 
     
     

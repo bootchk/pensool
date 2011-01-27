@@ -87,12 +87,6 @@ class ItemGroup(compound.Compound):
     # FIXME this is an attribute but what is good initializer?
     #self.layout_spec = None
     
-  
-  def _invalidate(self):
-    """ Invalidate control group"""
-    # Controls drawn with distinct context from the model context
-    self.invalidate(self.viewport.controls_context())
-
 
   @dump_event
   def position(self):
@@ -101,13 +95,20 @@ class ItemGroup(compound.Compound):
     Called on opening and on movement (slide.)
     # TODO Differ for subclasses.
     
-    A menu is scaled by parent transform (the controls context.)
-    A menu group rotates and translates  the group of its items.
     Position is a change to this menu's transform, translate and rotate.
+    A menu group rotates and translates  the group of its items.
     
+    Scaling: A menu is scaled by parent transform (the user-preference controls transform.)
+    Rotation: A menu is layout'd along the X-axis, horizontally.
+    A traditional menu is rotated to the vertical position.
+    Handle menus are rotated to any angle.
+    Translation: Most menus are also translated so that the center of some item is at
+    the opening event.
+    
+    The layout spec embodies all the transforms, this is generic for all menu subclasses.
     This is view_altering, but caller must do view_altering
     '''
-    unit_vect = vector.Vector(1.0, 1.0)
+    unit_vect = vector.ONES.copy()  # unit scaling
     self.set_transform(self.layout_spec.benchmark, unit_vect, self.layout_spec.vector.angle())
     
     
@@ -154,11 +155,10 @@ class ItemGroup(compound.Compound):
   def close(self, event):
     # TODO delete only self, if many widgets can be visible
     del scheme.widgets[-1:]
-    ## self._invalidate()   # menu
+
     focusmgr.unfocus()  # any controlee, should invalidate
     
-    # Deactivate current item.  This activates the background manager.
-    self._deactivate_current(event)
+    self._deactivate_current(event) # activates the background manager.
     
     # FIXME for now, deactivate text select when handle menu closes
     textselectmanager.activate_select_for_text(False)

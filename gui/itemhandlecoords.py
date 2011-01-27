@@ -76,16 +76,16 @@ class MoveHandleItem(itemhandle.HandleItem):
     
     # Display at new coords, same width and height
     # Since moving in real time, use the increment from previous continue
-    self.controlee.move_relative(event, increment)
+    self.controlee.move_relative(increment)
  
 
   @dump_event
   def drop(self, source, event, offset, source_control):
     '''
     Some control was the target of a drop that started in this control.
-    Leave the ghosted move in last position
+    Leave the ghosted move in last position.
     '''
-    ## OLD source.move_relative(event, offset)
+    pass
     
 
 

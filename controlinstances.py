@@ -28,13 +28,16 @@ def build_popup_menu(viewport):
   '''
   Classic style pop-up menu
   '''
-  menu_item = gui.itemmenu.SquareMenuItem(viewport)
-  menu_item2 = gui.itemmenu.SquareMenuItem(viewport)
-  menu_item3 = gui.itemmenu.SquareMenuItem(viewport)
+  menu_item = gui.itemmenu.IconMenuItem(viewport)
+  menu_item2 = gui.itemmenu.IconMenuItem(viewport)
+  menu_item3 = gui.itemmenu.IconMenuItem(viewport)
+  menu_item4 = gui.itemmenu.TextMenuItem(viewport)
+  
 
   menu_group = gui.menutraditional.MenuGroup(viewport)
   menu_group.add(menu_item)
   menu_group.add(menu_item2)
   menu_group.add(menu_item3)
+  menu_group.add(menu_item4)
   return menu_group
 

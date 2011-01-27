@@ -116,8 +116,8 @@ for item in scheme.model:
 
 # !!! Width, height of text are computed??
 # atext.set_origin(coordinates.Rectangle(150.0/PENSOOL_UNIT, 30.0/PENSOOL_UNIT, 0,0))
-# TextMorph creates it's own selection
-atext = morph.textmorph.TextMorph(a_viewport)
+# TextEditMorph creates it's own selection
+atext = morph.textmorph.TextEditMorph(a_viewport)
 atext.set_dimensions(coordinates.Rectangle(150.0/PENSOOL_UNIT, 30.0/PENSOOL_UNIT, 200.0/PENSOOL_UNIT, 200.0/PENSOOL_UNIT))
 scheme.model.append(atext)
 

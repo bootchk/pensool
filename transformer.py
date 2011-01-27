@@ -81,6 +81,13 @@ class Transformer(drawable.Drawable):
     self.transform *= translation_matrix
     return self.transform
     
+  """
+  def device_to_user(self, x, y):
+    # TODO do I need the model context?
+    context = self.viewport.da.window.cairo_create()
+    ### context.set_matrix(self.matrix)
+    return vector.Vector(*context.device_to_user(x, y))
+  """
   
   '''
   Setters of transform.
@@ -116,7 +123,7 @@ class Transformer(drawable.Drawable):
     self.translation = vector.Vector(dimensions.x, dimensions.y)
     self.scale = vector.Vector(dimensions.width/1.0, dimensions.height/1.0)
     self.derive_transform()
-    
+
     
   @view_altering
   @dump_event
@@ -126,42 +133,45 @@ class Transformer(drawable.Drawable):
     self.translation = vector.Vector(event.x, event.y)
     self.derive_transform()
     
-    
   @view_altering
   @dump_event
-  def move_relative(self, event, offset):
+  def move_relative(self, offset):
     ''' 
     Translate.
-    Move origin by offset.  Offset is a delta DCS. 
+    Move origin by offset.  Offset is a delta in LCS (any really). 
     '''
     # TODO calculate local coordinates by using parent transform.
     self.translation += offset
     self.derive_transform()
   
-  
-  # TBD not used
-  @dump_event
   @view_altering
-  def move_absolute(self, event):
-    ''' Move origin absolute to coords in DCS. '''
-    print "drawable.move_absolute", repr(self), "to ", event.x, event.y
-    self.center_at(event)
+  @dump_event
+  def move_absolute(self, offset):
+    ''' Set translation by offset.'''
+    self.translation = offset.copy()
+    self.derive_transform()
     
-    
-  def device_to_user(self, x, y):
-    # TODO do I need the model context?
-    context = self.viewport.da.window.cairo_create()
-    ### context.set_matrix(self.matrix)
-    return vector.Vector(*context.device_to_user(x, y))
-  
-  
   @view_altering
   @dump_event
   def scale_uniformly(self, delta):
+    ''' Relative scale uniformly by the scalar delta'''
     self.scale *= delta
     self.derive_transform()
   
+  @view_altering
+  @dump_event
+  def relative_scale(self, delta_x, delta_y):
+    ''' Relative scale each dimension by the scalar tuple delta'''
+    self.scale.x *= delta_x
+    self.scale.y *= delta_y
+    self.derive_transform()
   
+  @view_altering
+  @dump_event
+  def rotate(self, angle):
+    self.rotation = angle
+    self.derive_transform()
+    
   @dump_event
   @view_altering
   def zoom(self, delta, event, context):

@@ -82,6 +82,21 @@ def view_altering(func):
     return value
   return view_altering_decor
 
+def transforming(func):
+  '''
+  Decorator: wrap decorated func in save, transform, restore.
+  Decorated func alters the view: transform or style.
+  Self is a drawable.
+  First arg must be a context.
+  '''
+  def transforming_decor(self, *args, **kwargs):
+    args[0].save()
+    self.put_transform_to(args[0])
+    value = func(self, *args, **kwargs)
+    args[0].restore()
+    return value
+  return transforming_decor
+
 
 def coords_translated(func):
   '''

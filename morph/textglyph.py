@@ -14,6 +14,8 @@ import cairo
 
 class TextGlyph(glyph.Glyph):
   """
+  A text glyph does layout to fit in its parent.
+  
   see GTK Reference Manual: pangocairo.CairoContext
   """
   
@@ -21,7 +23,7 @@ class TextGlyph(glyph.Glyph):
     '''
     !!! Override: extra attribute: text
     '''
-    self.text = "Most relationships seem so transitory"
+    self.text = "Most r" # elationships seem so transitory"
     # self.font = 
     drawable.Drawable.__init__(self, viewport) # super
     self.layout = None  # cache the layout
@@ -30,11 +32,14 @@ class TextGlyph(glyph.Glyph):
   @dump_return
   def draw(self, context):
     '''
-    !!! Override: pango draws without scaling
+    !!! Override: pango draws without scaling.
+    Transforming during primitive draw is unusual:
+    see Drawable.draw() which does not do this.
+    This is undoing the transformation of the immediate parent,
+    but is still transformed by everything above in the hierarchy.
+    ????
     '''
     context.save()
-    ## context.set_matrix( cairo.Matrix() )
-    
     context.scale(1.0/self.parent.scale.x, 1.0/self.parent.scale.y)  # inverse parent scale
     # assert the context is already translated to the proper origin
     self.put_path_to(context)
@@ -50,7 +55,7 @@ class TextGlyph(glyph.Glyph):
     """
     # Assert fill or stroke clears paths from context
     context.restore()
-    return self.bounds
+    return self.bounds.copy()
   
     
   """
@@ -68,7 +73,7 @@ class TextGlyph(glyph.Glyph):
     # self.font.put_to(context) # FIXME
     # With hierarchal modeling, glyph origin is (0,0).
     # Morph has transformed.  Note scale of text is (1,1)
-    context.move_to(0, 0)
+    context.move_to(0, 0) # TODO move this up
     # FIXME Don't layout each time, only when text changes.
     # Layout text to any new specifications
     self.layout = self._layout(context)
@@ -82,11 +87,12 @@ class TextGlyph(glyph.Glyph):
     
   
   def put_edge_to(self, context):
-    # Should not call put_edge_to for text
+    # Current design not allow picking text
     assert False
   
   
   def get_orthogonal(self, point):
+    ''' Orthogonal to TextEdit is orthogonal to frame '''
     return orthogonal.rect_orthogonal(self.bounds.value, point)
 
    
@@ -97,8 +103,6 @@ class TextGlyph(glyph.Glyph):
     Note pycairo context already supports pango
     '''
     ''' Layout seems to need a unit transform. '''
-    ##context.save()
-    ##context.set_matrix( cairo.Matrix() )
     
     # TODO persistent layout?
     layout = context.create_layout()
@@ -108,19 +112,19 @@ class TextGlyph(glyph.Glyph):
     # FIXME
     # If user chose clipping to box
     
-    ''' Set layout width in pangounits.
+    ''' 
+    Set layout width in pangounits.
     1 device unit = pango.SCALE pangounits
+    Width is DCS of the parent.
     '''
-    # Scale to pangounits.
-    # 200k with set_dims(scale=1) wraps into two sentences
-    width = 200 * pango.SCALE
-    #print "matrix", context.get_matrix()
-    # print "dims.width", dims.width, "layout width", width
-    # FIXME, get parent scale to multiply pango.SCALE
-    layout.set_width( width )   # pangounits
+    parent_width = self.parent.scale.x
+    parent_height = self.parent.scale.y
+    parent_width_device, foo = self.parent.retained_transform.transform_distance(parent_width, parent_height)
+    # print "Parent width device", parent_width_device, "parent", self.parent
+    pango_width = parent_width_device * pango.SCALE  # Scale to pangounits.
+    layout.set_width( pango_width )
     
     layout.set_text(self.text)
-    ##context.restore()
     return layout
     
     

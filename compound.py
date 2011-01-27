@@ -87,6 +87,7 @@ class Compound(list, transformer.Transformer):
 
   
   # @dump_return  # Uncomment to debug composite draw()
+  @transforming
   def draw(self, context):
     '''
     Iterate draw contained objects.
@@ -96,43 +97,37 @@ class Compound(list, transformer.Transformer):
     Note this is standard hierarchal modeling:
     apply my transform to the current transform matrix of the context (CTM).
     '''
-    context.save()
-    self.put_transform_to(context)
     self.style.put_to(context)
     union_bounds = bounds.Bounds()  # null 
     for item in self:
       item_bounds = item.draw(context)  # walk tree
       union_bounds = union_bounds.union(item_bounds)
       # print "Matrix for item:", context.get_matrix()
-    context.restore()
     self.bounds = union_bounds
     # !!! Note empty composites return null bounds
     return self.bounds.copy()
  
   
   # @dump_return
+  @transforming
   def pick(self, context, point):
-    context.save()
-    self.put_transform_to(context)
     morph = None
     for item in self:
       morph = item.pick(context, point)
       if morph:
         break
-    context.restore()
     return morph
-    
+
+
   # @dump_event
+  @transforming
   def put_path_to(self, context):
     '''
     Aggregate the paths of members.
     '''
-    context.save()
-    self.put_transform_to(context)
     self.style.put_to(context)
     for item in self:
       item.put_path_to(context)
-    context.restore()
       
 
   def get_orthogonal(self, point):

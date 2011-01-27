@@ -26,9 +26,15 @@ class MenuGroup(menu.ItemGroup):
       vector is downward (positive y ward)
       opening item is 0 (the topmost item)
       benchmark is at event (under the opening item.)
+      FIXME benchmark is UL of first item
     '''
-    down_vect = vector.Vector(0, 1.0)
-    self.layout_spec = layout.LayoutSpec(event, event, down_vect, opening_item=0)
+    ## menu_vect = vector.Vector(0, 1.0)
+    menu_vect = vector.UNIT_X_AXIS.copy()
+    # Translate menu group so opens with opening item centered on event
+    # FIXME compute a proper offset to center the opening item
+    benchmark = vector.Vector(event.x, event.y)
+    benchmark += vector.Vector(-10, -10)
+    self.layout_spec = layout.LayoutSpec(event, benchmark, menu_vect, opening_item=0)
 
     
   @dump_event
@@ -37,18 +43,21 @@ class MenuGroup(menu.ItemGroup):
     Layout (position) all items in group.
     In linear, rectangular table, with non-overlapping items.
     Relative positioning within the parent GCS.
-    Note that the menu group points the axis of the menu in a direction:
-    layout is along the x-axis by convention.
+    Note that the menu group points the axis of the menu in a direction.
+    Layout must be on a corresponding axis.
+    
+    Layout is along the y-axis by convention.
     
     Event is ignored, use coords of most recent event (open, slide, etc.).
     '''
-    point = vector.Point(0,0)
+    point = vector.ORIGIN.copy()
     for item in self:
-      item.center_at(point)
+      ## item.center_at(point)
+      item.move_absolute(point)
       # Next item along a line (the x-axis).
       # FIXME more generally, get the size of an item
       # point.y += item.get_dimensions().height
-      point.x += config.ITEM_SIZE # HEIGHT?
+      point.y += config.ITEM_SIZE # HEIGHT?
       
     """
     OLD using non-transformed layout

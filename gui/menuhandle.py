@@ -148,19 +148,15 @@ class HandleGroup(menu.ItemGroup):
     # Reposition: update the menu's transform
     self.position()
 
-  
+  @transforming
   def draw(self, context):
     '''
     Draw Handle Menu.
     Specializes Menu: only draw the current item.
     !!! Overrides composite.draw() (but follows the template.)
     '''
-    context.save()
-    self.put_transform_to(context)
     self.style.put_to(context)
     # !!! Only draw one of my items.
-    item_bounds = self[self.active_index].draw(context)
-    context.restore()
-    self.bounds = item_bounds
+    self.bounds = self[self.active_index].draw(context)
     return self.bounds
  

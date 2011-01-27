@@ -130,7 +130,8 @@ class GuiControl(morph.morph.Morph):
     Button pressed in this active control
     '''
     ## was assert( self.is_inbounds(event))
-    assert( self.is_in_control_area(event))
+    # Jan 25 2011 Assertion breaks background control
+    # assert( self.is_in_control_area(event))
     
     '''
     !!! Not all controls are draggable.

@@ -154,9 +154,15 @@ class Vector:
 # Point is a synonym for the Vector class: they behave the same.
 Point = Vector
 
-# Constant vector
+# Constant vectors
+# !!! copy(), don't alter
 def downward_vector():
   return Vector(0, 1)
+
+ORIGIN = Vector(0,0)
+ONES = Vector(1,1)
+UNIT_X_AXIS = Vector(1,0)
+UNIT_Y_AXIS = Vector(0,1)
   
   
 """

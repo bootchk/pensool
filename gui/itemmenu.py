@@ -5,6 +5,7 @@ import morph.glyph
 from gtk import gdk
 from decorators import *
 import config
+import base.vector as vector
 
 
 class MenuItem(gui.itemcontrol.ItemControl):
@@ -76,17 +77,23 @@ class MenuItem(gui.itemcontrol.ItemControl):
     pass
     
     
-class SquareMenuItem(MenuItem):
+class IconMenuItem(MenuItem):
+  # For now a rect
+  def __init__(self, port):
+    super(MenuItem, self).__init__(port)
+    
+    self.append(morph.glyph.RectGlyph(port))
+    self.relative_scale(config.ITEM_SIZE*2, config.ITEM_SIZE) # size
+
+
+class TextMenuItem(MenuItem):
   
   def __init__(self, port):
-    MenuItem.__init__(self, port)
-    self.append(morph.glyph.RectGlyph(port))
-    # define my size
-    self.scale_uniformly(config.ITEM_SIZE)
-    ## , morph.morph.RectMorph
-    ## ??? Doesn't work: super(SquareMenuItem, self).__init__(port)
+    super(MenuItem, self).__init__(port)
+    
+    text_morph = morph.textmorph.TextMorph(port)
+    self.append(text_morph)
+    # !!! Must scale my morph the parent of the textglyph, not self
+    text_morph.relative_scale(config.ITEM_SIZE*2, config.ITEM_SIZE) # size
 
-  """
-  def put_path_to(self, context):
-    context.rectangle(self.get_dimensions())
-  """
+    
