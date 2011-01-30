@@ -77,7 +77,7 @@ class GuiControl(morph.morph.Morph):
     self.pointer_DCS = None # FIXME a singleton?
 
 
-  @dump_return
+  # @dump_return
   def is_in_control_area(self, event):
     '''
     Is the event in the hot area?

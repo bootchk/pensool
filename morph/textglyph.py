@@ -29,7 +29,7 @@ class TextGlyph(glyph.Glyph):
     self.layout = None  # cache the layout
     
   
-  @dump_return
+  # @dump_return
   def draw(self, context):
     '''
     !!! Override: pango draws without scaling.

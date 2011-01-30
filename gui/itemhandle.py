@@ -53,13 +53,8 @@ class HandleItem(gui.itemcontrol.ItemControl):
 
   @dump_event
   def start_drag(self, event):
-    '''
-    Mouse departed item with button down.
-    Start drag with:
-      event
-      controlee is the drawable controlled by this control
-      source is self control
-    '''
+    ''' Mouse departed item with button down. '''
+    self.group_manager.close(event)  # close menu
     dropmanager.dropmgr.begin(event, self.controlee, self)
  
     
@@ -134,7 +129,7 @@ class HandleItem(gui.itemcontrol.ItemControl):
     return foo
   
   
-  @dump_return
+  # @dump_return
   def pixels_off_menu_axis(self, event):
     '''
     Is mouse motion orthogonal (sideways) to menu axis?
@@ -154,7 +149,7 @@ class HandleItem(gui.itemcontrol.ItemControl):
     # normalize to menu vector
     normal_vector = coordinates.normalize_vector_to_vector(mouse_vector, 
       menu_vector)
-    print "mouse", mouse_vector, "menu", menu_vector, "normal", normal_vector
+    # print "mouse", mouse_vector, "menu", menu_vector, "normal", normal_vector
     return normal_vector.y
   
   

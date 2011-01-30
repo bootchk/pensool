@@ -15,6 +15,7 @@ Note Transformer does NOT override draw(), but Composite does.
 '''
 
 # TODO style part of transformation?
+# TODO derive_transform part of view_altering?
 
 import drawable
 import cairo
@@ -39,9 +40,9 @@ class Transformer(drawable.Drawable):
     self.transform = cairo.Matrix() # assert identity transform
     
     # Retained transform: saved cumulative transform from walking hierarchy.
-    self.retained_transform = None
+    self.retained_transform = cairo.Matrix()  # Identity transform is benign
     
-    # Specs for self transform
+    # Specs for self.transform: identity transform
     self.translation = vector.Vector(0, 0)
     self.scale = vector.Vector(1.0, 1.0)
     self.rotation = 0.0
@@ -51,7 +52,7 @@ class Transformer(drawable.Drawable):
   def put_transform_to(self, context):
     '''
     Apply my transform to the current transform in the context.
-    and style?
+    FIXME and style?
     '''
     try:
       context.transform(self.transform)
@@ -60,16 +61,17 @@ class Transformer(drawable.Drawable):
       raise
     self.style.put_to(context)
     # print "CTM", self.transform, context.get_matrix()
-    self.retained_transform = context.get_matrix()
-    # assert is a copy TODO
-    return self.retained_transform
+    # Save a copy (!!!) of the CTM
+    self.retained_transform = cairo.Matrix() * context.get_matrix()
+    return self.retained_transform  # debugging
     
   
   
-  @dump_return
+  # @dump_return
   def derive_transform(self):
     '''
     Set my transform from my drawing specs.
+    !!! Afterwards, retained_transform doesn't correspond until walk model tree
     '''
     self.transform = cairo.Matrix()
     # Standard sequence: rotate, scale, translate
@@ -94,20 +96,25 @@ class Transformer(drawable.Drawable):
   Differ by component set: all, translation, scale, rotation, and pairs of.
   '''  
 
-  @view_altering
-  @dump_event
+  '''
+  NOT @view_altering.  Caller must be view_altering.
+  Because some callers are just initializing, e.g. menus and model top.
+  '''
+  @dump_return
   def set_transform(self, translation, scaltion, rotation):
     '''
     Set the specs for transform, and derive transform from specs.
     '''
-    # copy these vectors so they stay in correspondence with the transform
+    # copy these vectors so correspond with transform
     self.translation = translation.copy()
     self.scale = scaltion.copy()
     self.rotation = rotation  # scalar
     self.derive_transform()
+    return self.transform # debug
     
     
-  @view_altering
+  # This will alter the view, but for now its broken on retained transform
+  # @view_altering
   @dump_return
   def set_dimensions(self, dimensions):
     '''

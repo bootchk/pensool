@@ -8,6 +8,7 @@ from decorators import *
 import base.alert as alert
 import base.vector as vector
 import textselectmanager
+from gtk import gdk
 
 
 
@@ -62,10 +63,11 @@ class BackgroundManager(gui.control.GuiControl):
     # TODO activate background controls ie handles on inside of window frame?
     # TODO draw the page frame
     
-    # FIXME naming top_coords
-    # Transform device coords of event to top coords (TCS)
-    # by inverting the viewing transformation.
-    user_coords = self.viewport.device_to_user(event.x, event.y)
+    #event compression
+    next_event = gdk.event_peek()
+    if next_event:
+      print "!!!!!!!!!!!!!!!!", next_event
+      next_event.free()
     
     self.pointer_DCS = vector.Vector(event.x, event.y) # save for later key events
     
@@ -76,21 +78,20 @@ class BackgroundManager(gui.control.GuiControl):
       # TODO find probe suitable targets
       dropmanager.dropmgr.continued(event, self)
     else:
-      # Activate handle controls as approach edge of top-level objects
-      """ OLD
-      for morph in scheme.model:
-        # !!! Find morph in user coords
-        if morph.is_inpath(user_coords):
-        ...
-        break # Only one handle at a time TODO intersections
-      """
+      # Picking: detecting pointer intersection with morphs
       context = self.viewport.user_context()
-      picked_morph = scheme.model.pick(context, self.pointer_DCS) # user_coords)
+      picked_morph = scheme.model.pick(context, self.pointer_DCS)
       if picked_morph:
         focusmgr.focus(picked_morph)
         self.handle_menu.open(event, picked_morph) # !!! Open at event DCS
         # !!! Closing handle menu cancels focus
-          
+    
+    #event compression
+    next_event = gdk.event_peek()
+    if next_event:
+      print "!!!!!!!!!!!!!!!!", next_event
+      next_event.free()
+            
     return True # Did handle event
 
 
@@ -103,9 +104,7 @@ class BackgroundManager(gui.control.GuiControl):
   def button_press_left(self, event):
     '''
     Generally: left button pressed: begin drag. 
-    
-    This defines that background control accepts drags.
-    
+    App logic: background control drags are pans of viewport.
     Since the background controls the document,
     meaning of drag is move (pan) document beneath the window.
     IE a hand icon drag.

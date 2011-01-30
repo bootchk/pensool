@@ -30,8 +30,15 @@ class MoveHandleItem(itemhandle.HandleItem):
   
   @dump_event
   def _change_controlee(self, new_controlee):
-    focusmgr.focus(new_controlee)
-    self.controlee = new_controlee
+    '''
+    If controlee is not none, change to it.
+    None means at the top
+    '''
+    if new_controlee:
+      focusmgr.focus(new_controlee)
+      self.controlee = new_controlee
+    else:
+      base.alert.alert("Can't scroll up past document.")
     
   @dump_event
   def scroll_down(self, event):

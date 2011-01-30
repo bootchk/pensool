@@ -8,7 +8,7 @@ dropmanager.py
 TODO not a class, just a singleton module
 '''
 
-import coordinates
+import base.vector as vector
 from decorators import *
 
 
@@ -30,12 +30,10 @@ class DropManager(object):
   '''
   
   def __init__(self):
-    self.start_x = None
-    self.start_y = None
-    self.current_x = None
-    self.current_y = None
-    self.source = None
-    self.source_control = None
+    self.start_point = None
+    self.current_point = None
+    self.source = None  # which morph drag started from
+    self.source_control = None # which control on the source
     self.draggee = None
 
 
@@ -49,10 +47,8 @@ class DropManager(object):
     '''
     assert(controlee is not None)
     assert(self.source is None)   # Not begin before
-    self.start_x = event.x
-    self.start_y = event.y
-    self.current_x = event.x
-    self.current_y = event.y
+    self.start_point = vector.Vector(event.x, event.y)
+    self.current_point = self.start_point.copy()
     self.source = controlee
     self.source_control = control
     
@@ -66,8 +62,7 @@ class DropManager(object):
     self.source_control.continue_drag(event, 
       self._get_offset(event),
       self._get_increment(event))
-    self.current_x = event.x
-    self.current_y = event.y
+    self.current_point = vector.Vector(event.x, event.y)
 
     
   @dump_event
@@ -110,16 +105,14 @@ class DropManager(object):
   
   def _get_offset(self, event):
     # Calculate offset drag end to drag begin
-    offset = coordinates.coords_to_bounds(event)
-    offset.x -= self.start_x
-    offset.y -= self.start_y
+    offset = vector.Vector(event.x, event.y)
+    offset -= self.start_point
     return offset
   
   def _get_increment(self, event):
     # Calculate incremental offset previous event to this event
-    offset = coordinates.coords_to_bounds(event)
-    offset.x -= self.current_x
-    offset.y -= self.current_y
+    offset = vector.Vector(event.x, event.y)
+    offset -= self.current_point
     return offset
   
 # Singleton

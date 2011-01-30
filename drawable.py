@@ -5,6 +5,7 @@ import base.bounds as bounds
 import style
 from decorators import *
 import base.vector as vector
+import cairo # FIXME for one place
 
 
 
@@ -91,14 +92,9 @@ class Drawable(object):
   def invalidate_as_drawn(self):
     ''' 
     Invalidate as previously drawn.
-    This is an optimization: caching drawn bounds.
+    Caching drawn bounds is an optimization; alternative is to walk model branch.
     This is for composite and primitive drawables: every drawable has bounds.
     '''
-    """
-    OLD
-    self.viewport.surface.invalidate_rect( 
-      coordinates.integral_rect(self.drawn_dims), True )
-    """
     self.viewport.surface.invalidate_rect(self.bounds.value, True)
     return self.bounds
    
@@ -110,10 +106,13 @@ class Drawable(object):
     This walks a branch of model to determine bounds.
     '''
     context = self.viewport.user_context()
-    # Put parent transform in new context, unless at top
+    # Put parent retained_transform in new context, unless at top
+    # !!! parent transform is inadequate, need retained_transform
+    # which represents the accumulated transform from the top.
     if self.parent:
       self.parent.style.put_to(context)
-      self.parent.put_transform_to(context)
+      context.transform(self.parent.retained_transform)
+      ##self.parent.put_transform_to(context)
     self.put_path_to(context)   # recursive
     will_bounds_DCS = self.get_path_bounds(context) # inked
     self.viewport.surface.invalidate_rect( will_bounds_DCS.value, True )
@@ -239,9 +238,7 @@ class Drawable(object):
     # TODO styled?
     context = self.viewport.user_context()
     if self.parent: # None if in background ctl
-      parent_transform = self.parent.retained_transform 
-      context.set_matrix(parent_transform)
-      
+      context.set_matrix(cairo.Matrix()*self.parent.retained_transform)
     self.put_path_to(context) # recursive, with transforms
     hit = context.in_fill(*context.device_to_user(event.x, event.y))
     # if not hit:

@@ -31,8 +31,9 @@ class ControlsManager():
   @dump_event
   def activate_control(self, control, event, controlee):
     '''
-    Also deactivates the current control !!!
-    Really is swap.
+    Deactivates current control and activate control.
+    A swap if there is a current control.
+    Also change focus.
     '''
     if control.has_focus:
       print "Redundant activation"
@@ -45,10 +46,8 @@ class ControlsManager():
       # since mouse might jiggle right back out
       control.center_at(event)
     '''
-    
     # Reconnect mouse events
     if self.current_control is not None:
-      self.current_control.take_focus(False)
       self.port.da.disconnect(self.current_motion_handler)
       self.port.da.disconnect(self.current_press_handler)
       self.port.da.disconnect(self.current_release_handler)
@@ -58,10 +57,14 @@ class ControlsManager():
     self.current_release_handler = self.port.da.connect('button-release-event', control.button_release_event_cb)
     self.current_scroll_handler = self.port.da.connect('scroll-event', control.scroll_event_cb)
     
+    # change focus (invalidates?)
+    if self.current_control is not None:
+      self.current_control.take_focus(False)
+    control.take_focus(True)
+      
     self.current_control = control
-    
-    control.take_focus(True)  # feedback focus change to user
     control.controlee = controlee
+    
     
   def draw_active_control(self, context):
     self.current_control.draw(context)

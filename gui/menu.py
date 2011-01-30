@@ -153,13 +153,9 @@ class ItemGroup(compound.Compound):
   @view_altering
   @dump_event
   def close(self, event):
-    # TODO delete only self, if many widgets can be visible
-    del scheme.widgets[-1:]
-
+    scheme.widgets.remove(self) # hide
     focusmgr.unfocus()  # any controlee, should invalidate
-    
     self._deactivate_current(event) # activates the background manager.
-    
     # FIXME for now, deactivate text select when handle menu closes
     textselectmanager.activate_select_for_text(False)
     

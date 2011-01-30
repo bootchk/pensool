@@ -66,11 +66,16 @@ class LineHandleItem(itemhandle.HandleItem):
     # TODO generically create any morph
     
     line = morph.morph.LineMorph(scheme.viewport) # Create
+    self.controlee.insert(line)  # Insert line into controlee's group, or make group
+    # Line extends from my menu manager's hotpot to the event
     line.set_by_drag(self.group_manager.layout_spec.hotspot, event, self.controlee)
     dropmanager.dropmgr.set_draggee(line)  # Remember line morph being dragged
-    self.controlee.insert(line)  # Insert line into controlee's group
     
     
+  '''
+  Note this control might not be active, drawn when this event comes.
+  A line is being dragged, but the handle menu item is hidden already.
+  '''
   @dump_event
   def continue_drag(self, event, offset, increment):
     '''

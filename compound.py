@@ -63,6 +63,8 @@ class Compound(list, transformer.Transformer):
   '''
   
   def __init__(self, viewport, parent=None):
+    # init just one of two supers?  Can't call list.__init__(viewport) ?
+    # FIXME inconsistent use of super()
     transformer.Transformer.__init__(self, viewport)
     self.viewport = viewport
     # self.stroke_width = 1       # TODO style
@@ -124,6 +126,7 @@ class Compound(list, transformer.Transformer):
   def put_path_to(self, context):
     '''
     Aggregate the paths of members.
+    !!! Note paths accumulate in the context even through save/restore
     '''
     self.style.put_to(context)
     for item in self:
@@ -134,32 +137,6 @@ class Compound(list, transformer.Transformer):
     # Defined in morph.py
     raise RuntimeError("Orthogonal of composite.")
 
-  
-  """
-  Using transforms, propagation not necessary.
-  
-  @dump_event
-  def set_origin(self, point):
-    '''
-    Move group to a new origin.
-    Width and height depend on members.
-    '''
-    transformer.Transformer.set_origin(self, point)  # super
-    if len(self) > 1:
-      print "Set origin on a composite with many items."
-    else:
-      self[0].set_origin(point)
-    # FIXME No need for all this.  Just set super then layout, always.
-    '''
-    OLD
-    # This triggers a warning about setting composite dimensions in set_dimensions??
-    self.set_dimensions(rect)
-    # drawable.Drawable.set_origin(self, rect)
-    # !!! Caller must also layout and invalidate ??
-    '''
-    # Layout changes origins of members
-    self.layout(point)
-  """
  
   # @dump_event
   def layout(self, event=None):
@@ -176,6 +153,7 @@ class Compound(list, transformer.Transformer):
       # Layout the single item as the dimensions of this group.
       print "Layout single item morph with group dimensions.<<<<<<"
       self[0].set_dimensions(self.get_dimensions())
+  
   
   # FIXME the dimensions of a compound are not useful
   # only the bounds???
