@@ -14,7 +14,7 @@ class TextMorph(morph.PrimitiveMorph):
   set_dimensions of the frame should layout.
   '''
   
-  def __init__(self, viewport):
+  def __init__(self, viewport, text):
     super(TextMorph, self).__init__(viewport)
     """
     Members: 
@@ -26,9 +26,11 @@ class TextMorph(morph.PrimitiveMorph):
     self.append(self.frame)
     
     # textglyph is an attribute so that we can tell it to activate its select.
-    self.textglyph = textglyph.TextGlyph(viewport)
+    self.textglyph = textglyph.TextGlyph(viewport, text)
     self.append(self.textglyph)
   
+  def set_text(self, text):
+    self.textglyph.text = text
   
   @transforming
   def put_edge_to(self, context):
@@ -60,8 +62,8 @@ class TextEditMorph(TextMorph):
   The TextGlyph is hashable.
   '''
   
-  def __init__(self, viewport):
-    super(TextEditMorph, self).__init__(viewport)
+  def __init__(self, viewport, text):
+    super(TextEditMorph, self).__init__(viewport, text)
   
     '''
     TextEditMorph has a selection, IS a transformed member of the composite.

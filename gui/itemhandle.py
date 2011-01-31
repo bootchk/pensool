@@ -34,29 +34,39 @@ class HandleItem(gui.itemcontrol.ItemControl):
 
 
   '''
-  These are all
-  filtered events from superclass GuiControl.
+  Filtered events from superclass GuiControl.
   '''
   
   @dump_event
   def button_press_left(self, event):
     '''
-    Mouse button pressed inside.
-    This defines that handle items are draggable.
+    LMB pressed inside handle item.
+    Handle items enact drag on LMB.
     '''
     # TODO drag any button?
     # TODO drag 3 pixels first ie distinguish drag from click
-    ###assert(not self.is_dragging)
-    ###self.is_dragging = True
     self.start_drag(event)
 
-
+  @dump_event
+  def button_press_right(self, event):
+    '''
+    RMB pressed inside handle item.
+    Handle items enact context menu on RMB.
+    '''
+    print "Handle context menu"
+    # Close current, handle menu.
+    # The drag for the context menu takes the mouse away from the morph.
+    self.group_manager.close(event)
+    # Open context menu on controlee
+    self.command(event, self.controlee)
+    #edit_menu.open(event, self.controlee)
+    
   @dump_event
   def start_drag(self, event):
     ''' Mouse departed item with button down. '''
     self.group_manager.close(event)  # close menu
     dropmanager.dropmgr.begin(event, self.controlee, self)
- 
+  
     
   @dump_event
   def mouse_move(self, event):
@@ -115,19 +125,6 @@ class HandleItem(gui.itemcontrol.ItemControl):
   Utility routines for deciding the alignment of the menu.
   '''
   
-  def anti_orthogonal(self, event):
-    '''
-    Return coords projected onto a line orthogonal to axis.
-    Event is unchanged.
-    FIXME clarify name
-    '''
-    """
-    Dummy, sorta works for horizonatal menu.
-    # ie, y is the y of the event, x is the current x
-    # return coordinates.dimensions(self.get_center().x, event.y, 0, 0)
-    """
-    return foo
-  
   
   # @dump_return
   def pixels_off_menu_axis(self, event):
@@ -137,10 +134,8 @@ class HandleItem(gui.itemcontrol.ItemControl):
     !!! Note that the sign indicates left(countercw) or right (clockwise)
     of the menu axis, not a direction along the coordinate system.
     '''
-    """
-    Dummy that sorta works for horizontal menus.
-    # return not event.y == self.get_center().y
-    """
+    # Specific for horiz menus: return not event.y == self.get_center().y
+ 
     # vector from menu origin to mouse event
     menu_vector = self.group_manager.layout_spec.vector
     menu_benchmark = self.group_manager.layout_spec.benchmark

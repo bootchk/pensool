@@ -22,8 +22,8 @@ class LineHandleItem(itemhandle.HandleItem):
   gets involved when drag moves out of this item control.
   '''
   
-  def __init__(self, port):
-    itemhandle.HandleItem.__init__(self, port)
+  def __init__(self, port, command):
+    itemhandle.HandleItem.__init__(self, port, command)
     self.append(morph.glyph.RectGlyph(port))
     self.scale_uniformly(ITEM_SIZE)
   

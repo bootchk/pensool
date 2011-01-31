@@ -28,6 +28,13 @@ class ItemControl(gui.control.GuiControl):
   Inherits GuiControl.callbacks(), draw(), __init__
   '''
   
+  def __init__(self, port, command):
+    '''
+    Every item has a command, could be NULL_COMMAND
+    '''
+    gui.control.GuiControl.__init__(self, port) # super
+    self.command = command
+    
   def set_group_manager(self, manager):
     self.group_manager = manager
 

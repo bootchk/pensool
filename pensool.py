@@ -117,7 +117,7 @@ for item in scheme.model:
 # !!! Width, height of text are computed??
 # atext.set_origin(coordinates.Rectangle(150.0/PENSOOL_UNIT, 30.0/PENSOOL_UNIT, 0,0))
 # TextEditMorph creates it's own selection
-atext = morph.textmorph.TextEditMorph(a_viewport)
+atext = morph.textmorph.TextEditMorph(a_viewport, "Most relationships seem so transitory")
 atext.set_dimensions(coordinates.Rectangle(150.0/PENSOOL_UNIT, 30.0/PENSOOL_UNIT, 200.0/PENSOOL_UNIT, 200.0/PENSOOL_UNIT))
 scheme.model.append(atext)
 
@@ -148,11 +148,13 @@ Exactly one control instance is active (has focus) at a time.
 # Enforces one control active
 guicontrolmgr.control_manager = guicontrolmgr.ControlsManager(a_viewport)
 
-# Handle menu type
-handle_menu = controlinstances.build_handle_menu(a_viewport)
+# Context menus of traditional menu style
+edit_menu = controlinstances.build_edit_menu(a_viewport, a_printerport, a_fileport)
+popup_menu = controlinstances.build_popup_menu(a_viewport, a_printerport, a_fileport)
 
-# Traditional menu type
-popup_menu = controlinstances.build_popup_menu(a_viewport)
+# Handle menu type
+handle_menu = controlinstances.build_handle_menu(a_viewport, edit_menu)
+
 
 # Control for the document, the background
 bkgd_control = gui.backgroundcontrol.BackgroundManager(

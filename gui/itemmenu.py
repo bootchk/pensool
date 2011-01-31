@@ -25,7 +25,8 @@ class MenuItem(gui.itemcontrol.ItemControl):
   '''
   
   '''
-  Button releases choose the menu item.
+  Button release: choose menu item.
+    
   '''
   @dump_event
   def button_release_left(self, event):
@@ -34,7 +35,8 @@ class MenuItem(gui.itemcontrol.ItemControl):
   
   @dump_event
   def button_release_right(self, event):
-    # TODO the item's action
+    ''' RMB Release: execute, close menu '''
+    self.command()
     self.group_manager.close(event)
   
   @dump_event
@@ -79,8 +81,8 @@ class MenuItem(gui.itemcontrol.ItemControl):
     
 class IconMenuItem(MenuItem):
   # For now a rect
-  def __init__(self, port):
-    super(MenuItem, self).__init__(port)
+  def __init__(self, port, command):
+    super(MenuItem, self).__init__(port, command)
     
     self.append(morph.glyph.RectGlyph(port))
     self.relative_scale(config.ITEM_SIZE*2, config.ITEM_SIZE) # size
@@ -88,10 +90,10 @@ class IconMenuItem(MenuItem):
 
 class TextMenuItem(MenuItem):
   
-  def __init__(self, port):
-    super(MenuItem, self).__init__(port)
+  def __init__(self, port, text, command):
+    super(MenuItem, self).__init__(port, command)
     
-    text_morph = morph.textmorph.TextMorph(port)
+    text_morph = morph.textmorph.TextMorph(port, text)
     self.append(text_morph)
     # !!! Must scale my morph the parent of the textglyph, not self
     text_morph.relative_scale(config.ITEM_SIZE*2, config.ITEM_SIZE) # size

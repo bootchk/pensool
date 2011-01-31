@@ -19,11 +19,11 @@ class TextGlyph(glyph.Glyph):
   see GTK Reference Manual: pangocairo.CairoContext
   """
   
-  def __init__(self, viewport):
+  def __init__(self, viewport, text):
     '''
     !!! Override: extra attribute: text
     '''
-    self.text = "Most r" # elationships seem so transitory"
+    self.text = text
     # self.font = 
     drawable.Drawable.__init__(self, viewport) # super
     self.layout = None  # cache the layout
