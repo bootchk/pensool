@@ -24,7 +24,6 @@ is the same as for methods on the members.
 import transformer
 from decorators import *
 import coordinates
-import layout
 import base.bounds as bounds
 
 
@@ -68,7 +67,6 @@ class Compound(list, transformer.Transformer):
     transformer.Transformer.__init__(self, viewport)
     self.viewport = viewport
     # self.stroke_width = 1       # TODO style
-    self.layout_spec = layout.LayoutSpec() # TODO only menu uses this, move it there
     if parent:
       self.parent = None
     else:

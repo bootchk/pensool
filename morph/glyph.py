@@ -56,20 +56,9 @@ class Glyph(drawable.Drawable):
     else:
       return None
     
-  """
-  OLD
-  def _aligned_rect_orthogonal(self, point):
-    '''
-    Return orthogonal to object with rectangular bounds.
-    
-    Symbol itself need not be rectangular.
-    '''
-    # assert bounds and point in same coordinate system (DCS)
-    # assert bounds aligned with axis of coordinate system
-    # TODO more general for other CS?
-    return coordinates.rectangle_orthogonal(self.bounds.value, point)
-  """ 
-
+  def cleanse(self):
+    # No transforms to cleanse
+    return
   
 
 
@@ -100,15 +89,11 @@ class LineGlyph(Glyph):
     For a line, there are two orthogonals to a point.
     This is a somewhat arbitray one for now.
     '''
-    # The bounds are in DCS.  
-    # Assert the line is one of the diagonals of the bounds, but which one?
-    
     x, y = self.parent.retained_transform.transform_point(0,0)
     point1 = vector.Vector(x,y)
     x, y = self.parent.retained_transform.transform_point(1.0,0)
     point2 = vector.Vector(x,y)
     return orthogonal.line_orthogonal(point1, point2)
-    ### return coordinates.line_orthogonal(self.bounds.value, point)
 
 
 

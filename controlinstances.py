@@ -10,6 +10,8 @@ import gui.itemmenu
 import gui.itemhandleline
 import gui.itemhandlecoords
 import base.command as command
+import clipboard
+import edit
 
 def build_handle_menu(viewport, edit_menu):
   '''
@@ -57,9 +59,9 @@ def build_edit_menu(viewport, printerport, fileport):
   menu_item = gui.itemmenu.TextMenuItem(viewport, "Cut", 
     command.Command(fileport.do_save))
   menu_item2 = gui.itemmenu.TextMenuItem(viewport, "Copy", 
-    command.Command(fileport.do_save))
+    command.Command(edit.do_copy))
   menu_item3 = gui.itemmenu.TextMenuItem(viewport, "Paste", 
-    command.Command(fileport.do_save))
+    command.Command(edit.do_paste))
   '''menu_item4 = gui.itemmenu.TextMenuItem(viewport, "Print", 
     command.Command(printerport.do_print))
   '''

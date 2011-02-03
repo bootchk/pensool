@@ -15,7 +15,7 @@ import focusmgr
 import scheme
 import guicontrolmgr
 from decorators import *
-## import layout
+import layout
 import base.vector as vector
 ## import config
 
@@ -84,8 +84,7 @@ class ItemGroup(compound.Compound):
     of its items.  Its items can later change themselves to other controlees.
     '''
     self.controlee = None
-    # FIXME this is an attribute but what is good initializer?
-    #self.layout_spec = None
+    self.layout_spec = layout.LayoutSpec()
     
 
   @dump_event

@@ -282,3 +282,6 @@ class FilePort(Port):
     print "Filename", filename
     return filename
 
+
+# Singleton, set when app starts
+viewport = None

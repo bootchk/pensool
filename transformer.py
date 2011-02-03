@@ -46,7 +46,7 @@ class Transformer(drawable.Drawable):
     self.translation = vector.Vector(0, 0)
     self.scale = vector.Vector(1.0, 1.0)
     self.rotation = 0.0
-  
+      
   
   # @dump_return
   def put_transform_to(self, context):

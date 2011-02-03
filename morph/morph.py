@@ -37,6 +37,14 @@ class Morph(compound.Compound):
   def __init__(self, viewport, parent=None):
     compound.Compound.__init__(self, viewport, parent)
 
+  def cleanse(self):
+    self.transform = None
+    self.retained_transform = None
+    
+    for item in self:
+      item.cleanse()
+
+
   # TODO move to compound?  a mixture of transform
   @dump_event
   def insert(self, morph):
@@ -83,7 +91,7 @@ class Morph(compound.Compound):
     if direction:
       if len(self) > 1:
         # Activate singleton bounding box ghost
-        scheme.bounding_box.activate(True, self.bounds.value)
+        scheme.bounding_box.activate(True, self.bounds.to_rect())
     else:
       scheme.bounding_box.activate(False)
 

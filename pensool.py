@@ -89,6 +89,8 @@ window.add(da)
 a_viewport = viewport.ViewPort(da)
 a_printerport = viewport.PrinterPort()
 a_fileport = viewport.FilePort()
+viewport.viewport = a_viewport  # Make viewport global singleton
+# FIXME
 
 scheme.initialize(a_viewport)
 

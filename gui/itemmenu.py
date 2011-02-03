@@ -36,7 +36,7 @@ class MenuItem(gui.itemcontrol.ItemControl):
   @dump_event
   def button_release_right(self, event):
     ''' RMB Release: execute, close menu '''
-    self.command()
+    self.command(self.controlee, event)
     self.group_manager.close(event)
   
   @dump_event
@@ -62,14 +62,13 @@ class MenuItem(gui.itemcontrol.ItemControl):
     For traditional, square menu items.
     '''
     # Note both bounds and event in DCS
-    bounds = self.bounds.value
-    if event.y < bounds.y:  # above
+    if event.y < self.bounds.y:  # above
       self.group_manager.previous(event)
-    elif event.y > bounds.y + bounds.height:  # below
+    elif event.y > self.bounds.y + self.bounds.height:  # below
       self.group_manager.next(event)
-    elif event.x < bounds.x : # left
+    elif event.x < self.bounds.x : # left
       self.group_manager.close(event)
-    elif event.x > bounds.x + bounds.width: # right
+    elif event.x > self.bounds.x + self.bounds.width: # right
       # TODO traditional cascading
       self.group_manager.close(event)
    

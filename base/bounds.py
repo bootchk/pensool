@@ -3,14 +3,16 @@
 """
 Bounding boxes (rectangles).
 
-Wraps gdk.Rectangle.
-
 Bounds are in device coords DCS.
 Bounds are integers of pixel units.
 
 Bounds x,y can be negative (outside the window upper left, clipped.)
 Bounds width,height should not be negative.
 
+(Formerly a wrapper of gdk.Rectangle.)
+
+To test:
+python -m doctest -v base/bounds.py
 """
 
 from gtk import gdk
@@ -25,7 +27,7 @@ class Bounds(object):
   
   # Null bounds
   >>> Bounds()
-  bounds:(0, 0, 0, 0)
+  (0, 0, 0, 0)
   
   # is_null
   >>> Bounds().is_null()
@@ -54,47 +56,52 @@ class Bounds(object):
   >>> Bounds(0,0,1,1).is_intersect(vector.Vector(0.1, 0.2))
   True
   
-  # bounds NOT intersect a point at lower left of bounds
+  # bounds DOES intersect a point at lower right of bounds
   >>> Bounds(0,0,1,1).is_intersect(vector.Vector(1, 1))
-  False
+  True
   
-  # Two bounds sharing a point do NOT intersect
-  # TODO bounds intersection >>> Bounds(0,0,1,1).is_intersect(vector.Vector(0,0))
-  # True
+  # TODO Two bounds sharing a point do NOT intersect
+  
+  # bounds DOES intersect a point at upper left of bounds
+  >>> Bounds(0,0,1,1).is_intersect(vector.Vector(0,0))
+  True
   
   # a null bounds does not intersect a point
   >>> Bounds().is_intersect(vector.Vector(0,0))
   False
   
+  >>> Bounds(0,0,1,1).union(Bounds(1,1,2,2))
+  (0, 0, 3, 3)
+  
   # !!! Note null bounds is (0,0,0,0) union (0,0,1,1) does NOT adequately test union
   >>> Bounds().union(Bounds(0,0,1,1))
-  bounds:(0, 0, 1, 1)
+  (0, 0, 1, 1)
   
   # a null bounds union a non-null bounds is the non-null bounds
   >>> Bounds().union(Bounds(1,1,1,1))
-  bounds:(1, 1, 1, 1)
+  (1, 1, 1, 1)
   
   >>> Bounds(1,1,1,1).union(Bounds())
-  bounds:(1, 1, 1, 1)
+  (1, 1, 1, 1)
   
   # !!! Null bounds union null bounds is null bounds
   >>> Bounds().union(Bounds())
-  bounds:(0, 0, 0, 0)
+  (0, 0, 0, 0)
   
   # Union does NOT alter self
   >>> a = Bounds()
   >>> a.union(Bounds(1, 1, 1, 1))
-  bounds:(1, 1, 1, 1)
+  (1, 1, 1, 1)
   >>> a
-  bounds:(0, 0, 0, 0)
+  (0, 0, 0, 0)
   
   # create a bounds from extents
   >>> Bounds().from_extents(1,1,2,2)
-  bounds:(1, 1, 1, 1)
+  (1, 1, 1, 1)
   
   # bounds from extents snaps to outside pixel boundary
   >>> Bounds().from_extents(.75, .75, 1.2, 1.2)
-  bounds:(0, 0, 2, 2)
+  (0, 0, 2, 2)
   
   # calculate center
   >>> Bounds(0,0,2,2).center_of()
@@ -112,7 +119,7 @@ class Bounds(object):
   # copy equals self
   >>> a = Bounds(1,1,1,1)
   >>> a.copy()
-  bounds:(1, 1, 1, 1)
+  (1, 1, 1, 1)
   
   # iteration
   >>> for corner in Bounds(1,1,1,1): corner
@@ -144,14 +151,11 @@ class Bounds(object):
     assert isinstance(height, int)
     assert isinstance(x, int)
     assert isinstance(y, int)
-    self.value = gdk.Rectangle(x, y, width, height)
-    """
-    OLD
-    if width > 0 and height > 0:
-      self.value = gdk.Rectangle(x, y, width, height)
-    else: # zero width or height
-      self.value = None
-    """
+    # self = gdk.Rectangle(x, y, width, height)
+    self.x = x
+    self.y = y
+    self.width = width
+    self.height = height
     
     
   def __iter__(self):
@@ -159,10 +163,10 @@ class Bounds(object):
     Iteration on Bounds returns the corner points. 
     !!! Don't mutate the bounds while iterating.
     '''
-    return itertools.islice( [vector.Vector(self.value.x, self.value.y),
-      vector.Vector(self.value.x + self.value.width, self.value.y),
-      vector.Vector(self.value.x + self.value.width, self.value.y + self.value.height),
-      vector.Vector(self.value.x, self.value.y + self.value.height)], None )
+    return itertools.islice( [vector.Vector(self.x, self.y),
+      vector.Vector(self.x + self.width, self.y),
+      vector.Vector(self.x + self.width, self.y + self.height),
+      vector.Vector(self.x, self.y + self.height)], None )
 
   def sides(self):
     '''
@@ -185,17 +189,11 @@ class Bounds(object):
 
 
   def copy(self):
-    if self.value is None:
-      return None # FIXME error
-    else:
-      return Bounds(self.value.x, self.value.y, self.value.width, self.value.height)
+    return Bounds(self.x, self.y, self.width, self.height)
   
   def __repr__(self):
     # repr by tuple
-    if self.value is not None:
-      return "bounds:" + str((self.value.x,self.value.y, self.value.width, self.value.height))
-    else:
-      return "bounds:None"  # FIXME error
+    return str((self.x,self.y, self.width, self.height))
     
     
   def union(self, bounds):
@@ -211,28 +209,44 @@ class Bounds(object):
     elif bounds.is_null():
       return self.copy()
     else: # both operands not null
-      self.value = self.value.union(bounds.value)
-      return self.copy()
+      ## self = self.union(bounds.value)
+      ## return self.copy()
+      r1 = self.to_rect()
+      r2 = bounds.to_rect()
+      r3 = r1.union(r2)
+      return Bounds().from_rect(r3)
+      
   
   
   def is_null(self):
     ''' Any bounds with zero size is null '''
-    return self.value.width == 0 and self.value.height == 0
+    return self.width == 0 and self.height == 0
     
   
   def is_intersect(self, point):
     '''
     Return boolean whether point intersects self.
     Point can be float.
-    Value attributes are gdk.Rectangles, use their intersect() method.
     '''
+    """OLD
+    Value attributes are gdk.Rectangles, use their intersect() method.
     bound = Bounds(int(point.x), int(point.y), 1, 1)  # single pixel bound
     # note gdk.Rectangle.intersect returns a new gdk.Rectangle
-    intersection = self.value.intersect(bound.value)
+    intersection = self.intersect(bound.value)
     # if no intersection, all zeros
     result = not ( intersection.x == 0 and intersection.y == 0 \
     and intersection.width == 0 and intersection .height == 0 )
     return result
+    """
+    # A null bounds intersects no points
+    if self.is_null():
+      return False
+    return point.x >= self.x \
+      and point.x <= (self.x + self.width) \
+      and point.y >= self.y \
+      and point.y <= (self.y + self.height)
+    
+    
 
   
   def from_extents(self, ulx, uly, lrx, lry):
@@ -254,16 +268,17 @@ class Bounds(object):
     # Snap to integer boundaries and order on the number line
     minxi = int(min(ulx, lrx))
     minyi = int(min(uly, lry))
-    maxxi = math.ceil(max(ulx, lrx))
-    maxyi = math.ceil(max(uly, lry))
+    maxxi = int(math.ceil(max(ulx, lrx)))
+    maxyi = int(math.ceil(max(uly, lry)))
     width = maxxi - minxi
     height = maxyi - minyi
     # width or height or both can be zero, for example setting transform on empty model
     
     # snap float rect to outside integral pixel
-    self.value = gdk.Rectangle(minxi, minyi, width, height)
+    ## self = gdk.Rectangle(minxi, minyi, width, height)
+    self = Bounds(minxi, minyi, width, height)
     # not assert x,y positive
-    # assert self.value.width >= 0  # since abs used
+    # assert self.width >= 0  # since abs used
     if self.is_null():
       print "!!!!!!!!!!!! Null bounds", self
     return self
@@ -277,7 +292,12 @@ class Bounds(object):
     '''
     assert isinstance(rect, gdk.Rectangle)
     # TODO assert width >=0 etc
-    self.value = gdk.Rectangle(rect.x, rect.y, rect.width, rect.height)
+    self = Bounds(rect.x, rect.y, rect.width, rect.height)
+    return self
+  
+  
+  def to_rect(self):
+    return gdk.Rectangle(self.x, self.y, self.width, self.height)
     
     
   def center_of(self):
@@ -285,7 +305,7 @@ class Bounds(object):
     Return a point (an integer pixel) of center.
     TODO does this need to be floating point?
     '''
-    return vector.Vector(self.value.x + self.value.width/2, self.value.y + self.value.height/2)
+    return vector.Vector(self.x + self.width/2, self.y + self.height/2)
     
 
 if __name__ == "__main__":

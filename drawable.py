@@ -6,6 +6,7 @@ import style
 from decorators import *
 import base.vector as vector
 import cairo # FIXME for one place
+import viewport
 
 
 
@@ -40,7 +41,7 @@ class Drawable(object):
   
   def __init__(self, viewport):
     self._dimensions = coordinates.any_dims()
-    self.viewport = viewport
+    ## self.viewport = viewport FIXME excise viewport param
     self.style = style.Style()
     # bounds is initially a zero size bounds: it is unioned with member bounds
     self.bounds = bounds.Bounds()
@@ -95,7 +96,7 @@ class Drawable(object):
     Caching drawn bounds is an optimization; alternative is to walk model branch.
     This is for composite and primitive drawables: every drawable has bounds.
     '''
-    self.viewport.surface.invalidate_rect(self.bounds.value, True)
+    viewport.viewport.surface.invalidate_rect(self.bounds.to_rect(), True)
     return self.bounds
    
 
@@ -105,7 +106,7 @@ class Drawable(object):
     Invalidate as will be drawn (hasn't been drawn yet.)
     This walks a branch of model to determine bounds.
     '''
-    context = self.viewport.user_context()
+    context = viewport.viewport.user_context()
     # Put parent retained_transform in new context, unless at top
     # !!! parent transform is inadequate, need retained_transform
     # which represents the accumulated transform from the top.
@@ -115,7 +116,7 @@ class Drawable(object):
       ##self.parent.put_transform_to(context)
     self.put_path_to(context)   # recursive
     will_bounds_DCS = self.get_path_bounds(context) # inked
-    self.viewport.surface.invalidate_rect( will_bounds_DCS.value, True )
+    viewport.viewport.surface.invalidate_rect( will_bounds_DCS.to_rect(), True )
     return will_bounds_DCS  # for debugging
     
     
@@ -205,7 +206,7 @@ class Drawable(object):
     To hit path from a distance, ink the path wider: context.set_line_width(25)
     '''
     # TODO pass a context  .save() and restore()
-    context = self.viewport.user_context()
+    context = viewport.viewport.user_context()
     
     # Jan. 9 2011 TODO put my parent's matrix?
     # Or undo the viewing transform?
@@ -236,13 +237,13 @@ class Drawable(object):
     # set up fresh context with retained transform and style.
     # fresh top level context
     # TODO styled?
-    context = self.viewport.user_context()
+    context = viewport.viewport.user_context()
     if self.parent: # None if in background ctl
       context.set_matrix(cairo.Matrix()*self.parent.retained_transform)
     self.put_path_to(context) # recursive, with transforms
     hit = context.in_fill(*context.device_to_user(event.x, event.y))
     # if not hit:
-    #  print "OUT FILL", event.x, event.y, self.bounds.value # context.fill_extents(), parent_transform
+    #  print "OUT FILL", event.x, event.y, self.bounds.to_rect() # context.fill_extents(), parent_transform
     return hit
   
   

@@ -93,7 +93,7 @@ class TextGlyph(glyph.Glyph):
   
   def get_orthogonal(self, point):
     ''' Orthogonal to TextEdit is orthogonal to frame '''
-    return orthogonal.rect_orthogonal(self.bounds.value, point)
+    return orthogonal.rect_orthogonal(self.bounds, point)
 
    
   # @dump_event
