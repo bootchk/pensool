@@ -46,13 +46,15 @@ class Morph(compound.Compound):
 
 
   # TODO move to compound?  a mixture of transform
-  @dump_event
+  @dump_return
   def insert(self, morph):
     '''
     Insert morph into this group.
     If self is a primitive morph, insert new group morph in hierarchy, i.e. branch.
     Because, if self is a primitive morph, it has a transform that shapes its glyphs
     but we want a distinct transform for the new group [self,morph].
+    
+    For debugging, return either new branch or self.
     '''
     if self.is_primitive():
       # Standard insert branch into tree.
@@ -73,10 +75,12 @@ class Morph(compound.Compound):
       branch.retained_transform = cairo.Matrix()*parent.retained_transform
       # Assert branch.transform is identity, branch.retained_transform equals parents
       # Assert parent.transform and parent.retained_transform are untouched
-      print "branch retained", branch.retained_transform
+      # print "branch retained", branch.retained_transform
+      return branch
     else:
       print "...............Grouping with ", repr(self.controlee)
       self.append(morph)
+      return self
 
   def activate_controls(self, direction):
     '''
@@ -143,7 +147,7 @@ class LineMorph(PrimitiveMorph):
     Morph.__init__(self)
     self.append(glyph.LineGlyph())
     
-    
+  
   @view_altering  
   @dump_event
   def set_by_drag(self, start_coords, event, controlee):
@@ -156,18 +160,19 @@ class LineMorph(PrimitiveMorph):
     # assert start_coords and event in device DCS
     # Transform to GCS
     # Get combined transform (viewing, modeling,...) leading to my group.
-    group_transform = cairo.Matrix() * controlee.parent.retained_transform
-    group_transform.invert()
-    start_point = vector.Vector(*group_transform.transform_point(start_coords.x, start_coords.y))
-    event_point = vector.Vector(*group_transform.transform_point(event.x, event.y))
-    
+    ##group_transform = cairo.Matrix() * controlee.parent.retained_transform
+    ##group_transform.invert()
+    ##start_point = vector.Vector(*group_transform.transform_point(start_coords.x, start_coords.y))
+    ##event_point = vector.Vector(*group_transform.transform_point(event.x, event.y))
+    start_point = controlee.device_to_local(start_coords)
+    event_point = controlee.device_to_local(event)
     drag_vector_UCS = event_point - start_point
     
     # Scale both axis by vector length
     drag_length_UCS = drag_vector_UCS.length()
     scale = vector.Vector(drag_length_UCS, drag_length_UCS)
     
-    print group_transform, "start", start_coords, "new", start_point, drag_length_UCS
+    # print "start", start_coords, "new", start_point, drag_length_UCS
     self.set_transform(start_point, scale, drag_vector_UCS.angle())
     """
     dimensions = coordinates.dimensions(start_coords_UCS.x, start_coords_UCS.y, 

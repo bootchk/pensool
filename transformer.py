@@ -82,6 +82,18 @@ class Transformer(drawable.Drawable):
     # Multiply in correct order. Note self.transform.translate() would not work??
     self.transform *= translation_matrix
     return self.transform
+   
+  
+  def device_to_local(self, point):
+    '''
+    Get local coordinates (group GCS) of DCS point.
+    Uses parent retained transform: only works if previously model traversed and transforms derived.
+    Will not work for the model (the top.)
+    '''
+    group_transform = cairo.Matrix() * self.parent.retained_transform
+    group_transform.invert()
+    return vector.Vector(*group_transform.transform_point(point.x, point.y))
+    
     
   """
   def device_to_user(self, x, y):
