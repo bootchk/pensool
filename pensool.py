@@ -92,7 +92,7 @@ a_fileport = viewport.FilePort()
 viewport.viewport = a_viewport  # Make viewport global singleton
 # FIXME
 
-scheme.initialize(a_viewport)
+scheme.initialize()
 
 # Show so allocation becomes valid
 window.show_all()
@@ -108,8 +108,8 @@ TODO
 """
 """
 # Make separate morphs
-arect = morph.morph.RectMorph(a_viewport)
-acirc = morph.morph.CircleMorph(a_viewport)
+arect = morph.morph.RectMorph()
+acirc = morph.morph.CircleMorph()
 
 scheme.model.append(arect)
 scheme.model.append(acirc)
@@ -119,18 +119,18 @@ for item in scheme.model:
 # !!! Width, height of text are computed??
 # atext.set_origin(coordinates.Rectangle(150.0/PENSOOL_UNIT, 30.0/PENSOOL_UNIT, 0,0))
 # TextEditMorph creates it's own selection
-atext = morph.textmorph.TextEditMorph(a_viewport, "Most relationships seem so transitory")
+atext = morph.textmorph.TextEditMorph("Most relationships seem so transitory")
 atext.set_dimensions(coordinates.Rectangle(150.0/PENSOOL_UNIT, 30.0/PENSOOL_UNIT, 200.0/PENSOOL_UNIT, 200.0/PENSOOL_UNIT))
 scheme.model.append(atext)
 
 """
 # Make a group
-arect = morph.morph.RectMorph(a_viewport)
+arect = morph.morph.RectMorph()
 arect.set_dimensions(coordinates.Rectangle(50.0/PENSOOL_UNIT, 50, 50, 50))
-acirc = morph.morph.CircleMorph(a_viewport)
+acirc = morph.morph.CircleMorph()
 acirc.set_dimensions(coordinates.Rectangle(0, 0, 50, 50))
 
-agroup = morph.morph.Morph(a_viewport)
+agroup = morph.morph.Morph()
 agroup.append(arect)
 agroup.append(acirc)
 # Group at 30,30, scale 1
@@ -148,20 +148,19 @@ Exactly one control instance is active (has focus) at a time.
 '''
 
 # Enforces one control active
-guicontrolmgr.control_manager = guicontrolmgr.ControlsManager(a_viewport)
+guicontrolmgr.control_manager = guicontrolmgr.ControlsManager()
 
 # Context menus of traditional menu style
-edit_menu = controlinstances.build_edit_menu(a_viewport, a_printerport, a_fileport)
-popup_menu = controlinstances.build_popup_menu(a_viewport, a_printerport, a_fileport)
+edit_menu = controlinstances.build_edit_menu(a_printerport, a_fileport)
+popup_menu = controlinstances.build_popup_menu(a_printerport, a_fileport)
 
 # Handle menu type
-handle_menu = controlinstances.build_handle_menu(a_viewport, edit_menu)
+handle_menu = controlinstances.build_handle_menu(edit_menu)
 
 
 # Control for the document, the background
 bkgd_control = gui.backgroundcontrol.BackgroundManager(
-  handle_menu, popup_menu,
-  a_viewport, a_printerport, a_fileport)
+  handle_menu, popup_menu, a_printerport, a_fileport)
 bkgd_control.dimensions = da.allocation
 # Controls self?? bkgd_control.set_controlee(document)
 

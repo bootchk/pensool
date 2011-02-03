@@ -32,25 +32,22 @@ model = None
 # TODO this is being appended to transformed_c...
 bounding_box = None
 
-viewport = None
-
 
 # TODO do we need a separate initializer?
-def initialize(a_viewport):
+def initialize():
   global model
   global transformed_controls
-  global viewport, bounding_box
+  global bounding_box
   
-  transformed_controls = compound.Compound(a_viewport)
-  model = compound.Compound(a_viewport)
+  transformed_controls = compound.Compound()  # GUI widgets
+  model = compound.Compound() # user's objects, morphs
   
   # !!! Set the topmost transform to scale by PENSOOL.SCALE
   translation = vector.Vector(0.0, 0.0)
   scale = vector.Vector(config.PENSOOL_UNIT, config.PENSOOL_UNIT)
   model.set_transform(translation, scale, 0.0)
   
-  viewport = a_viewport
-  bounding_box = gui.boundingbox.BoundingBox(viewport)
+  bounding_box = gui.boundingbox.BoundingBox()
   
 
 

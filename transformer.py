@@ -32,8 +32,8 @@ class Transformer(drawable.Drawable):
   '''
 
   @dump_event
-  def __init__(self, viewport):
-    drawable.Drawable.__init__(self, viewport)
+  def __init__(self):
+    drawable.Drawable.__init__(self)
     
     # My transform.
     # Default to identity transform.

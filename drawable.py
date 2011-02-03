@@ -39,9 +39,8 @@ class Drawable(object):
   FIXME
   '''
   
-  def __init__(self, viewport):
+  def __init__(self):
     self._dimensions = coordinates.any_dims()
-    ## self.viewport = viewport FIXME excise viewport param
     self.style = style.Style()
     # bounds is initially a zero size bounds: it is unioned with member bounds
     self.bounds = bounds.Bounds()

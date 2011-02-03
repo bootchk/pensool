@@ -22,9 +22,9 @@ class MoveHandleItem(itemhandle.HandleItem):
   Scrolling descends/rises into controlee when it is composite(compound.)
   '''
   
-  def __init__(self, port, command):
-    itemhandle.HandleItem.__init__(self, port, command)
-    self.append(morph.glyph.RectGlyph(port))
+  def __init__(self, command):
+    itemhandle.HandleItem.__init__(self, command)
+    self.append(morph.glyph.RectGlyph())
     self.scale_uniformly(ITEM_SIZE)
   
   
@@ -104,9 +104,9 @@ class ResizeHandleItem(itemhandle.HandleItem):
   
   Scrolling alters constraints on resize. TODO
   '''
-  def __init__(self, port, command):
-    itemhandle.HandleItem.__init__(self, port, command)
-    self.append(morph.glyph.CircleGlyph(port))
+  def __init__(self, command):
+    itemhandle.HandleItem.__init__(self, command)
+    self.append(morph.glyph.CircleGlyph())
     self.scale_uniformly(ITEM_SIZE)
   
   """

@@ -22,9 +22,9 @@ class LineHandleItem(itemhandle.HandleItem):
   gets involved when drag moves out of this item control.
   '''
   
-  def __init__(self, port, command):
-    itemhandle.HandleItem.__init__(self, port, command)
-    self.append(morph.glyph.RectGlyph(port))
+  def __init__(self, command):
+    itemhandle.HandleItem.__init__(self, command)
+    self.append(morph.glyph.RectGlyph())
     self.scale_uniformly(ITEM_SIZE)
   
   @dump_event
@@ -65,7 +65,7 @@ class LineHandleItem(itemhandle.HandleItem):
     itemhandle.HandleItem.start_drag(self, event)  # Super
     # TODO generically create any morph
     
-    line = morph.morph.LineMorph(scheme.viewport) # Create
+    line = morph.morph.LineMorph() # Create
     self.controlee.insert(line)  # Insert line into controlee's group, or make group
     # Line extends from my menu manager's hotpot to the event
     line.set_by_drag(self.group_manager.layout_spec.hotspot, event, self.controlee)

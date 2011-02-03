@@ -61,11 +61,10 @@ class Compound(list, transformer.Transformer):
   So you don't see invalidate as a method of compound.
   '''
   
-  def __init__(self, viewport, parent=None):
-    # init just one of two supers?  Can't call list.__init__(viewport) ?
+  def __init__(self, parent=None):
+    # init just one of two supers?  Can't call list.__init__() ?
     # FIXME inconsistent use of super()
-    transformer.Transformer.__init__(self, viewport)
-    self.viewport = viewport
+    transformer.Transformer.__init__(self)
     # self.stroke_width = 1       # TODO style
     if parent:
       self.parent = None

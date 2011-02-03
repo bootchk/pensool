@@ -23,10 +23,10 @@ import morph
 
 class TextSelectControl(gui.control.GuiControl):
   
-  def __init__(self, viewport, textglyph):
+  def __init__(self, textglyph):
     '''
     '''
-    gui.control.GuiControl.__init__(self, viewport)
+    gui.control.GuiControl.__init__(self)
     
     # selection in units of glyph (character) index
     self.start_index = 0
@@ -41,7 +41,7 @@ class TextSelectControl(gui.control.GuiControl):
     
     # Self is morph comprising a group of rect glyphs that cover lines of selected text.
     # Initially, self is a single rectangle for an insertion bar.
-    self.append(morph.glyph.RectGlyph(viewport))
+    self.append(morph.glyph.RectGlyph())
     
     # Self transforms the group of rect glyphs.
     # Initial scale of insertion bar is size of font.

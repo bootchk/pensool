@@ -34,8 +34,8 @@ class Morph(compound.Compound):
   A composite of Morphs or Glyphs.
   '''
 
-  def __init__(self, viewport, parent=None):
-    compound.Compound.__init__(self, viewport, parent)
+  def __init__(self, parent=None):
+    compound.Compound.__init__(self, parent)
 
   def cleanse(self):
     self.transform = None
@@ -57,7 +57,7 @@ class Morph(compound.Compound):
     if self.is_primitive():
       # Standard insert branch into tree.
       parent = self.parent
-      branch = Morph(self.viewport)  # new branch, parented soon, on append
+      branch = Morph()  # new branch, parented soon, on append
       # Assert branch.transform is identity, branch.retained_transform is None
       
       # Rearrange parent of self
@@ -139,9 +139,9 @@ def set_transform_from_parent():
   '''
 
 class LineMorph(PrimitiveMorph):
-  def __init__(self, viewport):
-    Morph.__init__(self, viewport)
-    self.append(glyph.LineGlyph(viewport))
+  def __init__(self):
+    Morph.__init__(self)
+    self.append(glyph.LineGlyph())
     
     
   @view_altering  
@@ -186,15 +186,15 @@ class LineMorph(PrimitiveMorph):
 
 
 class RectMorph(PrimitiveMorph):
-  def __init__(self, viewport):
-    Morph.__init__(self, viewport)
-    self.append(glyph.RectGlyph(viewport))
+  def __init__(self):
+    Morph.__init__(self)
+    self.append(glyph.RectGlyph())
     
     
 class CircleMorph(PrimitiveMorph):
-  def __init__(self, viewport):
-    Morph.__init__(self, viewport)
-    self.append(glyph.CircleGlyph(viewport))
+  def __init__(self):
+    Morph.__init__(self)
+    self.append(glyph.CircleGlyph())
 
 
 # See also textmorph.py for TextMorph

@@ -43,7 +43,7 @@ class GuiControl(morph.morph.Morph):
   !!! Overrides is_in_control_area see below.
   '''
   
-  def __init__(self, port):
+  def __init__(self):
     
     self._reset_state()
     
@@ -54,9 +54,9 @@ class GuiControl(morph.morph.Morph):
     
     # Super init
     # TODO document that using super
-    # drawable.Drawable.__init__(self, port )
+    # drawable.Drawable.__init__(self)
     # super is Transformer, then Drawable
-    super(GuiControl, self).__init__(port)
+    super(GuiControl, self).__init__()
     
     # !!! This is an empty morph (composite.)  Subclasses should append a glyph.
   

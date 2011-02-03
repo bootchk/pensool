@@ -29,13 +29,11 @@ def do_copy(morph, event=None):
   # Copy object now so original can change.
   # Divorce from model tree
   bar = morph.parent
-  zed = morph.viewport
   morph.parent = None
   #morph.viewport = None
-  foo = pickle.dumps(morph)
+  foo = pickle.dumps(morph, pickle.HIGHEST_PROTOCOL)
   print foo
   morph.parent = bar
-  # morph.viewport = zed
  
   
   # Put object on clipboard.  Not pickled yet.

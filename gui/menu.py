@@ -76,8 +76,8 @@ class ItemGroup(compound.Compound):
   The origin is where the user clicked.
   '''
   
-  def __init__(self, viewport):
-    compound.Compound.__init__(self, viewport)
+  def __init__(self):
+    compound.Compound.__init__(self)
     self.active_index = 0
     '''
     !!! an ItemGroup has a controlee that initializes the controlees

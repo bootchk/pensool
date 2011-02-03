@@ -22,8 +22,8 @@ class BoundingBox(morph.morph.RectMorph):
   Is in the scheme.
   '''
   
-  def __init__(self, viewport):
-    super(BoundingBox, self).__init__(viewport)
+  def __init__(self):
+    super(BoundingBox, self).__init__()
     self.activated = False
 
     
@@ -38,8 +38,8 @@ class BoundingBox(morph.morph.RectMorph):
       # Set transform to make the DCS rect bounding box passed in.
       # TODO is this the correct call?
       self.set_dimensions(rect)
-      # While the bounding box is visible, user cannot change viewport
-      # so bounding box is not a transformed drawable.
+      # While the bounding box is visible, user cannot change view
+      # so bounding box need not be a transformed drawable.
       scheme.transformed_controls.append(self)
       self.activated = True
     elif self.activated:

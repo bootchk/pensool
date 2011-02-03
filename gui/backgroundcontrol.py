@@ -9,6 +9,7 @@ import base.alert as alert
 import base.vector as vector
 import textselectmanager
 from gtk import gdk
+import viewport
 
 
 
@@ -28,12 +29,11 @@ class BackgroundManager(gui.control.GuiControl):
         fileport
   '''
   def __init__(self,
-      handle_group, menu, view_port, printer_port, file_port):
-    gui.control.GuiControl.__init__(self, view_port)
+      handle_group, menu, printer_port, file_port):
+    gui.control.GuiControl.__init__(self)
     # control managers we delegate to
     self.handle_menu = handle_group
     self.context_menu = menu
-    # Inherit viewport from Drawable
     self.printerport = printer_port
     self.fileport = file_port
     # !!! Controls self, ie the document
@@ -43,7 +43,7 @@ class BackgroundManager(gui.control.GuiControl):
     
   def set_background_bounds(self):
     ''' Set the invisible, undrawn bounds of the background.'''
-    self.bounds.from_rect(self.viewport.da.allocation)
+    self.bounds.from_rect(viewport.viewport.da.allocation)
   
   
   def configure_event_cb(self, widget, event):
@@ -79,7 +79,7 @@ class BackgroundManager(gui.control.GuiControl):
       dropmanager.dropmgr.continued(event, self)
     else:
       # Picking: detecting pointer intersection with morphs
-      context = self.viewport.user_context()
+      context = viewport.viewport.user_context()
       picked_morph = scheme.model.pick(context, self.pointer_DCS)
       if picked_morph:
         focusmgr.focus(picked_morph)
@@ -138,14 +138,12 @@ class BackgroundManager(gui.control.GuiControl):
     '''
     print "Scrolling", repr(event)
     # Zoom is an operation on the viewing transformation and model
-    scheme.model.zoom(0.5, event, self.viewport.user_context())
-    ##self.viewport.zoom(0.5, event)
+    scheme.model.zoom(0.5, event, viewport.viewport.user_context())
     # FIXME constant for zoom speed
   
   
   def scroll_down(self, event):
-    scheme.model.zoom(2.0, event, self.viewport.user_context())
-    ## self.viewport.zoom(2, event)
+    scheme.model.zoom(2.0, event, viewport.viewport.user_context())
     
   
   @dump_event
@@ -247,5 +245,5 @@ class BackgroundManager(gui.control.GuiControl):
 # self.fileport.do_save()
 # self.printerport.do_print()
 # Zoom uniformly in both axis
-# self.viewport.scroll(10, 0)
+
     

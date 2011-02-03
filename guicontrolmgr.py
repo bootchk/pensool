@@ -1,18 +1,18 @@
 #!/usr/bin/env python
 
 from decorators import *
+import viewport
 
 class ControlsManager():
   '''
-  Manages active-ness in a set of controls on a window (gtk object that generates events)
+  Manages active-ness in a set of controls on a viewport or window (gtk object that generates events)
   Only one is active at a time.
   Here active means: receiving events, callbacks connected. Also called focus.
   Controls are anonymous here: not keeping references to them.
   Other aspects of controls are also managed by group managers such as menus.
   '''
   
-  def __init__(self, port):
-    self.port = port
+  def __init__(self):
     self.current_control = None
     self.root_control = None
 
@@ -23,9 +23,9 @@ class ControlsManager():
     Some events always go to the root control, not to the active control.
     '''
     self.root_control = control
-    self.port.da.connect('configure-event', control.configure_event_cb)
-    self.port.da.connect_after('key-release-event', control.key_release_event_cb)
-    self.port.da.connect('focus-in-event', control.focus_in_event_cb)
+    viewport.viewport.da.connect('configure-event', control.configure_event_cb)
+    viewport.viewport.da.connect_after('key-release-event', control.key_release_event_cb)
+    viewport.viewport.da.connect('focus-in-event', control.focus_in_event_cb)
 
     
   @dump_event
@@ -48,14 +48,14 @@ class ControlsManager():
     '''
     # Reconnect mouse events
     if self.current_control is not None:
-      self.port.da.disconnect(self.current_motion_handler)
-      self.port.da.disconnect(self.current_press_handler)
-      self.port.da.disconnect(self.current_release_handler)
-      self.port.da.disconnect(self.current_scroll_handler)
-    self.current_press_handler = self.port.da.connect('button-press-event', control.button_press_event_cb)
-    self.current_motion_handler = self.port.da.connect('motion-notify-event', control.motion_notify_event_cb)
-    self.current_release_handler = self.port.da.connect('button-release-event', control.button_release_event_cb)
-    self.current_scroll_handler = self.port.da.connect('scroll-event', control.scroll_event_cb)
+      viewport.viewport.da.disconnect(self.current_motion_handler)
+      viewport.viewport.da.disconnect(self.current_press_handler)
+      viewport.viewport.da.disconnect(self.current_release_handler)
+      viewport.viewport.da.disconnect(self.current_scroll_handler)
+    self.current_press_handler = viewport.viewport.da.connect('button-press-event', control.button_press_event_cb)
+    self.current_motion_handler = viewport.viewport.da.connect('motion-notify-event', control.motion_notify_event_cb)
+    self.current_release_handler = viewport.viewport.da.connect('button-release-event', control.button_release_event_cb)
+    self.current_scroll_handler = viewport.viewport.da.connect('scroll-event', control.scroll_event_cb)
     
     # change focus (invalidates?)
     if self.current_control is not None:

@@ -14,19 +14,19 @@ class TextMorph(morph.PrimitiveMorph):
   set_dimensions of the frame should layout.
   '''
   
-  def __init__(self, viewport, text):
-    super(TextMorph, self).__init__(viewport)
+  def __init__(self,  text):
+    super(TextMorph, self).__init__()
     """
     Members: 
       text, a glyph
       frame, a glyph
     !!! Note however that textglyph overrides draw and futzes with scale.
     """
-    self.frame = glyph.RectGlyph(viewport)  # TODO singleton?
+    self.frame = glyph.RectGlyph()  # TODO singleton?
     self.append(self.frame)
     
     # textglyph is an attribute so that we can tell it to activate its select.
-    self.textglyph = textglyph.TextGlyph(viewport, text)
+    self.textglyph = textglyph.TextGlyph( text)
     self.append(self.textglyph)
   
   def set_text(self, text):
@@ -62,15 +62,15 @@ class TextEditMorph(TextMorph):
   The TextGlyph is hashable.
   '''
   
-  def __init__(self, viewport, text):
-    super(TextEditMorph, self).__init__(viewport, text)
+  def __init__(self,  text):
+    super(TextEditMorph, self).__init__( text)
   
     '''
     TextEditMorph has a selection, IS a transformed member of the composite.
     Hashed by the TextGlyph, not the TextEditMorph
     '''
     # The textglyph will save a reference to this selection control.
-    self.text_select = gui.textselectcontrol.TextSelectControl(viewport, self.textglyph)
+    self.text_select = gui.textselectcontrol.TextSelectControl( self.textglyph)
     self.append(self.text_select)
     
     
