@@ -218,7 +218,7 @@ class GuiControl(morph.morph.Morph):
     '''
     # Filter and dispatch control keys
     # TODO key combinations
-    if gdk.keyval_name(event.keyval) == "Control_L" :
+    if gdk.keyval_name(event.keyval) == "Control_L" : # Left control
       print "Control key"
       self.control_key_release(event)
     else:
@@ -248,7 +248,7 @@ class GuiControl(morph.morph.Morph):
   Highlight which control is sensitive (active?)
   Only one control is getting most low-level events.
   '''
-  @dump_event
+  #@dump_event
   def take_focus(self, direction):
     self.has_focus = direction
     self.invalidate_will_draw()

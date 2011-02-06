@@ -17,6 +17,10 @@ class BackgroundManager(gui.control.GuiControl):
   '''
   A special control that manages background,
   that is, events when no other smaller controls are active.
+  
+  The background is: anywhere in the window not near a morph edge.
+  TODO: inside a morph is in the background? Filled versus unfilled?
+  
   Understands:
     bkgd context menu
     bkgd handle menu
@@ -154,11 +158,15 @@ class BackgroundManager(gui.control.GuiControl):
     # Handle menu on the entire document (composite.)
     # Not passed event, which is KeyEvent, but current pointer coords
     # if they are in window and not inside a graphic morph.
-    try:
-      # !!! controlee is model i.e. document i.e. group of graphics
-      self.handle_menu.open(self.pointer_DCS, controlee=scheme.model)
-    except:
+    ### try:
+    # !!! controlee is model i.e. document i.e. group of graphics
+    self.handle_menu.open(self.pointer_DCS, controlee=scheme.model)
+      
+    """
+      except Exception as exception_instance:
+      print "Exception", type(exception_instance)
       alert.alert("??? Mouse not in background?")
+    """
     
   @dump_event
   def bland_key_release(self, event):

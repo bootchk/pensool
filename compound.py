@@ -4,6 +4,10 @@
 Composite drawables i.e. groups i.e. containers of drawables.
 
 Subclasses are menus and morphs.
+All composites are Transformers and Drawables.
+All composites are pickable, even Controls. TODO
+Menus are also Controls.
+Morphs implement get_orthogonal, Menus don't.
 
 Composites can contain other composites, or primitives (guicontrols or glyphs.)
 
@@ -16,7 +20,7 @@ Certain ops are not iterated, but are ops on composite's transform, e.g. move.
 For those, see transformer.py
 
 The signature and documentation for each method
-is the same as for methods on the members.
+is the same as for methods on primitive members.
 '''
 
 # FIXME rename to composite
@@ -130,11 +134,6 @@ class Compound(list, transformer.Transformer):
       item.put_path_to(context)
       
 
-  def get_orthogonal(self, point):
-    # Defined in morph.py
-    raise RuntimeError("Orthogonal of composite.")
-
- 
   # @dump_event
   def layout(self, event=None):
     '''

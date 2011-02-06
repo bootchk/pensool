@@ -46,7 +46,21 @@ class Transformer(drawable.Drawable):
     self.translation = vector.Vector(0, 0)
     self.scale = vector.Vector(1.0, 1.0)
     self.rotation = 0.0
-      
+    
+  
+  def __getstate__(self):
+    """Return state values to be pickled."""
+    # !!! Parent is state, but top parent must be severed to avoid pickling entire tree
+    # as a forward and backward linked
+    return (self.translation, self.scale, self.rotation, self.style, self.parent)
+
+  def __setstate__(self, state):
+    """Restore state from the unpickled state values."""
+    self.translation, self.scale, self.rotation, self.style, self.parent = state
+    # Cached state recalculated now or at first tree walk.
+    self.retained_transform = cairo.Matrix()  # Identity transform is benign until walk.
+    self.derive_transform() # now
+  
   
   # @dump_return
   def put_transform_to(self, context):
@@ -84,6 +98,7 @@ class Transformer(drawable.Drawable):
     return self.transform
    
   
+  # @dump_return
   def device_to_local(self, point):
     '''
     Get local coordinates (group GCS) of DCS point.
@@ -92,6 +107,7 @@ class Transformer(drawable.Drawable):
     '''
     group_transform = cairo.Matrix() * self.parent.retained_transform
     group_transform.invert()
+    # print group_transform
     return vector.Vector(*group_transform.transform_point(point.x, point.y))
     
     
@@ -112,7 +128,7 @@ class Transformer(drawable.Drawable):
   NOT @view_altering.  Caller must be view_altering.
   Because some callers are just initializing, e.g. menus and model top.
   '''
-  @dump_return
+  #@dump_return
   def set_transform(self, translation, scaltion, rotation):
     '''
     Set the specs for transform, and derive transform from specs.
@@ -153,7 +169,7 @@ class Transformer(drawable.Drawable):
     self.derive_transform()
     
   @view_altering
-  @dump_event
+  # @dump_event
   def move_relative(self, offset):
     ''' 
     Translate.

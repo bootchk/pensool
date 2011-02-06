@@ -108,7 +108,7 @@ def find_new_hotspot(controlee, spec, pixels_off_axis):
   return None
 
 
-@dump_return
+#@dump_return
 def benchmark_from_hotspot(axis, hotspot):
   '''
   Calculate benchmark from hotspot.

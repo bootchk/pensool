@@ -24,7 +24,6 @@ class ControlsManager():
     '''
     self.root_control = control
     viewport.viewport.da.connect('configure-event', control.configure_event_cb)
-    viewport.viewport.da.connect_after('key-release-event', control.key_release_event_cb)
     viewport.viewport.da.connect('focus-in-event', control.focus_in_event_cb)
 
     
@@ -46,16 +45,19 @@ class ControlsManager():
       # since mouse might jiggle right back out
       control.center_at(event)
     '''
-    # Reconnect mouse events
+    # Reconnect events
+    # Mouse and keyboard
     if self.current_control is not None:
       viewport.viewport.da.disconnect(self.current_motion_handler)
       viewport.viewport.da.disconnect(self.current_press_handler)
       viewport.viewport.da.disconnect(self.current_release_handler)
       viewport.viewport.da.disconnect(self.current_scroll_handler)
+      viewport.viewport.da.disconnect(self.current_key_handler)
     self.current_press_handler = viewport.viewport.da.connect('button-press-event', control.button_press_event_cb)
     self.current_motion_handler = viewport.viewport.da.connect('motion-notify-event', control.motion_notify_event_cb)
     self.current_release_handler = viewport.viewport.da.connect('button-release-event', control.button_release_event_cb)
     self.current_scroll_handler = viewport.viewport.da.connect('scroll-event', control.scroll_event_cb)
+    self.current_key_handler = viewport.viewport.da.connect_after('key-release-event', control.key_release_event_cb)
     
     # change focus (invalidates?)
     if self.current_control is not None:

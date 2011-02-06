@@ -67,8 +67,10 @@ class LineHandleItem(itemhandle.HandleItem):
     
     line = morph.morph.LineMorph() # Create
     self.controlee.insert(line)  # Insert line into controlee's group, or make group
-    # Line extends from my menu manager's hotpot to the event
-    line.set_by_drag(self.group_manager.layout_spec.hotspot, event, self.controlee)
+    # Assert the object now has a parent group.
+    # But if controlee is the model (top), controlee is not in that group, controlee IS the group.
+    # Line extends from my menu manager's hotpot to the event.
+    line.set_by_drag(self.group_manager.layout_spec.hotspot, event)
     dropmanager.dropmgr.set_draggee(line)  # Remember line morph being dragged
     
     
@@ -85,7 +87,7 @@ class LineHandleItem(itemhandle.HandleItem):
     '''
     # TODO look for suitable target
     line = dropmanager.dropmgr.get_draggee()
-    line.set_by_drag(self.group_manager.layout_spec.hotspot, event, self.controlee)
+    line.set_by_drag(self.group_manager.layout_spec.hotspot, event)
     
     
   @dump_event

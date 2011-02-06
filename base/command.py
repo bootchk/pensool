@@ -1,14 +1,6 @@
 #!/usr/bin/env python
 
 '''
-import pygtk
-import gtk 
-import cairo
-import os
-import scheme
-import style
-import base.vector as vector
-from decorators import *
 '''
 
 class NullCommand(object):

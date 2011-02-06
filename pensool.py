@@ -42,7 +42,9 @@ def draw_background(self, acv, dw, x, y, ww, hh, pb):
        dw_y += ph
  '''
 
-
+def foo(accel_group, acceleratable, keyval, modifier):
+  print "Accelerator", keyval, modifier
+  return True
 
 
 # window 
@@ -84,6 +86,11 @@ among our controls that get the keyboard focus.
 da.set_flags( da.flags() | gtk.CAN_FOCUS )
   
 window.add(da)
+
+accelerators = gtk.AccelGroup()
+window.add_accel_group(accelerators)
+accelerators.connect_group(122, gdk.CONTROL_MASK, accel_flags=gtk.ACCEL_VISIBLE, callback=foo)
+# gdk.GDK_Left
 
 # Can draw to several ports.
 a_viewport = viewport.ViewPort(da)

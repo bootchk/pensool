@@ -21,11 +21,8 @@ import glyph
 import scheme # for bounding box
 import base.vector as vector
 import base.orthogonal as orthogonal
+import base.transform as transform
 from decorators import *
-import cairo
-
-# TEMP
-import transformer
 
 
 class Morph(compound.Compound):
@@ -70,15 +67,13 @@ class Morph(compound.Compound):
       branch.append(morph) # new child of new branch
       parent.append(branch) # parent has new child, a branch
       # !!! Sets branch.parent = parent
-      
-      # !!! can't copy a Matrix(), workaround
-      branch.retained_transform = cairo.Matrix()*parent.retained_transform
+      branch.retained_transform = transform.copy(parent.retained_transform)
       # Assert branch.transform is identity, branch.retained_transform equals parents
       # Assert parent.transform and parent.retained_transform are untouched
       # print "branch retained", branch.retained_transform
       return branch
     else:
-      print "...............Grouping with ", repr(self.controlee)
+      print "...............Grouping with ", self
       self.append(morph)
       return self
 
@@ -105,8 +100,6 @@ class Morph(compound.Compound):
     '''
     Orthogonal of a morph with one member is orthogonal of member,
     under my transform.  FIXME apply my transform
-    
-    TODO rip get_orthogonal out of compound???
     '''
     if len(self) > 1:
       print "Orthogonal of a composite morph is orthog to bounding box?????"
@@ -126,6 +119,10 @@ class Morph(compound.Compound):
   def resize(self, event, offset):
     print "Virtual resize morph"
     
+  
+  def is_primitive(self):
+    '''Morph that is not PrimitiveMorph is not primitive, I.E. is a group '''
+    return False
     
 
 class PrimitiveMorph(Morph):
@@ -150,22 +147,16 @@ class LineMorph(PrimitiveMorph):
   
   @view_altering  
   @dump_event
-  def set_by_drag(self, start_coords, event, controlee):
+  def set_by_drag(self, start_coords, event):
     '''
     Establish my dimensions (set transform) according to drag op from start_coords to event.
-    Controlee is my sibling.
     My glyph is a unit line.
-    Set my transform within my group's coordinate system (GCS).
+    Set my transform within my parent group's coordinate system (GCS).
     '''
     # assert start_coords and event in device DCS
-    # Transform to GCS
-    # Get combined transform (viewing, modeling,...) leading to my group.
-    ##group_transform = cairo.Matrix() * controlee.parent.retained_transform
-    ##group_transform.invert()
-    ##start_point = vector.Vector(*group_transform.transform_point(start_coords.x, start_coords.y))
-    ##event_point = vector.Vector(*group_transform.transform_point(event.x, event.y))
-    start_point = controlee.device_to_local(start_coords)
-    event_point = controlee.device_to_local(event)
+    # Transform to GCS (Local)
+    start_point = self.device_to_local(start_coords)
+    event_point = self.device_to_local(event)
     drag_vector_UCS = event_point - start_point
     
     # Scale both axis by vector length
@@ -179,15 +170,6 @@ class LineMorph(PrimitiveMorph):
       drag_length_UCS, drag_length_UCS)
     self.set_dimensions(dimensions)
     """
-
-  """
-  # TEMPORARY FIXME
-  def put_transform_to(self, context):
-    transformer.Transformer.put_transform_to(self, context) # super
-    xx, yx, xy, yy, x0, y0 = self.retained_transform
-    if xx == 1:
-      print "!!!!! retained transform is 1"
-  """
 
 
 class RectMorph(PrimitiveMorph):

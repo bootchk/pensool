@@ -5,7 +5,7 @@ import base.bounds as bounds
 import style
 from decorators import *
 import base.vector as vector
-import cairo # FIXME for one place
+import base.transform as transform
 import viewport
 
 
@@ -230,7 +230,7 @@ class Drawable(object):
   def in_fill(self, event):
     '''
     Is event in our filled shape?
-    Bounding box is DCS axis aligned, drawn fill is NOT, so use cairo in_fill().
+    Bounding box is DCS axis aligned, drawn fill is NOT, so use in_fill().
     '''
     # For functions that can be called outside a walk of the hierarchy:
     # set up fresh context with retained transform and style.
@@ -238,7 +238,7 @@ class Drawable(object):
     # TODO styled?
     context = viewport.viewport.user_context()
     if self.parent: # None if in background ctl
-      context.set_matrix(cairo.Matrix()*self.parent.retained_transform)
+      context.set_matrix(transform.copy(self.parent.retained_transform))
     self.put_path_to(context) # recursive, with transforms
     hit = context.in_fill(*context.device_to_user(event.x, event.y))
     # if not hit:

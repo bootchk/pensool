@@ -107,7 +107,12 @@ class HandleItem(gui.itemcontrol.ItemControl):
     self.group_manager.do_item_exit(event, exit_vector)
     return
     
+  def control_key_release(self, event):
+    print "Control key released in handle item"
   
+  def bland_key_release(self, event):
+    print "Bland key released in handle item"
+    # FIXME for the move item, if this is text box, take key
   
   '''
   Virtual: should be overridden
