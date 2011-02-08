@@ -26,6 +26,7 @@ is the same as for methods on primitive members.
 # FIXME rename to composite
 
 import transformer
+import style
 from decorators import *
 import coordinates
 import base.bounds as bounds
@@ -70,6 +71,7 @@ class Compound(list, transformer.Transformer):
     # FIXME inconsistent use of super()
     transformer.Transformer.__init__(self)
     # self.stroke_width = 1       # TODO style
+    self.style = style.Style()
     if parent:
       self.parent = None
     else:
@@ -89,8 +91,8 @@ class Compound(list, transformer.Transformer):
     return self.parent
 
   
-  # @dump_return  # Uncomment to debug composite draw()
   @transforming
+  # @dump_return  # Uncomment to debug composite draw()
   def draw(self, context):
     '''
     Iterate draw contained objects.
@@ -108,7 +110,7 @@ class Compound(list, transformer.Transformer):
       # print "Matrix for item:", context.get_matrix()
     self.bounds = union_bounds
     # !!! Note empty composites return null bounds
-    return self.bounds.copy()
+    return self.bounds.copy() # TODO return union_bounds to save a copy
  
   
   # @dump_return
@@ -173,8 +175,11 @@ class Compound(list, transformer.Transformer):
   @dump_event
   def highlight(self, direction):
     # TODO transform??
-    for item in self:
-      item.highlight(direction)
+    if self.is_primitive():
+      self.style.highlight(direction)
+    else:
+      for item in self:
+        item.highlight(direction)
   
   
   def activate_controls(self, event):

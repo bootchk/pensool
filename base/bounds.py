@@ -29,11 +29,11 @@ class Bounds(object):
   >>> Bounds()
   (0, 0, 0, 0)
   
-  # is_null
+  # A new Bounds is is_null
   >>> Bounds().is_null()
   True
 
-  # is_null
+  # A non-empty Bounds is not is_null
   >>> Bounds(0,0,1,1).is_null()
   False
   
@@ -41,12 +41,11 @@ class Bounds(object):
   >>> Bounds(0,0,0,0).is_null()
   True
   
-  # Assertion raised on floats
+  # Assertion raised on float arguments
   >>> Bounds(0,0,1.0,1)
   Traceback (most recent call last):
   ...
   AssertionError
-
   
   # a bounds intersects a point
   >>> Bounds(0,0,1,1).is_intersect(vector.Vector(0,0))
@@ -102,6 +101,10 @@ class Bounds(object):
   # bounds from extents snaps to outside pixel boundary
   >>> Bounds().from_extents(.75, .75, 1.2, 1.2)
   (0, 0, 2, 2)
+  
+  # bounds from extents snaps to outside pixel boundary on negative
+  >>> Bounds().from_extents(-0.1, -0.1, 0.0, 0.0)
+  (-1, -1, 1, 1)
   
   # calculate center
   >>> Bounds(0,0,2,2).center_of()
@@ -247,7 +250,38 @@ class Bounds(object):
       and point.y <= (self.y + self.height)
     
     
-
+  def from_context_stroke(self, context):
+    '''
+    Get the DCS bounds of the path in the graphics context.
+    Stroke, that is, as inked, not as ideal path.
+    '''
+    # extents of rect in UCS, aligned with axis
+    ulx, uly, lrx, lry = context.stroke_extents() 
+    # Two other corners of the rect
+    llx = ulx
+    lly = lry
+    urx = lrx
+    ury = uly
+    # Four points in DCS, corners of rect NOT axis aligned,
+    # and no relationships known between points in DCS
+    p1xd, p1yd = context.user_to_device(ulx, uly)
+    p2xd, p2yd = context.user_to_device(llx, lly)
+    p3xd, p3yd = context.user_to_device(lrx, lry)
+    p4xd, p4yd = context.user_to_device(urx, ury)
+    # DCS bounds are min and max of device coords of all four points.
+    # Snap to outside pixel using floor, ceiling.
+    # Convert to int
+    minxi = int(math.floor(min(p1xd, p3xd, p2xd, p4xd)))
+    minyi = int(math.floor(min(p1yd, p3yd, p2yd, p4yd)))
+    maxxi =  int(math.ceil(max(p1xd, p3xd, p2xd, p4xd)))
+    maxyi =  int(math.ceil(max(p1yd, p3yd, p2yd, p4yd)))
+    width = maxxi - minxi
+    height = maxyi - minyi
+    self = Bounds(minxi, minyi, width, height)
+    # !!! Cannot assert not is_null: line width tiny or other factors
+    # may yield empty stroke extents.
+    return self
+    
   
   def from_extents(self, ulx, uly, lrx, lry):
     '''
@@ -265,9 +299,10 @@ class Bounds(object):
     !!! Parameters are float i.e. fractional.
     Bounds are snapped to the outside pixel boundary.
     '''
-    # Snap to integer boundaries and order on the number line
-    minxi = int(min(ulx, lrx))
-    minyi = int(min(uly, lry))
+    # Snap to integer boundaries and order on the number line.
+    # !!! Note int(floor()) not just int()
+    minxi = int(math.floor(min(ulx, lrx)))
+    minyi = int(math.floor(min(uly, lry)))
     maxxi = int(math.ceil(max(ulx, lrx)))
     maxyi = int(math.ceil(max(uly, lry)))
     width = maxxi - minxi

@@ -16,7 +16,7 @@ def report_virtual():
   print "??? Override virtual method", sys._getframe(1).f_code.co_name
 
 
-class GuiControl(morph.morph.Morph):
+class GuiControl(morph.morph.PrimitiveMorph):
   '''
   Base class for GUI controls i.e. widgets.
   

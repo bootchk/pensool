@@ -8,12 +8,11 @@ See morph.py for discussion of strategy for instantiating.
 '''
 
 import drawable
-import math
+from math import pi as PI
 import base.orthogonal as orthogonal
-import coordinates
-from decorators import *
 import base.vector as vector
-from config import *
+from decorators import *
+
 # import traceback
 # traceback.print_stack()
     
@@ -68,7 +67,7 @@ class LineGlyph(Glyph):
   '''
   def put_path_to(self, context):
     context.move_to(0, 0)
-    context.rel_line_to(1.0, 0)
+    context.line_to(1.0, 0)
     return
 
     
@@ -119,8 +118,8 @@ class CircleGlyph(Glyph):
   # @dump_event
   def put_path_to(self, context):
     # x, y, radius, ?, radians
-    ## context.arc(0, 0, 1.0, 0, 2.0*math.pi)
-    context.arc(0.5, 0.5, 0.5, 0, 2.0*math.pi)
+    ## context.arc(0, 0, 1.0, 0, 2.0*PI)
+    context.arc(0.5, 0.5, 0.5, 0, 2.0*PI)
     return
 
   

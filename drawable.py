@@ -2,7 +2,6 @@
 
 import coordinates
 import base.bounds as bounds
-import style
 from decorators import *
 import base.vector as vector
 import base.transform as transform
@@ -15,7 +14,6 @@ import viewport
 class Drawable(object):
   '''
   Things that can be drawn (morphs, glyphs, and controls).
-  (Dimensions: see transformer.py.  Style: see style.py) 
   
   DRAWING:
   See below draw()
@@ -40,11 +38,11 @@ class Drawable(object):
   '''
   
   def __init__(self):
-    self._dimensions = coordinates.any_dims()
-    self.style = style.Style()
+    # self._dimensions = coordinates.any_dims()
     # bounds is initially a zero size bounds: it is unioned with member bounds
     self.bounds = bounds.Bounds()
     self.parent = None
+    # !!! Not all Drawables have transform or style.
     
   
   # @dump_return  # Uncomment to debug primitive draw().
@@ -55,20 +53,17 @@ class Drawable(object):
     
     !!! This is the primitive draw.  See also composite.draw().
     
-    !!! Transformation must already be in the context CTM.
-    My parent transforms me.
-    
-    !!! Style is already in the context.
-    I inherit my parent style, but I can override.
+    !!! Transform and style must already be in the context CTM.
+    My parent transforms and styles me.
     '''
-    self.style.put_to(context)
-    self.put_path_to(context) # recursive, except this should be terminal
-    # TODO is this right, or do need to save context?
+ 
+    self.put_path_to(context) # recursive, except this should be terminal!!!
     
     # Cache my drawn bounds
-    self.bounds = self.get_path_bounds(context)
+    self.bounds = self.get_stroke_bounds(context)
     
-    if self.style.is_filled():
+    # !!! My parent knows whether my style filled
+    if self.parent.style.is_filled():
       context.fill()  # Filled, up to path
     else:
       context.stroke()  # Outline, with line width
@@ -114,11 +109,13 @@ class Drawable(object):
       context.transform(self.parent.retained_transform)
       ##self.parent.put_transform_to(context)
     self.put_path_to(context)   # recursive
-    will_bounds_DCS = self.get_path_bounds(context) # inked
+    # FIXME this is not right, the paths will have different transforms????
+    will_bounds_DCS = self.get_stroke_bounds(context) # inked
     viewport.viewport.surface.invalidate_rect( will_bounds_DCS.to_rect(), True )
     return will_bounds_DCS  # for debugging
     
-    
+  """
+  OLD
   @dump_event
   @view_altering
   def highlight(self, direction):
@@ -128,7 +125,7 @@ class Drawable(object):
     '''
     # TODO Assume highlight is same bounds, i.e. don't invalidate before and after?
     self.style.highlight(direction)
-      
+  """   
       
   def dump(self):
     return repr(self) + " " + repr(self._dimensions) 
@@ -247,27 +244,13 @@ class Drawable(object):
   
   
   # @dump_return
-  def get_path_bounds(self, context):
+  def get_stroke_bounds(self, context):
     '''
     Compute bounding rect in DCS of path in context as inked.
     !!! Note not recursive, takes path from context.
     '''
-    # print "get path bounds context.matrix", context.get_matrix(), context
-    x1, y1, x2, y2 = context.stroke_extents()
-    assert x2 - x1 >= 0
-    assert y2 - y1 >= 0
-    x1, y1 = context.user_to_device(x1, y1)
-    x2, y2 = context.user_to_device(x2, y2)
-    # !!! Note still floats and might be negative width
-    a_bounds = bounds.Bounds().from_extents(x1, y1, x2, y2)
-    # assert not self.bounds.is_null()
-    if a_bounds.is_null():
-      print "!!!!! Null a_bounds", self, x1, y1, x2, y2
-    return a_bounds
-    
-    
-  
- 
+    return bounds.Bounds().from_context_stroke(context)
+
     
    
       

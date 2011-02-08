@@ -24,6 +24,7 @@ class BoundingBox(morph.morph.RectMorph):
   
   def __init__(self):
     super(BoundingBox, self).__init__()
+    self.style.color = (0, 40, 40)  # greenish blue
     self.activated = False
 
     

@@ -25,6 +25,7 @@ import base.transform as transform
 from decorators import *
 
 
+
 class Morph(compound.Compound):
   '''
   A Morph is a Composite with associated controls.
@@ -77,6 +78,8 @@ class Morph(compound.Compound):
       self.append(morph)
       return self
 
+  # FIXME rename to activate_ghosts or activate_feedback
+  # They are not always controls and not morphs.
   def activate_controls(self, direction):
     '''
     Activate associated controls.
@@ -87,12 +90,16 @@ class Morph(compound.Compound):
     activate control: ghost of bounding box enclosing components.
     Note simple morphs are composites of one element so do not get bounding boxes.
     '''
+    """
+    # Bounding box only on composites
     if direction:
       if len(self) > 1:
         # Activate singleton bounding box ghost
         scheme.bounding_box.activate(True, self.bounds.to_rect())
     else:
       scheme.bounding_box.activate(False)
+    """
+    scheme.bounding_box.activate(direction, self.bounds.to_rect())
 
 
   @dump_return
@@ -128,16 +135,18 @@ class Morph(compound.Compound):
 class PrimitiveMorph(Morph):
   '''
   A PrimitiveMorph is a Composite of only Glyphs.
-  The transform of a PrimitiveMorph defines aspect of its glyph, a unit shape.
-  Cannot append a Morph to a PrimitiveMorph.  TODO enforce?
+  The transform and style of a PrimitiveMorph defines aspect of its glyph, a unit shape.
+  Cannot append a Morph to a PrimitiveMorph, only glyphs.  TODO enforce?
   '''
   def is_primitive(self):
     return True
 
+  """
+  This does not work because we append a single glyph.
+  def append(self, item):
+    raise RuntimeError("Appending to primitive morph")
+  """
 
-def set_transform_from_parent():
-  '''
-  '''
 
 class LineMorph(PrimitiveMorph):
   def __init__(self):

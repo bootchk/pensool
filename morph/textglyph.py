@@ -32,19 +32,17 @@ class TextGlyph(glyph.Glyph):
   # @dump_return
   def draw(self, context):
     '''
-    !!! Override: pango draws without scaling.
-    Transforming during primitive draw is unusual:
-    see Drawable.draw() which does not do this.
-    This is undoing the transformation of the immediate parent,
+    !!! Override Drawable.draw(): pango draws without scaling.
+    Transforming during primitive draw is unusual: see Drawable.draw().
+    This undoes scale transform of the immediate parent,
     but is still transformed by everything above in the hierarchy.
-    ????
     '''
     context.save()
     context.scale(1.0/self.parent.scale.x, 1.0/self.parent.scale.y)  # inverse parent scale
     # assert the context is already translated to the proper origin
     self.put_path_to(context)
     
-    self.bounds = self.get_path_bounds(context)
+    self.bounds = self.get_stroke_bounds(context)
     # !!! Outline fonts invisible at some scales
     context.fill()
     """
