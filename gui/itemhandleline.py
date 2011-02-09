@@ -26,15 +26,18 @@ class LineHandleItem(itemhandle.HandleItem):
     itemhandle.HandleItem.__init__(self, command)
     self.append(morph.glyph.RectGlyph())
     self.scale_uniformly(ITEM_SIZE)
+    self.symbol_type = "line"
   
   @dump_event
   def scroll_down(self, event):
     '''
     Cycle tool through line kinds.
     '''
-    # TODO
-    print ">>>>>>>>>>>>Next line kind"
-    pass
+    if self.symbol_type == "line":
+      self.symbol_type = "rect"
+    else:
+      self.symbol_type = "line"
+    print ">>>>>>>>>>>>Next line kind", self.symbol_type
   
   """
   OLD
@@ -60,18 +63,22 @@ class LineHandleItem(itemhandle.HandleItem):
     Generically: Mouse departed item with button down.
     Start drag with source being controlee.
     
-    Specifically: Create a line to stretch.
+    Specifically: Create a symbol to stretch.
     '''
     itemhandle.HandleItem.start_drag(self, event)  # Super
-    # TODO generically create any morph
     
-    line = morph.morph.LineMorph() # Create
-    self.controlee.insert(line)  # Insert line into controlee's group, or make group
+    # Create
+    if self.symbol_type == "line":
+      new_morph = morph.morph.LineMorph() 
+    else:
+      new_morph = morph.morph.RectMorph()
+    
+    self.controlee.insert(new_morph)  # Insert morph into controlee's group, or make group
     # Assert the object now has a parent group.
     # But if controlee is the model (top), controlee is not in that group, controlee IS the group.
-    # Line extends from my menu manager's hotpot to the event.
-    line.set_by_drag(self.group_manager.layout_spec.hotspot, event)
-    dropmanager.dropmgr.set_draggee(line)  # Remember line morph being dragged
+    # Morph extends from my menu manager's hotpot to the event.
+    new_morph.set_by_drag(self.group_manager.layout_spec.hotspot, event)
+    dropmanager.dropmgr.set_draggee(new_morph)  # Remember morph being dragged
     
     
   '''

@@ -130,6 +130,28 @@ class Morph(compound.Compound):
   def is_primitive(self):
     '''Morph that is not PrimitiveMorph is not primitive, I.E. is a group '''
     return False
+  
+  
+  @view_altering  
+  @dump_event
+  def set_by_drag(self, start_coords, event):
+    '''
+    Establish my dimensions (set transform) according to drag op from start_coords to event.
+    My glyph is a unit line.
+    Set my transform within my parent group's coordinate system (GCS).
+    '''
+    # assert start_coords and event in device DCS
+    # Transform to GCS (Local)
+    start_point = self.device_to_local(start_coords)
+    event_point = self.device_to_local(event)
+    drag_vector_UCS = event_point - start_point
+    
+    # Scale both axis by vector length
+    drag_length_UCS = drag_vector_UCS.length()
+    scale = vector.Vector(drag_length_UCS, drag_length_UCS)
+    
+    # print "start", start_coords, "new", start_point, drag_length_UCS
+    self.set_transform(start_point, scale, drag_vector_UCS.angle())
     
 
 class PrimitiveMorph(Morph):
@@ -152,33 +174,6 @@ class LineMorph(PrimitiveMorph):
   def __init__(self):
     Morph.__init__(self)
     self.append(glyph.LineGlyph())
-    
-  
-  @view_altering  
-  @dump_event
-  def set_by_drag(self, start_coords, event):
-    '''
-    Establish my dimensions (set transform) according to drag op from start_coords to event.
-    My glyph is a unit line.
-    Set my transform within my parent group's coordinate system (GCS).
-    '''
-    # assert start_coords and event in device DCS
-    # Transform to GCS (Local)
-    start_point = self.device_to_local(start_coords)
-    event_point = self.device_to_local(event)
-    drag_vector_UCS = event_point - start_point
-    
-    # Scale both axis by vector length
-    drag_length_UCS = drag_vector_UCS.length()
-    scale = vector.Vector(drag_length_UCS, drag_length_UCS)
-    
-    # print "start", start_coords, "new", start_point, drag_length_UCS
-    self.set_transform(start_point, scale, drag_vector_UCS.angle())
-    """
-    dimensions = coordinates.dimensions(start_coords_UCS.x, start_coords_UCS.y, 
-      drag_length_UCS, drag_length_UCS)
-    self.set_dimensions(dimensions)
-    """
 
 
 class RectMorph(PrimitiveMorph):

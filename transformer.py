@@ -105,7 +105,11 @@ class Transformer(drawable.Drawable):
     Uses parent retained transform: only works if previously model traversed and transforms derived.
     Will not work for the model (the top.)
     '''
-    group_transform = cairo.Matrix() * self.parent.retained_transform
+    if self.parent:
+      group_transform = cairo.Matrix() * self.parent.retained_transform
+    else:
+      # At the top, self is model.  Model's transform (viewing) transforms device to local.
+      group_transform = cairo.Matrix() * self.transform
     group_transform.invert()
     # print group_transform
     return vector.Vector(*group_transform.transform_point(point.x, point.y))

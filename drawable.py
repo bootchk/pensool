@@ -6,6 +6,8 @@ from decorators import *
 import base.vector as vector
 import base.transform as transform
 import viewport
+import style  # TEMP
+import cairo # TEMP
 
 
 
@@ -58,6 +60,18 @@ class Drawable(object):
     '''
  
     self.put_path_to(context) # recursive, except this should be terminal!!!
+    
+    # Feb. 9 2011 Test
+    # Uniform scaling so pen is not elliptical.
+    # !!! Path not affected by following scale transform
+    
+    # context.set_line_width(foo)
+    context.save()
+    context.set_matrix(cairo.Matrix())
+    # context.scale(1,1)
+    pen_width = style.calculate_line_width(context, self.parent.style.pen_width)
+    context.restore()
+    context.set_line_width(pen_width)
     
     # Cache my drawn bounds
     self.bounds = self.get_stroke_bounds(context)
