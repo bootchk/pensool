@@ -6,8 +6,8 @@ from decorators import *
 import base.vector as vector
 import base.transform as transform
 import viewport
-import style  # TEMP
-import cairo # TEMP
+import style  # set_line_width
+
 
 
 
@@ -61,28 +61,18 @@ class Drawable(object):
  
     self.put_path_to(context) # recursive, except this should be terminal!!!
     
-    # Feb. 9 2011 Test
-    # Uniform scaling so pen is not elliptical.
-    # !!! Path not affected by following scale transform
+    # Self is glyph.  Parent morph holds style.
+    style.set_line_width(context, self.parent.style.pen_width)
+        
+    self.bounds = self.get_stroke_bounds(context) # Cache drawn bounds
     
-    # context.set_line_width(foo)
-    context.save()
-    context.set_matrix(cairo.Matrix())
-    # context.scale(1,1)
-    pen_width = style.calculate_line_width(context, self.parent.style.pen_width)
-    context.restore()
-    context.set_line_width(pen_width)
-    
-    # Cache my drawn bounds
-    self.bounds = self.get_stroke_bounds(context)
-    
-    # !!! My parent knows whether my style filled
+    # !!! Parent knows whether my style filled
     if self.parent.style.is_filled():
       context.fill()  # Filled, up to path
     else:
       context.stroke()  # Outline, with line width
     # Assert fill or stroke clears paths from context
-    
+    # Assert context.restore() follows soon.
     return self.bounds.copy()   # Return reference to copy, not self
     
   '''
@@ -204,8 +194,12 @@ class Drawable(object):
     '''
     self.put_path_to(context)
     
+  
+  def in_path(self, coords):
+    # FIXME Ideal path distinct from stroke.
+    return self.in_stroke(coords)
     
-  def is_inpath(self, coords):
+  def in_stroke(self, coords):
     '''
     Does coords hit edge of this drawable?
     Stroke: hit on inked, visible.
@@ -224,6 +218,7 @@ class Drawable(object):
     # self.style.put_to(context)
     
     self.put_edge_to(context) # recursive, with transforms
+    style.set_line_width(context, self.parent.style.pen_width)  # !!! After path
     hit = context.in_stroke(coords.x, coords.y)
     return hit
   

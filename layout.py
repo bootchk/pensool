@@ -103,7 +103,7 @@ def find_new_hotspot(controlee, spec, pixels_off_axis):
     transformed_point = base.vector.Point(*matrix.transform_point(point.x, point.y))
     # transformed_point now in DCS
     # print "Transformed", transformed_point
-    if controlee.is_inpath(transformed_point):
+    if controlee.in_path(transformed_point):
       return transformed_point
   return None
 

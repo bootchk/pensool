@@ -51,7 +51,7 @@ class Compound(list, transformer.Transformer):
   (Members inherit properties from parents.)
   
   !!! inherits from Drawable:
-    is_inpath() 
+    in_path() 
     get_bounds()
   They call put_path_to() which comes here and it does the right thing.
   
@@ -116,6 +116,14 @@ class Compound(list, transformer.Transformer):
   # @dump_return
   @transforming
   def pick(self, context, point):
+    '''
+    Pick: return first member that hits point.
+    Ultimately calls glyph.pick() but it returns glyph.parent, a morph.
+    Note: not returning self if member picks,
+    that is, we are picking primitive morphs, not glyphs.
+    That is, we are picking the smallest morph at coords.
+    Alternatively, we could return composite morphs (the largest pick.)
+    '''
     morph = None
     for item in self:
       morph = item.pick(context, point)
@@ -131,6 +139,7 @@ class Compound(list, transformer.Transformer):
     Aggregate the paths of members.
     !!! Note paths accumulate in the context even through save/restore
     '''
+    # TODO putting style not necessary if only color?  Color not affect path?
     self.style.put_to(context)
     for item in self:
       item.put_path_to(context)

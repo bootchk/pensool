@@ -55,7 +55,7 @@ class MoveHandleItem(itemhandle.HandleItem):
       for child in self.controlee:
         print "Child ....", repr(child)
         # TODO Too strict?  Allow jitter?
-        if child.is_inpath(self.group_manager.layout_spec.hotspot):
+        if child.in_path(self.group_manager.layout_spec.hotspot):
           self._change_controlee(child)
           return
       # Assert one must be at this event, else we would not have opened menu.

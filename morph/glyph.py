@@ -12,6 +12,7 @@ from math import pi as PI
 import base.orthogonal as orthogonal
 import base.vector as vector
 from decorators import *
+import style  # set_line_width
 
 # import traceback
 # traceback.print_stack()
@@ -49,11 +50,13 @@ class Glyph(drawable.Drawable):
   # @dump_return
   def pick(self, context, point):
     self.put_path_to(context)
-    # x, y = 
+    # Feb. 11 2011
+    style.set_line_width(context, self.parent.style.pen_width)  # !!! After path
     if context.in_stroke(*context.device_to_user(point.x, point.y)):
       return self.parent  # !!! Don't return a glyph, return glyph's parent morph
     else:
       return None
+    # Assert a context.restore() soon follows.
     
   def cleanse(self):
     # No transforms to cleanse

@@ -3,6 +3,29 @@
 
 import base.vector as vector
 
+# For line width
+import cairo
+import scheme
+
+
+def set_line_width(context, pen_width):
+  '''
+  Set pen width with uniform scaling so pen is not elliptical.
+  style.pen_width is in DCS units.  
+  Scale by the viewing transform scale so that line widths scale with viewing.
+  (Note they might become invisible.)
+  Note: cairo pen width is subject to the CTM (to subsequent transforms), 
+  paths are NOT subject to subsequent transforms.
+  setting the pen width is AFTER the path
+  '''
+  context.set_matrix(cairo.Matrix())
+  context.scale(scheme.model.scale.x, scheme.model.scale.y) # viewing transform
+  context.set_line_width(pen_width)
+  
+"""
+OLD not used
+"""
+
 def calculate_line_width(context, pen_width):
   '''
   Calculate parameter for set_line_width.
@@ -37,8 +60,8 @@ class Style(object):
     
   def put_to(self, context):
     context.set_source_rgba(self.color[0], self.color[1], self.color[2], 0.5) # color, 50% opacity
-    # !!! Line width is transformed.  See elsewhere, possibly set later??? TODO
-    context.set_line_width(calculate_line_width(context, self.pen_width))
+    # !!! Line width is set later.  See drawable.draw().
+    ## OLD context.set_line_width(calculate_line_width(context, self.pen_width))
     # !!! The fill is special, separate from context.
     
   def is_filled(self):

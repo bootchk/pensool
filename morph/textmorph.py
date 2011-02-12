@@ -82,28 +82,6 @@ class TextEditMorph(TextMorph):
     '''
     textselectmanager.activate_select_for_text(direction, self.textglyph)
    
-    
-  '''
-  def is_inpath(self, user_coords):
-    """ Are coords in our path (usually edge)? """
-    context = self.viewport.user_context()
-    context.save()
-    self.textglyph.put_edge_to(context)
-    hit = context.in_stroke(user_coords.x, user_coords.y)
-    context.restore()
-    if hit:
-      print "Hit text"
-    return hit
-  '''
 
-
-"""
-  def set_dimensions(self, rect):
-    '''
-    TODO set the dimensions changes font size or just lays it out differently.
-    '''
-    raise RuntimeError("Can't yet set dimensions of text.")
-  """  
-    
     
     
