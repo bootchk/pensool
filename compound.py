@@ -105,6 +105,8 @@ class Compound(list, transformer.Transformer):
     self.style.put_to(context)
     union_bounds = bounds.Bounds()  # null 
     for item in self:
+      # !!! Each item is not necessarily in its own saved context.
+      # !!! Be careful that one item does not mess the context for siblings.
       item_bounds = item.draw(context)  # walk tree
       union_bounds = union_bounds.union(item_bounds)
       # print "Matrix for item:", context.get_matrix()

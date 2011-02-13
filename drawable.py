@@ -62,6 +62,8 @@ class Drawable(object):
     self.put_path_to(context) # recursive, except this should be terminal!!!
     
     # Self is glyph.  Parent morph holds style.
+    # Alters transform, so save
+    context.save()
     style.set_line_width(context, self.parent.style.pen_width)
         
     self.bounds = self.get_stroke_bounds(context) # Cache drawn bounds
@@ -71,8 +73,9 @@ class Drawable(object):
       context.fill()  # Filled, up to path
     else:
       context.stroke()  # Outline, with line width
+    context.restore()
     # Assert fill or stroke clears paths from context
-    # Assert context.restore() follows soon.
+    # NOT assert context.restore() follows soon: may be one of siblings.
     return self.bounds.copy()   # Return reference to copy, not self
     
   '''
