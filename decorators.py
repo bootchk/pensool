@@ -82,12 +82,13 @@ def view_altering(func):
     return value
   return view_altering_decor
 
+# FIXME try except IndexError probably first arg not a context
 def transforming(func):
   '''
   Decorator: wrap decorated func in save, transform, restore.
   Decorated func alters the view: transform or style.
   Self is a drawable.
-  First arg must be a context.
+  !!! First arg must be a context.
   '''
   def transforming_decor(self, *args, **kwargs):
     args[0].save()

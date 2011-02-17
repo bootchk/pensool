@@ -49,11 +49,12 @@ def build_edit_menu(printerport, fileport):
   Build context menu (RMB) for morphs.
   Style: Classic pop-up menu
   '''
-  menu_item = gui.itemmenu.TextMenuItem("Cut", command.Command(fileport.do_save))
+  menu_item = gui.itemmenu.TextMenuItem("Cut", command.Command(edit.do_cut))
   menu_item2 = gui.itemmenu.TextMenuItem("Copy", command.Command(edit.do_copy))
   menu_item3 = gui.itemmenu.TextMenuItem("Paste", command.Command(edit.do_paste))
   '''menu_item4 = gui.itemmenu.TextMenuItem("Print", 
     command.Command(printerport.do_print))
+    fileport.do_save
   '''
   
   menu_group = gui.menutraditional.MenuGroup()

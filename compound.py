@@ -193,12 +193,12 @@ class Compound(list, transformer.Transformer):
         item.highlight(direction)
   
   
-  def activate_controls(self, event):
+  def rouse_feedback(self, event):
     '''
     Activating controls is NOT aggregate, but only on the top level.
     I.E. Don't activate all the controls in a tree of morphs.
     '''
-    print "Virtual activate controls"
+    print "Virtual rouse_feedback"
    
    
    

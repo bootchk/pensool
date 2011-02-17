@@ -117,11 +117,18 @@ TODO
 # Make separate morphs
 arect = morph.morph.RectMorph()
 acirc = morph.morph.CircleMorph()
+apoint = morph.morph.PointMorph()
+aline = morph.morph.LineMorph()
 
 scheme.model.append(arect)
 scheme.model.append(acirc)
+scheme.model.append(apoint)
+scheme.model.append(aline)
 for item in scheme.model:
   item.set_dimensions(coordinates.Rectangle(150.0/PENSOOL_UNIT, 150.0/PENSOOL_UNIT, 100.0/PENSOOL_UNIT, 100.0/PENSOOL_UNIT))
+apoint.set_dimensions(coordinates.Rectangle(10.0/PENSOOL_UNIT, 50.0/PENSOOL_UNIT, 100.0/PENSOOL_UNIT, 100.0/PENSOOL_UNIT))
+aline.set_dimensions(coordinates.Rectangle(20.0/PENSOOL_UNIT, 50.0/PENSOOL_UNIT, 100.0/PENSOOL_UNIT, 100.0/PENSOOL_UNIT))
+  
 
 # !!! Width, height of text are computed??
 # atext.set_origin(coordinates.Rectangle(150.0/PENSOOL_UNIT, 30.0/PENSOOL_UNIT, 0,0))

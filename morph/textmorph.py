@@ -5,6 +5,7 @@ import textglyph
 import gui.textselectcontrol
 import textselectmanager
 from decorators import *
+import scheme # bounding box
 
 class TextMorph(morph.PrimitiveMorph):
   '''
@@ -75,11 +76,12 @@ class TextEditMorph(TextMorph):
     
     
   @dump_event
-  def activate_controls(self, direction):
+  def rouse_feedback(self, direction):
     '''
     This text has gained/lost pointer focus.  
     Activate/deactivate its text select for keyboard focus.
     '''
+    scheme.bounding_box.activate(direction, self.bounds.to_rect())
     textselectmanager.activate_select_for_text(direction, self.textglyph)
    
 

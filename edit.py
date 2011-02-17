@@ -12,6 +12,21 @@ import pickle
 import clipboard
 from decorators import *
 
+
+@view_altering
+def do_cut(operand, event=None):
+  '''
+  From model to clipboard.
+  Operand is a morph the cut op was chosen upon.
+  Event is DCS coords.
+  '''
+  operand.parent.remove(operand)
+  operand.parent = None
+  foo = pickle.dumps(operand, pickle.HIGHEST_PROTOCOL)
+  clipboard.clipboard.paste(foo)
+
+
+
 @view_altering
 def do_paste(operand, event=None):
   '''

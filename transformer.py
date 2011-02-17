@@ -236,7 +236,7 @@ class Transformer(drawable.Drawable):
     print "Zoomed scale is", self.scale
     self.derive_transform()
     
-  @dump_event
+  #@dump_event
   def center_at(self, point):
     '''
     ??? This only works for controls,

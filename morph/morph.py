@@ -19,6 +19,7 @@ Morphs can have associated controls, but don't contain them.
 import compound
 import glyph
 import scheme # for bounding box
+import handlemgr
 import base.vector as vector
 import base.orthogonal as orthogonal
 import base.transform as transform
@@ -78,17 +79,25 @@ class Morph(compound.Compound):
       self.append(morph)
       return self
 
-  # FIXME rename to activate_ghosts or activate_feedback
-  # They are not always controls and not morphs.
-  def activate_controls(self, direction):
+  
+  
+  def rouse_feedback(self, direction):
     '''
-    Activate associated controls.
+    Assert morph is focused.
+    Activate associated feedback.
     
+    Feedback:
+      handles
+      bounding box
+     
+    Feedback is not a control: doesn't take events.
+    Some feedback is pickable.
     Some morphs default to have no controls.
+    
     If this composite has more than one component, 
     AND if this is the top level of a tree of composites,
     activate control: ghost of bounding box enclosing components.
-    Note simple morphs are composites of one element so do not get bounding boxes.
+    Note simple morphs are degenerate composites (one element) so do not get bounding boxes.
     '''
     """
     # Bounding box only on composites
@@ -170,17 +179,27 @@ class PrimitiveMorph(Morph):
   """
 
 
+
+# See also textmorph.py for TextMorph
+
+class PointMorph(PrimitiveMorph):
+  def __init__(self):
+    Morph.__init__(self)
+    self.append(glyph.PointGlyph())
+
 class LineMorph(PrimitiveMorph):
   def __init__(self):
     Morph.__init__(self)
     self.append(glyph.LineGlyph())
-
+    
+  def rouse_feedback(self, direction):
+    scheme.bounding_box.activate(direction, self.bounds.to_rect())
+    handlemgr.rouse(line_handles, self, direction)
 
 class RectMorph(PrimitiveMorph):
   def __init__(self):
     Morph.__init__(self)
     self.append(glyph.RectGlyph())
-    
     
 class CircleMorph(PrimitiveMorph):
   def __init__(self):
@@ -188,8 +207,31 @@ class CircleMorph(PrimitiveMorph):
     self.append(glyph.CircleGlyph())
 
 
-# See also textmorph.py for TextMorph
-    
-    
-    
-    
+
+'''
+Handles: pickable spots on morphs.
+Handle menu actions depend on which handle (if any) is picked.
+'''
+
+class HandlePoint(PointMorph):
+  ''' 
+  Handle that is a point.
+  
+  Draws and picks like user's point morphs.
+  
+  An action on a handle translates into an action on the morph it handles.
+  E.G. dragging the handle on the end of a line drags one end of the line.
+  def set_by_drag(
+  '''
+
+
+'''
+Singleton handle sets.
+One per type of morph/glyph.
+'''
+# A line morph has set of handles on end points
+line_handles = Morph()
+point = HandlePoint() # FIXME init with coords
+line_handles.append(point)
+line_handles.append(HandlePoint())  # (1,0)
+

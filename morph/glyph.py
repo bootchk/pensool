@@ -13,6 +13,7 @@ import base.orthogonal as orthogonal
 import base.vector as vector
 from decorators import *
 import style  # set_line_width
+import cairo # line cap
 
 # import traceback
 # traceback.print_stack()
@@ -63,6 +64,31 @@ class Glyph(drawable.Drawable):
     return
   
 
+class PointGlyph(Glyph):
+  '''
+  Point: zero length line.  Appears as a single pen touch ( style of line cap.)
+  '''
+  def put_path_to(self, context):
+    '''
+    See cairo.stroke().  Degenerate (zero length) segments draw for some line_cap values.
+    '''
+    context.set_line_cap(cairo.LINE_CAP_SQUARE)
+    context.move_to(0, 0)
+    '''
+    Getting a degenerate segment in cairo:
+    ??? line_to(0,0) should work, but doesn't.
+    ??? context.close_path() doesn't work either
+    '''
+    context.line_to(0.001, 0.001)
+    
+
+  def get_orthogonal(self, point):
+    '''
+    Return orthogonal to point: arbitrary.
+    '''
+    return vector.UNIT_Y_AXIS
+    
+
 
 class LineGlyph(Glyph):
   '''
@@ -71,7 +97,6 @@ class LineGlyph(Glyph):
   def put_path_to(self, context):
     context.move_to(0, 0)
     context.line_to(1.0, 0)
-    return
 
     
   def get_orthogonal(self, point):
@@ -123,7 +148,6 @@ class CircleGlyph(Glyph):
     # x, y, radius, ?, radians
     ## context.arc(0, 0, 1.0, 0, 2.0*PI)
     context.arc(0.5, 0.5, 0.5, 0, 2.0*PI)
-    return
 
   
   @dump_return

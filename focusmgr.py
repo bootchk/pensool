@@ -31,11 +31,7 @@ def focus(thing):
   unfocus()
   _focused_operand = thing
   thing.highlight(True)
-  # Activate any associated controls on the morph
-  # e.g. for text morph activate text select control
-  # TODO activate while inside
-  # TODO deactivate see menu.close()
-  thing.activate_controls(True)
+  thing.rouse_feedback(True)
   
   
 def unfocus():
@@ -46,7 +42,7 @@ def unfocus():
   
   if _focused_operand:
     # callees must invalidate
-    _focused_operand.activate_controls(False)
+    _focused_operand.rouse_feedback(False)
     _focused_operand.highlight(False)
     _focused_operand = None
       

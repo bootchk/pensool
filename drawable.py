@@ -46,7 +46,7 @@ class Drawable(object):
     self.parent = None
     # !!! Not all Drawables have transform or style.
     
-  
+  # Feb. 16 dump_return here breaks sliding of handle menu???
   # @dump_return  # Uncomment to debug primitive draw().
   def draw(self, context):
     '''

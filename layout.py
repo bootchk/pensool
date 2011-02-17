@@ -133,7 +133,7 @@ def slide_layout_spec_follow(controlee, spec, pixels_off_axis):
   '''
   spot = find_new_hotspot(controlee, spec, pixels_off_axis)
   if spot:
-    print "Hotspot old", spec.hotspot, " new ", spot
+    # print "Hotspot old", spec.hotspot, " new ", spot
     spec.hotspot = spot
     # new hotspot engenders new axis, then benchmark
     spec.vector = controlee.get_orthogonal(spot)

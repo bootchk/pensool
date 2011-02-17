@@ -84,6 +84,8 @@ class MoveHandleItem(itemhandle.HandleItem):
     # Display at new coords, same width and height
     # Since moving in real time, use the increment from previous continue
     self.controlee.move_relative(increment)
+    # FIXME
+    # self.manager.commands.continue_drag_line(event, offset, increment
  
 
   @dump_event

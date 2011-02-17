@@ -9,6 +9,7 @@ See itemhandle.py for the handle subclass of menu item.
 import menu
 import scheme
 import base.vector as vector
+import handlemgr
 import layout
 from decorators import *
 import config
@@ -21,8 +22,24 @@ class HandleGroup(menu.ItemGroup):
     moveable,
     layout reorients
     !!! only one item shown, as mouseovered
+    
+  Handle menu commands dynamically change by type of morph
   '''
+  def __init__(self):
+    super(HandleGroup, self).__init__()
+    self.handle = None  # Picked handle of controlee.
+    self.commands = None  # Commands for morph type
   
+  def open(self, event, controlee=None):
+    '''
+    Overrides super to dispatch on morph type
+    '''
+    super(HandleGroup, self).open(event, controlee)
+    # FIXME self.commands = ???
+
+    
+    
+    
   @dump_return
   def new_layout_spec(self, event):
     """
@@ -142,11 +159,21 @@ class HandleGroup(menu.ItemGroup):
     
     !!! Does not layout menu's items: self.layout() 
     '''
-    ## OLD layout.slide_layout_spec(self.layout_spec, pixels_off_axis)
-    # Update the layout spec
+    # Update layout spec
     layout.slide_layout_spec_follow(self.controlee, self.layout_spec, pixels_off_axis)
-    # Reposition: update the menu's transform
-    self.position()
+    
+    self.position() # Update menu's transform
+    
+    self.handle = handlemgr.pick(self.layout_spec.hotspot)  # If slide to handle on controllee
+    # Handle menu still tracks morph.
+    if self.handle:
+      print "!!!!!!!!!!!!!!!!!!!! Picked handle."
+    else :
+      print "!!!!!!!!!!!!!!!!!!!! Lost handle."
+      
+      
+   
+      
 
   @transforming
   def draw(self, context):
