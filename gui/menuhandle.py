@@ -28,17 +28,7 @@ class HandleGroup(menu.ItemGroup):
   def __init__(self):
     super(HandleGroup, self).__init__()
     self.handle = None  # Picked handle of controlee.
-    self.commands = None  # Commands for morph type
-  
-  def open(self, event, controlee=None):
-    '''
-    Overrides super to dispatch on morph type
-    '''
-    super(HandleGroup, self).open(event, controlee)
-    # FIXME self.commands = ???
-
-    
-    
+      
     
   @dump_return
   def new_layout_spec(self, event):
@@ -159,11 +149,13 @@ class HandleGroup(menu.ItemGroup):
     
     !!! Does not layout menu's items: self.layout() 
     '''
-    # Update layout spec
+    # Update layout spec.
+    # Note it might not change, if hit the end of the glyph.
     layout.slide_layout_spec_follow(self.controlee, self.layout_spec, pixels_off_axis)
     
     self.position() # Update menu's transform
     
+    # Pick at the hotspot of the menu, thats where a handle should be.
     self.handle = handlemgr.pick(self.layout_spec.hotspot)  # If slide to handle on controllee
     # Handle menu still tracks morph.
     if self.handle:

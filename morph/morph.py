@@ -25,6 +25,8 @@ import base.orthogonal as orthogonal
 import base.transform as transform
 from decorators import *
 
+import cairo  # temp
+
 
 
 class Morph(compound.Compound):
@@ -111,7 +113,7 @@ class Morph(compound.Compound):
     scheme.bounding_box.activate(direction, self.bounds.to_rect())
 
 
-  @dump_return
+  #@dump_return
   def get_orthogonal(self, point):
     '''
     Orthogonal of a morph with one member is orthogonal of member,
@@ -145,7 +147,8 @@ class Morph(compound.Compound):
   @dump_event
   def set_by_drag(self, start_coords, event):
     '''
-    Establish my dimensions (set transform) according to drag op from start_coords to event.
+    Establish my dimensions (set transform) 
+    according to drag op from start_coords to event.
     My glyph is a unit line.
     Set my transform within my parent group's coordinate system (GCS).
     '''
@@ -161,6 +164,34 @@ class Morph(compound.Compound):
     
     # print "start", start_coords, "new", start_point, drag_length_UCS
     self.set_transform(start_point, scale, drag_vector_UCS.angle())
+
+
+  @view_altering  
+  @dump_event
+  def move_by_drag(self, offset, increment):
+    '''
+    Establish my translation
+    according to drag op
+    of glyph
+    by offset
+    '''
+    self.move_relative(increment)
+    
+  @view_altering  
+  @dump_event
+  def move_by_drag_handle(self, offset, increment):
+    '''
+    Establish my dimensions (set transform) 
+    according to drag op
+    of handle
+    by offset
+    '''
+    # FIXME depends on which handle
+    matrix = cairo.Matrix() * self.retained_transform
+    matrix.invert()
+    x,y = matrix.transform_point(increment.x, increment.y)
+    print x,y, increment
+    self.move_origin(increment)
     
 
 class PrimitiveMorph(Morph):
@@ -182,6 +213,8 @@ class PrimitiveMorph(Morph):
 
 # See also textmorph.py for TextMorph
 
+# For now, user can't create a PointMorph.
+# PointMorph used by HandlePoint.
 class PointMorph(PrimitiveMorph):
   def __init__(self):
     Morph.__init__(self)
@@ -205,6 +238,10 @@ class CircleMorph(PrimitiveMorph):
   def __init__(self):
     Morph.__init__(self)
     self.append(glyph.CircleGlyph())
+  
+  def rouse_feedback(self, direction):
+    scheme.bounding_box.activate(direction, self.bounds.to_rect())
+    handlemgr.rouse(circle_handles, self, direction)
 
 
 
@@ -223,15 +260,26 @@ class HandlePoint(PointMorph):
   E.G. dragging the handle on the end of a line drags one end of the line.
   def set_by_drag(
   '''
+  
+  def __init__(self):
+    PointMorph.__init__(self)
+    # Set pen width broader than ordinary
+    # TODO this should be dynamic, depend on current morph
+    self.style.pen_width = 3
+    
 
+# class HandleSet(Morph) a set of HandlePoints
 
-'''
-Singleton handle sets.
-One per type of morph/glyph.
-'''
 # A line morph has set of handles on end points
 line_handles = Morph()
-point = HandlePoint() # FIXME init with coords
+line_handles.append(HandlePoint()) # First handle at 0,0 end of unit line
+# Second handle at 1,0 end of line
+point = HandlePoint()
+point.set_translation(vector.Vector(1,0))
 line_handles.append(point)
-line_handles.append(HandlePoint())  # (1,0)
+
+circle_handles = Morph()
+circle_handles.append(LineMorph())
+
+
 

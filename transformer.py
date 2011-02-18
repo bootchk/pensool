@@ -47,11 +47,18 @@ class Transformer(drawable.Drawable):
     self.scale = vector.Vector(1.0, 1.0)
     self.rotation = 0.0
     
+  '''
+  Pickling.
   
+  These must be defined because cairo.Matrix() is not picklable, throws exception when pickled.
+  These are defined here, and not in Drawable.
+  Drawables are picklable (including glyphs) but they aren't transformers (don't have Matrix())
+  and pickle using built-in pickling functions.
+  '''
   def __getstate__(self):
     """Return state values to be pickled."""
     # !!! Parent is state, but top parent must be severed to avoid pickling entire tree
-    # as a forward and backward linked
+    # as a forward and backward linked graph.
     return (self.translation, self.scale, self.rotation, self.style, self.parent)
 
   def __setstate__(self, state):
@@ -152,6 +159,7 @@ class Transformer(drawable.Drawable):
     '''
     Set the translation and scale (not rotation) of an object.
     For testing: ordinarily, transforms are set by user actions using other methods.
+    !!! Not view altering
     '''
     assert dimensions.width > 0
     assert dimensions.height > 0
@@ -163,7 +171,14 @@ class Transformer(drawable.Drawable):
     self.scale = vector.Vector(dimensions.width/1.0, dimensions.height/1.0)
     self.derive_transform()
 
-    
+  def set_translation(self, point):
+    '''
+    !!! Not view altering (can be called before viewport is established.)
+    !!! point is not copied.
+    '''
+    self.translation = point
+    self.derive_transform()
+  
   @view_altering
   @dump_event
   def set_origin(self, event):
@@ -171,6 +186,14 @@ class Transformer(drawable.Drawable):
     # FIXME floats?  CS conversions?
     self.translation = vector.Vector(event.x, event.y)
     self.derive_transform()
+  
+  
+  def move_origin(self, offset):
+    '''
+    Move origin but keep other points fixed.
+    '''
+    raise RuntimeError("Not implemented")
+    
     
   @view_altering
   # @dump_event

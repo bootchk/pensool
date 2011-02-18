@@ -74,18 +74,20 @@ class MoveHandleItem(itemhandle.HandleItem):
     self._change_controlee(self.controlee.parent)
   
   
+  # start_drag inherited
+  
   @dump_event
   def continue_drag(self, event, offset, increment):
     '''
     animate/ghost controlee being dragged
     '''
-    # TODO look for suitable target
-    
     # Display at new coords, same width and height
     # Since moving in real time, use the increment from previous continue
-    self.controlee.move_relative(increment)
-    # FIXME
-    # self.manager.commands.continue_drag_line(event, offset, increment
+    thing = dropmanager.dropmgr.get_draggee()
+    if self.group_manager.handle: # if dragging a handle
+      thing.move_by_drag_handle(offset, increment)
+    else:
+      thing.move_by_drag(offset, increment)
  
 
   @dump_event

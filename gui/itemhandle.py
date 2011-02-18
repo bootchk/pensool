@@ -66,6 +66,7 @@ class HandleItem(gui.itemcontrol.ItemControl):
     ''' Mouse departed item with button down. '''
     self.group_manager.close(event)  # close menu
     dropmanager.dropmgr.begin(event, self.controlee, self)
+    # After this, events go to backgroundmgr, passed to dragee.continue_drag()
   
     
   @dump_event

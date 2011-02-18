@@ -34,7 +34,9 @@ class DropManager(object):
     self.current_point = None
     self.source = None  # which morph drag started from
     self.source_control = None # which control on the source
-    self.draggee = None
+    self.draggee = None # which morp is being dragged
+    # source not necessarily equal draggee, but often does.
+    # For example, when dragging out a new morph from source morph
 
 
   @dump_event
@@ -50,6 +52,7 @@ class DropManager(object):
     self.start_point = vector.Vector(event.x, event.y)
     self.current_point = self.start_point.copy()
     self.source = controlee
+    self.draggee = controlee # Defaults to same as source
     self.source_control = control
     
   

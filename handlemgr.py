@@ -37,13 +37,16 @@ def rouse(handle_set, morph, direction):
 @dump_return
 def pick(point):
   ''' Pick any handle of the current handle set. '''
+  picked = None
   if current_handle_set:
     context = viewport.viewport.user_context()
     context.set_matrix(current_morph.retained_transform)
-    return current_handle_set.pick(context, point)
-  else:
-    # print "!!!!!!!!!!!!!!!!!!!!!!!!!!No current handle set"
-    return None
+    picked = current_handle_set.pick(context, point)
+  if picked:
+    picked.highlight(True)
+  # TODO unhighlight at appropriate time
+  return picked
+
     
 def draw():
   ''' Draw current handle set. '''

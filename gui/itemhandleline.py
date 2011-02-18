@@ -17,7 +17,7 @@ from config import *
 
 class LineHandleItem(itemhandle.HandleItem):
   '''
-  A handle that stretches a line from the controlee, when a drag starts within.
+  A handle that stretches a morph from the controlee, when a drag starts within.
   Another control (bkgd mgr usually)
   gets involved when drag moves out of this item control.
   '''
@@ -69,16 +69,17 @@ class LineHandleItem(itemhandle.HandleItem):
     
     # Create
     if self.symbol_type == "line":
-      new_morph = morph.morph.LineMorph() 
+      new_thing = morph.morph.LineMorph() 
     else:
-      new_morph = morph.morph.RectMorph()
+      new_thing = morph.morph.RectMorph()
     
-    self.controlee.insert(new_morph)  # Insert morph into controlee's group, or make group
+    self.controlee.insert(new_thing)  # Insert morph into controlee's group, or make group
     # Assert the object now has a parent group.
     # But if controlee is the model (top), controlee is not in that group, controlee IS the group.
     # Morph extends from my menu manager's hotpot to the event.
-    new_morph.set_by_drag(self.group_manager.layout_spec.hotspot, event)
-    dropmanager.dropmgr.set_draggee(new_morph)  # Remember morph being dragged
+    new_thing.set_by_drag(self.group_manager.layout_spec.hotspot, event)
+    # !!! The draggee is different from source morph set above via super.start_drag()
+    dropmanager.dropmgr.set_draggee(new_thing)  
     
     
   '''
@@ -88,13 +89,12 @@ class LineHandleItem(itemhandle.HandleItem):
   @dump_event
   def continue_drag(self, event, offset, increment):
     '''
-    animate/ghost line being stretched
+    animate/ghost morph being dragged/stretched
     
     event, offset, increment are in device coord system
     '''
-    # TODO look for suitable target
-    line = dropmanager.dropmgr.get_draggee()
-    line.set_by_drag(self.group_manager.layout_spec.hotspot, event)
+    thing = dropmanager.dropmgr.get_draggee()
+    thing.set_by_drag(self.group_manager.layout_spec.hotspot, event)
     
     
   @dump_event
