@@ -34,7 +34,7 @@ def rouse(handle_set, morph, direction):
     current_handle_set = None
     current_morph = None
 
-@dump_return
+#@dump_return
 def pick(point):
   ''' Pick any handle of the current handle set. '''
   picked = None

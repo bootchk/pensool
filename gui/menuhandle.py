@@ -151,7 +151,7 @@ class HandleGroup(menu.ItemGroup):
     '''
     # Update layout spec.
     # Note it might not change, if hit the end of the glyph.
-    layout.slide_layout_spec_follow(self.controlee, self.layout_spec, pixels_off_axis)
+    self.layout_spec.slide_follow(self.controlee, pixels_off_axis)
     
     self.position() # Update menu's transform
     

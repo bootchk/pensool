@@ -9,7 +9,22 @@ import viewport
 import style  # set_line_width
 
 
-
+def picking(func):
+  '''
+  Decorator: macro that prepares for drawable picking functions.
+  !!! It hides the context parameter.
+  '''
+  def picking_func(self, point):
+    # Fresh context since can be called outside a walk of model hierarchy
+    context = viewport.viewport.user_context()
+    if self.parent: # None if in background ctl
+      context.set_matrix(transform.copy(self.parent.retained_transform))
+    # !!! No style put to context, but insure black ink? TODO
+    self.put_path_to(context) # recursive, with transforms
+    # Transform point from DCS to UCS since Cairo in_foo() functions want UCS
+    pointUCS = vector.Vector(*context.device_to_user(point.x, point.y))
+    return func(self, context, pointUCS)
+  return picking_func
 
 
 
@@ -198,53 +213,59 @@ class Drawable(object):
     self.put_path_to(context)
     
   
-  def in_path(self, coords):
-    # FIXME Ideal path distinct from stroke.
-    return self.in_stroke(coords)
+  '''
+  Picking.
+  
+  Three flavors:
+    path  (ideal path as pen width approaches limit of zero.)
+    stroke (inked path)
+    fill
+  Flavors correspond to Cairo, except we simulate in_path() which Cairo omits.
     
-  def in_stroke(self, coords):
+  These can be called outside of a walk, i.e. they set up a new context.
+  '''
+  
+  @picking
+  def in_path(self, context, coords):
+    '''
+    Does coords hit *ideal* edge of this drawable?
+    Contrast to in_stroke.
+    '''
+    # !!! pen_width approaching zero
+    style.set_line_width(context, 1)  # !!! After path
+    # Cairo does not have in_path()
+    return context.in_stroke(coords.x, coords.y)
+    
+  @picking
+  def in_stroke(self, context, coords):
     '''
     Does coords hit edge of this drawable?
     Stroke: hit on inked, visible.
     Edge: not including possible interior features, just the hittable boundary.
     Distinguish from a bounding box, which is a rectangle in DCS.
-    
-    Note coords are in top TCS, not device DCS.
-    To hit path from a distance, ink the path wider: context.set_line_width(25)
     '''
-    # TODO pass a context  .save() and restore()
-    context = viewport.viewport.user_context()
-    
-    # Jan. 9 2011 TODO put my parent's matrix?
-    # Or undo the viewing transform?
-    # self.put_transform_to(context)
-    # self.style.put_to(context)
-    
-    self.put_edge_to(context) # recursive, with transforms
+    # Use actual pen width
     style.set_line_width(context, self.parent.style.pen_width)  # !!! After path
-    hit = context.in_stroke(coords.x, coords.y)
-    return hit
+    return context.in_stroke(coords.x, coords.y)
   
-  
-  @dump_return
-  def is_inbounds(self, event):
-    ''' 
-    Is event in our bounding box?
-    Intersect bounding rect with event point converted to rectangle of width one.
+  @picking
+  def in_fill(self, context, coords):
     '''
-    return self.bounds.is_intersect(event)
-  
-  
+    Is event in our filled shape?
+    Bounding box is DCS axis aligned, drawn fill is NOT, so use in_fill().
+    '''
+    # Pen is immaterial to fill?
+    # The fill is right up to the ideal path and the pen ink overlays fill.
+    return context.in_fill(coords.x, coords.y)
+    
+  """
+  OLD
   # @dump_return
   def in_fill(self, event):
     '''
     Is event in our filled shape?
     Bounding box is DCS axis aligned, drawn fill is NOT, so use in_fill().
     '''
-    # For functions that can be called outside a walk of the hierarchy:
-    # set up fresh context with retained transform and style.
-    # fresh top level context
-    # TODO styled?
     context = viewport.viewport.user_context()
     if self.parent: # None if in background ctl
       context.set_matrix(transform.copy(self.parent.retained_transform))
@@ -253,8 +274,16 @@ class Drawable(object):
     # if not hit:
     #  print "OUT FILL", event.x, event.y, self.bounds.to_rect() # context.fill_extents(), parent_transform
     return hit
+  """  
   
-  
+  @dump_return
+  def is_inbounds(self, event):
+    ''' 
+    Is event in our bounding box?
+    Intersect bounding rect with event point converted to rectangle of width one.
+    '''
+    return self.bounds.is_intersect(event)
+    
   # @dump_return
   def get_stroke_bounds(self, context):
     '''
@@ -263,8 +292,6 @@ class Drawable(object):
     '''
     return bounds.Bounds().from_context_stroke(context)
 
-    
-   
       
   @dump_return
   def get_center(self):

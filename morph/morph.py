@@ -149,7 +149,7 @@ class Morph(compound.Compound):
     '''
     Establish my dimensions (set transform) 
     according to drag op from start_coords to event.
-    My glyph is a unit line.
+    My glyph is a unitary thing (unit scale, translation.)
     Set my transform within my parent group's coordinate system (GCS).
     '''
     # assert start_coords and event in device DCS
@@ -187,11 +187,19 @@ class Morph(compound.Compound):
     by offset
     '''
     # FIXME depends on which handle
-    matrix = cairo.Matrix() * self.retained_transform
-    matrix.invert()
-    x,y = matrix.transform_point(increment.x, increment.y)
-    print x,y, increment
-    self.move_origin(increment)
+    # FIXME more complicated
+    # This is all in x-axis aligned coordinate system
+    assert isinstance(self, Morph)
+    drag_vector = self.device_to_local(increment)
+    # insure old vector is along x-axis, length given by scale
+    old_vector = vector.Vector(self.scale.x, 0)
+    new_vector = old_vector + drag_vector
+    length = new_vector.length()
+    new_scale = vector.Vector(length, length)
+    print self.scale, new_scale
+    self.set_transform(self.translation, new_scale, self.rotation + new_vector.angle())
+    self.derive_transform()
+    # self.move_origin(increment)
     
 
 class PrimitiveMorph(Morph):
