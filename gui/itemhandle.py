@@ -6,7 +6,7 @@ Items in a handle menu.
 
 import gui.itemcontrol
 import coordinates
-import dropmanager
+import gui.manager.drop
 from decorators import *
 import base.vector
 
@@ -65,7 +65,7 @@ class HandleItem(gui.itemcontrol.ItemControl):
   def start_drag(self, event):
     ''' Mouse departed item with button down. '''
     self.group_manager.close(event)  # close menu
-    dropmanager.dropmgr.begin(event, self.controlee, self)
+    gui.manager.drop.dropmgr.begin(event, self.controlee, self)
     # After this, events go to backgroundmgr, passed to dragee.continue_drag()
   
     

@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
 import gui.control
-import dropmanager
-import focusmgr
+import gui.manager.drop
+import gui.manager.focus
 import scheme
 from decorators import *
 import base.alert as alert
 import base.vector as vector
-import textselectmanager
+import gui.manager.textselect
 from gtk import gdk
 import viewport
 
@@ -78,15 +78,15 @@ class BackgroundManager(gui.control.GuiControl):
     # TODO not handling mouse exit see guicontrol.py
       
     # TODO dragging
-    if dropmanager.dropmgr.is_drag():
+    if gui.manager.drop.dropmgr.is_drag():
       # TODO find probe suitable targets
-      dropmanager.dropmgr.continued(event, self)
+      gui.manager.drop.dropmgr.continued(event, self)
     else:
       # Picking: detecting pointer intersection with morphs
       context = viewport.viewport.user_context()
       picked_morph = scheme.model.pick(context, self.pointer_DCS)
       if picked_morph:
-        focusmgr.focus(picked_morph)
+        gui.manager.focus.focus(picked_morph)
         self.handle_menu.open(event, picked_morph) # !!! Open at event DCS
         # !!! Closing handle menu cancels focus
     
@@ -123,7 +123,7 @@ class BackgroundManager(gui.control.GuiControl):
     From self into self: becomes drop()
     Drops from not self to self handled differently, see guicontrol.
     '''
-    dropmanager.dropmgr.end(self, event)
+    gui.manager.drop.dropmgr.end(self, event)
   
     
   def button_press_right(self, event):
@@ -173,7 +173,7 @@ class BackgroundManager(gui.control.GuiControl):
     '''
     Background mgr redirects ordinary keys to active text selection if any.
     '''
-    selection = textselectmanager.get_active_select()
+    selection = gui.manager.textselect.get_active_select()
     if selection:
       selection.key(event)
     else:
@@ -191,7 +191,7 @@ class BackgroundManager(gui.control.GuiControl):
     controlee is the view ie the entire doc?? TODO
     '''
     ### self.is_dragging = True
-    dropmanager.dropmgr.begin(event, controlee=scheme.model, control=self)
+    gui.manager.drop.dropmgr.begin(event, controlee=scheme.model, control=self)
     
   
   @dump_event

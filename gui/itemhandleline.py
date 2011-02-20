@@ -10,7 +10,7 @@ import coordinates
 # This handle creates a morph in the scheme and uses drag and drop
 import morph.morph
 import scheme
-import dropmanager
+import gui.manager.drop
 
 from decorators import *
 from config import *
@@ -79,7 +79,7 @@ class LineHandleItem(itemhandle.HandleItem):
     # Morph extends from my menu manager's hotpot to the event.
     new_thing.set_by_drag(self.group_manager.layout_spec.hotspot, event)
     # !!! The draggee is different from source morph set above via super.start_drag()
-    dropmanager.dropmgr.set_draggee(new_thing)  
+    gui.manager.drop.dropmgr.set_draggee(new_thing)  
     
     
   '''
@@ -93,7 +93,7 @@ class LineHandleItem(itemhandle.HandleItem):
     
     event, offset, increment are in device coord system
     '''
-    thing = dropmanager.dropmgr.get_draggee()
+    thing = gui.manager.drop.dropmgr.get_draggee()
     thing.set_by_drag(self.group_manager.layout_spec.hotspot, event)
     
     
@@ -107,7 +107,7 @@ class LineHandleItem(itemhandle.HandleItem):
     # TODO anchor line end at drag begin
     '''
     Notes about wrapping up a drag:
-    assert the dropmanager reset itself.
+    assert the gui.manager.drop reset itself.
     This control might not be reset from the dragging state
     (if the mouse never left this control.)
     '''

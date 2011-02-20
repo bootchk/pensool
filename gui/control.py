@@ -3,7 +3,7 @@
 # import config
 # import transformer
 import morph.morph
-import dropmanager
+import gui.manager.drop
 import drawable
 from gtk import gdk
 from decorators import *
@@ -108,9 +108,9 @@ class GuiControl(morph.morph.PrimitiveMorph):
       # Remember the last pointer position (not use gtk.get_pointer())
       self.pointer_DCS = vector.Vector(event.x, event.y)
       # print "Inside", repr(self)
-      if dropmanager.dropmgr.is_drag():   ### self.is_dragging:
+      if gui.manager.drop.dropmgr.is_drag():   ### self.is_dragging:
         # Drop manager knows which control is in charge (source or target.)
-        dropmanager.dropmgr.continued(event, target=self)
+        gui.manager.drop.dropmgr.continued(event, target=self)
       else:
         self.mouse_move(event)
     else:
@@ -183,9 +183,9 @@ class GuiControl(morph.morph.PrimitiveMorph):
     else:  # Released in same control as pressed
       print "Button release in same control."
        
-    if dropmanager.dropmgr.is_drag():
+    if gui.manager.drop.dropmgr.is_drag():
       # Drag may have started in another control.
-      dropmanager.dropmgr.end(self, event)  # self is target
+      gui.manager.drop.dropmgr.end(self, event)  # self is target
     elif self.group_manager:  # If control is item in group
       # User pressed to open menu, moved to this item, then released to choose.
       self._dispatch_button_release(event)

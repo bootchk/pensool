@@ -2,10 +2,10 @@
 '''
 config.py
 
-Pythonic module for global variables.
+Pythonic module for global configuration variables.
 '''
 
-import dropmanager
+import gui.manager.drop
 
 
 def report_virtual():
@@ -15,7 +15,8 @@ def report_virtual():
   
   
 # Singleton
-dropmgr = dropmanager.DropManager()
+# TODO other manager singletons similar to this
+# dropmgr = gui.manager.drop.DropManager()
 
 # Scale.
 # Viewport scale is set to this, and literals in pixel units are scaled by this.

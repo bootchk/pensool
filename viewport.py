@@ -5,7 +5,7 @@ import gtk
 import cairo
 import os
 import scheme
-import handlemgr
+import gui.manager.handle
 import style
 import base.vector as vector
 from decorators import *
@@ -112,7 +112,7 @@ class ViewPort(Port):
     scheme.transformed_controls.draw(context)
     self.draw_model(context)
     
-    handlemgr.draw()  # Draw handle set for any current morph
+    gui.manager.handle.draw()  # Draw handle set for any current morph
 
   
   def user_context(self):

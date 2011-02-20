@@ -15,7 +15,7 @@ Receives key presses when parent text glyph is active operand.
 '''
 
 import gui.control
-import textselectmanager  # Manages set of text selection controls.
+import gui.manager.textselect
 from decorators import *
 import base.vector as vector
 import morph
@@ -34,7 +34,7 @@ class TextSelectControl(gui.control.GuiControl):
     # a selection has-a text morph, belongs to it
     self.text_glyph = textglyph
     # a manager maps text to its textselectcontrol etc.
-    textselectmanager.new_select(self, textglyph, 0)
+    gui.manager.textselect.new_select(self, textglyph, 0)
     
     ## OLD scheme.transformed_controls.append(self) # put in drawing scheme
     # Note dimensions are defaults until drawn

@@ -3,7 +3,7 @@ import morph
 import glyph
 import textglyph
 import gui.textselectcontrol
-import textselectmanager
+import gui.manager.textselect
 from decorators import *
 import scheme # bounding box
 
@@ -82,7 +82,7 @@ class TextEditMorph(TextMorph):
     Activate/deactivate its text select for keyboard focus.
     '''
     scheme.bounding_box.activate(direction, self.bounds.to_rect())
-    textselectmanager.activate_select_for_text(direction, self.textglyph)
+    gui.manager.textselect.activate_select_for_text(direction, self.textglyph)
    
 
     

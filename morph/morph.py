@@ -19,7 +19,7 @@ Morphs can have associated controls, but don't contain them.
 import compound
 import glyph
 import scheme # for bounding box
-import handlemgr
+import gui.manager.handle
 import base.vector as vector
 import base.orthogonal as orthogonal
 import base.transform as transform
@@ -235,7 +235,7 @@ class LineMorph(PrimitiveMorph):
     
   def rouse_feedback(self, direction):
     scheme.bounding_box.activate(direction, self.bounds.to_rect())
-    handlemgr.rouse(line_handles, self, direction)
+    gui.manager.handle.rouse(line_handles, self, direction)
 
 class RectMorph(PrimitiveMorph):
   def __init__(self):
@@ -249,7 +249,7 @@ class CircleMorph(PrimitiveMorph):
   
   def rouse_feedback(self, direction):
     scheme.bounding_box.activate(direction, self.bounds.to_rect())
-    handlemgr.rouse(circle_handles, self, direction)
+    gui.manager.handle.rouse(circle_handles, self, direction)
 
 
 

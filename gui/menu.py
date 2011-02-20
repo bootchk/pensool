@@ -11,16 +11,16 @@ There is another manager that enforces a policy over the whole application.
 
 import compound
 import coordinates  # TODO base.vector
-import focusmgr
+import gui.manager.focus
+import gui.manager.control
 import scheme
-import guicontrolmgr
 from decorators import *
 import layout
 import base.vector as vector
 ## import config
 
 # FIXME
-import textselectmanager
+import gui.manager.textselect
 
 
 
@@ -153,10 +153,10 @@ class ItemGroup(compound.Compound):
   @dump_event
   def close(self, event):
     scheme.widgets.remove(self) # hide
-    focusmgr.unfocus()  # any controlee, should invalidate
+    gui.manager.focus.unfocus()  # any controlee, should invalidate
     self._deactivate_current(event) # activates the background manager.
     # FIXME for now, deactivate text select when handle menu closes
-    textselectmanager.activate_select_for_text(False)
+    gui.manager.textselect.activate_select_for_text(False)
     
     
   def add(self, item):
@@ -223,11 +223,11 @@ class ItemGroup(compound.Compound):
   @dump_event
   def _activate_current(self, event, controlee):
     # print self.[self.active_index].get_rect()
-    guicontrolmgr.control_manager.activate_control(self[self.active_index], 
+    gui.manager.control.control_manager.activate_control(self[self.active_index], 
       event, controlee)
       
   def _deactivate_current(self, event):
-    guicontrolmgr.control_manager.deactivate_control(self[self.active_index],
+    gui.manager.control.control_manager.deactivate_control(self[self.active_index],
        event)
 
   def _highlight_current(self, event, direction):

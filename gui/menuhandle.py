@@ -9,7 +9,7 @@ See itemhandle.py for the handle subclass of menu item.
 import menu
 import scheme
 import base.vector as vector
-import handlemgr
+import gui.manager.handle
 import layout
 from decorators import *
 import config
@@ -156,7 +156,7 @@ class HandleGroup(menu.ItemGroup):
     self.position() # Update menu's transform
     
     # Pick at the hotspot of the menu, thats where a handle should be.
-    self.handle = handlemgr.pick(self.layout_spec.hotspot)  # If slide to handle on controllee
+    self.handle = gui.manager.handle.pick(self.layout_spec.hotspot)  # If slide to handle on controllee
     # Handle menu still tracks morph.
     if self.handle:
       print "!!!!!!!!!!!!!!!!!!!! Picked handle."

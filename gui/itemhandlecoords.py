@@ -9,7 +9,8 @@ import itemhandle
 import coordinates
 from decorators import *
 from config import *
-import focusmgr
+import gui.manager.focus
+import gui.manager.drop
 import morph.glyph
 import base.alert
 
@@ -35,7 +36,7 @@ class MoveHandleItem(itemhandle.HandleItem):
     None means at the top
     '''
     if new_controlee:
-      focusmgr.focus(new_controlee)
+      gui.manager.focus.focus(new_controlee)
       self.controlee = new_controlee
     else:
       base.alert.alert("Can't scroll up past document.")
@@ -83,7 +84,7 @@ class MoveHandleItem(itemhandle.HandleItem):
     '''
     # Display at new coords, same width and height
     # Since moving in real time, use the increment from previous continue
-    thing = dropmanager.dropmgr.get_draggee()
+    thing = gui.manager.drop.dropmgr.get_draggee()
     if self.group_manager.handle: # if dragging a handle
       thing.move_by_drag_handle(offset, increment)
     else:
