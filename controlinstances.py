@@ -9,10 +9,30 @@ import gui.menuhandle
 import gui.itemmenu
 import gui.itemhandleline
 import gui.itemhandlecoords
+import gui.backgroundcontrol
 import base.command as command
 import clipboard
 import edit
 
+handle_menu = None
+bkgd_control = None
+
+def build_all(a_printerport, a_fileport):
+  # Context menus of traditional menu style
+  edit_menu = build_edit_menu(a_printerport, a_fileport)
+  popup_menu = build_popup_menu(a_printerport, a_fileport)
+
+  # Handle menu type
+  global handle_menu
+  handle_menu = build_handle_menu(edit_menu)
+
+  # Control for the document, the background
+  global bkgd_control
+  bkgd_control = gui.backgroundcontrol.BackgroundManager(a_printerport, a_fileport)
+  # Controls self?? bkgd_control.set_controlee(document)
+  
+  
+  
 def build_handle_menu(edit_menu):
   '''
   Handle menu that pops up on edges of graphics.

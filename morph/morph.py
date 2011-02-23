@@ -286,8 +286,14 @@ point = HandlePoint()
 point.set_translation(vector.Vector(1,0))
 line_handles.append(point)
 
+# A circle morph has handle at center.
+# TODO temporarily a line
+from math import pi as PI
 circle_handles = Morph()
-circle_handles.append(LineMorph())
+aline = LineMorph()
+aline.rotation = PI/4.0
+aline.derive_transform()
+circle_handles.append(aline)
 
 
 

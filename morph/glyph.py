@@ -13,7 +13,7 @@ import base.orthogonal as orthogonal
 import base.vector as vector
 from decorators import *
 import style  # set_line_width
-import cairo # line cap
+from config import *
 
 # import traceback
 # traceback.print_stack()
@@ -51,8 +51,9 @@ class Glyph(drawable.Drawable):
   # @dump_return
   def pick(self, context, point):
     self.put_path_to(context)
-    # Feb. 11 2011
-    style.set_line_width(context, self.parent.style.pen_width)  # !!! After path
+    # Pick width is user preference or constant.
+    # Does NOT depend on style of the object.  WAS self.parent.style.pen_width
+    style.set_line_width(context, PENSOOL_PICK_PEN_WIDTH)  # !!! After path
     if context.in_stroke(*context.device_to_user(point.x, point.y)):
       return self.parent  # !!! Don't return a glyph, return glyph's parent morph
     else:
@@ -70,9 +71,9 @@ class PointGlyph(Glyph):
   '''
   def put_path_to(self, context):
     '''
-    See cairo.stroke().  Degenerate (zero length) segments draw for some line_cap values.
+    See cairo.stroke().  Degenerate (zero length) segments draw as points for some line_cap values.
     '''
-    context.set_line_cap(cairo.LINE_CAP_SQUARE)
+    context.set_line_cap(PENSOOL_LINE_CAP_SQUARE)
     context.move_to(0, 0)
     '''
     Getting a degenerate segment in cairo:

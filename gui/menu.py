@@ -87,7 +87,7 @@ class ItemGroup(compound.Compound):
     self.layout_spec = layout.LayoutSpec()
     
 
-  @dump_event
+  #@dump_event
   def position(self):
     '''
     Position menu according to layout spec.

@@ -3,14 +3,42 @@
 import gui.control
 import gui.manager.drop
 import gui.manager.focus
+import gui.manager.textselect
+import gui.manager.handle
+import gui.manager.pointer
+import controlinstances
 import scheme
 from decorators import *
 import base.alert as alert
 import base.vector as vector
-import gui.manager.textselect
+
 from gtk import gdk
 import viewport
 
+
+@dump_event
+def pick_cb(point):
+  '''
+  A callback.
+  Called when pointer has stopped moving.
+  Point is approximately coordinates of pointer when it stopped.
+  Pick (popup on mouseover.)
+  '''
+  # Pick: detect pointer intersect handles
+  # Handles are in foreground, pick them first.
+  picked_handle = gui.manager.handle.pick(point)  # TODO was event
+  if picked_handle:
+    print "Picked handle !!!!!!!!!!!!!!!!!!!!!!!!"
+    return True
+  # Pick: detect pointer intersect morph edges
+  context = viewport.viewport.user_context()
+  picked_morph = scheme.model.pick(context, point)
+  if picked_morph:
+    gui.manager.focus.focus(picked_morph)
+    controlinstances.handle_menu.open(point, picked_morph) # !!! Open at event DCS
+    # !!! Closing handle menu cancels focus
+    return True
+  return False  # nothing picked
 
 
 class BackgroundManager(gui.control.GuiControl):
@@ -32,21 +60,24 @@ class BackgroundManager(gui.control.GuiControl):
         printerport
         fileport
   '''
-  def __init__(self,
-      handle_group, menu, printer_port, file_port):
-    gui.control.GuiControl.__init__(self)
-    # control managers we delegate to
-    self.handle_menu = handle_group
-    self.context_menu = menu
+  def __init__(self, printer_port, file_port):
+    # handle_group, menu, 
+    gui.control.GuiControl.__init__(self) # super
     self.printerport = printer_port
     self.fileport = file_port
     # !!! Controls self, ie the document
     # FIXME this is wierd.  None?  Document model?
     self.controlee = self
     self.set_background_bounds()
+    gui.manager.pointer.register_callback(pick_cb)
     
   def set_background_bounds(self):
-    ''' Set the invisible, undrawn bounds of the background.'''
+    ''' 
+    Set the invisible, undrawn bounds of the background.
+    This is a control, a drawable, has bounds
+    even though it is not really drawn.
+    Might not be necessary?
+    '''
     self.bounds.from_rect(viewport.viewport.da.allocation)
   
   
@@ -67,35 +98,21 @@ class BackgroundManager(gui.control.GuiControl):
     # TODO activate background controls ie handles on inside of window frame?
     # TODO draw the page frame
     
-    #event compression
-    next_event = gdk.event_peek()
-    if next_event:
-      print "!!!!!!!!!!!!!!!!", next_event
-      next_event.free()
+    # Event compression not needed. ne = gdk.event_peek(), ne.free() never seems to return any events
     
     self.pointer_DCS = vector.Vector(event.x, event.y) # save for later key events
+    # print "Motion", self.pointer_DCS
     
     # TODO not handling mouse exit see guicontrol.py
-      
-    # TODO dragging
+    
     if gui.manager.drop.dropmgr.is_drag():
       # TODO find probe suitable targets
       gui.manager.drop.dropmgr.continued(event, self)
-    else:
-      # Picking: detecting pointer intersection with morphs
-      context = viewport.viewport.user_context()
-      picked_morph = scheme.model.pick(context, self.pointer_DCS)
-      if picked_morph:
-        gui.manager.focus.focus(picked_morph)
-        self.handle_menu.open(event, picked_morph) # !!! Open at event DCS
-        # !!! Closing handle menu cancels focus
-    
-    #event compression
-    next_event = gdk.event_peek()
-    if next_event:
-      print "!!!!!!!!!!!!!!!!", next_event
-      next_event.free()
-            
+      return True
+      
+    # pointer manager decides if stopped and callbacks pick_cb
+    gui.manager.pointer.decide_stopped(event)
+          
     return True # Did handle event
 
 
@@ -132,7 +149,7 @@ class BackgroundManager(gui.control.GuiControl):
     
     Controlee is self, the background manager.
     '''
-    self.context_menu.open(event, self)
+    controlinstances.context_menu.open(event, self)
   
   
   def scroll_up(self, event):
@@ -230,7 +247,7 @@ class BackgroundManager(gui.control.GuiControl):
   def draw(self, context):
     '''
     !!! One of few controls to override draw.  
-    This control is not visible == draw nothing, just pass.
+    This control is not visible: draw nothing, just pass.
     It has attributes of a drawable (size).
     TODO use the size to implement frame controls on the background.
     '''
@@ -238,14 +255,12 @@ class BackgroundManager(gui.control.GuiControl):
     pass
 
 
- 
   def put_path_to(self, context):
     '''
     Background manager has a path equal to its rectangular window.
-    We don't draw path but it is necessary for bounds.
+    We don't draw path but it is necessary for bounds for invalidate.
     '''
-    rect = self.dimensions
-    context.rectangle(rect.x, rect.y, rect.width, rect.height)
+    context.rectangle(self.bounds.x, self.bounds.y, self.bounds.width, self.bounds.height)
 
     
     

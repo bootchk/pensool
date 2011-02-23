@@ -2,10 +2,10 @@
 '''
 config.py
 
-Pythonic module for global configuration variables.
+Pythonic module for global configuration variables/constants.
 '''
 
-import gui.manager.drop
+import cairo
 
 
 def report_virtual():
@@ -16,6 +16,7 @@ def report_virtual():
   
 # Singleton
 # TODO other manager singletons similar to this
+# import gui.manager.drop
 # dropmgr = gui.manager.drop.DropManager()
 
 # Scale.
@@ -25,3 +26,6 @@ PENSOOL_UNIT = 1  # 1000
 # Default size of menu items
 # Must be float, used as scale
 ITEM_SIZE = 20.0 / PENSOOL_UNIT
+
+PENSOOL_PICK_PEN_WIDTH = 3  # width of pen in pixels for picking
+PENSOOL_LINE_CAP_SQUARE = cairo.LINE_CAP_SQUARE

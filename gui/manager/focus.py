@@ -42,7 +42,8 @@ def unfocus():
   
   if _focused_operand:
     # callees must invalidate
-    _focused_operand.rouse_feedback(False)
+    ## temporarily leave feedback
+    ## _focused_operand.rouse_feedback(False)
     _focused_operand.highlight(False)
     _focused_operand = None
       

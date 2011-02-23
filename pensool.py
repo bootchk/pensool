@@ -163,30 +163,15 @@ Exactly one control instance is active (has focus) at a time.
 
 # Enforces one control active
 gui.manager.control.control_manager = gui.manager.control.ControlsManager()
-
-# Context menus of traditional menu style
-edit_menu = controlinstances.build_edit_menu(a_printerport, a_fileport)
-popup_menu = controlinstances.build_popup_menu(a_printerport, a_fileport)
-
-# Handle menu type
-handle_menu = controlinstances.build_handle_menu(edit_menu)
-
-
-# Control for the document, the background
-bkgd_control = gui.backgroundcontrol.BackgroundManager(
-  handle_menu, popup_menu, a_printerport, a_fileport)
-bkgd_control.dimensions = da.allocation
-# Controls self?? bkgd_control.set_controlee(document)
-
-gui.manager.control.control_manager.set_root_control(bkgd_control)
-
+controlinstances.build_all(a_printerport, a_fileport)
+gui.manager.control.control_manager.set_root_control(controlinstances.bkgd_control)
 
 '''
 Initial active control is the background manager
 None event is activating it.
 Controlee is the bkgd_control itself.
 '''
-gui.manager.control.control_manager.activate_control(bkgd_control, None, bkgd_control)
+gui.manager.control.control_manager.activate_control(controlinstances.bkgd_control, None, controlinstances.bkgd_control)
 
 a_viewport.set_model(scheme.model)
 a_printerport.set_model(scheme.model)
