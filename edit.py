@@ -20,10 +20,17 @@ def do_cut(operand, event=None):
   Operand is a morph the cut op was chosen upon.
   Event is DCS coords.
   '''
-  operand.parent.remove(operand)
-  operand.parent = None
+  parent = operand.parent
+  operand.parent = None # To prevent pickle from crawling uptree
   foo = pickle.dumps(operand, pickle.HIGHEST_PROTOCOL)
   clipboard.clipboard.paste(foo)
+  
+  if parent:  # If not top i.e. cutting document
+    # eliminate reference to morph (will garbage collect)
+    operand.parent.remove(operand)
+  else:
+    # empty the morph
+    del operand[:]
 
 
 

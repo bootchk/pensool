@@ -41,15 +41,11 @@ class HandleGroup(menu.ItemGroup):
     Event opens the menu, here the event is a hit on a morph edge.
     TODO abstract opening with moving.
     """
-    assert self.controlee
+    # Controlee is a morph, but can be an empty morph (an empty model/document.)
+    # Note that an empty morph must implement get_orthogonal().
+    assert self.controlee is not None
     
-    """
-    if self.controlee is scheme.model:
-      # Handle menu opened on background, controls the document
-      axis = vector.downward_vector()
-    else:
-    """
-    # axis is orthogonal to controlee.
+    # axis orthogonal to controlee.
     # Controlee is usually a graphic morph or background.
     axis = self.controlee.get_orthogonal(event)
       

@@ -20,14 +20,18 @@ The drawing library is in floating point, why not use mouse position in float?
 '''
 
 import base.vector as vector
-import gobject
+import base.timer as timer
 from decorators import *
 
+# globals
 state = None
 previous_point = vector.Vector(0,0)
 previous_time = 0
 THRESHOLD = 0.1  # pixels per millisecond
 TIME = 500
+pointer_timer = timer.Timer()
+stopped_callback = None
+
 
 def register_callback(func):
   '''
@@ -45,7 +49,7 @@ def decide_stopped(event):
   given pointer movement event.
   A state machine.
   '''
-  global state, previous_point, previous_time
+  global state, previous_point, previous_time, pointer_timer
   
   move = vector.Vector(event.x, event.y)
   motion_vector = move - previous_point
@@ -64,12 +68,12 @@ def decide_stopped(event):
   if state is "moving":
     if speed <= THRESHOLD:
       state = "slowed"
-      start_timer() # after a delay, go to stopped state
+      pointer_timer.start(TIME, timeout_cb) # after a delay, go to stopped state
     # else moved fast
   elif state is "slowed":
     if speed > THRESHOLD:
       state = "moving"
-      cancel_timer()
+      pointer_timer.cancel()
     # else same state  still slow motion
   elif state is "stopped":
     if speed <= THRESHOLD:
@@ -84,18 +88,6 @@ def decide_stopped(event):
     state = "moving"
   return state
 
-
-# @dump_event
-def start_timer():
-  global timer_id
-  # in milliseconds
-  timer_id = gobject.timeout_add(TIME, timeout_cb)
-
-# @dump_event
-def cancel_timer():
-  global timer_id
-  gobject.source_remove(timer_id)
-  timer_id = None
     
 # @dump_event
 def timeout_cb():
@@ -103,9 +95,9 @@ def timeout_cb():
   Timer went off.
   Enter stopped state and attempt a pick
   '''
-  global state
+  global state, pointer_timer
   
-  if timer_id is not None:
+  if not pointer_timer.was_canceled():
     if state is "slowed" or state is "stopped":
       state = "stopped"
       # callback now, if pointer is not moving won't be move events

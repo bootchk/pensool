@@ -11,16 +11,17 @@ import gui.itemhandleline
 import gui.itemhandlecoords
 import gui.backgroundcontrol
 import base.command as command
-import clipboard
 import edit
 
 handle_menu = None
 bkgd_control = None
+document_menu = None
 
 def build_all(a_printerport, a_fileport):
+  global document_menu
   # Context menus of traditional menu style
   edit_menu = build_edit_menu(a_printerport, a_fileport)
-  popup_menu = build_popup_menu(a_printerport, a_fileport)
+  document_menu = build_document_menu(a_printerport, a_fileport)
 
   # Handle menu type
   global handle_menu
@@ -47,7 +48,7 @@ def build_handle_menu(edit_menu):
   return handle_group
   
 
-def build_popup_menu(printerport, fileport):
+def build_document_menu(printerport, fileport):
   '''
   Classic style pop-up menu
   '''

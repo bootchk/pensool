@@ -16,6 +16,8 @@ Focused operand is a morph, not a control?
 Drawables can be highlighted.
 '''
 
+import gui.manager.fade
+
 from decorators import *
 
 # Attribute private to module
@@ -44,8 +46,17 @@ def unfocus():
     # callees must invalidate
     ## temporarily leave feedback
     ## _focused_operand.rouse_feedback(False)
+    # TODO is highlight part of feedback
     _focused_operand.highlight(False)
-    _focused_operand = None
-      
+    ## _focused_operand = None
+    
+    # Fade (delay erase til later) feedback
+    gui.manager.fade.register_callback(unfocus_feedback)
+    gui.manager.fade.focus_lost()
+    
+def unfocus_feedback():
+  global _focused_operand
+  _focused_operand.rouse_feedback(False)
+  _focused_operand = None
     
 

@@ -56,7 +56,7 @@ class DropManager(object):
     self.source_control = control
     
   
-  @dump_event
+  #@dump_event
   def continued(self, event, target):
     '''
     Some control received mouse motion while is_drag.

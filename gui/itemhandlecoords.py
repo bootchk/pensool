@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 
 '''
-Items in a handle menu.
-These items move and resize the controlee.
+Items in handle menu.
+Items that move and resize controlee.
 '''
 
 import itemhandle
-import coordinates
 from decorators import *
 from config import *
 import gui.manager.focus
@@ -114,11 +113,6 @@ class ResizeHandleItem(itemhandle.HandleItem):
     self.append(morph.glyph.CircleGlyph())
     self.scale_uniformly(ITEM_SIZE)
   
-  """
-  def put_path_to(self, context):
-    centerx, centery, radius = coordinates.circle_from_dimensions(self.get_dimensions())
-    context.arc(centerx, centery, radius, 0, 2.0*math.pi)
-  """
 
   def drop(self, source, event, offset, source_control):
     '''

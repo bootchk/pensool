@@ -34,7 +34,7 @@ class Port():
   def set_model(self, model):
     self.model = model
     
-  @dump_event
+  # @dump_event
   def draw_model(self, context):
       self.model.draw(context)
       # Not all ports draw control widgets
@@ -184,7 +184,7 @@ class PrinterPort(Port):
     context = print_context.get_cairo_context()
     self.draw_model(context)
     
-  def do_print(self):
+  def do_print(self, *args):
     # print_op is ephemeral 
     print_op = gtk.PrintOperation()
 
@@ -219,7 +219,7 @@ class FilePort(Port):
     self.settings = None
     Port.__init__(self)
   
-  def do_save(self):
+  def do_save(self, * args):
     filename = self.ask_save_filename()
     # TODO other surfaces png, svg, pdf
     if filename is not None:

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 '''
-Morph: drawable composites.  Forms, symbols.
+Morph: drawable composites.  Synonyms: shapes, forms, symbols.
 
 Note morphs are containers, of other morphs or primitive glyphs.
 
@@ -38,15 +38,17 @@ class Morph(compound.Compound):
   def __init__(self, parent=None):
     compound.Compound.__init__(self, parent)
 
+  """
+  UNUSED
   def cleanse(self):
     self.transform = None
     self.retained_transform = None
     
     for item in self:
       item.cleanse()
+  """
 
-
-  # TODO move to compound?  a mixture of transform
+  # TODO move to composite?  a mixture of transform
   @dump_return
   def insert(self, morph):
     '''
@@ -116,8 +118,12 @@ class Morph(compound.Compound):
   #@dump_return
   def get_orthogonal(self, point):
     '''
-    Orthogonal of a morph with one member is orthogonal of member,
-    under my transform.  FIXME apply my transform
+    Return a unit vector orthogonal to self at point.
+    
+    Cases:
+      zero members: default orthogonal
+      one member: orthogonal to member
+      many members: orthogonal to bounding box???
     '''
     if len(self) > 1:
       print "Orthogonal of a composite morph is orthog to bounding box?????"
@@ -129,8 +135,11 @@ class Morph(compound.Compound):
       '''
       # Note both bounds and point are in DCS
       return orthogonal.rect_orthogonal(self.bounds, point)
-    else:
+    elif len(self) == 1:
       return self[0].get_orthogonal(point)
+    else:
+      return vector.downward_vector() # upright
+      # TODO make this a user preference: conventional orientation for culture
     
   
   """ Virtual"""

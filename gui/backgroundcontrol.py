@@ -16,29 +16,9 @@ from gtk import gdk
 import viewport
 
 
-@dump_event
-def pick_cb(point):
-  '''
-  A callback.
-  Called when pointer has stopped moving.
-  Point is approximately coordinates of pointer when it stopped.
-  Pick (popup on mouseover.)
-  '''
-  # Pick: detect pointer intersect handles
-  # Handles are in foreground, pick them first.
-  picked_handle = gui.manager.handle.pick(point)  # TODO was event
-  if picked_handle:
-    print "Picked handle !!!!!!!!!!!!!!!!!!!!!!!!"
-    return True
-  # Pick: detect pointer intersect morph edges
-  context = viewport.viewport.user_context()
-  picked_morph = scheme.model.pick(context, point)
-  if picked_morph:
-    gui.manager.focus.focus(picked_morph)
-    controlinstances.handle_menu.open(point, picked_morph) # !!! Open at event DCS
-    # !!! Closing handle menu cancels focus
-    return True
-  return False  # nothing picked
+
+  
+  
 
 
 class BackgroundManager(gui.control.GuiControl):
@@ -69,8 +49,8 @@ class BackgroundManager(gui.control.GuiControl):
     # FIXME this is wierd.  None?  Document model?
     self.controlee = self
     self.set_background_bounds()
-    gui.manager.pointer.register_callback(pick_cb)
-    
+    gui.manager.pointer.register_callback(self.pick_cb)
+  
   def set_background_bounds(self):
     ''' 
     Set the invisible, undrawn bounds of the background.
@@ -79,6 +59,38 @@ class BackgroundManager(gui.control.GuiControl):
     Might not be necessary?
     '''
     self.bounds.from_rect(viewport.viewport.da.allocation)
+  
+  @dump_event
+  def pick_cb(self, point):
+    '''
+    A callback.
+    Called when pointer has stopped moving.
+    Point is approximately coordinates of pointer when it stopped.
+    Pick (popup on mouseover.)
+    '''
+    
+    # Pick: detect pointer intersect handles
+    # Handles are in foreground, pick them first.
+    picked_handle = gui.manager.handle.pick(point)  # TODO was event
+    if picked_handle:
+      print "Picked handle !!!!!!!!!!!!!!!!!!!!!!!!"
+      return True
+      
+    # Pick: detect pointer intersect morph edges
+    context = viewport.viewport.user_context()
+    picked_morph = scheme.model.pick(context, point)
+    if picked_morph:
+      gui.manager.focus.focus(picked_morph)
+      controlinstances.handle_menu.open(point, picked_morph) # !!! Open at event DCS
+      # !!! Closing handle menu cancels focus
+      return True
+    
+    # If nothing else picked, open handle menu on document
+    self.open_document_handle_menu()
+    return True
+    
+    # ALT design: wait for control key to open handle menu on doc
+    # return False  # nothing picked
   
   
   def configure_event_cb(self, widget, event):
@@ -149,7 +161,7 @@ class BackgroundManager(gui.control.GuiControl):
     
     Controlee is self, the background manager.
     '''
-    controlinstances.context_menu.open(event, self)
+    controlinstances.document_menu.open(event, self)
   
   
   def scroll_up(self, event):
@@ -165,25 +177,34 @@ class BackgroundManager(gui.control.GuiControl):
   
   def scroll_down(self, event):
     scheme.model.zoom(2.0, event, viewport.viewport.user_context())
-    
   
+  
+  def open_document_handle_menu(self):
+    '''
+    Open handle menu on document (a composite morph.)
+    Not passed event, which might be a KeyEvent or None, 
+    but current pointer coords 
+    ??? if they are in window and not inside a graphic morph.
+    '''
+    
+    # !!! controlee is model i.e. document i.e. group of graphics
+    controlinstances.handle_menu.open(self.pointer_DCS, controlee=scheme.model)
+      
+    """
+    try:
+    except Exception as exception_instance:
+      print "Exception", type(exception_instance)
+      alert.alert("??? Mouse not in background?")
+    """
+    
   @dump_event
   def control_key_release(self, event):
     '''
     Show handle menu control so user can create independent morphs at top level of scheme.
     '''
-    # Handle menu on the entire document (composite.)
-    # Not passed event, which is KeyEvent, but current pointer coords
-    # if they are in window and not inside a graphic morph.
-    ### try:
-    # !!! controlee is model i.e. document i.e. group of graphics
-    self.handle_menu.open(self.pointer_DCS, controlee=scheme.model)
-      
-    """
-      except Exception as exception_instance:
-      print "Exception", type(exception_instance)
-      alert.alert("??? Mouse not in background?")
-    """
+    self.open_document_handle_menu()
+    
+    
     
   @dump_event
   def bland_key_release(self, event):
