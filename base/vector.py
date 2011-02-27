@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import math
+import cairo  # FIXME
 
 class Vector:
     ''''
@@ -163,6 +164,27 @@ ORIGIN = Vector(0,0)
 ONES = Vector(1,1)
 UNIT_X_AXIS = Vector(1,0)
 UNIT_Y_AXIS = Vector(0,1)
+  
+# FIXME do it without cairo
+def normalize_vector_to_vector(vector1, vector2):
+  '''
+  Normalize first vector to second.
+  Assert both vectors have same origin (0,0)?
+  Transform (rotate) second vector to x-axis.
+  Return second vector with same rotation.
+  '''
+  # Make transform to normalize and align vector2 with x-axis
+  angle = vector2.angle()
+  # inverse the angle.  Cairo's sign for angle is opposite of conventional.
+  rotate_transform = cairo.Matrix().init_rotate(-angle)
+  # Not scaled, but if would transform.scale, the scale done before rotation
+  # Transform exit_vector
+  (x,y) = rotate_transform.transform_point(vector1.x, vector1.y)
+  vect = Vector(x, y)
+  # print "Angle", angle, "Vect1", vector1, "Vect2", vector2, "Normalized:", vect
+  return vect
+  
+  
   
   
 """

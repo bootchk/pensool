@@ -10,7 +10,6 @@ There is another manager that enforces a policy over the whole application.
 
 
 import compound
-import coordinates  # TODO base.vector
 import gui.manager.focus
 import gui.manager.control
 import scheme
@@ -179,11 +178,11 @@ class ItemGroup(compound.Compound):
     and make the menu_vector change as the menu slides
     along a curve.
     '''
-    rect = coordinates.normalize_vector_to_vector(exit_vector, self.layout_spec.vector)
+    vect = vector.normalize_vector_to_vector(exit_vector, self.layout_spec.vector)
     
     # Seems backwards, but since menu vector is opposite direction to layout,
     # inverse the sign
-    if rect.x > 0 :  # Jan. 8
+    if vect.x > 0 :  # Jan. 8
       self._change_item(event, 1)
     else :
       self._change_item(event, -1)

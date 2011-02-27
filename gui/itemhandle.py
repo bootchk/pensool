@@ -5,10 +5,9 @@ Items in a handle menu.
 '''
 
 import gui.itemcontrol
-import coordinates
 import gui.manager.drop
 from decorators import *
-import base.vector
+import base.vector as vector
 
 
 # Count pixels mouse must leave axis before menu slides
@@ -101,7 +100,7 @@ class HandleItem(gui.itemcontrol.ItemControl):
     '''
     # Calculate vector in DCS of mouse exit.
     center = self.bounds.center_of()
-    exit_vector = base.vector.Point(event.x, event.y) - center
+    exit_vector = vector.Point(event.x, event.y) - center
     
     # Tell manager, let the manager figure out if
     # the vector is in the next or previous direction in seq of items.
@@ -145,10 +144,9 @@ class HandleItem(gui.itemcontrol.ItemControl):
     # vector from menu origin to mouse event
     menu_vector = self.group_manager.layout_spec.vector
     menu_benchmark = self.group_manager.layout_spec.benchmark
-    mouse_vector = base.vector.Point(event.x, event.y) - menu_benchmark
-    # OLD coordinates.vector_from_points(menu_benchmark, event)
+    mouse_vector = vector.Point(event.x, event.y) - menu_benchmark
     # normalize to menu vector
-    normal_vector = coordinates.normalize_vector_to_vector(mouse_vector, 
+    normal_vector = vector.normalize_vector_to_vector(mouse_vector, 
       menu_vector)
     # print "mouse", mouse_vector, "menu", menu_vector, "normal", normal_vector
     return normal_vector.y

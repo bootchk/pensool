@@ -109,7 +109,6 @@ class HandleGroup(menu.ItemGroup):
     OLD untransformed.
     
     # Center first item on benchmark.  Ignore the event.
-    ## OLD temp_rect = coordinates.dimensions(event.x, event.y, 0, 0)
     ### !!! This causes a seg fault temp_rect = copy.copy(self.layout_spec.benchmark)
     temp_rect = self.layout_spec.benchmark.copy()
     '''

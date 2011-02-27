@@ -5,8 +5,6 @@ Item in a handle menu that creates line morphs.
 '''
 
 import itemhandle
-import coordinates
-
 # This handle creates a morph in the scheme and uses drag and drop
 import morph.morph
 import scheme

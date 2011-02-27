@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 
-import coordinates
 import base.bounds as bounds
-from decorators import *
 import base.vector as vector
 import base.transform as transform
 import port
 import style  # set_line_width
+from decorators import *
 
 
 def picking(func):
@@ -48,14 +47,13 @@ class Drawable(object):
   Some controls are not actually be drawn (the background manager), 
   but data is there to support it.
   
-  COORDINATES:
-  !!! Note these are all ideal coordinates, not inked coordinates.
-  That is, model coordinates.
+  COORDS:
+  !!! Note these are all ideal coords, not inked coords.
+  That is, model coords.
   FIXME
   '''
   
   def __init__(self):
-    # self._dimensions = coordinates.any_dims()
     # bounds is initially a zero size bounds: it is unioned with member bounds
     self.bounds = bounds.Bounds()
     self.parent = None
@@ -155,7 +153,7 @@ class Drawable(object):
     
   """
   '''
-  Dimensions: GdkRectangle of dimensions in user coordinates.
+  Dimensions: GdkRectangle of dimensions in user coords.
   !!! These are the dimensions, not the bounds.
   The bounds of compound drawables is computed.
   !!! Copy, not reference, in case parameters are mutable.
@@ -173,12 +171,12 @@ class Drawable(object):
     assert len(self) > 0
     
     # Set a copy, not a reference
-    self._dimensions = coordinates.copy(dimensions)
+    self._dimensions = coordinats.copy(dimensions)
  
     
   def get_dimensions(self):
     # Return a copy, not a reference
-    return coordinates.copy(self._dimensions)
+    return coordinats.copy(self._dimensions)
   
 
   def set_origin(self, coords):
@@ -292,17 +290,17 @@ class Drawable(object):
     '''
     return bounds.Bounds().from_context_stroke(context)
 
-      
+  """   
   @dump_return
   def get_center(self):
     '''
     Compute center from components (not just center of self._dimensions!)
-    Returns a dimensions! not a coordinates. ???
+    Returns a dimensions! not a coords. ???
     Since objects may be laid out asymetrically,
     don't use this to get the origin !!!
     '''
-    return  coordinates.center_of_dimensions(self.get_bounds())
-
+    return  coordinats.center_of_dimensions(self.get_bounds())
+  """
 
   # Virtual methods
   

@@ -14,11 +14,12 @@ import morph.textmorph
 import controlinstances
 import gui.manager.control
 import gui.backgroundcontrol
-import coordinates
 import scheme
 from config import *
 
-
+# FIXME little used
+import collections
+Rectangle = collections.namedtuple('Rectangle', 'x y width height')
 
 
 '''
@@ -125,30 +126,30 @@ scheme.model.append(acirc)
 scheme.model.append(apoint)
 scheme.model.append(aline)
 for item in scheme.model:
-  item.set_dimensions(coordinates.Rectangle(150.0/PENSOOL_UNIT, 150.0/PENSOOL_UNIT, 100.0/PENSOOL_UNIT, 100.0/PENSOOL_UNIT))
-apoint.set_dimensions(coordinates.Rectangle(10.0/PENSOOL_UNIT, 50.0/PENSOOL_UNIT, 100.0/PENSOOL_UNIT, 100.0/PENSOOL_UNIT))
-aline.set_dimensions(coordinates.Rectangle(20.0/PENSOOL_UNIT, 50.0/PENSOOL_UNIT, 100.0/PENSOOL_UNIT, 100.0/PENSOOL_UNIT))
+  item.set_dimensions(Rectangle(150.0/PENSOOL_UNIT, 150.0/PENSOOL_UNIT, 100.0/PENSOOL_UNIT, 100.0/PENSOOL_UNIT))
+apoint.set_dimensions(Rectangle(10.0/PENSOOL_UNIT, 50.0/PENSOOL_UNIT, 100.0/PENSOOL_UNIT, 100.0/PENSOOL_UNIT))
+aline.set_dimensions(Rectangle(20.0/PENSOOL_UNIT, 50.0/PENSOOL_UNIT, 100.0/PENSOOL_UNIT, 100.0/PENSOOL_UNIT))
   
 
 # !!! Width, height of text are computed??
-# atext.set_origin(coordinates.Rectangle(150.0/PENSOOL_UNIT, 30.0/PENSOOL_UNIT, 0,0))
+# atext.set_origin(Rectangle(150.0/PENSOOL_UNIT, 30.0/PENSOOL_UNIT, 0,0))
 # TextEditMorph creates it's own selection
 atext = morph.textmorph.TextEditMorph("Most relationships seem so transitory")
-atext.set_dimensions(coordinates.Rectangle(150.0/PENSOOL_UNIT, 30.0/PENSOOL_UNIT, 200.0/PENSOOL_UNIT, 200.0/PENSOOL_UNIT))
+atext.set_dimensions(Rectangle(150.0/PENSOOL_UNIT, 30.0/PENSOOL_UNIT, 200.0/PENSOOL_UNIT, 200.0/PENSOOL_UNIT))
 scheme.model.append(atext)
 
 """
 # Make a group
 arect = morph.morph.RectMorph()
-arect.set_dimensions(coordinates.Rectangle(50.0/PENSOOL_UNIT, 50, 50, 50))
+arect.set_dimensions(Rectangle(50.0/PENSOOL_UNIT, 50, 50, 50))
 acirc = morph.morph.CircleMorph()
-acirc.set_dimensions(coordinates.Rectangle(0, 0, 50, 50))
+acirc.set_dimensions(Rectangle(0, 0, 50, 50))
 
 agroup = morph.morph.Morph()
 agroup.append(arect)
 agroup.append(acirc)
 # Group at 30,30, scale 1
-agroup.set_dimensions(coordinates.Rectangle(30,30,1,1))
+agroup.set_dimensions(Rectangle(30,30,1,1))
 # agroup.append(atext)
 
 scheme.model.append(agroup)

@@ -28,7 +28,6 @@ is the same as for methods on primitive members.
 import transformer
 import style
 from decorators import *
-import coordinates
 import base.bounds as bounds
 
 
@@ -164,6 +163,7 @@ class Compound(list, transformer.Transformer):
       self[0].set_dimensions(self.get_dimensions())
   
   
+  """
   # FIXME the dimensions of a compound are not useful
   # only the bounds???
   @dump_return
@@ -173,15 +173,15 @@ class Compound(list, transformer.Transformer):
     !!! Dimensions of a composite is the union over member items.
     '''
     # Calculate dimensions
-    rect = coordinates.copy(self[0].get_dimensions())
+    rect = coordinats.copy(self[0].get_dimensions())
     for item in self:
       # print item, item.dimensions
-      rect = coordinates.union(rect, item.get_dimensions())
+      rect = coordinats.union(rect, item.get_dimensions())
     # No need to store it in this composite, always recalculated.
     # self.dimensions = rect  # calls Drawable.set_dimensions()
     # TODO do the calculation once, during layout
     return rect
-  
+  """
   
   @dump_event
   def highlight(self, direction):
