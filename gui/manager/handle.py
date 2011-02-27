@@ -13,7 +13,7 @@ A HandleSet is drawn and picked in the transform of its parent morph.
 A HandleSet is not a child of parent morph !!!
 '''
 
-import viewport
+import port
 from decorators import *
 
 
@@ -39,7 +39,7 @@ def pick(point):
   ''' Pick any handle of the current handle set. '''
   picked = None
   if current_handle_set:
-    context = viewport.viewport.user_context()
+    context = port.view.user_context()
     context.set_matrix(current_morph.retained_transform)
     picked = current_handle_set.pick(context, point)
   if picked:
@@ -51,7 +51,7 @@ def pick(point):
 def draw():
   ''' Draw current handle set. '''
   if current_handle_set:
-    context = viewport.viewport.user_context()
+    context = port.view.user_context()
     context.set_matrix(current_morph.retained_transform)
     return current_handle_set.draw(context)
   

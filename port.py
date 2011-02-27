@@ -18,12 +18,12 @@ class Port():
   Draws model on surface
   
   The different subclasses differ in the way they treat an infinite model:
-    viewports pan and scroll a window over it
+    views pan and scroll a window over it
     printerports paginate it
     fileport saves whole model
   
   Also differ in what extras (in excess of the model) might be drawn:
-    a viewport also draws controls
+    a view also draws controls
     a printerport also draws page headers etc.
     a fileport might have extra data
   '''
@@ -47,13 +47,13 @@ class ViewPort(Port):
   Understands that controls (widgets) drawn also.
   
   A ViewPort is a window in a display.
-  EG surface is a window, viewport defines the being-viewed rect on the doc.
+  EG surface is a window, view defines the being-viewed rect on the doc.
   
   A transform from doc(user) to device coords defines the view.
   The scheme is a transformer, not a port.
   The viewing transformation is the top transform in the scheme's hierarchical model.
   
-  Conceptually, fundamental operations on a viewport:
+  Conceptually, fundamental operations on a view:
     Operation on the documents under (in) the port (see scheme):
       scroll (pan)
       zoom (on a point)
@@ -106,7 +106,7 @@ class ViewPort(Port):
       widget.draw(context)
       
     # Draw model and persistent controls in transformed coords
-    # Viewport has no transformation.
+    # view has no transformation.
     # The top level of the scheme has the viewing transformation.
     ## OLD context.set_matrix(self.matrix)
     scheme.transformed_controls.draw(context)
@@ -196,8 +196,8 @@ class PrinterPort(Port):
 
    
     # Second parameter is the parent widget of the print dialog.
-    # Here None means top level, ie not a child of the app window or viewport.
-    # viewport.surface did not work.
+    # Here None means top level, ie not a child of the app window or view.
+    # port.surface did not work.
     res = print_op.run(gtk.PRINT_OPERATION_ACTION_PRINT_DIALOG, None)
     
     # Signals are emitted here at the conclusion of the print dialog
@@ -287,4 +287,4 @@ class FilePort(Port):
 
 
 # Singleton, set when app starts
-viewport = None
+view = None

@@ -5,7 +5,7 @@ import base.bounds as bounds
 from decorators import *
 import base.vector as vector
 import base.transform as transform
-import viewport
+import port
 import style  # set_line_width
 
 
@@ -16,7 +16,7 @@ def picking(func):
   '''
   def picking_func(self, point):
     # Fresh context since can be called outside a walk of model hierarchy
-    context = viewport.viewport.user_context()
+    context = port.view.user_context()
     if self.parent: # None if in background ctl
       context.set_matrix(transform.copy(self.parent.retained_transform))
     # !!! No style put to context, but insure black ink? TODO
@@ -112,7 +112,7 @@ class Drawable(object):
     Caching drawn bounds is an optimization; alternative is to walk model branch.
     This is for composite and primitive drawables: every drawable has bounds.
     '''
-    viewport.viewport.surface.invalidate_rect(self.bounds.to_rect(), True)
+    port.view.surface.invalidate_rect(self.bounds.to_rect(), True)
     return self.bounds
    
 
@@ -122,7 +122,7 @@ class Drawable(object):
     Invalidate as will be drawn (hasn't been drawn yet.)
     This walks a branch of model to determine bounds.
     '''
-    context = viewport.viewport.user_context()
+    context = port.view.user_context()
     # Put parent retained_transform in new context, unless at top
     # !!! parent transform is inadequate, need retained_transform
     # which represents the accumulated transform from the top.
@@ -133,7 +133,7 @@ class Drawable(object):
     self.put_path_to(context)   # recursive
     # FIXME this is not right, the paths will have different transforms????
     will_bounds_DCS = self.get_stroke_bounds(context) # inked
-    viewport.viewport.surface.invalidate_rect( will_bounds_DCS.to_rect(), True )
+    port.view.surface.invalidate_rect( will_bounds_DCS.to_rect(), True )
     return will_bounds_DCS  # for debugging
     
   """
@@ -266,7 +266,7 @@ class Drawable(object):
     Is event in our filled shape?
     Bounding box is DCS axis aligned, drawn fill is NOT, so use in_fill().
     '''
-    context = viewport.viewport.user_context()
+    context = port.view.user_context()
     if self.parent: # None if in background ctl
       context.set_matrix(transform.copy(self.parent.retained_transform))
     self.put_path_to(context) # recursive, with transforms
@@ -314,8 +314,8 @@ class Drawable(object):
     but generally they invalidate a bounding box.
 
   Each subclass knows whether it is inked and transformed,
-  and thus how to invalidate the proper rectangle in the viewport.
-  !!! Note this is only a concern for the viewport and not other device ports.
+  and thus how to invalidate the proper rectangle in the view.
+  !!! Note this is only a concern for the view and not other device ports.
   '''
   
   def is_in_control_area(self, event):

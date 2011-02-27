@@ -125,7 +125,7 @@ class Transformer(drawable.Drawable):
   """
   def device_to_user(self, x, y):
     # TODO do I need the model context?
-    context = self.viewport.da.window.cairo_create()
+    context = self.view.da.window.cairo_create()
     ### context.set_matrix(self.matrix)
     return vector.Vector(*context.device_to_user(x, y))
   """
@@ -173,7 +173,7 @@ class Transformer(drawable.Drawable):
 
   def set_translation(self, point):
     '''
-    !!! Not view altering (can be called before viewport is established.)
+    !!! Not view altering (can be called before view is established.)
     !!! point is not copied.
     '''
     self.translation = point
@@ -249,7 +249,7 @@ class Transformer(drawable.Drawable):
       inverse translate
     '''
     """
-    When part of viewport was
+    When part of view was
     user_coords = self.device_to_user(event.x, event.y)
     self.transform.translate(user_coords.x, user_coords.y)
     self.transform.scale(delta, delta)

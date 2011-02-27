@@ -104,7 +104,7 @@ def coords_translated(func):
   Decorator: translates coords of first argument
   '''
   def new_func(self, event, *args, **kwargs):
-    event.x, event.y = self.viewport.device_to_user(event.x, event.y)
+    event.x, event.y = self.view.device_to_user(event.x, event.y)
     return func(self, event, *args, **kwargs)
   return new_func
   

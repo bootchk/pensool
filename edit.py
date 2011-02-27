@@ -72,7 +72,6 @@ def do_copy(morph, event=None):
   # Divorce from model tree
   bar = morph.parent
   morph.parent = None
-  #morph.viewport = None
   foo = pickle.dumps(morph, pickle.HIGHEST_PROTOCOL)
   zed = pickle.loads(foo)
   print zed

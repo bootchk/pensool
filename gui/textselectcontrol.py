@@ -7,7 +7,7 @@ Pensool only has selections in text.
 
 This is an overlay (e.g. gray or transparent) over text that is selected.
 
-A control: does not appear in renderings on ports other than viewport displays.
+A control: does not appear in renderings on ports other than view displays.
 
 Receives key presses when parent text glyph is active operand.
 

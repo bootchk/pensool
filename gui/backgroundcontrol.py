@@ -13,7 +13,7 @@ import base.alert as alert
 import base.vector as vector
 
 from gtk import gdk
-import viewport
+import port
 
 
 
@@ -36,7 +36,7 @@ class BackgroundManager(gui.control.GuiControl):
     inside morphs
     via the bkgd context menus:
       controlling ports:
-        viewport
+        view
         printerport
         fileport
   '''
@@ -58,7 +58,7 @@ class BackgroundManager(gui.control.GuiControl):
     even though it is not really drawn.
     Might not be necessary?
     '''
-    self.bounds.from_rect(viewport.viewport.da.allocation)
+    self.bounds.from_rect(port.view.da.allocation)
   
   @dump_event
   def pick_cb(self, point):
@@ -77,7 +77,7 @@ class BackgroundManager(gui.control.GuiControl):
       return True
       
     # Pick: detect pointer intersect morph edges
-    context = viewport.viewport.user_context()
+    context = port.view.user_context()
     picked_morph = scheme.model.pick(context, point)
     if picked_morph:
       gui.manager.focus.focus(picked_morph)
@@ -137,7 +137,7 @@ class BackgroundManager(gui.control.GuiControl):
   def button_press_left(self, event):
     '''
     Generally: left button pressed: begin drag. 
-    App logic: background control drags are pans of viewport.
+    App logic: background control drags are pans of view.
     Since the background controls the document,
     meaning of drag is move (pan) document beneath the window.
     IE a hand icon drag.
@@ -171,12 +171,12 @@ class BackgroundManager(gui.control.GuiControl):
     '''
     print "Scrolling", repr(event)
     # Zoom is an operation on the viewing transformation and model
-    scheme.model.zoom(0.5, event, viewport.viewport.user_context())
+    scheme.model.zoom(0.5, event, port.view.user_context())
     # FIXME constant for zoom speed
   
   
   def scroll_down(self, event):
-    scheme.model.zoom(2.0, event, viewport.viewport.user_context())
+    scheme.model.zoom(2.0, event, port.view.user_context())
   
   
   def open_document_handle_menu(self):
@@ -235,7 +235,7 @@ class BackgroundManager(gui.control.GuiControl):
   @dump_event
   def continue_drag(self, event, offset, increment):
     '''
-    animate/ghost document being dragged in the viewport
+    animate/ghost document being dragged in the view
     '''
     #TODO ghosting
     
@@ -254,7 +254,7 @@ class BackgroundManager(gui.control.GuiControl):
     
     ###if self.is_dragging:
     if source_control is self:  # Did drag start in background?
-      # backgroundctl controls viewport.  Assert source is the scheme.
+      # backgroundctl controls view.  Assert source is the scheme.
       source.move_relative(offset)
     ###  self.is_dragging = False  # Local drag state
     else:    # Drag started in another control.

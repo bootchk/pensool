@@ -7,7 +7,7 @@ Main of drawing app
 import gtk
 from gtk import gdk
 
-import viewport
+import port
 import drawable
 import morph.morph
 import morph.textmorph
@@ -49,7 +49,7 @@ def foo(accel_group, acceleratable, keyval, modifier):
 
 # window 
 window = gtk.Window()
-window.resize(400, 400) # TODO this resizes the surface and viewport?
+window.resize(400, 400) # TODO this resizes the surface and view?
 window.move(400, 600)
 window.connect('destroy', gtk.main_quit)
 window.realize()
@@ -61,7 +61,7 @@ window.realize()
 da = gtk.DrawingArea()
 
 '''
-This must precede realization of viewport? or use add_events().
+This must precede realization of view? or use add_events().
 First three are mouse events.
 STRUCTURE is configure-event (resizing the window)
 Last are focus and keyboard events.
@@ -93,10 +93,10 @@ accelerators.connect_group(122, gdk.CONTROL_MASK, accel_flags=gtk.ACCEL_VISIBLE,
 # gdk.GDK_Left
 
 # Can draw to several ports.
-a_viewport = viewport.ViewPort(da)
-a_printerport = viewport.PrinterPort()
-a_fileport = viewport.FilePort()
-viewport.viewport = a_viewport  # Make viewport global singleton
+a_view = port.ViewPort(da)
+a_printerport = port.PrinterPort()
+a_fileport = port.FilePort()
+port.view = a_view  # Make view global singleton
 # FIXME
 
 scheme.initialize()
@@ -173,7 +173,7 @@ Controlee is the bkgd_control itself.
 '''
 gui.manager.control.control_manager.activate_control(controlinstances.bkgd_control, None, controlinstances.bkgd_control)
 
-a_viewport.set_model(scheme.model)
+a_view.set_model(scheme.model)
 a_printerport.set_model(scheme.model)
 a_fileport.set_model(scheme.model)
 
