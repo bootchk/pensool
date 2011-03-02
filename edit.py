@@ -27,7 +27,7 @@ def do_cut(operand, event=None):
   
   if parent:  # If not top i.e. cutting document
     # eliminate reference to morph (will garbage collect)
-    operand.parent.remove(operand)
+    parent.remove(operand)
   else:
     # empty the morph
     del operand[:]

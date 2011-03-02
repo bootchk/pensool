@@ -53,17 +53,23 @@ class HandleItem(gui.itemcontrol.ItemControl):
     Handle items enact context menu on RMB.
     '''
     print "Handle context menu"
-    # Close current, handle menu.
+    # Close the open handle menu.
     # The drag for the context menu takes the mouse away from the morph.
     self.group_manager.close(event)
+    # Note focus is not changed if a context menu is opened.
     # Open context menu on controlee
+    ## control_instances.edit_menu.open(event, self.controlee)
+    # More generally, execute command
+    # where the command is to open another menu
+    # but this command is not undoable?
     self.command(event, self.controlee)
-    #edit_menu.open(event, self.controlee)
     
   @dump_event
   def start_drag(self, event):
     ''' Mouse departed item with button down. '''
     self.group_manager.close(event)  # close menu
+    # Remain focused on operand morph while dragging?
+    gui.manager.control.control_mgr.activate_root_control() # backgroundmgr
     gui.manager.drop.dropmgr.begin(event, self.controlee, self)
     # After this, events go to backgroundmgr, passed to dragee.continue_drag()
   

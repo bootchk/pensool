@@ -30,10 +30,16 @@ def focus(thing):
   '''
   global _focused_operand
   
-  unfocus()
+  ## OLD unfocus()
+  # This cancels any fading and immediately unfocuses
+  gui.manager.fade.focus_gained()
+  if _focused_operand:
+    _focused_operand.highlight(False)
+  
   _focused_operand = thing
   thing.highlight(True)
   thing.rouse_feedback(True)
+  
   
   
 def unfocus():
@@ -56,7 +62,11 @@ def unfocus():
     
 def unfocus_feedback():
   global _focused_operand
-  _focused_operand.rouse_feedback(False)
-  _focused_operand = None
+  
+  # Could be a race between unfocusing because there is a new focus
+  # and a timer, so check for None
+  if _focused_operand:
+    _focused_operand.rouse_feedback(False)
+    _focused_operand = None
     
 

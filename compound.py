@@ -183,7 +183,7 @@ class Compound(list, transformer.Transformer):
     return rect
   """
   
-  @dump_event
+  #@dump_event
   def highlight(self, direction):
     # TODO transform??
     if self.is_primitive():

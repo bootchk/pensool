@@ -13,7 +13,7 @@ import gui.manager.drop
 from decorators import *
 from config import *
 
-class LineHandleItem(itemhandle.HandleItem):
+class DrawHandleItem(itemhandle.HandleItem):
   '''
   A handle that stretches a morph from the controlee, when a drag starts within.
   Another control (bkgd mgr usually)
@@ -22,9 +22,10 @@ class LineHandleItem(itemhandle.HandleItem):
   
   def __init__(self, command):
     itemhandle.HandleItem.__init__(self, command)
-    self.append(morph.glyph.RectGlyph())
+    # unfilled circle
+    self.append(morph.glyph.CircleGlyph())
     self.scale_uniformly(ITEM_SIZE)
-    self.symbol_type = "line"
+    self.symbol_type = "line" # mode: morph type to draw
   
   @dump_event
   def scroll_down(self, event):
@@ -84,7 +85,7 @@ class LineHandleItem(itemhandle.HandleItem):
   Note this control might not be active, drawn when this event comes.
   A line is being dragged, but the handle menu item is hidden already.
   '''
-  @dump_event
+  #@dump_event
   def continue_drag(self, event, offset, increment):
     '''
     animate/ghost morph being dragged/stretched

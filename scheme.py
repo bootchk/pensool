@@ -12,6 +12,7 @@ import morph.morph
 import base.vector as vector
 import config
 import gui.boundingbox
+import port
 
 # Untransformed.
 # Ephemeral GUI controls widgets
@@ -41,7 +42,7 @@ def initialize():
   global bounding_box
   
   transformed_controls = compound.Compound()  # GUI widgets
-  model = morph.morph.Morph() # user's objects
+  model = morph.morph.Morph() # group morph is root of modeling tree of user's objects
   
   # !!! Set the topmost transform to scale by PENSOOL.SCALE
   translation = vector.Vector(0.0, 0.0)
@@ -50,5 +51,18 @@ def initialize():
   
   bounding_box = gui.boundingbox.BoundingBox()
   
-
+def zoom(direction, event):
+  '''
+  Zoom is an operation on the viewing transformation.
+  Of the model.
+  FIXME and of certain controls such as handles?
+  '''
+  ZOOM_RATE = 0.5
+  if direction:
+    model.zoom(ZOOM_RATE, event, port.view.user_context())
+  else:
+    model.zoom(1.0/ZOOM_RATE, event, port.view.user_context())
+  # FIXME user preference constant for zoom speed
+  # FIXME zoom handles?
+  
 

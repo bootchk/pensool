@@ -172,7 +172,7 @@ Initial active control is the background manager
 None event is activating it.
 Controlee is the bkgd_control itself.
 '''
-gui.manager.control.control_manager.activate_control(controlinstances.bkgd_control, None, controlinstances.bkgd_control)
+gui.manager.control.control_manager.activate_control(controlinstances.bkgd_control, controlinstances.bkgd_control)
 
 a_view.set_model(scheme.model)
 a_printerport.set_model(scheme.model)

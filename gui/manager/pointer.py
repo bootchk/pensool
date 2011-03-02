@@ -17,18 +17,22 @@ and system busy problems.
 We might be able to reconstruct a more accurate mouse position (float)
 by averaging with previous mouse position.
 The drawing library is in floating point, why not use mouse position in float?
+
+!!! Note that the callback is asynchronous.
+In general, it must be prepared for a race condition.
+For example, the user may have just opened a menu using for example a control key,
+and the callback must not interfere.
 '''
 
 import base.vector as vector
 import base.timer as timer
+import config
 from decorators import *
 
 # globals
 state = None
 previous_point = vector.Vector(0,0)
 previous_time = 0
-THRESHOLD = 0.1  # pixels per millisecond
-TIME = 500
 pointer_timer = timer.Timer()
 stopped_callback = None
 
@@ -41,6 +45,12 @@ def register_callback(func):
   global stopped_callback
   stopped_callback = func
 
+def cancel_timer():
+  ''' 
+  Cancel my timer. Usually means pointer manager is not being used.
+  See below: decide_stopped() may later be called and can restart timer.
+  '''
+  pointer_timer.cancel()
 
 # @dump_return
 def decide_stopped(event):
@@ -66,18 +76,18 @@ def decide_stopped(event):
   # print distance, elapsed, speed
   
   if state is "moving":
-    if speed <= THRESHOLD:
+    if speed <= config.GUI_MOVING_SLOWING_THRESHOLD:
       state = "slowed"
-      pointer_timer.start(TIME, timeout_cb) # after a delay, go to stopped state
+      pointer_timer.start(config.GUI_MOVING_POPUP_TIME, timeout_cb) # after a delay, go to stopped state
     # else moved fast
   elif state is "slowed":
-    if speed > THRESHOLD:
+    if speed > config.GUI_MOVING_SLOWING_THRESHOLD:
       state = "moving"
       pointer_timer.cancel()
     # else same state  still slow motion
   elif state is "stopped":
-    if speed <= THRESHOLD:
-      # slow motion from stopped, try pick if it is an adjustment
+    if speed <= config.GUI_MOVING_SLOWING_THRESHOLD:
+      # slow motion from stopped, try pick if user is making small adjustment
       # if it is acceleration, hope nothing to pick
       if stopped_callback(move):
         state = None

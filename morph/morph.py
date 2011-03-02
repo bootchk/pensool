@@ -148,8 +148,15 @@ class Morph(compound.Compound):
     
   
   def is_primitive(self):
-    '''Morph that is not PrimitiveMorph is not primitive, I.E. is a group '''
+    '''Morph that is not PrimitiveMorph is not primitive.
+    A PrimitiveMorph can be a group but only of glyphs.
+    A non-primitive morph is a group of other morphs.
+    '''
     return False
+  
+  def is_top(self):
+    '''Morph that is the root of the modeling tree. '''
+    return self.parent is None
   
   
   @view_altering  
@@ -176,7 +183,7 @@ class Morph(compound.Compound):
 
 
   @view_altering  
-  @dump_event
+  #@dump_event
   def move_by_drag(self, offset, increment):
     '''
     Establish my translation

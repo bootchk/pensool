@@ -2,7 +2,7 @@
 '''
 config.py
 
-Pythonic module for global configuration variables/constants.
+Pythonic module of global configuration variables/constants.
 '''
 
 import cairo
@@ -20,7 +20,7 @@ def report_virtual():
 # dropmgr = gui.manager.drop.DropManager()
 
 # Scale.
-# Viewport scale is set to this, and literals in pixel units are scaled by this.
+# Viewport scale is set to this; literals in pixel units are scaled by this.
 PENSOOL_UNIT = 1  # 1000
 
 # Default size of menu items
@@ -29,3 +29,13 @@ ITEM_SIZE = 20.0 / PENSOOL_UNIT
 
 PENSOOL_PICK_PEN_WIDTH = 3  # width of pen in pixels for picking
 PENSOOL_LINE_CAP_SQUARE = cairo.LINE_CAP_SQUARE
+
+# gui.manager.fade
+GUI_FADE_TIME = 500 # mSec delay before handles dissappear
+
+# gui.manager.pointer
+GUI_MOVING_POPUP_TIME = 500 # mSec delay after pointer stops before menu appears
+GUI_MOVING_SLOWING_THRESHOLD = 0.1  # pixels per mSec below which pointer stopped
+
+
+

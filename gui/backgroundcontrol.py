@@ -6,6 +6,7 @@ import gui.manager.focus
 import gui.manager.textselect
 import gui.manager.handle
 import gui.manager.pointer
+import gui.manager.control
 import controlinstances
 import scheme
 from decorators import *
@@ -21,7 +22,7 @@ import port
   
 
 
-class BackgroundManager(gui.control.GuiControl):
+class BackgroundControl(gui.control.GuiControl):
   '''
   A special control that manages background,
   that is, events when no other smaller controls are active.
@@ -51,6 +52,14 @@ class BackgroundManager(gui.control.GuiControl):
     self.set_background_bounds()
     gui.manager.pointer.register_callback(self.pick_cb)
   
+  def deactivate(self):
+    '''
+    Overrides control.deactivate()
+    Background control cancels timer.
+    '''
+    gui.manager.pointer.cancel_timer()
+    
+    
   def set_background_bounds(self):
     ''' 
     Set the invisible, undrawn bounds of the background.
@@ -66,7 +75,12 @@ class BackgroundManager(gui.control.GuiControl):
     A callback.
     Called when pointer has stopped moving.
     Point is approximately coordinates of pointer when it stopped.
-    Pick (popup on mouseover.)
+    Attempt pick (popup on mouseover.)
+    
+    !!! A race.  Don't open a menu if already open.
+    
+    Return True if successfully open a control,
+    else False to continue the periodic pointer timer.
     '''
     
     # Pick: detect pointer intersect handles
@@ -74,19 +88,19 @@ class BackgroundManager(gui.control.GuiControl):
     picked_handle = gui.manager.handle.pick(point)  # TODO was event
     if picked_handle:
       print "Picked handle !!!!!!!!!!!!!!!!!!!!!!!!"
+      # TODO open a menu on the handle
       return True
       
     # Pick: detect pointer intersect morph edges
     context = port.view.user_context()
     picked_morph = scheme.model.pick(context, point)
     if picked_morph:
-      gui.manager.focus.focus(picked_morph)
-      controlinstances.handle_menu.open(point, picked_morph) # !!! Open at event DCS
+      self._open_menu(point, picked_morph, controlinstances.handle_menu)
       # !!! Closing handle menu cancels focus
       return True
     
     # If nothing else picked, open handle menu on document
-    self.open_document_handle_menu()
+    self._open_menu(point, scheme.model, controlinstances.handle_menu)
     return True
     
     # ALT design: wait for control key to open handle menu on doc
@@ -104,33 +118,36 @@ class BackgroundManager(gui.control.GuiControl):
   # @dump_event
   def motion_notify_event_cb(self, widget, event):
     '''
+    Pointer move event from GUI toolkit.
+    
     !!! Overrides default motion callback for GuiControl.
-    Does not check for in bounds, that is handled by the desktop window manager.
+    Does not check for in bounds, that is done by desktop window manager.
+    
+    At this juncture, the document is NOT the operand, so no need to feedback.
+    Alternatively, we could show handles on the window frame, etc.
+    
+    Event compression on mouse events not needed: ne = gdk.event_peek(), ne.free() 
+    never seems to return any events.
     '''
-    # TODO activate background controls ie handles on inside of window frame?
-    # TODO draw the page frame
-    
-    # Event compression not needed. ne = gdk.event_peek(), ne.free() never seems to return any events
-    
     self.pointer_DCS = vector.Vector(event.x, event.y) # save for later key events
     # print "Motion", self.pointer_DCS
-    
-    # TODO not handling mouse exit see guicontrol.py
     
     if gui.manager.drop.dropmgr.is_drag():
       # TODO find probe suitable targets
       gui.manager.drop.dropmgr.continued(event, self)
-      return True
-      
-    # pointer manager decides if stopped and callbacks pick_cb
-    gui.manager.pointer.decide_stopped(event)
-          
+    else:   
+      # pointer manager decides if stopped and callbacks pick_cb
+      gui.manager.pointer.decide_stopped(event)   
     return True # Did handle event
 
 
   '''
   Other callbacks are inherited from guicontrol
   and come here as these filtered events.
+  
+  TODO not handling mouse exit see guicontrol.py
+  Since the background is the entire window, pointer leaving window could
+  generate a filtered event mouse_exit.
   '''
 
 
@@ -158,58 +175,32 @@ class BackgroundManager(gui.control.GuiControl):
   def button_press_right(self, event):
     '''
     This defines that background manager shows traditional context menu.
-    
-    Controlee is self, the background manager.
+    Controlee is document.
     '''
-    controlinstances.document_menu.open(event, self)
+    self._open_menu(event, scheme.model, controlinstances.document_menu)
   
   
+  #@dump_event
   def scroll_up(self, event):
-    '''
-    Scroll wheel event in background.
-    Convert to zoom op on *document*.
-    '''
-    print "Scrolling", repr(event)
-    # Zoom is an operation on the viewing transformation and model
-    scheme.model.zoom(0.5, event, port.view.user_context())
-    # FIXME constant for zoom speed
-  
+    ''' Scroll wheel event in background is zoom op on *document*. '''
+    scheme.zoom(True, event) # zoom in
   
   def scroll_down(self, event):
-    scheme.model.zoom(2.0, event, port.view.user_context())
+    scheme.zoom(False, event)
   
-  
-  def open_document_handle_menu(self):
-    '''
-    Open handle menu on document (a composite morph.)
-    Not passed event, which might be a KeyEvent or None, 
-    but current pointer coords 
-    ??? if they are in window and not inside a graphic morph.
-    '''
-    
-    # !!! controlee is model i.e. document i.e. group of graphics
-    controlinstances.handle_menu.open(self.pointer_DCS, controlee=scheme.model)
       
-    """
-    try:
-    except Exception as exception_instance:
-      print "Exception", type(exception_instance)
-      alert.alert("??? Mouse not in background?")
-    """
-    
   @dump_event
   def control_key_release(self, event):
     '''
-    Show handle menu control so user can create independent morphs at top level of scheme.
+    Show handle menu so user can create independent morphs at top level of scheme.
     '''
-    self.open_document_handle_menu()
-    
-    
+    self._open_menu(self.pointer_DCS, scheme.model, controlinstances.handle_menu)
+
     
   @dump_event
   def bland_key_release(self, event):
     '''
-    Background mgr redirects ordinary keys to active text selection if any.
+    Background control redirects ordinary keys to active text selection if any.
     '''
     selection = gui.manager.textselect.get_active_select()
     if selection:
@@ -217,7 +208,20 @@ class BackgroundManager(gui.control.GuiControl):
     else:
       alert.alert("No text selection is active to receive keys.")
      
+  '''
+  Private functions
+  '''
+  
+  def _open_menu(self, point, morph, menu):
+    if gui.manager.control.control_manager.is_root_control_active():
+      # deactivate self, the background control
+      gui.manager.control.control_manager.deactivate_current_control()
+      # Open at event DCS on the given morph
+      menu.open(point, morph)
+      gui.manager.focus.focus(morph)
+    # else this is a race, some other control already open
     
+
     
   """
   Drag and drop.

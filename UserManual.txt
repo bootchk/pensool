@@ -1,0 +1,82 @@
+Pensool User's Manual
+
+About Pensool
+
+Pensool is a 2-D drawing application (like Inkscape, XFig, Skencil, Karbon, Draw.)  What distinguishes Pensool is its ease of use: it lets you directly manipulate drawings.  Pensool keeps you focused where the mouse is in the drawing.  Pensool avoids menubars, scrollbars, tools, selections and modes.  Pensool uses handles and a new GUI technique called a handle menu, an iconic, context menu on the edge of symbols.
+
+Pensool works best with a 2-button mouse with a scroll wheel.
+
+Pensool is open source software written in the Python language.
+
+Pensool is a prototype.  Only a thin slice works and there are many bugs.  For now it is an experiment in user interface.  You can't even reopen a document that you saved!
+
+
+The Handle Menu and Handles
+
+What it is.  The handle menu is a menu of icons that appears on the edges of symbols when you put the cursor on the edge of a symbol.  The icons are commands on the symbol, for example, move.  
+
+When it appears.  The handle menu doesn't appear when you are just moving the cursor around, you must pause.
+
+Where it appears.  The handle menu appears on the edge of symbols, not inside.  It also appears when you pause in the background, giving commands on the document.  It also appears on end points, corners, tangent lines, text insertion bars and other handles.
+
+How to use it.  The handle menu appears when the cursor is on an edge (often called mouseover or hover.)  The handle menu is a line of icons perpendicular to the edge.  Only one menu item icon appears at a time.  Move the mouse inward or outward of the edge to see another menu item.  Press and hold the left mouse button to drag a handle menu item.  Press and hold the right mouse button to pop-up a conventional menu (usually of options for the handle menu item command.)  Use the scroll wheel to change the scope of a command, for example to choose a group.
+
+Why it is called a handle menu.  A handle menu's icons look like the traditional handles on a symbol for resizing and rotating a symbol.  Also the handle menu appears where traditional handles would, on end points, corners, and tangents.
+
+Sliding a handle menu.  You can slide a handle menu along the edge of a symbol.  If you reach a handle of the symbol, it becomes the operand, highlighted.
+
+The operand.  The operand of a handle menu is the symbol whose edge it appears on.  The operand is highlighted and a bounding box surrounds the operand while a handle menu is upon it.  When you choose a handle menu item, it operates on the highlighted operand.  You can scroll up and down to make the operand the next larger or smaller group.  You can slide a handle menu to a handle to make the operand the handle.
+
+How the handle menu appears.  The handle menu has three items: draw, move, and resize.  Only one item is visible at a time.  The handle menu opens on the move item centered on the edge of a symbol.  The other items will appear, one at a time, when you move perpendicularly to either side of the symbol (inward or outward.)  The draw item lets you drag out another symbol.  The move item lets you drag a symbol or handle to a new position.  The resize item lets you resize a symbol.  (Currently the icons for the items are just circles and squares and they don't all work on all symbols.)
+
+Persistence of handles.  Some symbols have handles remote from the symbol.  For example, curves have tangent line handles and circles have center handles.  You don't see them until you open a handle menu on the symbol.  You can't (or don't need to) slide the handle menu along a symbol to a remote handle.  Instead, such handles persist long enough for you to move the cursor directly to them and then a handle menu will appear.
+
+
+Groups
+
+Symbols are in groups.  The top group is the document.
+
+Adding to a group.  When you create a symbol by dragging it out, it becomes part of the group from which you drag it.  If you drag out a symbol in the background, it starts a new group in the document.
+
+Selecting a group.  You can choose a group by putting the cursor on the edge of any member then scrolling up in the move item of the handle menu.
+
+Editing groups.  You can cut, copy, and paste groups.
+
+(Future.  Layers and symbol templates are special groups.)
+
+
+Windows
+
+The main Pensool window is a canvas.  It shows one document (drawing.)  You can open many canvas windows.
+
+
+Managing a Document
+
+Open a handle menu on the document by pausing the cursor in the background.  Then the right menu button opens a menu that includes the traditional "File" menu, having printing and filing operations.
+
+
+Managing the View
+
+Open a handle menu on the document by pausing the cursor in the background.  Then dragging the move item pans the view of the document.  Scrolling the scroll wheel zooms the document.
+
+
+The Clipboard.
+
+The clipboard has the standard cut, copy, and paste operations.  You can use the clipboard between canvases or other applications.  The clipboard holds text or Pensool drawings.  (Future: clipboard will hold data in SVG format.)
+
+
+Not Implemented
+
+Many features are not implemented yet:
+Styling
+Undo
+Curves
+Symbol Templates
+Layers
+Bitmap images
+Opening a saved document
+Importing from other apps
+Shortcut keys
+Connectors
+
+

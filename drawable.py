@@ -246,6 +246,7 @@ class Drawable(object):
     style.set_line_width(context, self.parent.style.pen_width)  # !!! After path
     return context.in_stroke(coords.x, coords.y)
   
+  @dump_return
   @picking
   def in_fill(self, context, coords):
     '''

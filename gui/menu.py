@@ -10,7 +10,7 @@ There is another manager that enforces a policy over the whole application.
 
 
 import compound
-import gui.manager.focus
+## import gui.manager.focus
 import gui.manager.control
 import scheme
 from decorators import *
@@ -115,9 +115,10 @@ class ItemGroup(compound.Compound):
   def open(self, event, controlee=None):
     '''
     Make visible at event coords.
-    Focus item at event.
+    Put default item at event.
     '''
     # Set new controlee, since new_layout_spec may use it.
+    assert controlee is not None
     self.controlee = controlee
     
     self.new_layout_spec(event) # Set data for position and layout.
@@ -128,6 +129,8 @@ class ItemGroup(compound.Compound):
     # Some menu types layout after open time.
     self.layout(event)  # FIXME is event needed
     
+    # Only one menu can be open at a time
+    assert len(scheme.widgets) == 0
     scheme.widgets.append(self)
     
     # Make open menu display an active item.
@@ -151,9 +154,22 @@ class ItemGroup(compound.Compound):
   @view_altering
   @dump_event
   def close(self, event):
-    scheme.widgets.remove(self) # hide
-    gui.manager.focus.unfocus()  # any controlee, should invalidate
-    self._deactivate_current(event) # activates the background manager.
+    '''
+    Close this menu.
+    Note another menu may replace this one: caller must activate some
+    next control, typically the background manager or another menu.
+    Note that focus is not necessarily lost: caller must unfocus if appropriate.
+    '''
+    try:
+      scheme.widgets.remove(self) # hide
+    except ValueError:
+      print "Failed to remove", self
+      print "Scheme.widgets", scheme.widgets
+      raise
+    ## gui.manager.focus.unfocus()  # any controlee, should invalidate
+    # Deactivate current menu item, which is receiving events
+    self._deactivate_current() # leaves no control active
+    ## OLD automatically activates the background manager.
     # FIXME for now, deactivate text select when handle menu closes
     gui.manager.textselect.activate_select_for_text(False)
     
@@ -201,7 +217,8 @@ class ItemGroup(compound.Compound):
     next_item_index = self.active_index + direction
     # Close menu if at menu boundary, out of range
     if next_item_index >= len(self) or next_item_index < 0 :
-      self.close(event)
+      self.close(event) # deactivates item control
+      gui.manager.control.control_manager.activate_root_control()
     else:
       self._highlight_current(event, False)
       current_controlee = self[self.active_index].controlee  # TODO property
@@ -212,9 +229,11 @@ class ItemGroup(compound.Compound):
       self._activate_current(event, current_controlee) # Side affect: deactivate current control
       self._highlight_current(event, True)
 
+  @dump_event
   def next(self, event):
     self._change_item(event, 1)
    
+  @dump_event
   def previous(self, event):
     self._change_item(event, -1)
     
@@ -222,12 +241,11 @@ class ItemGroup(compound.Compound):
   @dump_event
   def _activate_current(self, event, controlee):
     # print self.[self.active_index].get_rect()
-    gui.manager.control.control_manager.activate_control(self[self.active_index], 
-      event, controlee)
+    gui.manager.control.control_manager.activate_control(self[self.active_index], controlee)
       
-  def _deactivate_current(self, event):
-    gui.manager.control.control_manager.deactivate_control(self[self.active_index],
-       event)
+  def _deactivate_current(self):
+    # assert current item of menu is current control
+    gui.manager.control.control_manager.deactivate_current_control()
 
   def _highlight_current(self, event, direction):
     self[self.active_index].highlight(direction)

@@ -38,6 +38,7 @@ class MenuItem(gui.itemcontrol.ItemControl):
     ''' RMB Release: execute, close menu '''
     self.command(self.controlee, event)
     self.group_manager.close(event)
+    gui.manager.control.control_manager.activate_root_control()
   
   @dump_event
   def start_drag(self, event):
@@ -67,10 +68,18 @@ class MenuItem(gui.itemcontrol.ItemControl):
     elif event.y > self.bounds.y + self.bounds.height:  # below
       self.group_manager.next(event)
     elif event.x < self.bounds.x : # left
+      # Exit left means close the menu and put root control in charge
+      print "Exit left"
       self.group_manager.close(event)
+      gui.manager.control.control_manager.activate_root_control()
     elif event.x > self.bounds.x + self.bounds.width: # right
+      # For now, close menu.
       # TODO traditional cascading
       self.group_manager.close(event)
+      gui.manager.control.control_manager.activate_root_control()
+    else:
+      # Robustness. control.py determined pointer is outside bounds.
+      raise RuntimeError("Missing case")
    
   # @dump_event
   def mouse_move(self, event):

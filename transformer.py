@@ -31,7 +31,7 @@ class Transformer(drawable.Drawable):
   A transformer (of coordinate systems) 
   '''
 
-  @dump_event
+  #@dump_event
   def __init__(self):
     drawable.Drawable.__init__(self)
     
@@ -207,7 +207,7 @@ class Transformer(drawable.Drawable):
     self.derive_transform()
   
   @view_altering
-  @dump_event
+  #@dump_event
   def move_absolute(self, offset):
     ''' Set translation by offset.'''
     self.translation = offset.copy()

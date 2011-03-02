@@ -65,6 +65,10 @@ class GuiControl(morph.morph.PrimitiveMorph):
     ''' Represent by the class name'''
     return self.__class__.__name__
     
+  @dump_event
+  def deactivate(self):
+    ''' Override if any special deactivation.  Most controls pass. '''
+    pass
     
   def _reset_state(self):
     '''
@@ -93,7 +97,7 @@ class GuiControl(morph.morph.PrimitiveMorph):
   '''
   GTK callbacks
   '''
-  @dump_event
+  #@dump_event
   def motion_notify_event_cb(self, widget, event):
     '''
     Fundamental mouse interaction with controls:

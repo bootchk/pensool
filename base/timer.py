@@ -10,7 +10,7 @@ import gobject
 
 class Timer(object):
   def __init__(self):
-    timer_id = None
+    self.timer_id = None
     
   def start(self, time, callback):
     # in milliseconds
@@ -20,8 +20,9 @@ class Timer(object):
     '''
     Stop timer.
     '''
-    gobject.source_remove(self.timer_id)
-    self.timer_id = None
+    if self.timer_id:
+      gobject.source_remove(self.timer_id)
+      self.timer_id = None
     
   def was_canceled(self):
     '''

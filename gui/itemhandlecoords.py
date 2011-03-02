@@ -12,6 +12,7 @@ import gui.manager.focus
 import gui.manager.drop
 import morph.glyph
 import base.alert
+import scheme
 
 
 class MoveHandleItem(itemhandle.HandleItem):
@@ -24,6 +25,7 @@ class MoveHandleItem(itemhandle.HandleItem):
   
   def __init__(self, command):
     itemhandle.HandleItem.__init__(self, command)
+    # unfilled rect
     self.append(morph.glyph.RectGlyph())
     self.scale_uniformly(ITEM_SIZE)
   
@@ -48,7 +50,12 @@ class MoveHandleItem(itemhandle.HandleItem):
     to which this item belongs.
     '''
     print "Old controlee", self.controlee
-    if len(self.controlee) > 1:
+    ## OLD if len(self.controlee) > 1:
+    if self.controlee.is_top():
+      scheme.zoom(False, event)
+    if self.controlee.is_primitive():
+      base.alert.alert("Can't scroll down past primitive morph")
+    else:
       # Iterate children to find first at hotspot of handle menu.
       # TODO If more than one at hotspot?
       # Then cycle through siblings ie walk depth first
@@ -60,10 +67,7 @@ class MoveHandleItem(itemhandle.HandleItem):
           return
       # Assert one must be at this event, else we would not have opened menu.
       raise RuntimeError("No morph found for handle menu")
-    else:
-    ## OLD except TypeError: # if not iterable
-      base.alert.alert("Can't scroll past primitive morph")
-  
+
   
   @dump_event
   def scroll_up(self, event):
@@ -71,12 +75,16 @@ class MoveHandleItem(itemhandle.HandleItem):
     Filtered event from GuiControl: scroll wheel UP in a handle item.
     Parent of this item's controlee becomes new controlee.
     '''
-    self._change_controlee(self.controlee.parent)
+    if self.controlee.is_top():
+      # FIXME hotspot of handle menu, not the event
+      scheme.zoom(True, event)
+    else:
+      self._change_controlee(self.controlee.parent)
   
   
   # start_drag inherited
   
-  @dump_event
+  #@dump_event
   def continue_drag(self, event, offset, increment):
     '''
     animate/ghost controlee being dragged
@@ -110,7 +118,9 @@ class ResizeHandleItem(itemhandle.HandleItem):
   '''
   def __init__(self, command):
     itemhandle.HandleItem.__init__(self, command)
-    self.append(morph.glyph.CircleGlyph())
+    # filled rect
+    self.append(morph.glyph.RectGlyph())
+    self.style.filled = True
     self.scale_uniformly(ITEM_SIZE)
   
 

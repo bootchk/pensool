@@ -8,11 +8,11 @@ Fade has only one step, it is not a slow dissolve.
 '''
 
 import base.timer as timer
+import  config
 from decorators import *
 
 faded_callback = None
 fade_timer = timer.Timer()
-TIME = 500
 
 
 def register_callback(func):
@@ -25,13 +25,17 @@ def register_callback(func):
   
 def focus_lost():
   ''' Start timer for fading '''
-  fade_timer.start(TIME, timeout_cb)
+  fade_timer.start(config.GUI_FADE_TIME, timeout_cb)
   
 def focus_gained():
-  ''' There is new focus, possibly on the same morph '''
+  ''' 
+  There is new focus, possibly on the same morph. 
+  Does NOT assume focus is fading, i.e. a callback is registered.
+  '''
   fade_timer.cancel()
-  # immediately fade.  If same morph, focus must follow.
-  faded_callback()
+  # immediately fade.  If same morph, caller must focus it again.
+  if faded_callback:
+    faded_callback()
   
     
 @dump_event

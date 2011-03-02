@@ -7,7 +7,6 @@ See itemhandle.py for the handle subclass of menu item.
 '''
 
 import menu
-import scheme
 import base.vector as vector
 import gui.manager.handle
 import layout
@@ -133,7 +132,7 @@ class HandleGroup(menu.ItemGroup):
     """
       
   @view_altering
-  @dump_event
+  #@dump_event
   def slide(self, pixels_off_axis):
     '''
     Slide menu substantially orthogonal to original axis.
@@ -150,16 +149,13 @@ class HandleGroup(menu.ItemGroup):
     
     self.position() # Update menu's transform
     
-    # Pick at the hotspot of the menu, thats where a handle should be.
+    # Pick at the hotspot of the menu, where a handle might be.
     self.handle = gui.manager.handle.pick(self.layout_spec.hotspot)  # If slide to handle on controllee
     # Handle menu still tracks morph.
     if self.handle:
+      # Handle is sub-operand of any future operation.
       print "!!!!!!!!!!!!!!!!!!!! Picked handle."
-    else :
-      print "!!!!!!!!!!!!!!!!!!!! Lost handle."
-      
-      
-   
+
       
 
   @transforming
