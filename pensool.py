@@ -17,6 +17,9 @@ import gui.backgroundcontrol
 import scheme
 from config import *
 
+# comment this out if you prefer stderr for exceptions
+import share.gui_gtkexcepthook  # show dialog on exception
+
 # FIXME little used
 import collections
 Rectangle = collections.namedtuple('Rectangle', 'x y width height')

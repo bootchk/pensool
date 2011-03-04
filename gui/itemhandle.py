@@ -62,7 +62,11 @@ class HandleItem(gui.itemcontrol.ItemControl):
     # More generally, execute command
     # where the command is to open another menu
     # but this command is not undoable?
-    self.command(event, self.controlee)
+    # self.command(event, self.controlee)
+    
+    # For now, do nothing except...
+    gui.manager.control.control_manager.activate_root_control()
+    
     
   @dump_event
   def start_drag(self, event):

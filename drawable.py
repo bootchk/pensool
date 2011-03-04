@@ -221,6 +221,8 @@ class Drawable(object):
   Flavors correspond to Cairo, except we simulate in_path() which Cairo omits.
     
   These can be called outside of a walk, i.e. they set up a new context.
+  !!! @picking decorator sets up the context and recursively put_path_to.
+  So this is for composite and primitive drawables.
   '''
   
   @picking

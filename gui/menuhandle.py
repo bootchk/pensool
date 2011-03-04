@@ -24,8 +24,8 @@ class HandleGroup(menu.ItemGroup):
     
   Handle menu commands dynamically change by type of morph
   '''
-  def __init__(self):
-    super(HandleGroup, self).__init__()
+  def __init__(self, name):
+    super(HandleGroup, self).__init__(name)
     self.handle = None  # Picked handle of controlee.
       
     

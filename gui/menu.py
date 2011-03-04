@@ -12,7 +12,6 @@ There is another manager that enforces a policy over the whole application.
 import compound
 ## import gui.manager.focus
 import gui.manager.control
-import scheme
 from decorators import *
 import layout
 import base.vector as vector
@@ -75,7 +74,7 @@ class ItemGroup(compound.Compound):
   The origin is where the user clicked.
   '''
   
-  def __init__(self):
+  def __init__(self, name):
     compound.Compound.__init__(self)
     self.active_index = 0
     '''
@@ -84,6 +83,7 @@ class ItemGroup(compound.Compound):
     '''
     self.controlee = None
     self.layout_spec = layout.LayoutSpec()
+    self.name = name
     
 
   #@dump_event
@@ -129,9 +129,7 @@ class ItemGroup(compound.Compound):
     # Some menu types layout after open time.
     self.layout(event)  # FIXME is event needed
     
-    # Only one menu can be open at a time
-    assert len(scheme.widgets) == 0
-    scheme.widgets.append(self)
+    gui.manager.control.control_manager.add_to_drawlist(self)
     
     # Make open menu display an active item.
     self.active_index = self.layout_spec.opening_item   # not necessarily first
@@ -160,12 +158,7 @@ class ItemGroup(compound.Compound):
     next control, typically the background manager or another menu.
     Note that focus is not necessarily lost: caller must unfocus if appropriate.
     '''
-    try:
-      scheme.widgets.remove(self) # hide
-    except ValueError:
-      print "Failed to remove", self
-      print "Scheme.widgets", scheme.widgets
-      raise
+    gui.manager.control.control_manager.remove_from_drawlist(self)
     ## gui.manager.focus.unfocus()  # any controlee, should invalidate
     # Deactivate current menu item, which is receiving events
     self._deactivate_current() # leaves no control active
@@ -173,7 +166,8 @@ class ItemGroup(compound.Compound):
     # FIXME for now, deactivate text select when handle menu closes
     gui.manager.textselect.activate_select_for_text(False)
     
-    
+  
+  # TODO this is duplicative: use parent attribute instead
   def add(self, item):
     ''' Append item.
     Overrides composite.append() make item reference its manager.
@@ -221,12 +215,14 @@ class ItemGroup(compound.Compound):
       gui.manager.control.control_manager.activate_root_control()
     else:
       self._highlight_current(event, False)
-      current_controlee = self[self.active_index].controlee  # TODO property
+      current_controlee = self[self.active_index].controlee
       self.active_index = next_item_index
       # Assert group already laid out
       # Next control controls current controlee ???
       ## Was self.controlee
-      self._activate_current(event, current_controlee) # Side affect: deactivate current control
+      gui.manager.control.control_manager.deactivate_current_control()
+      # TODO clarify difference between current control and current item
+      self._activate_current(event, current_controlee)
       self._highlight_current(event, True)
 
   @dump_event
@@ -240,6 +236,10 @@ class ItemGroup(compound.Compound):
     
   @dump_event
   def _activate_current(self, event, controlee):
+    '''
+    Make current menu item receive events.
+    This is separate from drawing: the menu draws current item.
+    '''
     # print self.[self.active_index].get_rect()
     gui.manager.control.control_manager.activate_control(self[self.active_index], controlee)
       
@@ -251,7 +251,7 @@ class ItemGroup(compound.Compound):
     self[self.active_index].highlight(direction)
 
   def __repr__(self):
-    return "Menu"
+    return self.__class__.__name__ + self.name + str(id(self))
 
 
 

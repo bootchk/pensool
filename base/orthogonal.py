@@ -62,7 +62,7 @@ Examples:
 (0.0,-1.0)
 """
 
-from gtk import gdk
+# from gtk import gdk
 import math
 import base.vector as vector
 import base.bounds as bounds

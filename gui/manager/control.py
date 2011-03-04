@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from decorators import *
+import scheme
 import port
 
 class ControlsManager():
@@ -45,22 +46,15 @@ class ControlsManager():
       port.view.da.disconnect(self.current_key_handler)
     
     
-  #@dump_event
+  @dump_event
   def activate_control(self, control, controlee):
     '''
     Activate control.
     Also change focus???
     '''
-    if control.has_focus:
-      print "Redundant activation??", control
+    # Must be preceded by deactivate or have just started app
+    assert self.current_control is None
     
-    '''
-    if event is not None:
-      # Position center of control at event
-      # !!! If not centered, need debouncing, 
-      # since mouse might jiggle right back out
-      control.center_at(event)
-    '''
     # Reconnect events.   Mouse and keyboard.
     self.current_press_handler = port.view.da.connect('button-press-event', control.button_press_event_cb)
     self.current_motion_handler = port.view.da.connect('motion-notify-event', control.motion_notify_event_cb)
@@ -72,6 +66,7 @@ class ControlsManager():
     # FIXME current_control should be None already
     if self.current_control is not None:
       self.current_control.take_focus(False)
+      
     control.take_focus(True)
       
     self.current_control = control
@@ -101,9 +96,37 @@ class ControlsManager():
     assert self.current_control is None
     self.activate_control(self.root_control, self.root_control)
 
+  
+  '''
+  The drawing portion of control management: only one control is drawn at a time.
+  Just like only one control is receiving events at a  time.
+  Note that the same control being drawn (e.g. a menu)
+  might not be the control receiving events (e.g. an item of the menu.)
+  '''
+  
+  def add_to_drawlist(self, drawable):
+    '''
+    '''
+    print ">>>>>>>>>>>>>>>Adding control", drawable
+    # Only one control can be open at a time
+    assert len(scheme.widgets) == 0
+    scheme.widgets.append(drawable)
+  
+  @dump_event
+  def remove_from_drawlist(self, drawable):
+    try:
+      scheme.widgets.remove(drawable) # hide
+    except ValueError:
+      print "Failed to remove", drawable
+      print "Scheme.widgets", scheme.widgets
+      raise
 
 
-
+  def get_active_control(self):
+    ''' Return the active control '''
+    return self.current_control
+    
+    
 # singleton instance, initialized when port is known
 control_manager = None
 

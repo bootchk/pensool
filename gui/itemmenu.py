@@ -61,6 +61,11 @@ class MenuItem(gui.itemcontrol.ItemControl):
     Tell my group manager which direction to go,
     depending on the side exited.
     For traditional, square menu items.
+    
+    !!! Note that control.py may use a different method to determine exit.
+    Specifically, it may use in_fill() which is slightly different from bounds
+    (because of inked strokes.)
+    So it is not an error to get here and still be in bounds.
     '''
     # Note both bounds and event in DCS
     if event.y < self.bounds.y:  # above
@@ -78,8 +83,9 @@ class MenuItem(gui.itemcontrol.ItemControl):
       self.group_manager.close(event)
       gui.manager.control.control_manager.activate_root_control()
     else:
-      # Robustness. control.py determined pointer is outside bounds.
-      raise RuntimeError("Missing case")
+      # control.py determined pointer is outside fill.
+      # If control.py
+      print "Exited item but not out of bounds."
    
   # @dump_event
   def mouse_move(self, event):
@@ -105,5 +111,10 @@ class TextMenuItem(MenuItem):
     self.append(text_morph)
     # !!! Must scale my morph the parent of the textglyph, not self
     text_morph.relative_scale(config.ITEM_SIZE*2, config.ITEM_SIZE) # size
+    
+  def __repr__(self):
+    ''' For debugging, represent self by my text. '''
+    return "TextMenuItem" + str(id(self)) + self[0].__repr__()
+    
 
     

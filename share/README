@@ -1,0 +1,14 @@
+Mar. 2011
+L. Konneker
+
+The files in this directory were copied from the web.
+The purpose of the files can be discovered by a web search.
+
+I wish they were modules in the standard Python distribution.
+
+They should not be changed.
+
+Note the directory is a module and has an empty __init__.py
+
+
+

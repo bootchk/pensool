@@ -40,25 +40,34 @@ def build_all(a_printerport, a_fileport):
 def build_traditional_items(printerport, fileport):
   '''
   Menu items represent functionality.
-  They can be in many menus, or arranged by preference or dynamically.
+  Their functionality (commands) can be in many menus,
+  but items themselves must be in only one menu,
+  since items call on their unique parent.
+  TODO: arranged by preference or dynamically?
   '''
   # menu_item = gui.itemmenu.IconMenuItem( command.NULL_COMMAND )
   global save_mi, print_mi
   global cut_mi, copy_mi, paste_mi
+  global doc_cut_mi, doc_copy_mi, doc_paste_mi
   
   save_mi = gui.itemmenu.TextMenuItem("Save", command.Command(fileport.do_save))
   print_mi = gui.itemmenu.TextMenuItem("Print", command.Command(printerport.do_print))
   
+  # TODO share commands
   cut_mi = gui.itemmenu.TextMenuItem("Cut", command.Command(edit.do_cut))
   copy_mi = gui.itemmenu.TextMenuItem("Copy", command.Command(edit.do_copy))
   paste_mi = gui.itemmenu.TextMenuItem("Paste", command.Command(edit.do_paste))
+  
+  doc_cut_mi = gui.itemmenu.TextMenuItem("Cut", command.Command(edit.do_cut))
+  doc_copy_mi = gui.itemmenu.TextMenuItem("Copy", command.Command(edit.do_copy))
+  doc_paste_mi = gui.itemmenu.TextMenuItem("Paste", command.Command(edit.do_paste))
   
   
 def build_handle_menu(edit_menu):
   '''
   Handle menu that pops up on edges of graphics.
   '''
-  handle_group = gui.menuhandle.HandleGroup()
+  handle_group = gui.menuhandle.HandleGroup("Handle")
   
   handle_control = gui.itemhandlecoords.ResizeHandleItem( command.NULL_COMMAND )
   handle_group.add(handle_control)
@@ -74,10 +83,10 @@ def build_document_menu(printerport, fileport):
   '''
   Classic style pop-up menu
   '''
-  menu_group = gui.menutraditional.MenuGroup()
-  menu_group.add(cut_mi)
-  menu_group.add(copy_mi)
-  menu_group.add(paste_mi)
+  menu_group = gui.menutraditional.MenuGroup("Document")
+  menu_group.add(doc_cut_mi)
+  menu_group.add(doc_copy_mi)
+  menu_group.add(doc_paste_mi)
   # TODO separator
   menu_group.add(save_mi)
   menu_group.add(print_mi)
@@ -89,7 +98,7 @@ def build_edit_menu(printerport, fileport):
   Build context menu (RMB) for morphs.
   Style: Classic pop-up menu
   '''
-  menu_group = gui.menutraditional.MenuGroup()
+  menu_group = gui.menutraditional.MenuGroup("Edit")
   menu_group.add(cut_mi)
   menu_group.add(copy_mi)
   menu_group.add(paste_mi)
