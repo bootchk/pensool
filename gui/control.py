@@ -65,7 +65,7 @@ class GuiControl(morph.morph.PrimitiveMorph):
     ''' Represent by the class name'''
     return self.__class__.__name__
     
-  @dump_event
+  #@dump_event
   def deactivate(self):
     ''' Override if any special deactivation.  Most controls pass. '''
     pass
@@ -81,7 +81,7 @@ class GuiControl(morph.morph.PrimitiveMorph):
     self.pointer_DCS = None # FIXME a singleton?
 
 
-  @dump_return
+  #@dump_return
   def is_in_control_area(self, event):
     '''
     Is the event in the hot area?
@@ -97,7 +97,7 @@ class GuiControl(morph.morph.PrimitiveMorph):
   '''
   GTK callbacks
   '''
-  @dump_event
+  #@dump_event
   def motion_notify_event_cb(self, widget, event):
     '''
     Fundamental mouse interaction with controls:

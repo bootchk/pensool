@@ -29,10 +29,11 @@ import base.timer as timer
 import config
 from decorators import *
 
-# globals
+# global state
 state = None
-previous_point = vector.Vector(0,0)
-previous_time = 0
+previous_point = None
+previous_time = None
+
 pointer_timer = timer.Timer()
 stopped_callback = None
 
@@ -45,12 +46,23 @@ def register_callback(func):
   global stopped_callback
   stopped_callback = func
 
+
+def reset():
+  ''' Reset to initial, null state. '''
+  global state, previous_point, previous_time
+  
+  state = None
+  previous_point = None
+  previous_time = None
+  
+  
 def cancel_timer():
   ''' 
   Cancel my timer. Usually means pointer manager is not being used.
   See below: decide_stopped() may later be called and can restart timer.
   '''
   pointer_timer.cancel()
+
 
 # @dump_return
 def decide_stopped(event):
@@ -67,6 +79,12 @@ def decide_stopped(event):
   distance = motion_vector.length()
   elapsed = event.time - previous_time
   previous_time = event.time
+  
+  if state is None: # First motion after a reset
+    state = "moving"
+    assert previous_point is not None and previous_time is not None
+    return
+    
   if elapsed <= 0:
     # event.time rolled over, wait for another mouse move.
     # Or, mouse moving so fast the event.time is the same,
@@ -107,7 +125,7 @@ def timeout_cb():
   '''
   global state, pointer_timer
   
-  if not pointer_timer.was_canceled():
+  if not pointer_timer.was_canceled():  # Avoid race
     if state is "slowed" or state is "stopped":
       state = "stopped"
       # callback now, if pointer is not moving won't be move events

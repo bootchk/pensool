@@ -100,15 +100,16 @@ class DrawHandleItem(itemhandle.HandleItem):
   def drop(self, source, event, offset, source_control):
     '''
     Some control was the target of a drop that started in this control.
-    Leave the line as last ghosted.
+    (Note that usually the background control is active now and called this method.)
+    Leave the morph as last ghosted.
     '''
     # TODO more precisely, the point on the controlee
     # TODO anchor line end at drag begin
     '''
     Notes about wrapping up a drag:
     assert the gui.manager.drop reset itself.
-    This control might not be reset from the dragging state
-    (if the mouse never left this control.)
+    This control might not be reset from the dragging state (if the mouse never left this control.)
+    If the mouse exited this control, the background control has been in charge of the drag.
     '''
     pass
 

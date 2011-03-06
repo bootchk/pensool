@@ -26,10 +26,12 @@ def build_all(a_printerport, a_fileport):
   # Context menus of traditional menu style
   edit_menu = build_edit_menu(a_printerport, a_fileport)
   document_menu = build_document_menu(a_printerport, a_fileport)
+  resize_menu = build_dummy_menu(resize_mi)
+  draw_menu = build_dummy_menu(draw_mi)
 
   # Handle menu type
   global handle_menu
-  handle_menu = build_handle_menu(edit_menu)
+  handle_menu = build_handle_menu(edit_menu, resize_menu, draw_menu)
 
   # Control for the document, the background
   global bkgd_control
@@ -49,6 +51,7 @@ def build_traditional_items(printerport, fileport):
   global save_mi, print_mi
   global cut_mi, copy_mi, paste_mi
   global doc_cut_mi, doc_copy_mi, doc_paste_mi
+  global resize_mi, draw_mi
   
   save_mi = gui.itemmenu.TextMenuItem("Save", command.Command(fileport.do_save))
   print_mi = gui.itemmenu.TextMenuItem("Print", command.Command(printerport.do_print))
@@ -62,18 +65,21 @@ def build_traditional_items(printerport, fileport):
   doc_copy_mi = gui.itemmenu.TextMenuItem("Copy", command.Command(edit.do_copy))
   doc_paste_mi = gui.itemmenu.TextMenuItem("Paste", command.Command(edit.do_paste))
   
+  resize_mi = gui.itemmenu.TextMenuItem("Resize TODO", command.NULL_COMMAND)
+  draw_mi = gui.itemmenu.TextMenuItem("Draw TODO", command.NULL_COMMAND)
   
-def build_handle_menu(edit_menu):
+def build_handle_menu(edit_menu, resize_menu, draw_menu):
   '''
   Handle menu that pops up on edges of graphics.
+  Each has a RMB popup menu.
   '''
   handle_group = gui.menuhandle.HandleGroup("Handle")
   
-  handle_control = gui.itemhandlecoords.ResizeHandleItem( command.NULL_COMMAND )
+  handle_control = gui.itemhandlecoords.ResizeHandleItem(resize_menu)
   handle_group.add(handle_control)
-  handle_control = gui.itemhandlecoords.MoveHandleItem( command.Command(edit_menu.open))
+  handle_control = gui.itemhandlecoords.MoveHandleItem(edit_menu)
   handle_group.add(handle_control)
-  handle_control = gui.itemhandleline.DrawHandleItem( command.NULL_COMMAND )  # FIXME
+  handle_control = gui.itemhandleline.DrawHandleItem(draw_menu)
   handle_group.add(handle_control)
   
   return handle_group
@@ -103,4 +109,11 @@ def build_edit_menu(printerport, fileport):
   menu_group.add(copy_mi)
   menu_group.add(paste_mi)
   return menu_group
+  
+  
+def build_dummy_menu(item):
+  menu_group = gui.menutraditional.MenuGroup("Dummy")
+  menu_group.add(item)
+  return menu_group
+  
 

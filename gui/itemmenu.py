@@ -8,12 +8,12 @@ import config
 import base.vector as vector
 
 
-class MenuItem(gui.itemcontrol.ItemControl):
+class MenuItem(gui.itemcontrol.CommandItemControl):
   '''
   A classic menu item control:
     -appears anywhere (locatable)
     -fixed location after appears
-    -doesn't dissappear on mouseexit
+    -not necessarily dissappear on mouse_exit (only on menu close)
   
   For use in menus:
   
@@ -26,7 +26,6 @@ class MenuItem(gui.itemcontrol.ItemControl):
   
   '''
   Button release: choose menu item.
-    
   '''
   @dump_event
   def button_release_left(self, event):

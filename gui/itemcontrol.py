@@ -4,6 +4,9 @@ import gui.control
 from gtk import gdk
 from decorators import *
 
+# temporary
+import gui.manager.control
+
 
 
 
@@ -27,23 +30,25 @@ class ItemControl(gui.control.GuiControl):
   
   Inherits GuiControl.callbacks(), draw(), __init__
   '''
-  
-  def __init__(self, command):
-    '''
-    Every item has a command, could be NULL_COMMAND
-    '''
-    gui.control.GuiControl.__init__(self) # super
-    self.command = command
-    
+
+  # This is only special behaviour.
+  # TODO why not use self.parent?
   def set_group_manager(self, manager):
     self.group_manager = manager
 
+  # Temporary placeholders.  These should be implemented in subclasses.
+  # Also, a button may have been pressed, exited the menu item, 
+  # another handle menu created, then released.
+  # That may not be handled correctly.
+  # FIXME
   def button_release_left(self, event):
     self.group_manager.close(event)
+    gui.manager.control.control_manager.activate_root_control()
     print "Item clicked without an action"
   
   def button_release_right(self, event):
     self.group_manager.close(event)
+    gui.manager.control.control_manager.activate_root_control()
     print "Item clicked without an action"
   
   #FIXME are these in guicontrol 
@@ -56,7 +61,42 @@ class ItemControl(gui.control.GuiControl):
     drag start constraint.
     '''
 
-  
+ 
+class CommandItemControl(ItemControl):
+  '''
+  An item that executes a command.
+  '''
+  def __init__(self, command):
+    '''
+    Has a command, could be NULL_COMMAND.
+    
+    After the command is executed,
+    usually the parent menu (item group) is finished,
+    but the higher menu may remain (if a cascading menu)
+    or be restarted.
+    '''
+    super(ItemControl, self).__init__()
+    self.command = command
+    
+  # TODO the button behaviour should be defined here instead of in subclasses
+    
+ 
+class PopupItemControl(ItemControl):
+  '''
+  An item that popups a menu.
+  '''
+  def __init__(self, menu):
+    '''
+    Has a menu.
+    
+    After the command is executed,
+    usually the parent menu (item group) is finished,
+    but the higher menu may remain (if a cascading menu)
+    or be restarted.
+    '''
+    super(ItemControl, self).__init__()
+    self.menu = menu
+
 
 
 

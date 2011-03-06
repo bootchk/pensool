@@ -154,7 +154,7 @@ class Transformer(drawable.Drawable):
     
   # This will alter the view, but for now its broken on retained transform
   # @view_altering
-  @dump_return
+  # @dump_return
   def set_dimensions(self, dimensions):
     '''
     Set the translation and scale (not rotation) of an object.
@@ -170,6 +170,7 @@ class Transformer(drawable.Drawable):
     self.translation = vector.Vector(dimensions.x, dimensions.y)
     self.scale = vector.Vector(dimensions.width/1.0, dimensions.height/1.0)
     self.derive_transform()
+    return self.transform # debug
 
   def set_translation(self, point):
     '''

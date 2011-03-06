@@ -31,11 +31,11 @@ PENSOOL_PICK_PEN_WIDTH = 3  # width of pen in pixels for picking
 PENSOOL_LINE_CAP_SQUARE = cairo.LINE_CAP_SQUARE
 
 # gui.manager.fade
-GUI_FADE_TIME = 500 # mSec delay before handles dissappear
+GUI_FADE_TIME = 500 # mSec delay before handles dissappear from recently focused morph
 
 # gui.manager.pointer
-GUI_MOVING_POPUP_TIME = 500 # mSec delay after pointer stops before menu appears
-GUI_MOVING_SLOWING_THRESHOLD = 0.1  # pixels per mSec below which pointer stopped
+GUI_MOVING_POPUP_TIME = 1000 # mSec delay after pointer stops before handle menu appears in background
+GUI_MOVING_SLOWING_THRESHOLD = 0.1  # pixels per mSec below which pointer is considered stopped
 
 
 

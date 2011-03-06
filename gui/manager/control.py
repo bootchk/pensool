@@ -46,7 +46,7 @@ class ControlsManager():
       port.view.da.disconnect(self.current_key_handler)
     
     
-  @dump_event
+  #@dump_event
   def activate_control(self, control, controlee):
     '''
     Activate control.
@@ -112,7 +112,7 @@ class ControlsManager():
     assert len(scheme.widgets) == 0
     scheme.widgets.append(drawable)
   
-  @dump_event
+  #@dump_event
   def remove_from_drawlist(self, drawable):
     try:
       scheme.widgets.remove(drawable) # hide

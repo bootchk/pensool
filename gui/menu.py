@@ -212,6 +212,7 @@ class ItemGroup(compound.Compound):
     # Close menu if at menu boundary, out of range
     if next_item_index >= len(self) or next_item_index < 0 :
       self.close(event) # deactivates item control
+      gui.manager.focus.unfocus()
       gui.manager.control.control_manager.activate_root_control()
     else:
       self._highlight_current(event, False)
@@ -234,7 +235,7 @@ class ItemGroup(compound.Compound):
     self._change_item(event, -1)
     
     
-  @dump_event
+  #@dump_event
   def _activate_current(self, event, controlee):
     '''
     Make current menu item receive events.

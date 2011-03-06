@@ -115,7 +115,7 @@ class BackgroundControl(gui.control.GuiControl):
     self.set_background_bounds()
   
   
-  @dump_event
+  #@dump_event
   def motion_notify_event_cb(self, widget, event):
     '''
     Pointer move event from GUI toolkit.

@@ -17,7 +17,7 @@ MOUSE_OFF_AXIS_PIXELS = 2
 
 
 
-class HandleItem(gui.itemcontrol.ItemControl):
+class HandleItem(gui.itemcontrol.PopupItemControl):
   '''
   A handle control:
     -appears on the edge of a controlee
@@ -55,17 +55,14 @@ class HandleItem(gui.itemcontrol.ItemControl):
     print "Handle context menu"
     # Close the open handle menu.
     # The drag for the context menu takes the mouse away from the morph.
+    # TODO possibly a scrolling menu, leave the handle menu open?
     self.group_manager.close(event)
     # Note focus is not changed if a context menu is opened.
-    # Open context menu on controlee
-    ## control_instances.edit_menu.open(event, self.controlee)
-    # More generally, execute command
-    # where the command is to open another menu
-    # but this command is not undoable?
-    # self.command(event, self.controlee)
-    
-    # For now, do nothing except...
-    gui.manager.control.control_manager.activate_root_control()
+    # Open popup menu on controlee
+    self.menu.open(event, self.controlee)
+   
+    ## For now, do nothing except...
+    ## gui.manager.control.control_manager.activate_root_control()
     
     
   @dump_event
@@ -73,12 +70,12 @@ class HandleItem(gui.itemcontrol.ItemControl):
     ''' Mouse departed item with button down. '''
     self.group_manager.close(event)  # close menu
     # Remain focused on operand morph while dragging?
-    gui.manager.control.control_mgr.activate_root_control() # backgroundmgr
+    gui.manager.control.control_manager.activate_root_control() # backgroundmgr
     gui.manager.drop.dropmgr.begin(event, self.controlee, self)
     # After this, events go to backgroundmgr, passed to dragee.continue_drag()
   
     
-  @dump_event
+  #@dump_event
   def mouse_move(self, event):
     '''
     Mouse moved inside this control.
