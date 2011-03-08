@@ -110,6 +110,7 @@ class DrawHandleItem(itemhandle.HandleItem):
     assert the gui.manager.drop reset itself.
     This control might not be reset from the dragging state (if the mouse never left this control.)
     If the mouse exited this control, the background control has been in charge of the drag.
+    
     '''
     pass
 

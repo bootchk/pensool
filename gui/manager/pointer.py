@@ -22,22 +22,47 @@ The drawing library is in floating point, why not use mouse position in float?
 In general, it must be prepared for a race condition.
 For example, the user may have just opened a menu using for example a control key,
 and the callback must not interfere.
+
+To test: python -m doctest -v gui/manager/pointer.py
+
+Examples:
+  
+  # Normal sequence
+  >>> import collections
+  >>> import time
+  >>> Event = collections.namedtuple('Event', 'x y time')
+  >>> foo = Event(1,1, 1)
+  >>> bar = Event(1,1, 5)
+  >>> register_callback(dummy_callback)
+  >>> decide_stopped(foo)
+  >>> decide_stopped(bar)
+  >>> time.sleep(2)
+  
+  # How to get a callback?
+  
 '''
 
 import base.vector as vector
 import base.timer as timer
 import config
 from decorators import *
+import collections
+
+Event = collections.namedtuple('Event', 'x y time')
 
 # global state
 state = None
-previous_point = None
-previous_time = None
+previous_event = None
 
 pointer_timer = timer.Timer()
 stopped_callback = None
 
 
+# For testing
+def dummy_callback():
+  print "Callback called."
+  
+  
 def register_callback(func):
   '''
   Register a function to callback when pointer is stopped.
@@ -49,11 +74,10 @@ def register_callback(func):
 
 def reset():
   ''' Reset to initial, null state. '''
-  global state, previous_point, previous_time
+  global state, previous_event
   
   state = None
-  previous_point = None
-  previous_time = None
+  previous_event = None
   
   
 def cancel_timer():
@@ -71,19 +95,26 @@ def decide_stopped(event):
   given pointer movement event.
   A state machine.
   '''
-  global state, previous_point, previous_time, pointer_timer
+  global state, previous_event, pointer_timer
   
-  move = vector.Vector(event.x, event.y)
-  motion_vector = move - previous_point
-  previous_point = move
-  distance = motion_vector.length()
-  elapsed = event.time - previous_time
-  previous_time = event.time
+  # Copy the event.  event.copy() does not seem to work.
+  event_copy = Event(event.x, event.y, event.time)
   
   if state is None: # First motion after a reset
     state = "moving"
-    assert previous_point is not None and previous_time is not None
+    # !!! a copy.  Seems like gtk might be deallocating the original?
+    previous_event = event_copy 
     return
+  
+  assert previous_event is not None
+  move = vector.Vector(event.x, event.y)
+  print previous_event
+  previous_point = vector.Vector(previous_event.x, previous_event.y)
+  motion_vector = move - previous_point
+  distance = motion_vector.length()
+  elapsed = event.time - previous_event.time
+  
+  previous_event = event_copy
     
   if elapsed <= 0:
     # event.time rolled over, wait for another mouse move.
@@ -129,7 +160,7 @@ def timeout_cb():
     if state is "slowed" or state is "stopped":
       state = "stopped"
       # callback now, if pointer is not moving won't be move events
-      if stopped_callback(previous_point):
+      if stopped_callback(previous_event):
         # Return False so timer quits.  Otherwise it continues.
         return False
       else:

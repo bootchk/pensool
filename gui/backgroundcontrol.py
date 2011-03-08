@@ -166,10 +166,14 @@ class BackgroundControl(gui.control.GuiControl):
   def button_release_left(self, event):
     '''
     This defines that the background manager accepts a left drop.
-    From self into self: becomes drop()
-    Drops from not self to self handled differently, see guicontrol.
+    From self into self: becomes self.drop()
+    Drops from not self to self are handled differently:
+    dropmgr calls the originating control drop() method.
     '''
     gui.manager.drop.dropmgr.end(self, event)
+    # Since a drag is no longer happening, reset the pointer manager
+    # so that further motion delays before picking.
+    gui.manager.pointer.reset()
   
     
   def button_press_right(self, event):
