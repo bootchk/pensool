@@ -88,7 +88,7 @@ class ViewPort(Port):
     '''
     Draw things: model and control groups
     '''
-    print "Expose ************* area", event.area
+    # print "Expose ************* area", event.area
     '''
     !!! Note that due to double-buffering, 
     Cairo contexts created in a GTK+ expose event handler cannot be cached 

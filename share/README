@@ -8,7 +8,7 @@ I wish they were modules in the standard Python distribution.
 
 They should not be changed.
 
-Note the directory is a module and has an empty __init__.py
+Note the directory is a package and has an empty __init__.py
 
 
 

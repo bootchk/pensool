@@ -247,9 +247,9 @@ class GuiControl(morph.morph.PrimitiveMorph):
     receiving events.)
     What if a OS window pops up under the mouse and user moves mouse?
     '''
-    print "WINDOW FOCUSED ................"
+    # print "WINDOW FOCUSED ................"
     # TODO grab_focus() ??  set HAS_FOCUS on the da?
-    return True   # This widget took the focus, don't look further.
+    return False
 
 
 
@@ -265,8 +265,9 @@ class GuiControl(morph.morph.PrimitiveMorph):
     # Tooltips
     if direction:
       # FIXME more specific.  For now, the class of the control.
-      print "Focus", self
-      
+      # print "Focus", self
+      # FIXME log this
+      pass
 
   
  

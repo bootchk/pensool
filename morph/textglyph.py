@@ -8,6 +8,7 @@ import base.vector
 import base.orthogonal as orthogonal
 import config
 import cairo
+import math
 
 
 
@@ -119,7 +120,8 @@ class TextGlyph(glyph.Glyph):
     parent_height = self.parent.scale.y
     parent_width_device, foo = self.parent.retained_transform.transform_distance(parent_width, parent_height)
     # print "Parent width device", parent_width_device, "parent", self.parent
-    pango_width = parent_width_device * pango.SCALE  # Scale to pangounits.
+    # Round up to int
+    pango_width = int(math.ceil(parent_width_device * pango.SCALE))  # Scale to pangounits.
     layout.set_width( pango_width )
     
     layout.set_text(self.text)

@@ -47,7 +47,7 @@ class TextSelectControl(gui.control.GuiControl):
     # Initial scale of insertion bar is size of font.
     # Initial translation of insertion bar is end of text.
     self.position_selection()
-    print "Bounds of initial text select", self.bounds
+    # print "Bounds of initial text select", self.bounds
   
   @dump_return
   def position_selection(self):
