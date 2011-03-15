@@ -137,8 +137,10 @@ class BackgroundControl(gui.control.GuiControl):
       gui.manager.drop.dropmgr.continued(event, self)
     else:   
       # pointer manager decides if stopped and callbacks pick_cb
-      gui.manager.pointer.decide_stopped(event)   
-    return True # Did handle event
+      gui.manager.pointer.decide_stopped(event)
+    # End the chain of emission for signal, enabling pyusecase to intercept.
+    widget.stop_emission('motion-notify-event')
+    return False
 
 
   '''

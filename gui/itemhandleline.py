@@ -30,13 +30,13 @@ class DrawHandleItem(itemhandle.HandleItem):
   @dump_event
   def scroll_down(self, event):
     '''
-    Cycle tool through line kinds.
+    Cycle tool through kinds of glyphs user can drag out.
     '''
     if self.symbol_type == "line":
       self.symbol_type = "rect"
     else:
       self.symbol_type = "line"
-    print ">>>>>>>>>>>>Next line kind", self.symbol_type
+    # print ">>>>>>>>>>>>Next line kind", self.symbol_type
   
   """
   OLD

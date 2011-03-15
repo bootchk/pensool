@@ -108,7 +108,6 @@ def decide_stopped(event):
   
   assert previous_event is not None
   move = vector.Vector(event.x, event.y)
-  print previous_event
   previous_point = vector.Vector(previous_event.x, previous_event.y)
   motion_vector = move - previous_point
   distance = motion_vector.length()

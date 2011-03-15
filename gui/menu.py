@@ -8,6 +8,7 @@ Here the policy is for menus: one active item.
 There is another manager that enforces a policy over the whole application.
 '''
 
+import logging
 
 import compound
 ## import gui.manager.focus
@@ -117,6 +118,7 @@ class ItemGroup(compound.Compound):
     Make visible at event coords.
     Put default item at event.
     '''
+    logging.debug("Open menu" + self.name)
     # Set new controlee, since new_layout_spec may use it.
     assert controlee is not None
     self.controlee = controlee

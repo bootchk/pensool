@@ -6,6 +6,7 @@ Main of drawing app
 
 import gtk
 from gtk import gdk
+import logging
 
 import port
 import drawable
@@ -50,6 +51,8 @@ def foo(accel_group, acceleratable, keyval, modifier):
   print "Accelerator", keyval, modifier
   return True
 
+# config logging to default to root logger on stderr
+logging.basicConfig(level=logging.DEBUG)
 
 # window 
 window = gtk.Window()

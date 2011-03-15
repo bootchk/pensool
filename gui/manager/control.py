@@ -104,11 +104,11 @@ class ControlsManager():
   might not be the control receiving events (e.g. an item of the menu.)
   '''
   
+  #@dump_event
   def add_to_drawlist(self, drawable):
     '''
     '''
-    print ">>>>>>>>>>>>>>>Adding control", drawable
-    # Only one control can be open at a time
+    # Only one control can be displayed at a time
     assert len(scheme.widgets) == 0
     scheme.widgets.append(drawable)
   

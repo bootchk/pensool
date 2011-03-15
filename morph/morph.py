@@ -126,7 +126,7 @@ class Morph(compound.Compound):
       many members: orthogonal to bounding box???
     '''
     if len(self) > 1:
-      print "Orthogonal of a composite morph is orthog to bounding box?????"
+      # print "Orthogonal of a composite morph is orthog to bounding box?????"
       '''
       It might be better to selectively hit only the frame primitive of some composites.
       But is the frame always drawn?
