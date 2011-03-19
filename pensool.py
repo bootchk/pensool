@@ -51,8 +51,15 @@ def foo(accel_group, acceleratable, keyval, modifier):
   print "Accelerator", keyval, modifier
   return True
 
-# config logging to default to root logger on stderr
-logging.basicConfig(level=logging.DEBUG)
+# For now find, the logging config in pwd current working directory
+# FIXME catch file not found
+logging.config.fileConfig("logging.pensool")
+
+# create logger as configured by file
+mylogger = logging.getLogger("pensool")
+
+mylogger.debug('Main')
+
 
 # window 
 window = gtk.Window()

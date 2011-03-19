@@ -1,0 +1,24 @@
+
+# This is a config file for texttest.
+# This is a version for testing pensool app on Linux at development time.
+# This is mostly personal preference with no effect on testing.
+# It should be installed in ~/.texttest
+
+# which viewing app to start when you click on a file
+# Note is is qualified by the name of a file
+[view_program]
+stdout:gedit
+stderr:gedit
+usecase:gedit
+*:gedit
+
+# app to compute diffs after test.  Results are displayed LR window of dynamic test window
+# defaults to tkdiff so the below is not necessary
+#[diff_program]
+#stdout:tkdiff
+
+# This needed so that non-sectioned configs following can be read.
+[end]
+
+# app to start to view diffs when click on file in the dynamic test window
+text_diff_program:tkdiff

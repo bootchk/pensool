@@ -90,6 +90,7 @@ class ConfigureEvent(SignalEvent):
     '''
     return True
  
+    
   def getEmissionArgs(self, argumentString):
     '''
     Return concret toolkit event.
@@ -105,7 +106,7 @@ class ConfigureEvent(SignalEvent):
     event.height = int_args[3]
     return [ event ]
 
-
+"""
 class ExposeEvent(SignalEvent):
   '''
   Expose: an area needs to be redrawn.
@@ -124,8 +125,7 @@ class ExposeEvent(SignalEvent):
     # Not using the count attribute
     return " ".join((self.name, str(event.area.x), str(event.area.y), 
       str(event.area.width), str(event.area.height)))
- 
-  """
+  
   def isStateChange(self):
     ''' 
     True means only capture the final event in a series of these event type.
@@ -133,9 +133,9 @@ class ExposeEvent(SignalEvent):
     you might presume that the last event suffices to test.
     Called at record time.
     '''
+    # TODO For expose events, want compression?
     return True
-  """
- 
+
   def getEmissionArgs(self, argumentString):
     '''
     Return concret toolkit event.
@@ -151,7 +151,7 @@ class ExposeEvent(SignalEvent):
     event.area.height = int_args[3]
     event.count = 0 # Count of following expose events
     return [ event ]
-
+"""
    
 class MotionEvent(SignalEvent):
   signalName = "motion-notify-event"
@@ -171,6 +171,7 @@ class MotionEvent(SignalEvent):
     # Arbitrarily, and just for ease of reading, store as ints
     return " ".join((self.name, str(int(event.x)), str(int(event.y)), str(event.time)))
  
+  """
   def isStateChange(self):
     ''' 
     True means only capture the final event in a series of these event type.
@@ -179,6 +180,15 @@ class MotionEvent(SignalEvent):
     Called at record time.
     '''
     return True
+  """
+ 
+  def isTimed(self, argumentString):
+    '''
+    Return the time from this event if it has one, else None.
+    '''
+    int_args = [int(x) for x in argumentString.split()] # parse and convert to list of ints
+    return int_args[2]
+
  
   def getEmissionArgs(self, argumentString):
     '''
@@ -198,6 +208,11 @@ class MotionEvent(SignalEvent):
 
 # Standard module attribute defining custom widget events
 # List of tuple pairs of widget types and list of events
-customEventTypes = [(gtk.DrawingArea, [ ConfigureEvent, ExposeEvent, MotionEvent])]
+
+# Without expose events
+customEventTypes = [(gtk.DrawingArea, [ ConfigureEvent, MotionEvent])]
+
+# With expose events
+## customEventTypes = [(gtk.DrawingArea, [ ConfigureEvent, ExposeEvent, MotionEvent])]
 
 
