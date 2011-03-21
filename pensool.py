@@ -6,7 +6,12 @@ Main of drawing app
 
 import gtk
 from gtk import gdk
+
+# For logging
+import os
+import os.path
 import logging
+import logging.config
 
 import port
 import drawable
@@ -51,10 +56,17 @@ def foo(accel_group, acceleratable, keyval, modifier):
   print "Accelerator", keyval, modifier
   return True
 
-# For now find, the logging config in pwd current working directory
-# FIXME catch file not found
-logging.config.fileConfig("logging.pensool")
-
+# Find the path to logging config file via env var.
+# Typically "logging.pensool" in the tmp directory which is the sandbox of Texttest
+try:
+  log_config_path = os.environ['LOG_CONF_PATH']
+  if not os.path.exists(log_config_path):
+    print "File not found", log_config_path
+  logging.config.fileConfig(log_config_path)
+except Exception as detail:
+  print "Could not configure logging from file, default to WARNINGs to stdout", detail
+  logging.basicConfig(level=logging.WARNING)
+  
 # create logger as configured by file
 mylogger = logging.getLogger("pensool")
 

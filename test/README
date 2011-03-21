@@ -1,0 +1,3 @@
+Notes about the contents of this directory:
+
+replayer.py is a hacked version of pyusecase/source/lib/.../replayer.py to support timed event playback.
