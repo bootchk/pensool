@@ -14,8 +14,10 @@ import base.command as command
 import edit
 
 handle_menu = None
+document_handle_menu = None
 bkgd_control = None
 document_menu = None
+
 
 def build_all(a_printerport, a_fileport):
   global document_menu
@@ -32,6 +34,8 @@ def build_all(a_printerport, a_fileport):
   # Handle menu type
   global handle_menu
   handle_menu = build_handle_menu(edit_menu, resize_menu, draw_menu)
+  global document_handle_menu
+  document_handle_menu = build_document_handle_menu(edit_menu, resize_menu, draw_menu)
 
   # Control for the document, the background
   global bkgd_control
@@ -67,13 +71,14 @@ def build_traditional_items(printerport, fileport):
   
   resize_mi = gui.itemmenu.TextMenuItem("Resize TODO", command.NULL_COMMAND)
   draw_mi = gui.itemmenu.TextMenuItem("Draw TODO", command.NULL_COMMAND)
-  
+
+
 def build_handle_menu(edit_menu, resize_menu, draw_menu):
   '''
-  Handle menu that pops up on edges of graphics.
+  Handle menu that pops up in background.
   Each has a RMB popup menu.
   '''
-  handle_group = gui.menuhandle.HandleGroup("Handle")
+  handle_group = gui.menuhandle.TrackingHandleGroup("MorphHandle")
   
   handle_control = gui.itemhandlecoords.ResizeHandleItem(resize_menu)
   handle_group.add(handle_control)
@@ -84,6 +89,23 @@ def build_handle_menu(edit_menu, resize_menu, draw_menu):
   
   return handle_group
   
+
+def build_document_handle_menu(edit_menu, resize_menu, draw_menu):
+  '''
+  Handle menu that pops up on edges of graphics.
+  Each has a RMB popup menu.
+  '''
+  handle_group = gui.menuhandle.StationedHandleGroup("DocumentHandle")
+  
+  handle_control = gui.itemhandlecoords.ResizeHandleItem(resize_menu)
+  handle_group.add(handle_control)
+  handle_control = gui.itemhandlecoords.MoveHandleItem(edit_menu)
+  handle_group.add(handle_control)
+  handle_control = gui.itemhandleline.DrawHandleItem(draw_menu)
+  handle_group.add(handle_control)
+  
+  return handle_group
+
 
 def build_document_menu(printerport, fileport):
   '''

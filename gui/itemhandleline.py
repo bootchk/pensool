@@ -13,6 +13,10 @@ import gui.manager.drop
 from decorators import *
 from config import *
 
+import logging
+
+my_logger = logging.getLogger("pensool")
+
 class DrawHandleItem(itemhandle.HandleItem):
   '''
   A handle that stretches a morph from the controlee, when a drag starts within.
@@ -67,6 +71,7 @@ class DrawHandleItem(itemhandle.HandleItem):
     itemhandle.HandleItem.start_drag(self, event)  # Super
     
     # Create
+    my_logger.debug("Created morph")
     if self.symbol_type == "line":
       new_thing = morph.morph.LineMorph() 
     else:

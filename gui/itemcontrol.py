@@ -4,7 +4,6 @@ import gui.control
 from gtk import gdk
 from decorators import *
 
-# temporary
 import gui.manager.control
 
 
@@ -51,6 +50,14 @@ class ItemControl(gui.control.GuiControl):
     gui.manager.control.control_manager.activate_root_control()
     print "Item clicked without an action"
   
+  def close_manager(self):
+    '''
+    Close my manager and relinquish control.
+    '''
+    self.group_manager.close()
+    gui.manager.control.control_manager.activate_root_control()
+
+    
   #FIXME are these in guicontrol 
   # @virtual
   @dump_event

@@ -56,10 +56,9 @@ class MenuItem(gui.itemcontrol.CommandItemControl):
   @dump_event
   def mouse_exit(self, event):
     '''
-    Handler for filtered mouse_exit event.
-    Tell my group manager which direction to go,
-    depending on the side exited.
-    For traditional, square menu items.
+    Handler for filtered mouse_exit event from control.
+    Tell my group manager what to do, depending on the side exited.
+    For traditional, square menu items, oriented vertically!!!
     
     !!! Note that control.py may use a different method to determine exit.
     Specifically, it may use in_fill() which is slightly different from bounds
@@ -72,15 +71,11 @@ class MenuItem(gui.itemcontrol.CommandItemControl):
     elif event.y > self.bounds.y + self.bounds.height:  # below
       self.group_manager.next(event)
     elif event.x < self.bounds.x : # left
-      # Exit left means close the menu and put root control in charge
-      print "Exit left"
-      self.group_manager.close(event)
-      gui.manager.control.control_manager.activate_root_control()
+      # Traditionally exit left means close the menu
+      self.close_manager()
     elif event.x > self.bounds.x + self.bounds.width: # right
-      # For now, close menu.
-      # TODO traditional cascading
-      self.group_manager.close(event)
-      gui.manager.control.control_manager.activate_root_control()
+      # For now, close menu. TODO traditional right cascading
+      self.close_manager()
     else:
       # control.py determined pointer is outside fill.
       # If control.py

@@ -72,7 +72,7 @@ class BackgroundControl(gui.control.GuiControl):
   @dump_event
   def pick_cb(self, point):
     '''
-    A callback.
+    A callback from a timer.
     Called when pointer has stopped moving.
     Point is approximately coordinates of pointer when it stopped.
     Attempt pick (popup on mouseover.)
@@ -100,7 +100,9 @@ class BackgroundControl(gui.control.GuiControl):
       return True
     
     # If nothing else picked, open handle menu on document
-    self._open_menu(point, scheme.model, controlinstances.handle_menu)
+    # But his handle menu does not slide, is fixed at a point.
+    # It opens always vertical, does not slide
+    self._open_menu(point, scheme.model, controlinstances.document_handle_menu)
     return True
     
     # ALT design: wait for control key to open handle menu on doc

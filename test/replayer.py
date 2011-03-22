@@ -195,9 +195,8 @@ class UseCaseReplayer:
                   # Convert to seconds and sleep.  Note sleep takes a fractional float.
                   time.sleep(msec_to_sleep / 1000.0)
                 # else replay time is later than recorded time already
-              else:
-                self.previous_event_emit_time = datetime.datetime.now()
-                self.previous_event_simulated_time = event_time
+              self.previous_event_emit_time = datetime.datetime.now()
+              self.previous_event_simulated_time = event_time
               
             self.write("")
             self.write("'" + commandName + "' event created with arguments '" + argumentString + "'")

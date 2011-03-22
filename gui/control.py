@@ -9,6 +9,11 @@ from gtk import gdk
 from decorators import *
 import base.vector as vector
 
+"""
+import logging
+
+my_logger = logging.get_logger('pensool')
+"""
 
 def report_virtual():
   # During devt..
@@ -188,10 +193,14 @@ class GuiControl(morph.morph.PrimitiveMorph):
     # TODO Check for wierd chording: press, press, release, release
     # TODO If items are large enough, a short drag stays in an item.
     if(not event.button == self.button_pressed):
-      # By design, pop-up menus open on press in one button, can release in other buttons.
-      print "Button released outside control button was pressed in", self.button_pressed
+      # This is more or less normal.
+      # By design, pop-up menus open on button press in one item, can release in other items (controls).
+      # Also, a drag release a button in the background ctl, but was pressed in a handle menu item, etc.
+      # print "Button released outside control button was pressed in", self.button_pressed
+      pass
     else:  # Released in same control as pressed
-      print "Button release in same control."
+      # print "Button release in same control."
+      pass
        
     if gui.manager.drop.dropmgr.is_drag():
       # Drag may have started in another control.
@@ -229,7 +238,7 @@ class GuiControl(morph.morph.PrimitiveMorph):
     # Filter and dispatch control keys
     # TODO key combinations
     if gdk.keyval_name(event.keyval) == "Control_L" : # Left control
-      print "Control key"
+      # print "Control key"
       self.control_key_release(event)
     else:
       self.bland_key_release(event)

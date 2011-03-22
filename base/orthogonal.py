@@ -70,8 +70,9 @@ from decorators import *
 
 def circle_orthogonal(center, point):
   '''
-  Ortho of circle is: 
-  vector from center to point.
+  Ortho of circle is: vector from center to point.
+  The point can be inside or outside the circle.
+  Orthogonal to the center is the (0,0) null vector, causes problem?
   '''
   point_vect = vector.Vector(point.x, point.y)
   orthog = point_vect - center
@@ -81,7 +82,8 @@ def circle_orthogonal(center, point):
 # FIXME third point?
 def line_orthogonal(point1, point2):
   '''
-  Normal ortho of line defined by two points.
+  Canonical ortho of infinite line defined by two points.
+  Canonical means not the orthogonal in the direction of a third point.
   '''
   vect = point2 - point1
   orthogonal = vect.orthogonal(-1)  # left handed
@@ -91,7 +93,8 @@ def line_orthogonal(point1, point2):
 
 def magnitude_to_line(point1, point2, point3):
   '''
-  magnitude from point3 to line defined by point1 and point2.
+  Magnitude from point3 to line defined by point1 and point2.
+  Magnitude is signed.
   Sign indicates left or right in direction from point1 to point2.
   '''
   norm = line_orthogonal(point1, point2)
@@ -100,7 +103,8 @@ def magnitude_to_line(point1, point2, point3):
   
 def distance_to_line(point1, point2, point3):
   '''
-  distance from point3 to line defined by point1 and point2
+  Distance from point3 to line defined by point1 and point2.
+  Distance is always positive.
   '''
   norm = line_orthogonal(point1, point2)
   return abs(norm.dot(point3 - point1)/norm.length())
@@ -110,6 +114,7 @@ def rect_orthogonal(rect, point):
   '''
   Ortho of rect given a point is:
   outward pointing vector orthogonal to side nearest point.
+  Point can be inside, outside, or on the rect.
   
   Implementation: four combinations of left and right of diagonals.
   That is, divide rect into quadrants by its two diagonals.

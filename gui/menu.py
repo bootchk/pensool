@@ -88,18 +88,17 @@ class ItemGroup(compound.Compound):
     
 
   #@dump_event
-  def position(self):
+  def set_transform_from_layout_spec(self):
     '''
-    Position menu according to layout spec.
+    Transform menu according to layout spec.
     Called on opening and on movement (slide.)
+    A menu group transforms (except for scaling) the group of its items.
+  
     # TODO Differ for subclasses.
-    
-    Position is a change to this menu's transform, translate and rotate.
-    A menu group rotates and translates  the group of its items.
-    
+       
     Scaling: A menu is scaled by parent transform (the user-preference controls transform.)
     Rotation: A menu is layout'd along the X-axis, horizontally.
-    A traditional menu is rotated to the vertical position.
+    A traditional menu axis is rotated to vertical.
     Handle menus are rotated to any angle.
     Translation: Most menus are also translated so that the center of some item is at
     the opening event.
@@ -118,13 +117,13 @@ class ItemGroup(compound.Compound):
     Make visible at event coords.
     Put default item at event.
     '''
-    logging.getLogger("pensool").debug("Open menu" + self.name)
+    logging.getLogger("pensool").debug("Open menu" + self.name + " on " + controlee.__class__.__name__ )
     # Set new controlee, since new_layout_spec may use it.
     assert controlee is not None
     self.controlee = controlee
     
-    self.new_layout_spec(event) # Set data for position and layout.
-    self.position() # Set transform for menu group
+    self.new_layout_spec(event) # Set data for transform and layout.
+    self.set_transform_from_layout_spec() # Set transform for menu group
     
     # A menu must layout at least when opened.
     # Some menu types can layout only at creation time.
@@ -142,10 +141,10 @@ class ItemGroup(compound.Compound):
   
   def layout(self, event=None):
     ''' 
-    Layout (position) all items in composite (group).
+    Layout (relative translation) all items in composite (group).
     
     Input is a self.layout_spec, which specifies position of the group.
-    Should be relative positions of items.
+    Should be relative translations of items.
     Event precipitated layout, but ordinarily should not be used in layout.
     '''
     raise RuntimeError( "Virtual method called: layout()" )
@@ -153,7 +152,7 @@ class ItemGroup(compound.Compound):
     
   @view_altering
   @dump_event
-  def close(self, event):
+  def close(self):
     '''
     Close this menu.
     Note another menu may replace this one: caller must activate some
@@ -192,8 +191,7 @@ class ItemGroup(compound.Compound):
     '''
     vect = vector.normalize_vector_to_vector(exit_vector, self.layout_spec.vector)
     
-    # Seems backwards, but since menu vector is opposite direction to layout,
-    # inverse the sign
+    # Seems backwards, but since menu vector is opposite direction to layout, inverse sign
     if vect.x > 0 :  # Jan. 8
       self._change_item(event, 1)
     else :
@@ -213,7 +211,7 @@ class ItemGroup(compound.Compound):
     next_item_index = self.active_index + direction
     # Close menu if at menu boundary, out of range
     if next_item_index >= len(self) or next_item_index < 0 :
-      self.close(event) # deactivates item control
+      self.close() # deactivates item control
       gui.manager.focus.unfocus()
       gui.manager.control.control_manager.activate_root_control()
     else:

@@ -60,8 +60,10 @@ def foo(accel_group, acceleratable, keyval, modifier):
 # Typically "logging.pensool" in the tmp directory which is the sandbox of Texttest
 try:
   log_config_path = os.environ['LOG_CONF_PATH']
-  if not os.path.exists(log_config_path):
-    print "File not found", log_config_path
+except Exception as detail:
+  print "Could not read env var, looking for logging config in pwd", detail
+  log_config_path = "logging.pensool" # try in pwd
+try:
   logging.config.fileConfig(log_config_path)
 except Exception as detail:
   print "Could not configure logging from file, default to WARNINGs to stdout", detail

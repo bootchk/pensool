@@ -132,7 +132,7 @@ def benchmark_from_hotspot(axis, hotspot):
   to_benchmark *= -10  # scale by half length of menu - half width of item
   # Here menu is 3 items of 20 overlapping by 10 = 40 / 2 -10
   benchmark = vector.Point(hotspot.x, hotspot.y) + to_benchmark
-  return benchmark
+  return benchmark  # benchmark is a point
   
   
 

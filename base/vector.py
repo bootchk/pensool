@@ -156,7 +156,8 @@ class Vector:
 Point = Vector
 
 # Constant vectors
-# !!! copy(), don't alter
+# NOT singleton, a new instance each call
+# (If a singleton, insure it is read-only.
 def downward_vector():
   return Vector(0, 1)
 

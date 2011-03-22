@@ -124,6 +124,8 @@ class Morph(compound.Compound):
       zero members: default orthogonal
       one member: orthogonal to member
       many members: orthogonal to bounding box???
+      
+    Note the point is not necessarily outside the morph.
     '''
     if len(self) > 1:
       # print "Orthogonal of a composite morph is orthog to bounding box?????"
@@ -144,11 +146,12 @@ class Morph(compound.Compound):
   
   """ Virtual"""
   def resize(self, event, offset):
-    print "Virtual resize morph"
+    print "Virtual resize composite morph"
     
   
   def is_primitive(self):
-    '''Morph that is not PrimitiveMorph is not primitive.
+    '''
+    Morph that is not class PrimitiveMorph is not primitive.
     A PrimitiveMorph can be a group but only of glyphs.
     A non-primitive morph is a group of other morphs.
     '''
@@ -224,6 +227,7 @@ class PrimitiveMorph(Morph):
   The transform and style of a PrimitiveMorph defines aspect of its glyph, a unit shape.
   Cannot append a Morph to a PrimitiveMorph, only glyphs.  TODO enforce?
   '''
+  # TODO refactor rouse_feedback here
   def is_primitive(self):
     return True
 
@@ -234,6 +238,15 @@ class PrimitiveMorph(Morph):
   """
 
 
+'''
+Classes for morphs that user understands, with a shape.
+
+__init__() assigns a glyph (shape)
+
+rouse_feedback() understands feedback:
+  1. the set of handles on shape
+  2. whether to display a bounding box.
+'''
 
 # See also textmorph.py for TextMorph
 
