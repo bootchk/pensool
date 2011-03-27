@@ -40,13 +40,13 @@ or to have-a container instead of be-a container.
 
 
 
-class Compound(list, transformer.Transformer):
+class Composite(list, transformer.Transformer):
   '''
   A container of Transformer:Drawables.
   
   Isolates hierarchy aspects:
-  Compounds aggregate properties from their members.
-  Compounds donate default properties to members.
+  Composites aggregate properties from their members.
+  Composites donate default properties to members.
   (Members inherit properties from parents.)
   
   !!! inherits from Drawable:
@@ -62,7 +62,7 @@ class Compound(list, transformer.Transformer):
   It invalidates the union region of members.
   However, invalidate may be cached.
   And invalidate may aggregate and be transformed via the recursion of put_path_to.
-  So you don't see invalidate as a method of compound.
+  So you don't see invalidate as a method of composite.
   '''
   
   def __init__(self, parent=None):
@@ -164,7 +164,7 @@ class Compound(list, transformer.Transformer):
   
   
   """
-  # FIXME the dimensions of a compound are not useful
+  # FIXME the dimensions of a composite are not useful
   # only the bounds???
   @dump_return
   def get_dimensions(self):

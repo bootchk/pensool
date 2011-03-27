@@ -23,7 +23,7 @@ class MoveHandleItem(itemhandle.HandleItem):
   A handle that moves the controlee, when a drag starts within.
   Another control is involved when a drag moves out of this item control.
   
-  Scrolling descends/rises into controlee when it is composite(compound.)
+  Scrolling descends/rises into controlee when it is composite.
   '''
   
   def __init__(self, command):

@@ -10,7 +10,7 @@ There is another manager that enforces a policy over the whole application.
 
 import logging
 
-import compound
+import composite
 ## import gui.manager.focus
 import gui.manager.control
 from decorators import *
@@ -27,7 +27,7 @@ import gui.manager.textselect
 
 # TODO a single, ungrouped GuiControl
 
-class ItemGroup(compound.Compound):
+class ItemGroup(composite.Composite):
   '''
   A manager of a group of control items, e.g. group of menu items.
   Sequence and tree like aspects.
@@ -76,7 +76,7 @@ class ItemGroup(compound.Compound):
   '''
   
   def __init__(self, name):
-    compound.Compound.__init__(self)
+    composite.Composite.__init__(self)
     self.active_index = 0
     '''
     !!! an ItemGroup has a controlee that initializes the controlees

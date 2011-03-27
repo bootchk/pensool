@@ -7,7 +7,7 @@ A singleton, one per application instance.
 
 Not all ports draw all things.
 '''
-import compound
+import composite
 import morph.morph
 import base.vector as vector
 import config
@@ -41,7 +41,7 @@ def initialize():
   global transformed_controls
   global bounding_box
   
-  transformed_controls = compound.Compound()  # GUI widgets
+  transformed_controls = composite.Composite()  # GUI widgets
   model = morph.morph.Morph() # group morph is root of modeling tree of user's objects
   
   # !!! Set the topmost transform to scale by PENSOOL.SCALE

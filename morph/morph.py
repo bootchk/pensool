@@ -16,7 +16,7 @@ Morphs can have associated controls, but don't contain them.
   text select (insertion bar)
 '''
 
-import compound
+import composite
 import glyph
 import scheme # for bounding box
 import gui.manager.handle
@@ -29,14 +29,14 @@ import cairo  # temp
 
 
 
-class Morph(compound.Compound):
+class Morph(composite.Composite):
   '''
   A Morph is a Composite with associated controls.
   A composite of Morphs or Glyphs.
   '''
 
   def __init__(self, parent=None):
-    compound.Compound.__init__(self, parent)
+    composite.Composite.__init__(self, parent)
 
   """
   UNUSED

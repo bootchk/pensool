@@ -155,7 +155,7 @@ class Drawable(object):
   '''
   Dimensions: GdkRectangle of dimensions in user coords.
   !!! These are the dimensions, not the bounds.
-  The bounds of compound drawables is computed.
+  The bounds of composite drawables is computed.
   !!! Copy, not reference, in case parameters are mutable.
   '''
   @dump_event
@@ -167,7 +167,7 @@ class Drawable(object):
     assert dimensions.width > 0
     assert dimensions.height > 0
     
-    # Should be a non-empty morph (a compound)
+    # Should be a non-empty morph (a composite)
     assert len(self) > 0
     
     # Set a copy, not a reference

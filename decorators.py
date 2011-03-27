@@ -119,7 +119,7 @@ def report_virtual():
   
 # FIXME 
 '''
-This came from compound.
+This came from composite.
 
 def aggregate(fn):
   def new(self, *args):

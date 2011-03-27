@@ -164,7 +164,7 @@ class Transformer(drawable.Drawable):
     assert dimensions.width > 0
     assert dimensions.height > 0
     
-    # Should be a non-empty morph (a compound)
+    # Should be a non-empty morph (a Composite)
     assert len(self) > 0
     
     self.translation = vector.Vector(dimensions.x, dimensions.y)
