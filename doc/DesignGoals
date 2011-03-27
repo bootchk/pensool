@@ -4,7 +4,7 @@ Design goals:
   Uncluttered GUI
     no menubars,  scrollbars, toolbars
   Modeless GUI
-    no tools, no selections
+    no persistent tools, no selections (except in text)
   Direct manipulation
     drag and drop fundamental
   
@@ -15,11 +15,16 @@ Design goals:
   Flexible GUI: user preferences for GUI: bubble, pie, conventional menus
   Themeable: only to the extent that GTK supports
   
+Programming Goals
+
   Idiomatic: use patterns, Python idioms, recipes etc.  
   Reuse NIH (not invented here)
-  High level: Python, C only where necessary for performance
+  High level: Python. C only where necessary for performance.
   
-  Documented: by pattern: say what patterns are being used.
+  Documented: 
+    by pattern: say what patterns are being used.
+    by meaningful names
+    
   Tested: 
     doctests for base modules
     functional testing for gui

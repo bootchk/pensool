@@ -2,7 +2,7 @@ Pensool User's Manual
 
 About Pensool
 
-Pensool is a 2-D drawing application (like Inkscape, XFig, Skencil, Karbon, Draw.)  What distinguishes Pensool is its ease of use: it lets you directly manipulate drawings.  Pensool keeps you focused where the mouse is in the drawing.  Pensool avoids menubars, scrollbars, tools, selections and modes.  Pensool uses handles and a new GUI technique called a handle menu, an iconic, context menu on the edge of symbols.
+Pensool is a 2-D drawing application (like Inkscape, XFig, Skencil, Karbon, Draw.)  What distinguishes Pensool is its ease of use: it lets you directly manipulate drawings.  Pensool keeps you focused where the mouse is in the drawing.  Pensool avoids menubars, scrollbars, tools, selections and modes.  Pensool uses handles and a new GUI technique called a handle menu: an iconic, context menu on the edge of symbols.
 
 Pensool works best with a 2-button mouse with a scroll wheel.
 
@@ -11,7 +11,7 @@ Pensool is open source software written in the Python language.
 Pensool is a prototype.  Only a thin slice works and there are many bugs.  For now it is an experiment in user interface.  You can't even reopen a document that you saved!
 
 
-The Handle Menu and Handles
+The Handle Menu
 
 What it is.  The handle menu is a menu of icons that appears on the edges of symbols when you put the cursor on the edge of a symbol.  The icons are commands on the symbol, for example, move.  
 
@@ -23,14 +23,21 @@ How to use it.  The handle menu appears when the cursor is on an edge (often cal
 
 Why it is called a handle menu.  A handle menu's icons look like the traditional handles on a symbol for resizing and rotating a symbol.  Also the handle menu appears where traditional handles would, on end points, corners, and tangents.
 
-Sliding a handle menu.  You can slide a handle menu along the edge of a symbol.  If you reach a handle of the symbol, it becomes the operand, highlighted.
+Sliding a handle menu.  You can slide a handle menu along the edge of a symbol.  If you reach a handle of the symbol, the handle becomes the operand, highlighted.
 
-The operand.  The operand of a handle menu is the symbol whose edge it appears on.  The operand is highlighted and a bounding box surrounds the operand while a handle menu is upon it.  When you choose a handle menu item, it operates on the highlighted operand.  You can scroll up and down to make the operand the next larger or smaller group.  You can slide a handle menu to a handle to make the operand the handle.
+The operand.  The operand of a handle menu is the symbol whose edge it appears on.  The operand is highlighted and a bounding box surrounds the operand while a handle menu is upon it.  When you drag a handle menu item (press the LMB and move the mouse), it operates on the highlighted operand.  You can scroll (mouse scroll wheel) up and down to make the operand the next larger or smaller group.  You can slide a handle menu to a handle to make the operand the handle.
 
 How the handle menu appears.  The handle menu has three items: draw, move, and resize.  Only one item is visible at a time.  The handle menu opens on the move item centered on the edge of a symbol.  The other items will appear, one at a time, when you move perpendicularly to either side of the symbol (inward or outward.)  The draw item lets you drag out another symbol.  The move item lets you drag a symbol or handle to a new position.  The resize item lets you resize a symbol.  (Currently the icons for the items are just circles and squares and they don't all work on all symbols.)
 
-Persistence of handles.  Some symbols have handles remote from the symbol.  For example, curves have tangent line handles and circles have center handles.  You don't see them until you open a handle menu on the symbol.  You can't (or don't need to) slide the handle menu along a symbol to a remote handle.  Instead, such handles persist long enough for you to move the cursor directly to them and then a handle menu will appear.
+The Handle Menu and Handles
 
+Handles are points on a symbol that let you modify the symbol, for example, the end point of a line.  A handle menu appears when you pause over handles (as well as when you pause over symbol edges.)
+
+Persistence of handles.  Some symbols have handles remote from the symbol.  For example, curves have tangent line handles and circles have center handles.  You don't see them until you open a handle menu on the symbol.  You can't (or don't need to) slide the handle menu along a symbol to a remote handle.  Instead, such handles persist just long enough for you to move the cursor directly to them and then a handle menu will appear.
+
+The Handle Menu and the Document
+
+A handle menu also appears when you pause in the background, to let you control the view of the document i.e. the entire drawing.  Drag the move item to pan the document.  Drag the resize item toward or away from the center of the window to zoom the view.  Drag the draw item to add a symbol to the document.
 
 Groups
 
@@ -57,7 +64,9 @@ Open a handle menu on the document by pausing the cursor in the background.  The
 
 Managing the View
 
-Open a handle menu on the document by pausing the cursor in the background.  Then dragging the move item pans the view of the document.  Scrolling the scroll wheel zooms the document.
+Open a handle menu on the document by pausing the cursor in the background.  (See above.)
+
+Also, you can pan the document by dragging anyplace in the background, and zoom the document by scrolling the scroll wheel anyplace in the background (when a handle menu is not open.)  You must be quick about it, else a handle menu will pop up when you pause in the background.
 
 
 The Clipboard.

@@ -117,7 +117,7 @@ class ItemGroup(compound.Compound):
     Make visible at event coords.
     Put default item at event.
     '''
-    logging.getLogger("pensool").debug("Open menu" + self.name + " on " + controlee.__class__.__name__ )
+    logging.getLogger("pensool").debug("Open menu " + self.name + " on " + controlee.__class__.__name__ )
     # Set new controlee, since new_layout_spec may use it.
     assert controlee is not None
     self.controlee = controlee

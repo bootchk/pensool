@@ -27,7 +27,12 @@ PENSOOL_UNIT = 1  # 1000
 # Must be float, used as scale
 ITEM_SIZE = 20.0 / PENSOOL_UNIT
 
-PENSOOL_PICK_PEN_WIDTH = 3  # width of pen in pixels for picking
+# lkk Mar. 2011
+# This is sensitive.  Beware of float event coords versus int pixel positions,
+# sloppy math, conversions and rounding,
+# and when using Pyusecase which might introduce more inaccuracies.
+# I experienced difficulty with Pyusecase using a value of 3.
+PENSOOL_PICK_PEN_WIDTH = 4  # width of pen in pixels for picking
 PENSOOL_LINE_CAP_SQUARE = cairo.LINE_CAP_SQUARE
 
 # gui.manager.fade

@@ -152,14 +152,16 @@ class ExposeEvent(SignalEvent):
     event.count = 0 # Count of following expose events
     return [ event ]
 """
-   
-class MotionEvent(SignalEvent):
-  signalName = "motion-notify-event"
-  eventType = gtk.gdk.MOTION_NOTIFY
-  
-  def shouldRecord(self, widget, event, *args):
-    return True
-    
+
+class PointerEvent(SignalEvent):
+  ''' 
+  Base class for pointer events.
+  Pointer event attributes: x, y, time.
+  Subclasses are Motion and Button.
+  That is, mouse move and mouse button press and release.
+  Doesn't include the scroll wheel on a mouse.
+  What is in common is how we record and playback the attributes.
+  '''
   def outputForScript(self, widget, *args):
     '''
     Return string repr of event and its attributes.
@@ -167,24 +169,15 @@ class MotionEvent(SignalEvent):
     Called at record time.
     '''
     event = args[0]
+    # print "Event ", event.x, " ", event.y
     # !!! gtk returns coords of pixels as floats
     # Arbitrarily, and just for ease of reading, store as ints
     return " ".join((self.name, str(int(event.x)), str(int(event.y)), str(event.time)))
  
-  """
-  def isStateChange(self):
-    ''' 
-    True means only capture the final event in a series of these event type.
-    If the SUT is animated (ghosting a drag for example), 
-    you might presume that the last event suffices to test.
-    Called at record time.
-    '''
-    return True
-  """
- 
   def isTimed(self, argumentString):
-    '''
-    Return the time from this event if it has one, else None.
+    ''' 
+    Return the time from this event if it has one, else None. 
+    Called at playback time.
     '''
     int_args = [int(x) for x in argumentString.split()] # parse and convert to list of ints
     return int_args[2]
@@ -192,9 +185,9 @@ class MotionEvent(SignalEvent):
  
   def getEmissionArgs(self, argumentString):
     '''
-    Return concret toolkit event.
+    Return concrete toolkit event.
     That is, adapt usecase command to gtk event.
-    Inverse of outputForScript
+    Inverse of outputForScript().
     Called at playback time.
     '''
     event = gtk.gdk.Event(self.eventType)
@@ -205,14 +198,76 @@ class MotionEvent(SignalEvent):
     event.time = int_args[2]
     return [ event ]
 
+  
+class MotionEvent(PointerEvent):
+  ''' Pointer motion event. '''
+  signalName = "motion-notify-event"
+  eventType = gtk.gdk.MOTION_NOTIFY
+  
+  ''' 
+  !!! Recording all motion events.
+  Note since we don't define isStateChange(self), we don't compress motion events.
+  '''
+  def shouldRecord(self, widget, event, *args):
+    return True
+
+
+class PointerButtonEvent(PointerEvent):
+  '''
+  Base class for pointer (mouse) button events.
+  
+  !!! Inherits shouldRecord():  recording all pointer button events
+  '''
+  def outputForScript(self, widget, *args):
+    ''' Tack button number arg onto args from superclass.'''
+    event = args[0]
+    # call super for prefix, then tack on button
+    return PointerEvent.outputForScript(self, widget, *args) + " " + str(event.button)
+    
+  
+  def getEmissionArgs(self, argumentString):
+    ''' Additionally give value to button (number) attribute of GTK event from emission args from base class '''
+    [event] = PointerEvent.getEmissionArgs(self, argumentString) # super
+    int_args = [int(x) for x in argumentString.split()] # parse and convert to list of ints
+    event.button = int_args[3]
+    return [ event ]
+
+''' 
+Note these classes are not differentiated by button number.
+Event instances in a usecase ARE differentiated by button number
+via an arg of the instance (a line in the usecase has a button number appended.)
+And event instances in a usecase playback GTK events having button numbers.
+'''
+class ButtonPressEvent(PointerButtonEvent):
+  signalName = "button-press-event"
+  eventType = gtk.gdk.BUTTON_PRESS
+
+class ButtonReleaseEvent(PointerButtonEvent):
+  signalName = "button-release-event"
+  eventType = gtk.gdk.BUTTON_RELEASE
+    
+"""
+Note the following won't work.
+You can't have two event classes for the same GTK event type.
+Pyusecase can't dispatch a GTK event
+by examining its attributes, only its type.
+
+class LMBPressEvent(PointerButtonEvent):
+  ''' Left mouse button RMB is 1 in GTK '''
+  signalName = "button-press-event"
+  buttonNumber = 1
+  eventType = gtk.gdk.BUTTON_PRESS
+  
+class RMBPressEvent(PointerButtonEvent):
+  ''' Right mouse button RMB is 3 in GTK '''
+  signalName = "button-press-event"
+  buttonNumber = 3
+  eventType = gtk.gdk.BUTTON_PRESS
+"""
 
 # Standard module attribute defining custom widget events
 # List of tuple pairs of widget types and list of events
-
-# Without expose events
-customEventTypes = [(gtk.DrawingArea, [ ConfigureEvent, MotionEvent])]
-
-# With expose events
-## customEventTypes = [(gtk.DrawingArea, [ ConfigureEvent, ExposeEvent, MotionEvent])]
+customEventTypes = [(gtk.DrawingArea, [ ConfigureEvent, MotionEvent, 
+  ButtonReleaseEvent, ButtonPressEvent ])]
 
 

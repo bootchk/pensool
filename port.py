@@ -1,15 +1,19 @@
 #!/usr/bin/env python
 
 import pygtk
-import gtk 
-import cairo
+import gtk
+import cairo  # for gtk drawing surface (pango is built in)
+import pangocairo # for print and save surfaces
 import os
 import scheme
 import gui.manager.handle
 import style
 import base.vector as vector
 from decorators import *
+import base.alert as alert
 
+import logging
+my_logger = logging.getLogger('pensool')
 
 class Port():
   '''
@@ -219,40 +223,54 @@ class FilePort(Port):
     self.settings = None
     Port.__init__(self)
   
+  
+  def _context_for_surface(self, surface):
+    '''
+    Note: GTK functions return a context that is Pango.
+    For other surfaces, you must get a cairo.Context(),
+    then turn it into a pangocairo.CairoContext().
+    IOW GTK surfaces yield contexts that support drawing text using pango,
+    but ordinary cairo.Contexts do NOT.
+    '''
+    return pangocairo.CairoContext(cairo.Context(surface))
+
+
   def do_save(self, * args):
     filename = self.ask_save_filename()
     # TODO other surfaces png, svg, pdf
     if filename is not None:
       save_file, extension = os.path.splitext(filename)
-      print extension
       
       try:
         if extension == ".svg":
           surface = cairo.SVGSurface(filename, 200, 200)
-          context = cairo.Context(surface)
-          self.draw_model(context)
+          self.draw_model(self._context_for_surface(surface))
+          # Note differs from png: no write_to_svg()
         elif extension == ".png":
           surface = cairo.ImageSurface(cairo.FORMAT_RGB24, 200, 200)
-          context = cairo.Context(surface)
-          self.draw_model(context)
+          self.draw_model(self._context_for_surface(surface))
           try:
             surface.write_to_png(filename)
           except IOError:
-            print "IO Error"
+            alert.critical_dialog("IO error.")
+            return
         # width_in_points, height_in_points)
         else:
-          print "Unknown extension"
+          alert.warning_dialog("Unsupported file extension: " + extension)
+          my_logger.debug("Unsupported extension.")
           return
       except MemoryError:
-        print "Out of memory"
+        alert.critical_dialog("Out of memory.  You should save and restart now.")
+        return
       surface.finish()
+      my_logger.debug("File saved.")
     
     
   def ask_save_filename(self):
     
     if gtk.pygtk_version < (2,3,90):
-      print "PyGtk 2.3.90 or later required for this example"
-      raise SystemExit
+      alert.critical_dialog( "PyGtk 2.3.90 or later required" )
+      return None
    
     dialog = gtk.FileChooserDialog("Save..",
                                      None,
@@ -282,7 +300,6 @@ class FilePort(Port):
     elif response == gtk.RESPONSE_CANCEL:
       filename = None
     dialog.destroy()
-    print "Filename", filename
     return filename
 
 

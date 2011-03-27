@@ -13,6 +13,9 @@ import gui.manager.drop
 import morph.glyph
 import base.alert
 import scheme
+import logging
+
+my_logger = logging.getLogger('pensool')
 
 
 class MoveHandleItem(itemhandle.HandleItem):
@@ -104,6 +107,7 @@ class MoveHandleItem(itemhandle.HandleItem):
     Some control was the target of a drop that started in this control.
     Leave the ghosted move in last position.
     '''
+    my_logger.debug("Drop move of " + source.__class__.__name__)
     pass
     
 

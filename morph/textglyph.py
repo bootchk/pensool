@@ -7,8 +7,11 @@ from decorators import *
 import base.vector
 import base.orthogonal as orthogonal
 import config
-import cairo
+
 import math
+
+# We don't need this because a context is always passed
+# import cairo
 
 
 

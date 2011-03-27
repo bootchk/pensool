@@ -36,7 +36,7 @@ class MenuItem(gui.itemcontrol.CommandItemControl):
   def button_release_right(self, event):
     ''' RMB Release: execute, close menu '''
     self.command(self.controlee, event)
-    self.group_manager.close(event)
+    self.group_manager.close()
     gui.manager.control.control_manager.activate_root_control()
   
   @dump_event
@@ -79,7 +79,8 @@ class MenuItem(gui.itemcontrol.CommandItemControl):
     else:
       # control.py determined pointer is outside fill.
       # If control.py
-      print "Exited item but not out of bounds."
+      # print "Exited item but not out of bounds."
+      pass
    
   # @dump_event
   def mouse_move(self, event):

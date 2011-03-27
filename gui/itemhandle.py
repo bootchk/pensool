@@ -56,7 +56,7 @@ class HandleItem(gui.itemcontrol.PopupItemControl):
     # Close the open handle menu.
     # The drag for the context menu takes the mouse away from the morph.
     # TODO possibly a scrolling menu, leave the handle menu open?
-    self.group_manager.close(event)
+    self.group_manager.close()
     # Note focus is not changed if a context menu is opened.
     # Open popup menu on controlee
     self.menu.open(event, self.controlee)
@@ -68,7 +68,7 @@ class HandleItem(gui.itemcontrol.PopupItemControl):
   @dump_event
   def start_drag(self, event):
     ''' Mouse departed item with button down. '''
-    self.group_manager.close(event)  # close menu
+    self.group_manager.close()  # close menu
     # Remain focused on operand morph while dragging?
     gui.manager.control.control_manager.activate_root_control() # backgroundmgr
     gui.manager.drop.dropmgr.begin(event, self.controlee, self)

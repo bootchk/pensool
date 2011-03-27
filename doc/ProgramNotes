@@ -1,7 +1,7 @@
 
 This documents programming issues.
 
-Return values from callbacks.  
+Return values from callbacks.
 
 We usually return false.  This means for GTK to subsequently pass the event to the default handler (if any.)  We do this because we might be using pyusecase, which installs its handlers after our handlers so it can record events.
 

@@ -38,6 +38,9 @@ class _HandleGroup(menu.ItemGroup):
   '''
   def __init__(self, name):
     super(_HandleGroup, self).__init__(name)
+    # Picked handle of controlee morph.  That is, a sub-controlee.
+    # Only TrackedHandleMenu can pick handles.
+    self.handle = None 
     
   @transforming
   def draw(self, context):
@@ -125,9 +128,7 @@ class TrackingHandleGroup(_HandleGroup):
   '''
   
   def __init__(self, name):
-    super(TrackingHandleGroup, self).__init__(name)
-    # Picked handle of controlee.  This is a sub-controlee.
-    self.handle = None  
+    super(TrackingHandleGroup, self).__init__(name) 
     
     
   @dump_return

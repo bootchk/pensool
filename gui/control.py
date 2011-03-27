@@ -116,13 +116,13 @@ class GuiControl(morph.morph.PrimitiveMorph):
     # Seems to be a race between deactivation of controls and motion events
     if self is not gui.manager.control.control_manager.get_active_control():
       print "Discarding motion event.", self, gui.manager.control.control_manager.get_active_control()
-      return True # Say we handled it, but not for self.
+      return False
       
     # !!! Note events and control dimensions are in device coords
     if self.is_in_control_area(event):
       # Remember the last pointer position (not use gtk.get_pointer())
       self.pointer_DCS = vector.Vector(event.x, event.y)
-      # print "Inside", repr(self)
+      # print "Inside", event.x, " ", event.y
       if gui.manager.drop.dropmgr.is_drag():   ### self.is_dragging:
         # Drop manager knows which control is in charge (source or target.)
         gui.manager.drop.dropmgr.continued(event, target=self)
@@ -136,7 +136,7 @@ class GuiControl(morph.morph.PrimitiveMorph):
       '''
       self._reset_state()
       self.mouse_exit(event)  # Filtered event to subclasses
-    return True
+    return False
   
   
   @dump_event
@@ -163,7 +163,7 @@ class GuiControl(morph.morph.PrimitiveMorph):
     else:
       print "Unhandled button"
       return False
-    return True
+    return False  # allow more handlers (pyusecase) to intercept
     
     
   def _dispatch_button_release(self, event):
@@ -212,7 +212,7 @@ class GuiControl(morph.morph.PrimitiveMorph):
       # This control is NOT a menu AND no drag in effect.
       # Typically: press to open a pop-up, move out, then release to cancel.
       print "Button release outside menu with no drag."
-    return True
+    return False
     
   
   def scroll_event_cb(self, widget, event):
@@ -223,7 +223,7 @@ class GuiControl(morph.morph.PrimitiveMorph):
       self.scroll_up(event)
     else :
       self.scroll_down(event)
-    return True
+    return False
     
     
   '''
@@ -242,7 +242,7 @@ class GuiControl(morph.morph.PrimitiveMorph):
       self.control_key_release(event)
     else:
       self.bland_key_release(event)
-    return True
+    return False
 
 
   @dump_event
