@@ -105,9 +105,8 @@ class HandleItem(gui.itemcontrol.PopupItemControl):
     A handle menu MIGHT follow the mouse in orthogonal directions,
     if the handle menu is a TrackingHandleMenu AND we didn't hit a stop
     (the limit of an edge of the controlee morph.)
-    The exit from the item is NOT necessarily in the "menu exit" direction
-    NOR necessarily in the "menu change item" direction.
-    this must mean mouse moved in axial *exit* direction.
+    Exit from item is EITHER in "menu exit" direction
+    OR in "menu change item" direction.
     '''
     # Calculate vector in DCS of mouse exit.
     center = self.bounds.center_of()
@@ -116,13 +115,12 @@ class HandleItem(gui.itemcontrol.PopupItemControl):
     norm_vect = vector.normalize_vector_to_vector(exit_vector, self.group_manager.layout_spec.vector)
     
     if norm_vect.y > 10 or norm_vect.y < -10: # FIXME not hardcoded
-      # exited the side, which means close the menu
+      # exited the side, which means close menu
       self.close_manager()
     else:
-      # Must be in the "change item" side of menu item
-      # Tell manager to decide if in next or previous direction in seq of items.
-      # TODO rename do_item_exit to do_change_item
-      self.group_manager.do_item_exit(event, exit_vector)
+      # Exited "change item" side of menu item.
+      # Tell manager to decide next action (another item, or close menu.)
+      self.group_manager.do_change_item(event, exit_vector)
 
     
   def control_key_release(self, event):

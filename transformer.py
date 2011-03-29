@@ -161,6 +161,7 @@ class Transformer(drawable.Drawable):
     For testing: ordinarily, transforms are set by user actions using other methods.
     !!! Not view altering
     '''
+    # Zero width or height later yields cairo error non-invertible matrix
     assert dimensions.width > 0
     assert dimensions.height > 0
     

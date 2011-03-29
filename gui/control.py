@@ -69,10 +69,17 @@ class GuiControl(morph.morph.PrimitiveMorph):
   def __repr__(self):
     ''' Represent by the class name'''
     return self.__class__.__name__
-    
+  
+  def activate(self, controlee):
+    ''' 
+    This control is active on given controlee.
+    Override if any special activation.  Most controls do not override. 
+    '''
+    self.controlee = controlee
+  
   #@dump_event
   def deactivate(self):
-    ''' Override if any special deactivation.  Most controls pass. '''
+    ''' Override if any special deactivation.  Most controls do not override. '''
     pass
     
   def _reset_state(self):

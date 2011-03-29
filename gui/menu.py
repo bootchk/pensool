@@ -159,12 +159,14 @@ class ItemGroup(composite.Composite):
     next control, typically the background manager or another menu.
     Note that focus is not necessarily lost: caller must unfocus if appropriate.
     '''
+    logging.getLogger("pensool").debug("Close menu " + self.name + " on " + self.controlee.__class__.__name__ )
     gui.manager.control.control_manager.remove_from_drawlist(self)
     ## gui.manager.focus.unfocus()  # any controlee, should invalidate
     # Deactivate current menu item, which is receiving events
     self._deactivate_current() # leaves no control active
-    ## OLD automatically activates the background manager.
+    # caller must activate successor control, often background manager
     # FIXME for now, deactivate text select when handle menu closes
+    # Maybe it should stay active if cursor is IN a textbox
     gui.manager.textselect.activate_select_for_text(False)
     
   
@@ -177,22 +179,20 @@ class ItemGroup(composite.Composite):
     item.set_group_manager(self)
   
   
-  def do_item_exit(self, event, exit_vector):
+  def do_change_item(self, event, exit_vector):
     '''
     The mouse has exited an item in exit_vector.
-    Do next or previous.
-    (Next or previous might do open, or close.)
+    Do next item or previous item or close menu.
     
     !!! Note that handle menus slide sideways,
     should not get an exit orthogonal to the menu vector.
     FIXME make a handle menu slide around a corner
-    and make the menu_vector change as the menu slides
-    along a curve.
+    and make the menu_vector change as the menu slides along a curve.
     '''
     vect = vector.normalize_vector_to_vector(exit_vector, self.layout_spec.vector)
     
     # Seems backwards, but since menu vector is opposite direction to layout, inverse sign
-    if vect.x > 0 :  # Jan. 8
+    if vect.x > 0 :
       self._change_item(event, 1)
     else :
       self._change_item(event, -1)

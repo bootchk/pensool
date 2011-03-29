@@ -41,12 +41,12 @@ class ItemControl(gui.control.GuiControl):
   # That may not be handled correctly.
   # FIXME
   def button_release_left(self, event):
-    self.group_manager.close(event)
+    self.group_manager.close()
     gui.manager.control.control_manager.activate_root_control()
     print "Item clicked without an action"
   
   def button_release_right(self, event):
-    self.group_manager.close(event)
+    self.group_manager.close()
     gui.manager.control.control_manager.activate_root_control()
     print "Item clicked without an action"
   

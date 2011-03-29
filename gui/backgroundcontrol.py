@@ -52,10 +52,17 @@ class BackgroundControl(gui.control.GuiControl):
     self.set_background_bounds()
     gui.manager.pointer.register_callback(self.pick_cb)
   
+  def activate(self, controlee):
+    gui.control.GuiControl.activate(self, controlee)  # super
+    # Reset the pointer manager so pointer motion doesn't immediately open a handle menu.
+    # That is, allow pointer to accelerate after leaving say a menu item into background. 
+    gui.manager.pointer.reset()
+    
+    
   def deactivate(self):
     '''
     Overrides control.deactivate()
-    Background control cancels timer.
+    Background control cancels timer on pointer.
     '''
     gui.manager.pointer.cancel_timer()
     

@@ -75,7 +75,8 @@ def build_traditional_items(printerport, fileport):
 
 def build_handle_menu(edit_menu, resize_menu, draw_menu):
   '''
-  Handle menu that pops up in background.
+  Handle menu that pops up on edges of graphic symbols (morphs.)
+  It tracks the pointer along an edge.
   Each has a RMB popup menu.
   '''
   handle_group = gui.menuhandle.TrackingHandleGroup("MorphHandle")
@@ -92,14 +93,16 @@ def build_handle_menu(edit_menu, resize_menu, draw_menu):
 
 def build_document_handle_menu(edit_menu, resize_menu, draw_menu):
   '''
-  Handle menu that pops up on edges of graphics.
-  Each has a RMB popup menu.
+  Handle menu that pops up in background (on the document.)
+  It does not track.
+  Each item has a RMB popup menu.
   '''
   handle_group = gui.menuhandle.StationedHandleGroup("DocumentHandle")
   
   handle_control = gui.itemhandlecoords.ResizeHandleItem(resize_menu)
   handle_group.add(handle_control)
-  handle_control = gui.itemhandlecoords.MoveHandleItem(edit_menu)
+  # Move item on document has different RMB context menu than on morph
+  handle_control = gui.itemhandlecoords.MoveHandleItem(document_menu)
   handle_group.add(handle_control)
   handle_control = gui.itemhandleline.DrawHandleItem(draw_menu)
   handle_group.add(handle_control)

@@ -49,8 +49,9 @@ class ControlsManager():
   #@dump_event
   def activate_control(self, control, controlee):
     '''
-    Activate control.
-    Also change focus???
+    Activate given control.
+    Active is synonymous with has focus.
+    Active means "handling events" while focus means "visually highlighted."
     '''
     # Must be preceded by deactivate or have just started app
     assert self.current_control is None
@@ -63,14 +64,9 @@ class ControlsManager():
     self.current_key_handler = port.view.da.connect_after('key-release-event', control.key_release_event_cb)
     
     # change focus (invalidates?)
-    # FIXME current_control should be None already
-    if self.current_control is not None:
-      self.current_control.take_focus(False)
-      
     control.take_focus(True)
-      
     self.current_control = control
-    control.controlee = controlee
+    control.activate(controlee)
     
     
   def draw_active_control(self, context):

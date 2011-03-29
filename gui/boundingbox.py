@@ -9,7 +9,8 @@ import morph.morph
 import scheme
 from decorators import *
 
-# Was Drawable
+# A singleton bounding box is in scheme
+
 class BoundingBox(morph.morph.RectMorph):
   '''
   A drawable primitive.
@@ -34,10 +35,17 @@ class BoundingBox(morph.morph.RectMorph):
     '''
     Activate: make visible at given rect in DCS.  
     Does not receive events.
+    Rect is given for direction == True.
     '''
     if direction:
+      # Special case: if rect is zero, do nothing.
+      # It wouldn't be visible and it gives assertion errors later.
+      # This happens if the model is empty.
+      if rect.width == 0 and rect.height == 0:
+        return
+      
       # Set transform to make the DCS rect bounding box passed in.
-      # TODO is this the correct call?
+      # TODO is this the correct call?  Supposedly set_dimensions is only for testing.
       self.set_dimensions(rect)
       # While the bounding box is visible, user cannot change view
       # so bounding box need not be a transformed drawable.
@@ -47,8 +55,6 @@ class BoundingBox(morph.morph.RectMorph):
       # Deactivate
       self.activated = False
       scheme.transformed_controls.remove(self)
-    
-    
-    
-    
-# Singleton is in scheme
+
+
+
