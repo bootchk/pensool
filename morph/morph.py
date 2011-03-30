@@ -1,6 +1,13 @@
-#!/usr/bin/env python
-
 '''
+Copyright 2010, 2011 Lloyd Konneker
+
+    This file is part of Pensool.
+
+    Pensool is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
 Morph: drawable composites.  Synonyms: shapes, forms, symbols.
 
 Note morphs are containers, of other morphs or primitive glyphs.
@@ -11,9 +18,11 @@ A controlee is always a morph, not a glyph.
 Thus we can always append to a controlee,
 instead of continually checking for a primitive glyph.
 
-Morphs can have associated controls, but don't contain them.
-  ghost bounding box
-  text select (insertion bar)
+Morphs can contain controls:
+  TextEditMorph contains a TextSelect (insertion bar)
+  
+Morphs do NOT contain the BoundingBox morph used for feedback,
+it is a singleton.
 '''
 
 import composite

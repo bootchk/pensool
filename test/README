@@ -1,3 +1,8 @@
+Some Pensool modules have doctests.
+
+Pensool is also tested with Texttest/Pyusecase.
+The Functional directory here is for that purpose.
+
 Notes about testing with Texttest
 
 Installing:
@@ -5,7 +10,7 @@ Installing:
 Standard:
 Install Texttest
 Install Pyusecase
-Create a directory for testing e.g. /home/foo/Test
+Create a directory for testing e.g. /home/foo/Test or ~/my_name/pensool/Functional
 In .profile export TEXTTEST_HOME=/home/foo/Test
 Run texttest and create a tested app "pensool", it creates /home/foo/Test/pensool
  

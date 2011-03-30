@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 '''
 Copyright 2010, 2011 Lloyd Konneker
 

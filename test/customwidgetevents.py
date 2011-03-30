@@ -1,15 +1,23 @@
 '''
+Copyright 2010, 2011 Lloyd Konneker
+
+    This file is part of Pensool.
+
+    Pensool is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
 customwidgetevents.py
 
-L. Konneker 2011
-
-Disclaimer: I am not an authority.  I could be mistaken.  The code seems to work.
+Disclaimer: I am not an authority on Pyusecase.  I could be mistaken.  The code seems to work.
 
 In general, a file of this name extends or customizes pyusecase to support more widgets.
 This particular example supports gtk.DrawingArea widget and some of its events.
 
 Note that the tested app must return False from its handlers for the corresponding toolkit events
 because pyusecase handlers follow (are after) in the responsibility chain.
+Also the pyusecase documentation says even returning False is insufficient, use stop_emission().
 
 See:
 texttest/source/pyusecase/lib/usecase.py for superclass UserEvent (generic to all apps)

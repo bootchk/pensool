@@ -1,4 +1,8 @@
 
 See a list of unimplemented features in the users manual.
 
-Fix opening handle menu on text inside text bounding box.
+Opening handle menu on TextSelect inside text bounding box.
+
+Wrapping of text inside bounding box (it used to work.)
+
+
