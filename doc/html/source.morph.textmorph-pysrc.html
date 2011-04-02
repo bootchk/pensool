@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>source.morph.textmorph</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="source-module.html">Package&nbsp;source</a> ::
+        <a href="source.morph-module.html">Package&nbsp;morph</a> ::
+        Module&nbsp;textmorph
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="source.morph.textmorph-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="source.morph.textmorph-module.html">Module source.morph.textmorph</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-docstring">Copyright 2010, 2011 Lloyd Konneker</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-docstring">    This file is part of Pensool.</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-docstring">    Pensool is free software: you can redistribute it and/or modify</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-docstring">    it under the terms of the GNU General Public License as published by</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-docstring">    the Free Software Foundation, either version 3 of the License, or</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-docstring">    (at your option) any later version.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Package source.morph=source.morph-module.html,Module source.morph.morph=source.morph.morph-module.html"><a title="source.morph
+source.morph.morph" class="py-name" href="#" onclick="return doclink('link-0', 'morph', 'link-0');">morph</a></tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Module source.morph.glyph=source.morph.glyph-module.html"><a title="source.morph.glyph" class="py-name" href="#" onclick="return doclink('link-1', 'glyph', 'link-1');">glyph</a></tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Module source.morph.textglyph=source.morph.textglyph-module.html"><a title="source.morph.textglyph" class="py-name" href="#" onclick="return doclink('link-2', 'textglyph', 'link-2');">textglyph</a></tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-3" class="py-name" targets="Package source.gui=source.gui-module.html"><a title="source.gui" class="py-name" href="#" onclick="return doclink('link-3', 'gui', 'link-3');">gui</a></tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Module source.gui.textselectcontrol=source.gui.textselectcontrol-module.html"><a title="source.gui.textselectcontrol" class="py-name" href="#" onclick="return doclink('link-4', 'textselectcontrol', 'link-4');">textselectcontrol</a></tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-5" class="py-name"><a title="source.gui" class="py-name" href="#" onclick="return doclink('link-5', 'gui', 'link-3');">gui</a></tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Package source.gui.manager=source.gui.manager-module.html"><a title="source.gui.manager" class="py-name" href="#" onclick="return doclink('link-6', 'manager', 'link-6');">manager</a></tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Module source.gui.manager.textselect=source.gui.manager.textselect-module.html"><a title="source.gui.manager.textselect" class="py-name" href="#" onclick="return doclink('link-7', 'textselect', 'link-7');">textselect</a></tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-8" class="py-name" targets="Module source.decorators=source.decorators-module.html"><a title="source.decorators" class="py-name" href="#" onclick="return doclink('link-8', 'decorators', 'link-8');">decorators</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-9" class="py-name" targets="Module source.config=source.config-module.html"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-9', 'config', 'link-9');">config</a></tt> <tt class="py-comment"># scheme.bounding box</tt> </tt>
+<a name="TextMorph"></a><div id="TextMorph-def"><a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt> <a class="py-toggle" href="#" id="TextMorph-toggle" onclick="return toggle('TextMorph');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="source.morph.textmorph.TextMorph-class.html">TextMorph</a><tt class="py-op">(</tt><tt class="py-base-class">morph</tt><tt class="py-op">.</tt><tt class="py-base-class">PrimitiveMorph</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TextMorph-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="TextMorph-expanded"><a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line">  <tt class="py-docstring">'''</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-docstring">  Morph comprising frame, text</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt class="py-docstring">  </tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"><tt class="py-docstring">  Text does layout to fit the frame.</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt class="py-docstring">  set_dimensions of the frame should layout.</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"><tt class="py-docstring">  '''</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">   </tt>
+<a name="TextMorph.__init__"></a><div id="TextMorph.__init__-def"><a name="L28"></a><tt class="py-lineno">28</tt> <a class="py-toggle" href="#" id="TextMorph.__init__-toggle" onclick="return toggle('TextMorph.__init__');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.morph.textmorph.TextMorph-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt>  <tt class="py-param">text</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TextMorph.__init__-collapsed" style="display:none;" pad="++" indent="++++++"></div><div id="TextMorph.__init__-expanded"><a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">    <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-10" class="py-name" targets="Class source.morph.textmorph.TextMorph=source.morph.textmorph.TextMorph-class.html"><a title="source.morph.textmorph.TextMorph" class="py-name" href="#" onclick="return doclink('link-10', 'TextMorph', 'link-10');">TextMorph</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Method source.base.bounds.Bounds.__init__()=source.base.bounds.Bounds-class.html#__init__,Method source.base.command.Command.__init__()=source.base.command.Command-class.html#__init__,Method source.base.timer.Timer.__init__()=source.base.timer.Timer-class.html#__init__,Method source.base.vector.Vector.__init__()=source.base.vector.Vector-class.html#__init__,Method source.clipboard.Clipboard.__init__()=source.clipboard.Clipboard-class.html#__init__,Method source.composite.Composite.__init__()=source.composite.Composite-class.html#__init__,Method source.drawable.Drawable.__init__()=source.drawable.Drawable-class.html#__init__,Method source.gui.backgroundcontrol.BackgroundControl.__init__()=source.gui.backgroundcontrol.BackgroundControl-class.html#__init__,Method source.gui.boundingbox.BoundingBox.__init__()=source.gui.boundingbox.BoundingBox-class.html#__init__,Method source.gui.control.GuiControl.__init__()=source.gui.control.GuiControl-class.html#__init__,Method source.gui.itemcontrol.CommandItemControl.__init__()=source.gui.itemcontrol.CommandItemControl-class.html#__init__,Method source.gui.itemcontrol.PopupItemControl.__init__()=source.gui.itemcontrol.PopupItemControl-class.html#__init__,Method source.gui.itemhandlecoords.MoveHandleItem.__init__()=source.gui.itemhandlecoords.MoveHandleItem-class.html#__init__,Method source.gui.itemhandlecoords.ResizeHandleItem.__init__()=source.gui.itemhandlecoords.ResizeHandleItem-class.html#__init__,Method source.gui.itemhandleline.DrawHandleItem.__init__()=source.gui.itemhandleline.DrawHandleItem-class.html#__init__,Method source.gui.itemmenu.IconMenuItem.__init__()=source.gui.itemmenu.IconMenuItem-class.html#__init__,Method source.gui.itemmenu.TextMenuItem.__init__()=source.gui.itemmenu.TextMenuItem-class.html#__init__,Method source.gui.manager.control.ControlsManager.__init__()=source.gui.manager.control.ControlsManager-class.html#__init__,Method source.gui.manager.drop.DropManager.__init__()=source.gui.manager.drop.DropManager-class.html#__init__,Method source.gui.menu.ItemGroup.__init__()=source.gui.menu.ItemGroup-class.html#__init__,Method source.gui.menuhandle.StationedHandleGroup.__init__()=source.gui.menuhandle.StationedHandleGroup-class.html#__init__,Method source.gui.menuhandle.TrackingHandleGroup.__init__()=source.gui.menuhandle.TrackingHandleGroup-class.html#__init__,Method source.gui.menuhandle._HandleGroup.__init__()=source.gui.menuhandle._HandleGroup-class.html#__init__,Method source.gui.textselectcontrol.TextSelectControl.__init__()=source.gui.textselectcontrol.TextSelectControl-class.html#__init__,Method source.layout.LayoutSpec.__init__()=source.layout.LayoutSpec-class.html#__init__,Method source.morph.morph.CircleMorph.__init__()=source.morph.morph.CircleMorph-class.html#__init__,Method source.morph.morph.HandlePoint.__init__()=source.morph.morph.HandlePoint-class.html#__init__,Method source.morph.morph.LineMorph.__init__()=source.morph.morph.LineMorph-class.html#__init__,Method source.morph.morph.Morph.__init__()=source.morph.morph.Morph-class.html#__init__,Method source.morph.morph.PointMorph.__init__()=source.morph.morph.PointMorph-class.html#__init__,Method source.morph.morph.RectMorph.__init__()=source.morph.morph.RectMorph-class.html#__init__,Method source.morph.textglyph.TextGlyph.__init__()=source.morph.textglyph.TextGlyph-class.html#__init__,Method source.morph.textmorph.TextEditMorph.__init__()=source.morph.textmorph.TextEditMorph-class.html#__init__,Method source.morph.textmorph.TextMorph.__init__()=source.morph.textmorph.TextMorph-class.html#__init__,Method source.port.FilePort.__init__()=source.port.FilePort-class.html#__init__,Method source.port.Port.__init__()=source.port.Port-class.html#__init__,Method source.port.PrinterPort.__init__()=source.port.PrinterPort-class.html#__init__,Method source.port.ViewPort.__init__()=source.port.ViewPort-class.html#__init__,Method source.scheme.Scheme.__init__()=source.scheme.Scheme-class.html#__init__,Method source.style.Style.__init__()=source.style.Style-class.html#__init__,Method source.transformer.Transformer.__init__()=source.transformer.Transformer-class.html#__init__"><a title="source.base.bounds.Bounds.__init__
+source.base.command.Command.__init__
+source.base.timer.Timer.__init__
+source.base.vector.Vector.__init__
+source.clipboard.Clipboard.__init__
+source.composite.Composite.__init__
+source.drawable.Drawable.__init__
+source.gui.backgroundcontrol.BackgroundControl.__init__
+source.gui.boundingbox.BoundingBox.__init__
+source.gui.control.GuiControl.__init__
+source.gui.itemcontrol.CommandItemControl.__init__
+source.gui.itemcontrol.PopupItemControl.__init__
+source.gui.itemhandlecoords.MoveHandleItem.__init__
+source.gui.itemhandlecoords.ResizeHandleItem.__init__
+source.gui.itemhandleline.DrawHandleItem.__init__
+source.gui.itemmenu.IconMenuItem.__init__
+source.gui.itemmenu.TextMenuItem.__init__
+source.gui.manager.control.ControlsManager.__init__
+source.gui.manager.drop.DropManager.__init__
+source.gui.menu.ItemGroup.__init__
+source.gui.menuhandle.StationedHandleGroup.__init__
+source.gui.menuhandle.TrackingHandleGroup.__init__
+source.gui.menuhandle._HandleGroup.__init__
+source.gui.textselectcontrol.TextSelectControl.__init__
+source.layout.LayoutSpec.__init__
+source.morph.morph.CircleMorph.__init__
+source.morph.morph.HandlePoint.__init__
+source.morph.morph.LineMorph.__init__
+source.morph.morph.Morph.__init__
+source.morph.morph.PointMorph.__init__
+source.morph.morph.RectMorph.__init__
+source.morph.textglyph.TextGlyph.__init__
+source.morph.textmorph.TextEditMorph.__init__
+source.morph.textmorph.TextMorph.__init__
+source.port.FilePort.__init__
+source.port.Port.__init__
+source.port.PrinterPort.__init__
+source.port.ViewPort.__init__
+source.scheme.Scheme.__init__
+source.style.Style.__init__
+source.transformer.Transformer.__init__" class="py-name" href="#" onclick="return doclink('link-11', '__init__', 'link-11');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">    <tt class="py-string">"""</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"><tt class="py-string">    Members: </tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line"><tt class="py-string">      text, a glyph</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line"><tt class="py-string">      frame, a glyph</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"><tt class="py-string">    !!! Note however that textglyph overrides draw and futzes with scale.</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"><tt class="py-string">    """</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">frame</tt> <tt class="py-op">=</tt> <tt id="link-12" class="py-name"><a title="source.morph.glyph" class="py-name" href="#" onclick="return doclink('link-12', 'glyph', 'link-1');">glyph</a></tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Class source.morph.glyph.RectGlyph=source.morph.glyph.RectGlyph-class.html"><a title="source.morph.glyph.RectGlyph" class="py-name" href="#" onclick="return doclink('link-13', 'RectGlyph', 'link-13');">RectGlyph</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt>  <tt class="py-comment"># TODO singleton?</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Method source.composite.Composite.append()=source.composite.Composite-class.html#append"><a title="source.composite.Composite.append" class="py-name" href="#" onclick="return doclink('link-14', 'append', 'link-14');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">frame</tt><tt class="py-op">)</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">     </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">    <tt class="py-comment"># textglyph is an attribute so that we can tell it to activate its select.</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="source.morph.textglyph" class="py-name" href="#" onclick="return doclink('link-15', 'textglyph', 'link-2');">textglyph</a></tt> <tt class="py-op">=</tt> <tt id="link-16" class="py-name"><a title="source.morph.textglyph" class="py-name" href="#" onclick="return doclink('link-16', 'textglyph', 'link-2');">textglyph</a></tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Class source.morph.textglyph.TextGlyph=source.morph.textglyph.TextGlyph-class.html"><a title="source.morph.textglyph.TextGlyph" class="py-name" href="#" onclick="return doclink('link-17', 'TextGlyph', 'link-17');">TextGlyph</a></tt><tt class="py-op">(</tt> <tt class="py-name">text</tt><tt class="py-op">)</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="source.composite.Composite.append" class="py-name" href="#" onclick="return doclink('link-18', 'append', 'link-14');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="source.morph.textglyph" class="py-name" href="#" onclick="return doclink('link-19', 'textglyph', 'link-2');">textglyph</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">   </tt>
+<a name="TextMorph.set_text"></a><div id="TextMorph.set_text-def"><a name="L43"></a><tt class="py-lineno">43</tt> <a class="py-toggle" href="#" id="TextMorph.set_text-toggle" onclick="return toggle('TextMorph.set_text');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.morph.textmorph.TextMorph-class.html#set_text">set_text</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">text</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TextMorph.set_text-collapsed" style="display:none;" pad="++" indent="++++++"></div><div id="TextMorph.set_text-expanded"><a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="source.morph.textglyph" class="py-name" href="#" onclick="return doclink('link-20', 'textglyph', 'link-2');">textglyph</a></tt><tt class="py-op">.</tt><tt class="py-name">text</tt> <tt class="py-op">=</tt> <tt class="py-name">text</tt> </tt>
+</div><a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">   </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">transforming</tt> </tt>
+<a name="TextMorph.put_edge_to"></a><div id="TextMorph.put_edge_to-def"><a name="L47"></a><tt class="py-lineno">47</tt> <a class="py-toggle" href="#" id="TextMorph.put_edge_to-toggle" onclick="return toggle('TextMorph.put_edge_to');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.morph.textmorph.TextMorph-class.html#put_edge_to">put_edge_to</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">context</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TextMorph.put_edge_to-collapsed" style="display:none;" pad="++" indent="++++++"></div><div id="TextMorph.put_edge_to-expanded"><a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line"><tt class="py-docstring">    !!! Override: Hit detection is just on frame, not text glyphs</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line"><tt class="py-docstring">    TODO hit detection on TextSelect control</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">frame</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name" targets="Method source.drawable.Drawable.put_edge_to()=source.drawable.Drawable-class.html#put_edge_to,Method source.morph.textglyph.TextGlyph.put_edge_to()=source.morph.textglyph.TextGlyph-class.html#put_edge_to,Method source.morph.textmorph.TextMorph.put_edge_to()=source.morph.textmorph.TextMorph-class.html#put_edge_to"><a title="source.drawable.Drawable.put_edge_to
+source.morph.textglyph.TextGlyph.put_edge_to
+source.morph.textmorph.TextMorph.put_edge_to" class="py-name" href="#" onclick="return doclink('link-21', 'put_edge_to', 'link-21');">put_edge_to</a></tt><tt class="py-op">(</tt><tt class="py-name">context</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">   </tt>
+<a name="TextEditMorph"></a><div id="TextEditMorph-def"><a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">   </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt> <a class="py-toggle" href="#" id="TextEditMorph-toggle" onclick="return toggle('TextEditMorph');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="source.morph.textmorph.TextEditMorph-class.html">TextEditMorph</a><tt class="py-op">(</tt><tt class="py-base-class">TextMorph</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TextEditMorph-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="TextEditMorph-expanded"><a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">  <tt class="py-docstring">'''</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line"><tt class="py-docstring">  TextMorph with extra selection control.</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line"><tt class="py-docstring">  </tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"><tt class="py-docstring">  Extra member:</tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line"><tt class="py-docstring">    text_select_control, a morph with its transform</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line"><tt class="py-docstring">  User can:</tt> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line"><tt class="py-docstring">    pick and manipulate frame as representative of whole</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line"><tt class="py-docstring">    set font and size of text.</tt> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line"><tt class="py-docstring">    enter keystrokes into the text.</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line"><tt class="py-docstring">    constrain: frame sides</tt> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line"><tt class="py-docstring">    constrain: text clipping or auto frame expand</tt> </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line"><tt class="py-docstring">  </tt> </tt>
+<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line"><tt class="py-docstring">  The primitive text glyph in turn comprises list of characters</tt> </tt>
+<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line"><tt class="py-docstring">  (called glyphs in Pango.)</tt> </tt>
+<a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line"><tt class="py-docstring">  </tt> </tt>
+<a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line"><tt class="py-docstring">  A TextEditMorph is not hashable because it is a Compound (a list.)</tt> </tt>
+<a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line"><tt class="py-docstring">  The TextGlyph is hashable.</tt> </tt>
+<a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line"><tt class="py-docstring">  '''</tt> </tt>
+<a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line">   </tt>
+<a name="TextEditMorph.__init__"></a><div id="TextEditMorph.__init__-def"><a name="L76"></a><tt class="py-lineno">76</tt> <a class="py-toggle" href="#" id="TextEditMorph.__init__-toggle" onclick="return toggle('TextEditMorph.__init__');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.morph.textmorph.TextEditMorph-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt>  <tt class="py-param">text</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TextEditMorph.__init__-collapsed" style="display:none;" pad="++" indent="++++++"></div><div id="TextEditMorph.__init__-expanded"><a name="L77"></a><tt class="py-lineno">77</tt>  <tt class="py-line">    <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-22" class="py-name" targets="Class source.morph.textmorph.TextEditMorph=source.morph.textmorph.TextEditMorph-class.html"><a title="source.morph.textmorph.TextEditMorph" class="py-name" href="#" onclick="return doclink('link-22', 'TextEditMorph', 'link-22');">TextEditMorph</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name"><a title="source.base.bounds.Bounds.__init__
+source.base.command.Command.__init__
+source.base.timer.Timer.__init__
+source.base.vector.Vector.__init__
+source.clipboard.Clipboard.__init__
+source.composite.Composite.__init__
+source.drawable.Drawable.__init__
+source.gui.backgroundcontrol.BackgroundControl.__init__
+source.gui.boundingbox.BoundingBox.__init__
+source.gui.control.GuiControl.__init__
+source.gui.itemcontrol.CommandItemControl.__init__
+source.gui.itemcontrol.PopupItemControl.__init__
+source.gui.itemhandlecoords.MoveHandleItem.__init__
+source.gui.itemhandlecoords.ResizeHandleItem.__init__
+source.gui.itemhandleline.DrawHandleItem.__init__
+source.gui.itemmenu.IconMenuItem.__init__
+source.gui.itemmenu.TextMenuItem.__init__
+source.gui.manager.control.ControlsManager.__init__
+source.gui.manager.drop.DropManager.__init__
+source.gui.menu.ItemGroup.__init__
+source.gui.menuhandle.StationedHandleGroup.__init__
+source.gui.menuhandle.TrackingHandleGroup.__init__
+source.gui.menuhandle._HandleGroup.__init__
+source.gui.textselectcontrol.TextSelectControl.__init__
+source.layout.LayoutSpec.__init__
+source.morph.morph.CircleMorph.__init__
+source.morph.morph.HandlePoint.__init__
+source.morph.morph.LineMorph.__init__
+source.morph.morph.Morph.__init__
+source.morph.morph.PointMorph.__init__
+source.morph.morph.RectMorph.__init__
+source.morph.textglyph.TextGlyph.__init__
+source.morph.textmorph.TextEditMorph.__init__
+source.morph.textmorph.TextMorph.__init__
+source.port.FilePort.__init__
+source.port.Port.__init__
+source.port.PrinterPort.__init__
+source.port.ViewPort.__init__
+source.scheme.Scheme.__init__
+source.style.Style.__init__
+source.transformer.Transformer.__init__" class="py-name" href="#" onclick="return doclink('link-23', '__init__', 'link-11');">__init__</a></tt><tt class="py-op">(</tt> <tt class="py-name">text</tt><tt class="py-op">)</tt> </tt>
+<a name="L78"></a><tt class="py-lineno">78</tt>  <tt class="py-line">   </tt>
+<a name="L79"></a><tt class="py-lineno">79</tt>  <tt class="py-line">    <tt class="py-string">'''</tt> </tt>
+<a name="L80"></a><tt class="py-lineno">80</tt>  <tt class="py-line"><tt class="py-string">    TextEditMorph has a selection, IS a transformed member of the composite.</tt> </tt>
+<a name="L81"></a><tt class="py-lineno">81</tt>  <tt class="py-line"><tt class="py-string">    Hashed by the TextGlyph, not the TextEditMorph</tt> </tt>
+<a name="L82"></a><tt class="py-lineno">82</tt>  <tt class="py-line"><tt class="py-string">    '''</tt> </tt>
+<a name="L83"></a><tt class="py-lineno">83</tt>  <tt class="py-line">    <tt class="py-comment"># The textglyph will save a reference to this selection control.</tt> </tt>
+<a name="L84"></a><tt class="py-lineno">84</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name" targets="Variable source.gui.manager.textselect.text_select=source.gui.manager.textselect-module.html#text_select"><a title="source.gui.manager.textselect.text_select" class="py-name" href="#" onclick="return doclink('link-24', 'text_select', 'link-24');">text_select</a></tt> <tt class="py-op">=</tt> <tt id="link-25" class="py-name"><a title="source.gui" class="py-name" href="#" onclick="return doclink('link-25', 'gui', 'link-3');">gui</a></tt><tt class="py-op">.</tt><tt id="link-26" class="py-name"><a title="source.gui.textselectcontrol" class="py-name" href="#" onclick="return doclink('link-26', 'textselectcontrol', 'link-4');">textselectcontrol</a></tt><tt class="py-op">.</tt><tt id="link-27" class="py-name" targets="Class source.gui.textselectcontrol.TextSelectControl=source.gui.textselectcontrol.TextSelectControl-class.html"><a title="source.gui.textselectcontrol.TextSelectControl" class="py-name" href="#" onclick="return doclink('link-27', 'TextSelectControl', 'link-27');">TextSelectControl</a></tt><tt class="py-op">(</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-28" class="py-name"><a title="source.morph.textglyph" class="py-name" href="#" onclick="return doclink('link-28', 'textglyph', 'link-2');">textglyph</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L85"></a><tt class="py-lineno">85</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="source.composite.Composite.append" class="py-name" href="#" onclick="return doclink('link-29', 'append', 'link-14');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-30" class="py-name"><a title="source.gui.manager.textselect.text_select" class="py-name" href="#" onclick="return doclink('link-30', 'text_select', 'link-24');">text_select</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L86"></a><tt class="py-lineno">86</tt>  <tt class="py-line">     </tt>
+<a name="L87"></a><tt class="py-lineno">87</tt>  <tt class="py-line">     </tt>
+<a name="L88"></a><tt class="py-lineno">88</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">dump_event</tt> </tt>
+<a name="TextEditMorph.rouse_feedback"></a><div id="TextEditMorph.rouse_feedback-def"><a name="L89"></a><tt class="py-lineno">89</tt> <a class="py-toggle" href="#" id="TextEditMorph.rouse_feedback-toggle" onclick="return toggle('TextEditMorph.rouse_feedback');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.morph.textmorph.TextEditMorph-class.html#rouse_feedback">rouse_feedback</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">direction</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TextEditMorph.rouse_feedback-collapsed" style="display:none;" pad="++" indent="++++++"></div><div id="TextEditMorph.rouse_feedback-expanded"><a name="L90"></a><tt class="py-lineno">90</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L91"></a><tt class="py-lineno">91</tt>  <tt class="py-line"><tt class="py-docstring">    This text has gained/lost pointer focus.  </tt> </tt>
+<a name="L92"></a><tt class="py-lineno">92</tt>  <tt class="py-line"><tt class="py-docstring">    Activate/deactivate its text select for keyboard focus.</tt> </tt>
+<a name="L93"></a><tt class="py-lineno">93</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L94"></a><tt class="py-lineno">94</tt>  <tt class="py-line">    <tt id="link-31" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-31', 'config', 'link-9');">config</a></tt><tt class="py-op">.</tt><tt id="link-32" class="py-name" targets="Variable source.config.scheme=source.config-module.html#scheme,Variable source.morph.glyph.scheme=source.morph.glyph-module.html#scheme,Module source.scheme=source.scheme-module.html"><a title="source.config.scheme
+source.morph.glyph.scheme
+source.scheme" class="py-name" href="#" onclick="return doclink('link-32', 'scheme', 'link-32');">scheme</a></tt><tt class="py-op">.</tt><tt class="py-name">bounding_box</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name" targets="Method source.gui.backgroundcontrol.BackgroundControl.activate()=source.gui.backgroundcontrol.BackgroundControl-class.html#activate,Method source.gui.boundingbox.BoundingBox.activate()=source.gui.boundingbox.BoundingBox-class.html#activate,Method source.gui.control.GuiControl.activate()=source.gui.control.GuiControl-class.html#activate"><a title="source.gui.backgroundcontrol.BackgroundControl.activate
+source.gui.boundingbox.BoundingBox.activate
+source.gui.control.GuiControl.activate" class="py-name" href="#" onclick="return doclink('link-33', 'activate', 'link-33');">activate</a></tt><tt class="py-op">(</tt><tt class="py-name">direction</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-34" class="py-name" targets="Module source.base.bounds=source.base.bounds-module.html"><a title="source.base.bounds" class="py-name" href="#" onclick="return doclink('link-34', 'bounds', 'link-34');">bounds</a></tt><tt class="py-op">.</tt><tt id="link-35" class="py-name" targets="Method source.base.bounds.Bounds.to_rect()=source.base.bounds.Bounds-class.html#to_rect"><a title="source.base.bounds.Bounds.to_rect" class="py-name" href="#" onclick="return doclink('link-35', 'to_rect', 'link-35');">to_rect</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L95"></a><tt class="py-lineno">95</tt>  <tt class="py-line">    <tt id="link-36" class="py-name"><a title="source.gui" class="py-name" href="#" onclick="return doclink('link-36', 'gui', 'link-3');">gui</a></tt><tt class="py-op">.</tt><tt id="link-37" class="py-name"><a title="source.gui.manager" class="py-name" href="#" onclick="return doclink('link-37', 'manager', 'link-6');">manager</a></tt><tt class="py-op">.</tt><tt id="link-38" class="py-name"><a title="source.gui.manager.textselect" class="py-name" href="#" onclick="return doclink('link-38', 'textselect', 'link-7');">textselect</a></tt><tt class="py-op">.</tt><tt class="py-name">activate_select_for_text</tt><tt class="py-op">(</tt><tt class="py-name">direction</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-39" class="py-name"><a title="source.morph.textglyph" class="py-name" href="#" onclick="return doclink('link-39', 'textglyph', 'link-2');">textglyph</a></tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L96"></a><tt class="py-lineno">96</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:33 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

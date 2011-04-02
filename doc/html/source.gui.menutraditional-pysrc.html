@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>source.gui.menutraditional</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="source-module.html">Package&nbsp;source</a> ::
+        <a href="source.gui-module.html">Package&nbsp;gui</a> ::
+        Module&nbsp;menutraditional
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="source.gui.menutraditional-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="source.gui.menutraditional-module.html">Module source.gui.menutraditional</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-docstring">Copyright 2010, 2011 Lloyd Konneker</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-docstring">    This file is part of Pensool.</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-docstring">    Pensool is free software: you can redistribute it and/or modify</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-docstring">    it under the terms of the GNU General Public License as published by</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-docstring">    the Free Software Foundation, either version 3 of the License, or</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-docstring">    (at your option) any later version.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-docstring">Classic vertical, linear, static menu.</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module source.gui.menu=source.gui.menu-module.html"><a title="source.gui.menu" class="py-name" href="#" onclick="return doclink('link-0', 'menu', 'link-0');">menu</a></tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-1" class="py-name" targets="Module source.decorators=source.decorators-module.html"><a title="source.decorators" class="py-name" href="#" onclick="return doclink('link-1', 'decorators', 'link-1');">decorators</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Method source.composite.Composite.layout()=source.composite.Composite-class.html#layout,Method source.gui.menu.ItemGroup.layout()=source.gui.menu.ItemGroup-class.html#layout,Method source.gui.menuhandle._HandleGroup.layout()=source.gui.menuhandle._HandleGroup-class.html#layout,Method source.gui.menutraditional.MenuGroup.layout()=source.gui.menutraditional.MenuGroup-class.html#layout,Module source.layout=source.layout-module.html"><a title="source.composite.Composite.layout
+source.gui.menu.ItemGroup.layout
+source.gui.menuhandle._HandleGroup.layout
+source.gui.menutraditional.MenuGroup.layout
+source.layout" class="py-name" href="#" onclick="return doclink('link-2', 'layout', 'link-2');">layout</a></tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-3" class="py-name" targets="Package source.base=source.base-module.html"><a title="source.base" class="py-name" href="#" onclick="return doclink('link-3', 'base', 'link-3');">base</a></tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Module source.base.vector=source.base.vector-module.html"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-4', 'vector', 'link-4');">vector</a></tt> <tt class="py-keyword">as</tt> <tt id="link-5" class="py-name"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-5', 'vector', 'link-4');">vector</a></tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-6" class="py-name" targets="Module source.config=source.config-module.html"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-6', 'config', 'link-6');">config</a></tt> </tt>
+<a name="MenuGroup"></a><div id="MenuGroup-def"><a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt> <a class="py-toggle" href="#" id="MenuGroup-toggle" onclick="return toggle('MenuGroup');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="source.gui.menutraditional.MenuGroup-class.html">MenuGroup</a><tt class="py-op">(</tt><tt class="py-base-class">menu</tt><tt class="py-op">.</tt><tt class="py-base-class">ItemGroup</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MenuGroup-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="MenuGroup-expanded"><a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line">  <tt class="py-docstring">'''</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-docstring">  Traditional menu, layout is:</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt class="py-docstring">    fixed position (menu does not track cursor)</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"><tt class="py-docstring">    static layout (items in same relation every open)</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt class="py-docstring">    vertical layout (items one above the other), </tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"><tt class="py-docstring">    all items visible concurrently</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"><tt class="py-docstring">  '''</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">   </tt>
+<a name="MenuGroup.new_layout_spec"></a><div id="MenuGroup.new_layout_spec-def"><a name="L29"></a><tt class="py-lineno">29</tt> <a class="py-toggle" href="#" id="MenuGroup.new_layout_spec-toggle" onclick="return toggle('MenuGroup.new_layout_spec');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.menutraditional.MenuGroup-class.html#new_layout_spec">new_layout_spec</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">event</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MenuGroup.new_layout_spec-collapsed" style="display:none;" pad="++" indent="++++++"></div><div id="MenuGroup.new_layout_spec-expanded"><a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"><tt class="py-docstring">    Layout spec for traditional menu: </tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line"><tt class="py-docstring">      vector is downward (positive y ward)</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line"><tt class="py-docstring">      opening item is 0 (the topmost item)</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"><tt class="py-docstring">      benchmark is at event (under the opening item.)</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"><tt class="py-docstring">      FIXME benchmark is UL of first item</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">    <tt class="py-comment">## menu_vect = vector.Vector(0, 1.0)</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">    <tt class="py-name">menu_vect</tt> <tt class="py-op">=</tt> <tt id="link-7" class="py-name"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-7', 'vector', 'link-4');">vector</a></tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Variable source.base.vector.UNIT_X_AXIS=source.base.vector-module.html#UNIT_X_AXIS"><a title="source.base.vector.UNIT_X_AXIS" class="py-name" href="#" onclick="return doclink('link-8', 'UNIT_X_AXIS', 'link-8');">UNIT_X_AXIS</a></tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Method source.base.bounds.Bounds.copy()=source.base.bounds.Bounds-class.html#copy,Function source.base.transform.copy()=source.base.transform-module.html#copy,Method source.base.vector.Vector.copy()=source.base.vector.Vector-class.html#copy,Method source.clipboard.Clipboard.copy()=source.clipboard.Clipboard-class.html#copy"><a title="source.base.bounds.Bounds.copy
+source.base.transform.copy
+source.base.vector.Vector.copy
+source.clipboard.Clipboard.copy" class="py-name" href="#" onclick="return doclink('link-9', 'copy', 'link-9');">copy</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">    <tt class="py-comment"># Translate menu group so opens with opening item centered on event</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">    <tt class="py-comment"># FIXME compute a proper offset to center the opening item</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">    <tt class="py-name">benchmark</tt> <tt class="py-op">=</tt> <tt id="link-10" class="py-name"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-10', 'vector', 'link-4');">vector</a></tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Class source.base.vector.Vector=source.base.vector.Vector-class.html"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-11', 'Vector', 'link-11');">Vector</a></tt><tt class="py-op">(</tt><tt class="py-name">event</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Variable source.gui.manager.pointer.Event.x=source.gui.manager.pointer.Event-class.html#x"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-12', 'x', 'link-12');">x</a></tt><tt class="py-op">,</tt> <tt class="py-name">event</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Variable source.gui.manager.pointer.Event.y=source.gui.manager.pointer.Event-class.html#y"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-13', 'y', 'link-13');">y</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">    <tt class="py-name">benchmark</tt> <tt class="py-op">+=</tt> <tt id="link-14" class="py-name"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-14', 'vector', 'link-4');">vector</a></tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-15', 'Vector', 'link-11');">Vector</a></tt><tt class="py-op">(</tt><tt class="py-op">-</tt><tt class="py-number">10</tt><tt class="py-op">,</tt> <tt class="py-op">-</tt><tt class="py-number">10</tt><tt class="py-op">)</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">layout_spec</tt> <tt class="py-op">=</tt> <tt id="link-16" class="py-name"><a title="source.composite.Composite.layout
+source.gui.menu.ItemGroup.layout
+source.gui.menuhandle._HandleGroup.layout
+source.gui.menutraditional.MenuGroup.layout
+source.layout" class="py-name" href="#" onclick="return doclink('link-16', 'layout', 'link-2');">layout</a></tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Class source.layout.LayoutSpec=source.layout.LayoutSpec-class.html"><a title="source.layout.LayoutSpec" class="py-name" href="#" onclick="return doclink('link-17', 'LayoutSpec', 'link-17');">LayoutSpec</a></tt><tt class="py-op">(</tt><tt class="py-name">event</tt><tt class="py-op">,</tt> <tt class="py-name">benchmark</tt><tt class="py-op">,</tt> <tt class="py-name">menu_vect</tt><tt class="py-op">,</tt> <tt class="py-name">opening_item</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line"> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">     </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">dump_event</tt> </tt>
+<a name="MenuGroup.layout"></a><div id="MenuGroup.layout-def"><a name="L47"></a><tt class="py-lineno">47</tt> <a class="py-toggle" href="#" id="MenuGroup.layout-toggle" onclick="return toggle('MenuGroup.layout');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.menutraditional.MenuGroup-class.html#layout">layout</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">event</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MenuGroup.layout-collapsed" style="display:none;" pad="++" indent="++++++"></div><div id="MenuGroup.layout-expanded"><a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line"><tt class="py-docstring">    Layout (position) all items in group.</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line"><tt class="py-docstring">    In linear, rectangular table, with non-overlapping items.</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line"><tt class="py-docstring">    Relative positioning within the parent GCS.</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line"><tt class="py-docstring">    Note that the menu group points the axis of the menu in a direction.</tt> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line"><tt class="py-docstring">    Layout must be on a corresponding axis.</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line"><tt class="py-docstring">    Layout is along the y-axis by convention.</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line"><tt class="py-docstring">    Event is ignored, use coords of most recent event (open, slide, etc.).</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line">    <tt id="link-18" class="py-name" targets="Variable source.morph.morph.point=source.morph.morph-module.html#point"><a title="source.morph.morph.point" class="py-name" href="#" onclick="return doclink('link-18', 'point', 'link-18');">point</a></tt> <tt class="py-op">=</tt> <tt id="link-19" class="py-name"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-19', 'vector', 'link-4');">vector</a></tt><tt class="py-op">.</tt><tt id="link-20" class="py-name" targets="Variable source.base.vector.ORIGIN=source.base.vector-module.html#ORIGIN"><a title="source.base.vector.ORIGIN" class="py-name" href="#" onclick="return doclink('link-20', 'ORIGIN', 'link-20');">ORIGIN</a></tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="source.base.bounds.Bounds.copy
+source.base.transform.copy
+source.base.vector.Vector.copy
+source.clipboard.Clipboard.copy" class="py-name" href="#" onclick="return doclink('link-21', 'copy', 'link-9');">copy</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">item</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">:</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">      <tt class="py-comment">## item.center_at(point)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line">      <tt class="py-name">item</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name" targets="Method source.transformer.Transformer.move_absolute()=source.transformer.Transformer-class.html#move_absolute"><a title="source.transformer.Transformer.move_absolute" class="py-name" href="#" onclick="return doclink('link-22', 'move_absolute', 'link-22');">move_absolute</a></tt><tt class="py-op">(</tt><tt id="link-23" class="py-name"><a title="source.morph.morph.point" class="py-name" href="#" onclick="return doclink('link-23', 'point', 'link-18');">point</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">      <tt class="py-comment"># Next item along a line (the x-axis).</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line">      <tt class="py-comment"># FIXME more generally, get the size of an item</tt> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line">      <tt class="py-comment"># point.y += item.get_dimensions().height</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">      <tt id="link-24" class="py-name"><a title="source.morph.morph.point" class="py-name" href="#" onclick="return doclink('link-24', 'point', 'link-18');">point</a></tt><tt class="py-op">.</tt><tt id="link-25" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-25', 'y', 'link-13');">y</a></tt> <tt class="py-op">+=</tt> <tt id="link-26" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-26', 'config', 'link-6');">config</a></tt><tt class="py-op">.</tt><tt id="link-27" class="py-name" targets="Variable source.config.ITEM_SIZE=source.config-module.html#ITEM_SIZE,Variable source.morph.glyph.ITEM_SIZE=source.morph.glyph-module.html#ITEM_SIZE"><a title="source.config.ITEM_SIZE
+source.morph.glyph.ITEM_SIZE" class="py-name" href="#" onclick="return doclink('link-27', 'ITEM_SIZE', 'link-27');">ITEM_SIZE</a></tt> <tt class="py-comment"># HEIGHT?</tt> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line">       </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line">    <tt class="py-string">"""</tt> </tt>
+<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line"><tt class="py-string">    OLD using non-transformed layout</tt> </tt>
+<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line"><tt class="py-string">    # Center first item on benchmark.</tt> </tt>
+<a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line"><tt class="py-string">    # (Which is the same as opening event?)</tt> </tt>
+<a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line"><tt class="py-string">    temp_rect = self.layout_spec.benchmark.copy()</tt> </tt>
+<a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line"><tt class="py-string">    for item in self:</tt> </tt>
+<a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line"><tt class="py-string">      item.center_at(temp_rect)</tt> </tt>
+<a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line"><tt class="py-string">      # Next item downward</tt> </tt>
+<a name="L76"></a><tt class="py-lineno">76</tt>  <tt class="py-line"><tt class="py-string">      temp_rect.y += item.get_dimensions().height</tt> </tt>
+<a name="L77"></a><tt class="py-lineno">77</tt>  <tt class="py-line"><tt class="py-string">    """</tt> </tt>
+</div></div><a name="L78"></a><tt class="py-lineno">78</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:33 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

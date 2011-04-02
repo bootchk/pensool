@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class Hierarchy</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Trees&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">&nbsp;</td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="class-tree.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<center><b>
+ [ <a href="module-tree.html">Module Hierarchy</a>
+ | <a href="class-tree.html">Class Hierarchy</a> ]
+</b></center><br />
+<h1 class="epydoc">Class Hierarchy</h1>
+<ul class="nomargin-top">
+    <li> <strong class="uidlink">object</strong>:
+      <em class="summary">The most base type</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.base.bounds.Bounds-class.html">source.base.bounds.Bounds</a></strong>:
+      <em class="summary">Examples:</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.clipboard.Clipboard-class.html">source.clipboard.Clipboard</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="source.base.command.Command-class.html">source.base.command.Command</a></strong>:
+      <em class="summary">Pattern: Command.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.gui.manager.control.ControlsManager-class.html">source.gui.manager.control.ControlsManager</a></strong>:
+      <em class="summary">Manages active-ness in a set of controls on a view or window (gtk 
+        object that generates events) Only one is active at a time.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.drawable.Drawable-class.html">source.drawable.Drawable</a></strong>:
+      <em class="summary">Things that can be drawn (morphs, glyphs, and controls).</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.transformer.Transformer-class.html">source.transformer.Transformer</a></strong>:
+      <em class="summary">A transformer (of coordinate systems)</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.composite.Composite-class.html">source.composite.Composite</a></strong>:
+      <em class="summary">A container of Transformer:Drawables.</em>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink">drawable.Drawable</strong>:
+      <em class="summary">Things that can be drawn (morphs, glyphs, and controls).</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.morph.glyph.Glyph-class.html">source.morph.glyph.Glyph</a></strong>:
+      <em class="summary">Symbols in the document or model.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.morph.glyph.CircleGlyph-class.html">source.morph.glyph.CircleGlyph</a></strong>:
+      <em class="summary">Unit circle.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.morph.glyph.LineGlyph-class.html">source.morph.glyph.LineGlyph</a></strong>:
+      <em class="summary">Unit line along the x-axis.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.morph.glyph.PointGlyph-class.html">source.morph.glyph.PointGlyph</a></strong>:
+      <em class="summary">Point: zero length line.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.morph.glyph.RectGlyph-class.html">source.morph.glyph.RectGlyph</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="source.morph.textglyph.TextGlyph-class.html">source.morph.textglyph.TextGlyph</a></strong>:
+      <em class="summary">A text glyph does layout to fit in its parent morph.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink">transformer.Transformer</strong>:
+      <em class="summary">A transformer (of coordinate systems)</em>
+    <ul>
+    <li> <strong class="uidlink">composite.Composite</strong>:
+      <em class="summary">A container of Transformer:Drawables.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.menu.ItemGroup-class.html">source.gui.menu.ItemGroup</a></strong>:
+      <em class="summary">A manager of a group of control items, e.g.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.menutraditional.MenuGroup-class.html">source.gui.menutraditional.MenuGroup</a></strong>:
+      <em class="summary">Traditional menu, layout is:...</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.gui.menuhandle._HandleGroup-class.html" onclick="show_private();">source.gui.menuhandle._HandleGroup</a></strong>:
+      <em class="summary">A handle menu.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.menuhandle.StationedHandleGroup-class.html">source.gui.menuhandle.StationedHandleGroup</a></strong>:
+      <em class="summary">Stationary:
+  Opens at a point (e.g.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.gui.menuhandle.TrackingHandleGroup-class.html">source.gui.menuhandle.TrackingHandleGroup</a></strong>:
+      <em class="summary">Tracking Handle Menu:...</em>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink">morph.morph.Morph</strong>:
+      <em class="summary">A Morph is a Composite with associated controls.</em>
+    <ul>
+    <li> <strong class="uidlink">morph.morph.PrimitiveMorph</strong>:
+      <em class="summary">A PrimitiveMorph is a Composite of only Glyphs.</em>
+    <ul>
+    <li> <strong class="uidlink">gui.control.GuiControl</strong>:
+      <em class="summary">Base class for GUI controls i.e.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.backgroundcontrol.BackgroundControl-class.html">source.gui.backgroundcontrol.BackgroundControl</a></strong>:
+      <em class="summary">A singleton special control that manages background,
+that is, events when no other smaller controls are active.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.gui.itemcontrol.ItemControl-class.html">source.gui.itemcontrol.ItemControl</a></strong>:
+      <em class="summary">A control that is part of a group (an item in a group.)
+Usually a menu item.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.itemcontrol.CommandItemControl-class.html">source.gui.itemcontrol.CommandItemControl</a></strong>:
+      <em class="summary">An item that executes a command.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.gui.itemcontrol.PopupItemControl-class.html">source.gui.itemcontrol.PopupItemControl</a></strong>:
+      <em class="summary">An item that popups a menu.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink">gui.itemcontrol.ItemControl</strong>:
+      <em class="summary">A control that is part of a group (an item in a group.)
+Usually a menu item.</em>
+    <ul>
+    <li> <strong class="uidlink">gui.itemcontrol.CommandItemControl</strong>:
+      <em class="summary">An item that executes a command.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.itemmenu.MenuItem-class.html">source.gui.itemmenu.MenuItem</a></strong>:
+      <em class="summary">A classic menu item control:
+  -appears anywhere (locatable)
+  -fixed location after appears
+  -not necessarily dissappear on mouse_exit (only on menu close)</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.itemmenu.IconMenuItem-class.html">source.gui.itemmenu.IconMenuItem</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="source.gui.itemmenu.TextMenuItem-class.html">source.gui.itemmenu.TextMenuItem</a></strong>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink">gui.itemcontrol.PopupItemControl</strong>:
+      <em class="summary">An item that popups a menu.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.itemhandle.HandleItem-class.html">source.gui.itemhandle.HandleItem</a></strong>:
+      <em class="summary">A handle control:
+  -appears on the edge of a controlee
+  -mouseover appearance and dissappearance, without a click
+  -not usually clickable (drag is preferred) ???
+  -tracks mouse: moveable along the path of its controlee (without a button press)
+  -starts drag (after a press)</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.itemhandleline.DrawHandleItem-class.html">source.gui.itemhandleline.DrawHandleItem</a></strong>:
+      <em class="summary">A handle that stretches a morph from the controlee, when a drag 
+        starts within.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.gui.itemhandlecoords.MoveHandleItem-class.html">source.gui.itemhandlecoords.MoveHandleItem</a></strong>:
+      <em class="summary">A handle that moves the controlee, when a drag starts within.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.gui.itemhandlecoords.ResizeHandleItem-class.html">source.gui.itemhandlecoords.ResizeHandleItem</a></strong>:
+      <em class="summary">A handle that resizes the controlee, when a drag starts within.</em>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="source.gui.textselectcontrol.TextSelectControl-class.html">source.gui.textselectcontrol.TextSelectControl</a></strong>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="source.gui.control.GuiControl-class.html">source.gui.control.GuiControl</a></strong>:
+      <em class="summary">Base class for GUI controls i.e.</em>
+    </li>
+    <li> <strong class="uidlink">morph.morph.RectMorph</strong>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.boundingbox.BoundingBox-class.html">source.gui.boundingbox.BoundingBox</a></strong>:
+      <em class="summary">A drawable primitive.</em>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="source.morph.morph.Morph-class.html">source.morph.morph.Morph</a></strong>:
+      <em class="summary">A Morph is a Composite with associated controls.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.morph.morph.PrimitiveMorph-class.html">source.morph.morph.PrimitiveMorph</a></strong>:
+      <em class="summary">A PrimitiveMorph is a Composite of only Glyphs.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.morph.morph.CircleMorph-class.html">source.morph.morph.CircleMorph</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="source.morph.morph.LineMorph-class.html">source.morph.morph.LineMorph</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="source.morph.morph.PointMorph-class.html">source.morph.morph.PointMorph</a></strong>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.morph.morph.HandlePoint-class.html">source.morph.morph.HandlePoint</a></strong>:
+      <em class="summary">Handle that is a point.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="source.morph.morph.RectMorph-class.html">source.morph.morph.RectMorph</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="source.morph.textmorph.TextMorph-class.html">source.morph.textmorph.TextMorph</a></strong>:
+      <em class="summary">Morph comprising frame, text</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.morph.textmorph.TextEditMorph-class.html">source.morph.textmorph.TextEditMorph</a></strong>:
+      <em class="summary">TextMorph with extra selection control.</em>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="source.gui.manager.drop.DropManager-class.html">source.gui.manager.drop.DropManager</a></strong>:
+      <em class="summary">Manages drag and drop within the app.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.layout.LayoutSpec-class.html">source.layout.LayoutSpec</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="source.base.command.NullCommand-class.html">source.base.command.NullCommand</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="source.port.Port-class.html">source.port.Port</a></strong>:
+      <em class="summary">Traditional meaning: drawing area (rectangle) on surface</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.port.FilePort-class.html">source.port.FilePort</a></strong>:
+      <em class="summary">A Port on a file-like device</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.port.PrinterPort-class.html">source.port.PrinterPort</a></strong>:
+      <em class="summary">A Port on a printer-like device</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.port.ViewPort-class.html">source.port.ViewPort</a></strong>:
+      <em class="summary">A Port on a display device (screen, monitor).</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="source.scheme.Scheme-class.html">source.scheme.Scheme</a></strong>:
+      <em class="summary">Named struct of things to draw.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.style.Style-class.html">source.style.Style</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="source.base.timer.Timer-class.html">source.base.timer.Timer</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="source.base.vector.Vector-class.html">source.base.vector.Vector</a></strong>:
+      <em class="summary">2D mathematical vectors (Not in the sense of sequence or array.)</em>
+    </li>
+    <li> <strong class="uidlink">list</strong>:
+      <em class="summary">list() -&gt; new empty list list(iterable) -&gt; new list 
+        initialized from iterable's items</em>
+    <ul>
+    <li> <strong class="uidlink">composite.Composite</strong>:
+      <em class="summary">A container of Transformer:Drawables.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.menu.ItemGroup-class.html">source.gui.menu.ItemGroup</a></strong>:
+      <em class="summary">A manager of a group of control items, e.g.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.menutraditional.MenuGroup-class.html">source.gui.menutraditional.MenuGroup</a></strong>:
+      <em class="summary">Traditional menu, layout is:...</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.gui.menuhandle._HandleGroup-class.html" onclick="show_private();">source.gui.menuhandle._HandleGroup</a></strong>:
+      <em class="summary">A handle menu.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.menuhandle.StationedHandleGroup-class.html">source.gui.menuhandle.StationedHandleGroup</a></strong>:
+      <em class="summary">Stationary:
+  Opens at a point (e.g.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.gui.menuhandle.TrackingHandleGroup-class.html">source.gui.menuhandle.TrackingHandleGroup</a></strong>:
+      <em class="summary">Tracking Handle Menu:...</em>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink">morph.morph.Morph</strong>:
+      <em class="summary">A Morph is a Composite with associated controls.</em>
+    <ul>
+    <li> <strong class="uidlink">morph.morph.PrimitiveMorph</strong>:
+      <em class="summary">A PrimitiveMorph is a Composite of only Glyphs.</em>
+    <ul>
+    <li> <strong class="uidlink">gui.control.GuiControl</strong>:
+      <em class="summary">Base class for GUI controls i.e.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.backgroundcontrol.BackgroundControl-class.html">source.gui.backgroundcontrol.BackgroundControl</a></strong>:
+      <em class="summary">A singleton special control that manages background,
+that is, events when no other smaller controls are active.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.gui.itemcontrol.ItemControl-class.html">source.gui.itemcontrol.ItemControl</a></strong>:
+      <em class="summary">A control that is part of a group (an item in a group.)
+Usually a menu item.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.itemcontrol.CommandItemControl-class.html">source.gui.itemcontrol.CommandItemControl</a></strong>:
+      <em class="summary">An item that executes a command.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.gui.itemcontrol.PopupItemControl-class.html">source.gui.itemcontrol.PopupItemControl</a></strong>:
+      <em class="summary">An item that popups a menu.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink">gui.itemcontrol.ItemControl</strong>:
+      <em class="summary">A control that is part of a group (an item in a group.)
+Usually a menu item.</em>
+    <ul>
+    <li> <strong class="uidlink">gui.itemcontrol.CommandItemControl</strong>:
+      <em class="summary">An item that executes a command.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.itemmenu.MenuItem-class.html">source.gui.itemmenu.MenuItem</a></strong>:
+      <em class="summary">A classic menu item control:
+  -appears anywhere (locatable)
+  -fixed location after appears
+  -not necessarily dissappear on mouse_exit (only on menu close)</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.itemmenu.IconMenuItem-class.html">source.gui.itemmenu.IconMenuItem</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="source.gui.itemmenu.TextMenuItem-class.html">source.gui.itemmenu.TextMenuItem</a></strong>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink">gui.itemcontrol.PopupItemControl</strong>:
+      <em class="summary">An item that popups a menu.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.itemhandle.HandleItem-class.html">source.gui.itemhandle.HandleItem</a></strong>:
+      <em class="summary">A handle control:
+  -appears on the edge of a controlee
+  -mouseover appearance and dissappearance, without a click
+  -not usually clickable (drag is preferred) ???
+  -tracks mouse: moveable along the path of its controlee (without a button press)
+  -starts drag (after a press)</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.itemhandleline.DrawHandleItem-class.html">source.gui.itemhandleline.DrawHandleItem</a></strong>:
+      <em class="summary">A handle that stretches a morph from the controlee, when a drag 
+        starts within.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.gui.itemhandlecoords.MoveHandleItem-class.html">source.gui.itemhandlecoords.MoveHandleItem</a></strong>:
+      <em class="summary">A handle that moves the controlee, when a drag starts within.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="source.gui.itemhandlecoords.ResizeHandleItem-class.html">source.gui.itemhandlecoords.ResizeHandleItem</a></strong>:
+      <em class="summary">A handle that resizes the controlee, when a drag starts within.</em>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="source.gui.textselectcontrol.TextSelectControl-class.html">source.gui.textselectcontrol.TextSelectControl</a></strong>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="source.gui.control.GuiControl-class.html">source.gui.control.GuiControl</a></strong>:
+      <em class="summary">Base class for GUI controls i.e.</em>
+    </li>
+    <li> <strong class="uidlink">morph.morph.RectMorph</strong>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.boundingbox.BoundingBox-class.html">source.gui.boundingbox.BoundingBox</a></strong>:
+      <em class="summary">A drawable primitive.</em>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="source.morph.morph.Morph-class.html">source.morph.morph.Morph</a></strong>:
+      <em class="summary">A Morph is a Composite with associated controls.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.morph.morph.PrimitiveMorph-class.html">source.morph.morph.PrimitiveMorph</a></strong>:
+      <em class="summary">A PrimitiveMorph is a Composite of only Glyphs.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.morph.morph.CircleMorph-class.html">source.morph.morph.CircleMorph</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="source.morph.morph.LineMorph-class.html">source.morph.morph.LineMorph</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="source.morph.morph.PointMorph-class.html">source.morph.morph.PointMorph</a></strong>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.morph.morph.HandlePoint-class.html">source.morph.morph.HandlePoint</a></strong>:
+      <em class="summary">Handle that is a point.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="source.morph.morph.RectMorph-class.html">source.morph.morph.RectMorph</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="source.morph.textmorph.TextMorph-class.html">source.morph.textmorph.TextMorph</a></strong>:
+      <em class="summary">Morph comprising frame, text</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.morph.textmorph.TextEditMorph-class.html">source.morph.textmorph.TextEditMorph</a></strong>:
+      <em class="summary">TextMorph with extra selection control.</em>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="source.composite.Composite-class.html">source.composite.Composite</a></strong>:
+      <em class="summary">A container of Transformer:Drawables.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink">tuple</strong>:
+      <em class="summary">tuple() -&gt; empty tuple tuple(iterable) -&gt; tuple initialized 
+        from iterable's items</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="source.gui.manager.pointer.Event-class.html">source.gui.manager.pointer.Event</a></strong>:
+      <em class="summary">Event(x, y, time)</em>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+</ul>
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Trees&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:27 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

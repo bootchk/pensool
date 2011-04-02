@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>source.base.alert</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="source-module.html">Package&nbsp;source</a> ::
+        <a href="source.base-module.html">Package&nbsp;base</a> ::
+        Module&nbsp;alert
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="source.base.alert-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="source.base.alert-module.html">Module source.base.alert</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-docstring">Copyright 2010, 2011 Lloyd Konneker</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-docstring">    This file is part of Pensool.</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-docstring">    Pensool is free software: you can redistribute it and/or modify</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-docstring">    it under the terms of the GNU General Public License as published by</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-docstring">    the Free Software Foundation, either version 3 of the License, or</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-docstring">    (at your option) any later version.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-string">Thin wrapper around informative dialogs with user for error conditions.</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-string">See also excepthook that catches most exceptions and calls them bugs.</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">gtk</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">gtk</tt> <tt class="py-keyword">import</tt> <tt class="py-name">gdk</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"> </tt>
+<a name="alert"></a><div id="alert-def"><a name="L20"></a><tt class="py-lineno">20</tt> <a class="py-toggle" href="#" id="alert-toggle" onclick="return toggle('alert');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.alert-module.html#alert">alert</a><tt class="py-op">(</tt><tt class="py-param">msg</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="alert-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="alert-expanded"><a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line">  <tt class="py-name">gdk</tt><tt class="py-op">.</tt><tt class="py-name">beep</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line">  <tt class="py-keyword">print</tt> <tt class="py-name">msg</tt> </tt>
+</div><a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"> </tt>
+<a name="_dialog"></a><div id="_dialog-def"><a name="L24"></a><tt class="py-lineno">24</tt> <a class="py-toggle" href="#" id="_dialog-toggle" onclick="return toggle('_dialog');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.alert-module.html#_dialog">_dialog</a><tt class="py-op">(</tt><tt class="py-param">strength</tt><tt class="py-op">,</tt> <tt class="py-param">text</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_dialog-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="_dialog-expanded"><a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">  <tt class="py-docstring">''' Display modal dialog of given strength with given text '''</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">  <tt class="py-comment"># TODO parent window the app instead of None</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">  <tt class="py-name">md</tt> <tt class="py-op">=</tt> <tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">MessageDialog</tt><tt class="py-op">(</tt><tt class="py-name">None</tt><tt class="py-op">,</tt>  </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">      <tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">DIALOG_DESTROY_WITH_PARENT</tt><tt class="py-op">,</tt> <tt class="py-name">strength</tt><tt class="py-op">,</tt>  </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">      <tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">BUTTONS_CLOSE</tt><tt class="py-op">,</tt> <tt class="py-name">text</tt><tt class="py-op">)</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">  <tt class="py-name">md</tt><tt class="py-op">.</tt><tt class="py-name">run</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">  <tt class="py-name">md</tt><tt class="py-op">.</tt><tt class="py-name">destroy</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">   </tt>
+<a name="critical_dialog"></a><div id="critical_dialog-def"><a name="L33"></a><tt class="py-lineno">33</tt> <a class="py-toggle" href="#" id="critical_dialog-toggle" onclick="return toggle('critical_dialog');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.alert-module.html#critical_dialog">critical_dialog</a><tt class="py-op">(</tt><tt class="py-param">text</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="critical_dialog-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="critical_dialog-expanded"><a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">   <tt class="py-docstring">''' </tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"><tt class="py-docstring">   program critical errors.</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"><tt class="py-docstring">   usually resources, HW, or external errors</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line"><tt class="py-docstring">   '''</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">   <tt id="link-0" class="py-name" targets="Function source.base.alert._dialog()=source.base.alert-module.html#_dialog"><a title="source.base.alert._dialog" class="py-name" href="#" onclick="return doclink('link-0', '_dialog', 'link-0');">_dialog</a></tt><tt class="py-op">(</tt><tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">MESSAGE_ERROR</tt><tt class="py-op">,</tt> <tt class="py-name">text</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">    </tt>
+<a name="warning_dialog"></a><div id="warning_dialog-def"><a name="L40"></a><tt class="py-lineno">40</tt> <a class="py-toggle" href="#" id="warning_dialog-toggle" onclick="return toggle('warning_dialog');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.alert-module.html#warning_dialog">warning_dialog</a><tt class="py-op">(</tt><tt class="py-param">text</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="warning_dialog-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="warning_dialog-expanded"><a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">   <tt class="py-docstring">''' warnings about user mistakes '''</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">   <tt id="link-1" class="py-name"><a title="source.base.alert._dialog" class="py-name" href="#" onclick="return doclink('link-1', '_dialog', 'link-0');">_dialog</a></tt><tt class="py-op">(</tt><tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">MESSAGE_WARNING</tt><tt class="py-op">,</tt> <tt class="py-name">text</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:33 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

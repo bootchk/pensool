@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>source.gui.textselectcontrol</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="source-module.html">Package&nbsp;source</a> ::
+        <a href="source.gui-module.html">Package&nbsp;gui</a> ::
+        Module&nbsp;textselectcontrol
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="source.gui.textselectcontrol-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="source.gui.textselectcontrol-module.html">Module source.gui.textselectcontrol</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-docstring">Copyright 2010, 2011 Lloyd Konneker</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-docstring">    This file is part of Pensool.</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-docstring">    Pensool is free software: you can redistribute it and/or modify</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-docstring">    it under the terms of the GNU General Public License as published by</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-docstring">    the Free Software Foundation, either version 3 of the License, or</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-docstring">    (at your option) any later version.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-docstring">Text selection control (i.e. a selection)</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-docstring">A zero-length selection is an insertion bar.</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-docstring">Pensool only has selections in text.</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-docstring">This is an overlay (e.g. gray or transparent) over text that is selected.</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-docstring">A control: does not appear in renderings on ports other than view displays.</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-docstring">Receives key presses when parent text glyph is active operand.</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-docstring">!!! A control that can be controlled by another control, a handle menu.</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Package source.gui=source.gui-module.html"><a title="source.gui" class="py-name" href="#" onclick="return doclink('link-0', 'gui', 'link-0');">gui</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Module source.gui.control=source.gui.control-module.html,Module source.gui.manager.control=source.gui.manager.control-module.html"><a title="source.gui.control
+source.gui.manager.control" class="py-name" href="#" onclick="return doclink('link-1', 'control', 'link-1');">control</a></tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-2" class="py-name"><a title="source.gui" class="py-name" href="#" onclick="return doclink('link-2', 'gui', 'link-0');">gui</a></tt><tt class="py-op">.</tt><tt id="link-3" class="py-name" targets="Package source.gui.manager=source.gui.manager-module.html"><a title="source.gui.manager" class="py-name" href="#" onclick="return doclink('link-3', 'manager', 'link-3');">manager</a></tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Module source.gui.manager.textselect=source.gui.manager.textselect-module.html"><a title="source.gui.manager.textselect" class="py-name" href="#" onclick="return doclink('link-4', 'textselect', 'link-4');">textselect</a></tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-5" class="py-name" targets="Module source.decorators=source.decorators-module.html"><a title="source.decorators" class="py-name" href="#" onclick="return doclink('link-5', 'decorators', 'link-5');">decorators</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-6" class="py-name" targets="Package source.base=source.base-module.html"><a title="source.base" class="py-name" href="#" onclick="return doclink('link-6', 'base', 'link-6');">base</a></tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Module source.base.vector=source.base.vector-module.html"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-7', 'vector', 'link-7');">vector</a></tt> <tt class="py-keyword">as</tt> <tt id="link-8" class="py-name"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-8', 'vector', 'link-7');">vector</a></tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-9" class="py-name" targets="Package source.morph=source.morph-module.html,Module source.morph.morph=source.morph.morph-module.html"><a title="source.morph
+source.morph.morph" class="py-name" href="#" onclick="return doclink('link-9', 'morph', 'link-9');">morph</a></tt> </tt>
+<a name="TextSelectControl"></a><div id="TextSelectControl-def"><a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt> <a class="py-toggle" href="#" id="TextSelectControl-toggle" onclick="return toggle('TextSelectControl');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="source.gui.textselectcontrol.TextSelectControl-class.html">TextSelectControl</a><tt class="py-op">(</tt><tt class="py-base-class">gui</tt><tt class="py-op">.</tt><tt class="py-base-class">control</tt><tt class="py-op">.</tt><tt class="py-base-class">GuiControl</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TextSelectControl-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="TextSelectControl-expanded"><a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">   </tt>
+<a name="TextSelectControl.__init__"></a><div id="TextSelectControl.__init__-def"><a name="L33"></a><tt class="py-lineno"> 33</tt> <a class="py-toggle" href="#" id="TextSelectControl.__init__-toggle" onclick="return toggle('TextSelectControl.__init__');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.textselectcontrol.TextSelectControl-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">textglyph</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TextSelectControl.__init__-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="TextSelectControl.__init__-expanded"><a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">    <tt id="link-10" class="py-name"><a title="source.gui" class="py-name" href="#" onclick="return doclink('link-10', 'gui', 'link-0');">gui</a></tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="source.gui.control
+source.gui.manager.control" class="py-name" href="#" onclick="return doclink('link-11', 'control', 'link-1');">control</a></tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Class source.gui.control.GuiControl=source.gui.control.GuiControl-class.html"><a title="source.gui.control.GuiControl" class="py-name" href="#" onclick="return doclink('link-12', 'GuiControl', 'link-12');">GuiControl</a></tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Method source.base.bounds.Bounds.__init__()=source.base.bounds.Bounds-class.html#__init__,Method source.base.command.Command.__init__()=source.base.command.Command-class.html#__init__,Method source.base.timer.Timer.__init__()=source.base.timer.Timer-class.html#__init__,Method source.base.vector.Vector.__init__()=source.base.vector.Vector-class.html#__init__,Method source.clipboard.Clipboard.__init__()=source.clipboard.Clipboard-class.html#__init__,Method source.composite.Composite.__init__()=source.composite.Composite-class.html#__init__,Method source.drawable.Drawable.__init__()=source.drawable.Drawable-class.html#__init__,Method source.gui.backgroundcontrol.BackgroundControl.__init__()=source.gui.backgroundcontrol.BackgroundControl-class.html#__init__,Method source.gui.boundingbox.BoundingBox.__init__()=source.gui.boundingbox.BoundingBox-class.html#__init__,Method source.gui.control.GuiControl.__init__()=source.gui.control.GuiControl-class.html#__init__,Method source.gui.itemcontrol.CommandItemControl.__init__()=source.gui.itemcontrol.CommandItemControl-class.html#__init__,Method source.gui.itemcontrol.PopupItemControl.__init__()=source.gui.itemcontrol.PopupItemControl-class.html#__init__,Method source.gui.itemhandlecoords.MoveHandleItem.__init__()=source.gui.itemhandlecoords.MoveHandleItem-class.html#__init__,Method source.gui.itemhandlecoords.ResizeHandleItem.__init__()=source.gui.itemhandlecoords.ResizeHandleItem-class.html#__init__,Method source.gui.itemhandleline.DrawHandleItem.__init__()=source.gui.itemhandleline.DrawHandleItem-class.html#__init__,Method source.gui.itemmenu.IconMenuItem.__init__()=source.gui.itemmenu.IconMenuItem-class.html#__init__,Method source.gui.itemmenu.TextMenuItem.__init__()=source.gui.itemmenu.TextMenuItem-class.html#__init__,Method source.gui.manager.control.ControlsManager.__init__()=source.gui.manager.control.ControlsManager-class.html#__init__,Method source.gui.manager.drop.DropManager.__init__()=source.gui.manager.drop.DropManager-class.html#__init__,Method source.gui.menu.ItemGroup.__init__()=source.gui.menu.ItemGroup-class.html#__init__,Method source.gui.menuhandle.StationedHandleGroup.__init__()=source.gui.menuhandle.StationedHandleGroup-class.html#__init__,Method source.gui.menuhandle.TrackingHandleGroup.__init__()=source.gui.menuhandle.TrackingHandleGroup-class.html#__init__,Method source.gui.menuhandle._HandleGroup.__init__()=source.gui.menuhandle._HandleGroup-class.html#__init__,Method source.gui.textselectcontrol.TextSelectControl.__init__()=source.gui.textselectcontrol.TextSelectControl-class.html#__init__,Method source.layout.LayoutSpec.__init__()=source.layout.LayoutSpec-class.html#__init__,Method source.morph.morph.CircleMorph.__init__()=source.morph.morph.CircleMorph-class.html#__init__,Method source.morph.morph.HandlePoint.__init__()=source.morph.morph.HandlePoint-class.html#__init__,Method source.morph.morph.LineMorph.__init__()=source.morph.morph.LineMorph-class.html#__init__,Method source.morph.morph.Morph.__init__()=source.morph.morph.Morph-class.html#__init__,Method source.morph.morph.PointMorph.__init__()=source.morph.morph.PointMorph-class.html#__init__,Method source.morph.morph.RectMorph.__init__()=source.morph.morph.RectMorph-class.html#__init__,Method source.morph.textglyph.TextGlyph.__init__()=source.morph.textglyph.TextGlyph-class.html#__init__,Method source.morph.textmorph.TextEditMorph.__init__()=source.morph.textmorph.TextEditMorph-class.html#__init__,Method source.morph.textmorph.TextMorph.__init__()=source.morph.textmorph.TextMorph-class.html#__init__,Method source.port.FilePort.__init__()=source.port.FilePort-class.html#__init__,Method source.port.Port.__init__()=source.port.Port-class.html#__init__,Method source.port.PrinterPort.__init__()=source.port.PrinterPort-class.html#__init__,Method source.port.ViewPort.__init__()=source.port.ViewPort-class.html#__init__,Method source.scheme.Scheme.__init__()=source.scheme.Scheme-class.html#__init__,Method source.style.Style.__init__()=source.style.Style-class.html#__init__,Method source.transformer.Transformer.__init__()=source.transformer.Transformer-class.html#__init__"><a title="source.base.bounds.Bounds.__init__
+source.base.command.Command.__init__
+source.base.timer.Timer.__init__
+source.base.vector.Vector.__init__
+source.clipboard.Clipboard.__init__
+source.composite.Composite.__init__
+source.drawable.Drawable.__init__
+source.gui.backgroundcontrol.BackgroundControl.__init__
+source.gui.boundingbox.BoundingBox.__init__
+source.gui.control.GuiControl.__init__
+source.gui.itemcontrol.CommandItemControl.__init__
+source.gui.itemcontrol.PopupItemControl.__init__
+source.gui.itemhandlecoords.MoveHandleItem.__init__
+source.gui.itemhandlecoords.ResizeHandleItem.__init__
+source.gui.itemhandleline.DrawHandleItem.__init__
+source.gui.itemmenu.IconMenuItem.__init__
+source.gui.itemmenu.TextMenuItem.__init__
+source.gui.manager.control.ControlsManager.__init__
+source.gui.manager.drop.DropManager.__init__
+source.gui.menu.ItemGroup.__init__
+source.gui.menuhandle.StationedHandleGroup.__init__
+source.gui.menuhandle.TrackingHandleGroup.__init__
+source.gui.menuhandle._HandleGroup.__init__
+source.gui.textselectcontrol.TextSelectControl.__init__
+source.layout.LayoutSpec.__init__
+source.morph.morph.CircleMorph.__init__
+source.morph.morph.HandlePoint.__init__
+source.morph.morph.LineMorph.__init__
+source.morph.morph.Morph.__init__
+source.morph.morph.PointMorph.__init__
+source.morph.morph.RectMorph.__init__
+source.morph.textglyph.TextGlyph.__init__
+source.morph.textmorph.TextEditMorph.__init__
+source.morph.textmorph.TextMorph.__init__
+source.port.FilePort.__init__
+source.port.Port.__init__
+source.port.PrinterPort.__init__
+source.port.ViewPort.__init__
+source.scheme.Scheme.__init__
+source.style.Style.__init__
+source.transformer.Transformer.__init__" class="py-name" href="#" onclick="return doclink('link-13', '__init__', 'link-13');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">     </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">    <tt class="py-comment"># selection in units of glyph (character) index</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">start_index</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">end_index</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">    <tt class="py-comment"># a selection has-a text morph, belongs to it</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">text_glyph</tt> <tt class="py-op">=</tt> <tt id="link-14" class="py-name" targets="Module source.morph.textglyph=source.morph.textglyph-module.html"><a title="source.morph.textglyph" class="py-name" href="#" onclick="return doclink('link-14', 'textglyph', 'link-14');">textglyph</a></tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">    <tt class="py-comment"># a manager maps text to its textselectcontrol etc.</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">    <tt id="link-15" class="py-name"><a title="source.gui" class="py-name" href="#" onclick="return doclink('link-15', 'gui', 'link-0');">gui</a></tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="source.gui.manager" class="py-name" href="#" onclick="return doclink('link-16', 'manager', 'link-3');">manager</a></tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="source.gui.manager.textselect" class="py-name" href="#" onclick="return doclink('link-17', 'textselect', 'link-4');">textselect</a></tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Function source.gui.manager.textselect.new_select()=source.gui.manager.textselect-module.html#new_select"><a title="source.gui.manager.textselect.new_select" class="py-name" href="#" onclick="return doclink('link-18', 'new_select', 'link-18');">new_select</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt id="link-19" class="py-name"><a title="source.morph.textglyph" class="py-name" href="#" onclick="return doclink('link-19', 'textglyph', 'link-14');">textglyph</a></tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">     </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">    <tt class="py-comment">## OLD scheme.transformed_controls.append(self) # put in drawing scheme</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">    <tt class="py-comment"># Note dimensions are defaults until drawn</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">     </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">    <tt class="py-comment"># Self is morph comprising a group of rect glyphs that cover lines of selected text.</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">    <tt class="py-comment"># Initially, self is a single rectangle for an insertion bar.</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name" targets="Method source.composite.Composite.append()=source.composite.Composite-class.html#append"><a title="source.composite.Composite.append" class="py-name" href="#" onclick="return doclink('link-20', 'append', 'link-20');">append</a></tt><tt class="py-op">(</tt><tt id="link-21" class="py-name"><a title="source.morph
+source.morph.morph" class="py-name" href="#" onclick="return doclink('link-21', 'morph', 'link-9');">morph</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name" targets="Module source.morph.glyph=source.morph.glyph-module.html"><a title="source.morph.glyph" class="py-name" href="#" onclick="return doclink('link-22', 'glyph', 'link-22');">glyph</a></tt><tt class="py-op">.</tt><tt id="link-23" class="py-name" targets="Class source.morph.glyph.RectGlyph=source.morph.glyph.RectGlyph-class.html"><a title="source.morph.glyph.RectGlyph" class="py-name" href="#" onclick="return doclink('link-23', 'RectGlyph', 'link-23');">RectGlyph</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">     </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">    <tt class="py-comment"># Self transforms the group of rect glyphs.</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">    <tt class="py-comment"># Initial scale of insertion bar is size of font.</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">    <tt class="py-comment"># Initial translation of insertion bar is end of text.</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name" targets="Method source.gui.textselectcontrol.TextSelectControl.position_selection()=source.gui.textselectcontrol.TextSelectControl-class.html#position_selection"><a title="source.gui.textselectcontrol.TextSelectControl.position_selection" class="py-name" href="#" onclick="return doclink('link-24', 'position_selection', 'link-24');">position_selection</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">    <tt class="py-comment"># print "Bounds of initial text select", self.bounds</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">   </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">dump_return</tt> </tt>
+<a name="TextSelectControl.position_selection"></a><div id="TextSelectControl.position_selection-def"><a name="L60"></a><tt class="py-lineno"> 60</tt> <a class="py-toggle" href="#" id="TextSelectControl.position_selection-toggle" onclick="return toggle('TextSelectControl.position_selection');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.textselectcontrol.TextSelectControl-class.html#position_selection">position_selection</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TextSelectControl.position_selection-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="TextSelectControl.position_selection-expanded"><a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"><tt class="py-docstring">    Translate and scale the text selection.</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt class="py-docstring">    Self is morph transformer of IB.</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">    <tt class="py-comment"># Get position of IB relative to TextMorph origin.</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">    <tt class="py-comment">## position = self.text_glyph.insertion_position()</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">    <tt class="py-name">position</tt> <tt class="py-op">=</tt> <tt id="link-25" class="py-name"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-25', 'vector', 'link-7');">vector</a></tt><tt class="py-op">.</tt><tt id="link-26" class="py-name" targets="Class source.base.vector.Vector=source.base.vector.Vector-class.html"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-26', 'Vector', 'link-26');">Vector</a></tt><tt class="py-op">(</tt><tt class="py-number">0.1</tt><tt class="py-op">,</tt><tt class="py-number">0.1</tt><tt class="py-op">)</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">translation</tt> <tt class="py-op">=</tt> <tt class="py-name">position</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">    <tt class="py-comment"># !!!  scale and translation is some fraction of the TextMorph unit?</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">scale</tt> <tt class="py-op">=</tt> <tt id="link-27" class="py-name"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-27', 'vector', 'link-7');">vector</a></tt><tt class="py-op">.</tt><tt id="link-28" class="py-name"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-28', 'Vector', 'link-26');">Vector</a></tt><tt class="py-op">(</tt><tt class="py-number">0.1</tt><tt class="py-op">,</tt><tt class="py-number">0.1</tt><tt class="py-op">)</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name" targets="Method source.transformer.Transformer.derive_transform()=source.transformer.Transformer-class.html#derive_transform"><a title="source.transformer.Transformer.derive_transform" class="py-name" href="#" onclick="return doclink('link-29', 'derive_transform', 'link-29');">derive_transform</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-comment"># !!! If change specs, derive</tt> </tt>
+</div><a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">    <tt class="py-comment">## return position</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">   </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">   </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">  <tt class="py-comment">#FIXME morph.put_path_to should suffice</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">  <tt class="py-comment"># and any changes to the text glyph should change the transform of the selection</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">  <tt class="py-string">"""</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"><tt class="py-string">  </tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"><tt class="py-string">  @dump_event</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"><tt class="py-string">  def put_path_to(self, context):</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"><tt class="py-string">    '''</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"><tt class="py-string">    Shape of this control.</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line"><tt class="py-string">    </tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line"><tt class="py-string">    Note this is inside a text box, which might be transformed.</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"><tt class="py-string">    The same transform applies here.</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"><tt class="py-string">    That is, this is called when walking the hierarchical model.</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"><tt class="py-string">    '''</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"><tt class="py-string">    self.filled = True  # TODO filled?</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"><tt class="py-string">    # TODO shape it to mask text</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line"><tt class="py-string">    # get coords from pango.x_for_index etc.</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"><tt class="py-string">    # print "Selection dimensions", self.get_dimensions()</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"><tt class="py-string">    </tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line"><tt class="py-string">    # FIXME temporarily just set the origin</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line"><tt class="py-string">    # self.set_origin(position)</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line"><tt class="py-string">    position = self.text_glyph.insertion_position(context)</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line"><tt class="py-string">    # Translate within text box</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"><tt class="py-string">    context.translate(position.x, position.y)</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"><tt class="py-string">    # print self.get_dimensions(), context.get_matrix()</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"><tt class="py-string">    </tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"><tt class="py-string">    # more generally, a rectangle with cutouts to fit a block of text</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"><tt class="py-string">    # i.e. a group of rectangles</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"><tt class="py-string">    # FIXME</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line"><tt class="py-string">    # For now, one rectangle</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"><tt class="py-string">    ## context.rectangle(self.get_dimensions())</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line"><tt class="py-string">    self[0].put_path_to(context)</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"><tt class="py-string">  """</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">     </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">  <tt class="py-string">"""</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"><tt class="py-string">  def attach_to(self, text, context):</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"><tt class="py-string">    '''</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"><tt class="py-string">    Position self at end of text.</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"><tt class="py-string">    More generally, after glyph x.</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"><tt class="py-string">    Sized to fit the font.</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"><tt class="py-string">    '''</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line"><tt class="py-string">    rect = text.insertion_position(context)</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line"><tt class="py-string">    rect.width = 10</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"><tt class="py-string">    rect.height = 10</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line"><tt class="py-string">    self.set_dimensions(rect)</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line"><tt class="py-string">  """</tt>  </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">   </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">view_altering</tt>  <tt class="py-comment"># key alters this control</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">dump_event</tt> </tt>
+<a name="TextSelectControl.key"></a><div id="TextSelectControl.key-def"><a name="L123"></a><tt class="py-lineno">123</tt> <a class="py-toggle" href="#" id="TextSelectControl.key-toggle" onclick="return toggle('TextSelectControl.key');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.textselectcontrol.TextSelectControl-class.html#key">key</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">event</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TextSelectControl.key-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="TextSelectControl.key-expanded"><a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"><tt class="py-docstring">    Filtered event from background manager's callback.</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line"><tt class="py-docstring">    Key pressed in active text select.</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line"><tt class="py-docstring">    Replace select with key in the text.</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line"><tt class="py-docstring">    Move the select to following the key in the text.</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">    <tt class="py-comment"># FIXME for now append to text glyph</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">text_glyph</tt><tt class="py-op">.</tt><tt class="py-name">text</tt> <tt class="py-op">+=</tt> <tt class="py-name">event</tt><tt class="py-op">.</tt><tt class="py-name">string</tt> </tt>
+</div></div><a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">     </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">    <tt class="py-comment"># This control probably move and possibly resize.</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">    <tt class="py-comment"># FIXME</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">     </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">    <tt class="py-comment"># FIXME relayout changed text (with invalidation)</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:33 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

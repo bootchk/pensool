@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>source.gui.boundingbox</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="source-module.html">Package&nbsp;source</a> ::
+        <a href="source.gui-module.html">Package&nbsp;gui</a> ::
+        Module&nbsp;boundingbox
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="source.gui.boundingbox-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="source.gui.boundingbox-module.html">Module source.gui.boundingbox</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-docstring">Copyright 2010, 2011 Lloyd Konneker</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-docstring">    This file is part of Pensool.</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-docstring">    Pensool is free software: you can redistribute it and/or modify</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-docstring">    it under the terms of the GNU General Public License as published by</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-docstring">    the Free Software Foundation, either version 3 of the License, or</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-docstring">    (at your option) any later version.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-string">Bounding box</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-string"></tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Package source.morph=source.morph-module.html,Module source.morph.morph=source.morph.morph-module.html"><a title="source.morph
+source.morph.morph" class="py-name" href="#" onclick="return doclink('link-0', 'morph', 'link-0');">morph</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name"><a title="source.morph
+source.morph.morph" class="py-name" href="#" onclick="return doclink('link-1', 'morph', 'link-0');">morph</a></tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Module source.config=source.config-module.html"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-2', 'config', 'link-2');">config</a></tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-3" class="py-name" targets="Module source.decorators=source.decorators-module.html"><a title="source.decorators" class="py-name" href="#" onclick="return doclink('link-3', 'decorators', 'link-3');">decorators</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="BoundingBox"></a><div id="BoundingBox-def"><a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt class="py-comment"># A singleton bounding box is in scheme</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt> <a class="py-toggle" href="#" id="BoundingBox-toggle" onclick="return toggle('BoundingBox');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="source.gui.boundingbox.BoundingBox-class.html">BoundingBox</a><tt class="py-op">(</tt><tt class="py-base-class">morph</tt><tt class="py-op">.</tt><tt class="py-base-class">morph</tt><tt class="py-op">.</tt><tt class="py-base-class">RectMorph</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BoundingBox-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="BoundingBox-expanded"><a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">  <tt class="py-docstring">'''</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt class="py-docstring">  A drawable primitive.</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"><tt class="py-docstring">  Bounding box is feedback only, part of highlighting the focus.</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"><tt class="py-docstring">  Not a control, does not get events.</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"><tt class="py-docstring">  Not in the model, does not get printed.</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"><tt class="py-docstring">  Pointer near bounding box does not open a handle menu.</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line"><tt class="py-docstring">  A handle menu does slide along the bounding box,</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"><tt class="py-docstring">  but a handle menu only opens on a component of a composite that a bounding box represents.</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line"><tt class="py-docstring">  Is in the scheme.</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line"><tt class="py-docstring">  '''</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">   </tt>
+<a name="BoundingBox.__init__"></a><div id="BoundingBox.__init__-def"><a name="L35"></a><tt class="py-lineno">35</tt> <a class="py-toggle" href="#" id="BoundingBox.__init__-toggle" onclick="return toggle('BoundingBox.__init__');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.boundingbox.BoundingBox-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BoundingBox.__init__-collapsed" style="display:none;" pad="++" indent="++++++"></div><div id="BoundingBox.__init__-expanded"><a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">    <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-4" class="py-name" targets="Class source.gui.boundingbox.BoundingBox=source.gui.boundingbox.BoundingBox-class.html"><a title="source.gui.boundingbox.BoundingBox" class="py-name" href="#" onclick="return doclink('link-4', 'BoundingBox', 'link-4');">BoundingBox</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Method source.base.bounds.Bounds.__init__()=source.base.bounds.Bounds-class.html#__init__,Method source.base.command.Command.__init__()=source.base.command.Command-class.html#__init__,Method source.base.timer.Timer.__init__()=source.base.timer.Timer-class.html#__init__,Method source.base.vector.Vector.__init__()=source.base.vector.Vector-class.html#__init__,Method source.clipboard.Clipboard.__init__()=source.clipboard.Clipboard-class.html#__init__,Method source.composite.Composite.__init__()=source.composite.Composite-class.html#__init__,Method source.drawable.Drawable.__init__()=source.drawable.Drawable-class.html#__init__,Method source.gui.backgroundcontrol.BackgroundControl.__init__()=source.gui.backgroundcontrol.BackgroundControl-class.html#__init__,Method source.gui.boundingbox.BoundingBox.__init__()=source.gui.boundingbox.BoundingBox-class.html#__init__,Method source.gui.control.GuiControl.__init__()=source.gui.control.GuiControl-class.html#__init__,Method source.gui.itemcontrol.CommandItemControl.__init__()=source.gui.itemcontrol.CommandItemControl-class.html#__init__,Method source.gui.itemcontrol.PopupItemControl.__init__()=source.gui.itemcontrol.PopupItemControl-class.html#__init__,Method source.gui.itemhandlecoords.MoveHandleItem.__init__()=source.gui.itemhandlecoords.MoveHandleItem-class.html#__init__,Method source.gui.itemhandlecoords.ResizeHandleItem.__init__()=source.gui.itemhandlecoords.ResizeHandleItem-class.html#__init__,Method source.gui.itemhandleline.DrawHandleItem.__init__()=source.gui.itemhandleline.DrawHandleItem-class.html#__init__,Method source.gui.itemmenu.IconMenuItem.__init__()=source.gui.itemmenu.IconMenuItem-class.html#__init__,Method source.gui.itemmenu.TextMenuItem.__init__()=source.gui.itemmenu.TextMenuItem-class.html#__init__,Method source.gui.manager.control.ControlsManager.__init__()=source.gui.manager.control.ControlsManager-class.html#__init__,Method source.gui.manager.drop.DropManager.__init__()=source.gui.manager.drop.DropManager-class.html#__init__,Method source.gui.menu.ItemGroup.__init__()=source.gui.menu.ItemGroup-class.html#__init__,Method source.gui.menuhandle.StationedHandleGroup.__init__()=source.gui.menuhandle.StationedHandleGroup-class.html#__init__,Method source.gui.menuhandle.TrackingHandleGroup.__init__()=source.gui.menuhandle.TrackingHandleGroup-class.html#__init__,Method source.gui.menuhandle._HandleGroup.__init__()=source.gui.menuhandle._HandleGroup-class.html#__init__,Method source.gui.textselectcontrol.TextSelectControl.__init__()=source.gui.textselectcontrol.TextSelectControl-class.html#__init__,Method source.layout.LayoutSpec.__init__()=source.layout.LayoutSpec-class.html#__init__,Method source.morph.morph.CircleMorph.__init__()=source.morph.morph.CircleMorph-class.html#__init__,Method source.morph.morph.HandlePoint.__init__()=source.morph.morph.HandlePoint-class.html#__init__,Method source.morph.morph.LineMorph.__init__()=source.morph.morph.LineMorph-class.html#__init__,Method source.morph.morph.Morph.__init__()=source.morph.morph.Morph-class.html#__init__,Method source.morph.morph.PointMorph.__init__()=source.morph.morph.PointMorph-class.html#__init__,Method source.morph.morph.RectMorph.__init__()=source.morph.morph.RectMorph-class.html#__init__,Method source.morph.textglyph.TextGlyph.__init__()=source.morph.textglyph.TextGlyph-class.html#__init__,Method source.morph.textmorph.TextEditMorph.__init__()=source.morph.textmorph.TextEditMorph-class.html#__init__,Method source.morph.textmorph.TextMorph.__init__()=source.morph.textmorph.TextMorph-class.html#__init__,Method source.port.FilePort.__init__()=source.port.FilePort-class.html#__init__,Method source.port.Port.__init__()=source.port.Port-class.html#__init__,Method source.port.PrinterPort.__init__()=source.port.PrinterPort-class.html#__init__,Method source.port.ViewPort.__init__()=source.port.ViewPort-class.html#__init__,Method source.scheme.Scheme.__init__()=source.scheme.Scheme-class.html#__init__,Method source.style.Style.__init__()=source.style.Style-class.html#__init__,Method source.transformer.Transformer.__init__()=source.transformer.Transformer-class.html#__init__"><a title="source.base.bounds.Bounds.__init__
+source.base.command.Command.__init__
+source.base.timer.Timer.__init__
+source.base.vector.Vector.__init__
+source.clipboard.Clipboard.__init__
+source.composite.Composite.__init__
+source.drawable.Drawable.__init__
+source.gui.backgroundcontrol.BackgroundControl.__init__
+source.gui.boundingbox.BoundingBox.__init__
+source.gui.control.GuiControl.__init__
+source.gui.itemcontrol.CommandItemControl.__init__
+source.gui.itemcontrol.PopupItemControl.__init__
+source.gui.itemhandlecoords.MoveHandleItem.__init__
+source.gui.itemhandlecoords.ResizeHandleItem.__init__
+source.gui.itemhandleline.DrawHandleItem.__init__
+source.gui.itemmenu.IconMenuItem.__init__
+source.gui.itemmenu.TextMenuItem.__init__
+source.gui.manager.control.ControlsManager.__init__
+source.gui.manager.drop.DropManager.__init__
+source.gui.menu.ItemGroup.__init__
+source.gui.menuhandle.StationedHandleGroup.__init__
+source.gui.menuhandle.TrackingHandleGroup.__init__
+source.gui.menuhandle._HandleGroup.__init__
+source.gui.textselectcontrol.TextSelectControl.__init__
+source.layout.LayoutSpec.__init__
+source.morph.morph.CircleMorph.__init__
+source.morph.morph.HandlePoint.__init__
+source.morph.morph.LineMorph.__init__
+source.morph.morph.Morph.__init__
+source.morph.morph.PointMorph.__init__
+source.morph.morph.RectMorph.__init__
+source.morph.textglyph.TextGlyph.__init__
+source.morph.textmorph.TextEditMorph.__init__
+source.morph.textmorph.TextMorph.__init__
+source.port.FilePort.__init__
+source.port.Port.__init__
+source.port.PrinterPort.__init__
+source.port.ViewPort.__init__
+source.scheme.Scheme.__init__
+source.style.Style.__init__
+source.transformer.Transformer.__init__" class="py-name" href="#" onclick="return doclink('link-5', '__init__', 'link-5');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Module source.style=source.style-module.html"><a title="source.style" class="py-name" href="#" onclick="return doclink('link-6', 'style', 'link-6');">style</a></tt><tt class="py-op">.</tt><tt class="py-name">color</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-number">40</tt><tt class="py-op">,</tt> <tt class="py-number">40</tt><tt class="py-op">)</tt>  <tt class="py-comment"># greenish blue</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">activated</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+</div><a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line"> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">     </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">view_altering</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">dump_event</tt> </tt>
+<a name="BoundingBox.activate"></a><div id="BoundingBox.activate-def"><a name="L43"></a><tt class="py-lineno">43</tt> <a class="py-toggle" href="#" id="BoundingBox.activate-toggle" onclick="return toggle('BoundingBox.activate');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.boundingbox.BoundingBox-class.html#activate">activate</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">direction</tt><tt class="py-op">,</tt> <tt class="py-param">rect</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="BoundingBox.activate-collapsed" style="display:none;" pad="++" indent="++++++"></div><div id="BoundingBox.activate-expanded"><a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line"><tt class="py-docstring">    Activate: make visible at given rect in DCS.  </tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line"><tt class="py-docstring">    Does not receive events.</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line"><tt class="py-docstring">    Rect is given for direction == True.</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">direction</tt><tt class="py-op">:</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">      <tt class="py-comment"># Special case: if rect is zero, do nothing.</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">      <tt class="py-comment"># It wouldn't be visible and it gives assertion errors later.</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">      <tt class="py-comment"># This happens if the model is empty.</tt> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">      <tt class="py-keyword">if</tt> <tt class="py-name">rect</tt><tt class="py-op">.</tt><tt class="py-name">width</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt> <tt class="py-keyword">and</tt> <tt class="py-name">rect</tt><tt class="py-op">.</tt><tt class="py-name">height</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">       </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">      <tt class="py-comment"># Set transform to make the DCS rect bounding box passed in.</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">      <tt class="py-comment"># TODO is this the correct call?  Supposedly set_dimensions is only for testing.</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">      <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Method source.transformer.Transformer.set_dimensions()=source.transformer.Transformer-class.html#set_dimensions"><a title="source.transformer.Transformer.set_dimensions" class="py-name" href="#" onclick="return doclink('link-7', 'set_dimensions', 'link-7');">set_dimensions</a></tt><tt class="py-op">(</tt><tt class="py-name">rect</tt><tt class="py-op">)</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line">      <tt class="py-comment"># While the bounding box is visible, user cannot change view</tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">      <tt class="py-comment"># so bounding box need not be a transformed drawable.</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">      <tt id="link-8" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-8', 'config', 'link-2');">config</a></tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Variable source.config.scheme=source.config-module.html#scheme,Variable source.morph.glyph.scheme=source.morph.glyph-module.html#scheme,Module source.scheme=source.scheme-module.html"><a title="source.config.scheme
+source.morph.glyph.scheme
+source.scheme" class="py-name" href="#" onclick="return doclink('link-9', 'scheme', 'link-9');">scheme</a></tt><tt class="py-op">.</tt><tt class="py-name">transformed_controls</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method source.composite.Composite.append()=source.composite.Composite-class.html#append"><a title="source.composite.Composite.append" class="py-name" href="#" onclick="return doclink('link-10', 'append', 'link-10');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line">      <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">activated</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">    <tt class="py-keyword">elif</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">activated</tt><tt class="py-op">:</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line">      <tt class="py-comment"># Deactivate</tt> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line">      <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">activated</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">      <tt id="link-11" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-11', 'config', 'link-2');">config</a></tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="source.config.scheme
+source.morph.glyph.scheme
+source.scheme" class="py-name" href="#" onclick="return doclink('link-12', 'scheme', 'link-9');">scheme</a></tt><tt class="py-op">.</tt><tt class="py-name">transformed_controls</tt><tt class="py-op">.</tt><tt class="py-name">remove</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:33 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

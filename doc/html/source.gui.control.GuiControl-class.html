@@ -1,0 +1,1152 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>source.gui.control.GuiControl</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="source-module.html">Package&nbsp;source</a> ::
+        <a href="source.gui-module.html">Package&nbsp;gui</a> ::
+        <a href="source.gui.control-module.html">Module&nbsp;control</a> ::
+        Class&nbsp;GuiControl
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="source.gui.control.GuiControl-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class GuiControl</h1><p class="nomargin-top"><span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_source_g_3" name="uml_class_diagram_for_source_g_3">
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.dump" alt="" coords="31,36,225,55"/>
+<area shape="rect" href="javascript:void(0);" title="Return device coords of origin where drawn." alt="" coords="31,55,225,73"/>
+<area shape="rect" href="javascript:void(0);" title="Compute bounding rect in DCS of path in context as inked." alt="" coords="31,73,225,92"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_fill" alt="" coords="31,92,225,111"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_path" alt="" coords="31,111,225,129"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_stroke" alt="" coords="31,129,225,148"/>
+<area shape="rect" href="javascript:void(0);" title="Invalidate as previously drawn." alt="" coords="31,148,225,167"/>
+<area shape="rect" href="javascript:void(0);" title="Invalidate as will be drawn (hasn&#39;t been drawn yet.) This walks a branch of model to determine bounds." alt="" coords="31,167,225,185"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.is_inbounds" alt="" coords="31,185,225,204"/>
+<area shape="rect" href="javascript:void(0);" title="Put my boundary in the context." alt="" coords="31,204,225,223"/>
+<area shape="rect" href="javascript:void(0);" title="Things that can be drawn (morphs, glyphs, and controls)." alt="" coords="29,11,227,224"/>
+<area shape="rect" href="javascript:void(0);" title="Return state values to be pickled." alt="" coords="17,285,239,304"/>
+<area shape="rect" href="javascript:void(0);" title="Restore state from the unpickled state values." alt="" coords="17,304,239,323"/>
+<area shape="rect" href="javascript:void(0);" title="??? This only works for controls, where the scale is equivalent to pixels &#160;in DCS." alt="" coords="17,323,239,341"/>
+<area shape="rect" href="javascript:void(0);" title="Set my transform from my drawing specs." alt="" coords="17,341,239,360"/>
+<area shape="rect" href="javascript:void(0);" title="Get local coordinates (group GCS) of DCS point." alt="" coords="17,360,239,379"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.move_absolute" alt="" coords="17,379,239,397"/>
+<area shape="rect" href="javascript:void(0);" title="Move origin but keep other points fixed." alt="" coords="17,397,239,416"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.move_relative" alt="" coords="17,416,239,435"/>
+<area shape="rect" href="javascript:void(0);" title="Apply my transform to the current transform in the context." alt="" coords="17,435,239,453"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.relative_scale" alt="" coords="17,453,239,472"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.rotate" alt="" coords="17,472,239,491"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.scale_uniformly" alt="" coords="17,491,239,509"/>
+<area shape="rect" href="javascript:void(0);" title="Set the translation and scale (not rotation) of an object." alt="" coords="17,509,239,528"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.zoom" alt="" coords="17,547,239,565"/>
+<area shape="rect" href="javascript:void(0);" title="A transformer (of coordinate systems)" alt="" coords="16,260,240,567"/>
+<area shape="rect" href="javascript:void(0);" title="Morph that is not class PrimitiveMorph is not primitive." alt="" coords="195,1020,360,1039"/>
+<area shape="rect" href="javascript:void(0);" title="A PrimitiveMorph is a Composite of only Glyphs." alt="" coords="193,995,361,1040"/>
+<area shape="rect" href="source.gui.control.GuiControl-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="139,1095,416,1113"/>
+<area shape="rect" href="source.gui.control.GuiControl-class.html#__repr__" title="Represent by the class name" alt="" coords="139,1113,416,1132"/>
+<area shape="rect" href="source.gui.control.GuiControl-class.html#activate" title="This control is active on given controlee." alt="" coords="139,1132,416,1151"/>
+<area shape="rect" href="source.gui.control.GuiControl-class.html#deactivate" title="Override if any special deactivation." alt="" coords="139,1151,416,1169"/>
+<area shape="rect" href="source.gui.control.GuiControl-class.html#is_in_control_area" title="Is the event in the hot area? For some controls the hot area is not same as the bounding box." alt="" coords="139,1169,416,1188"/>
+<area shape="rect" href="source.gui.control.GuiControl-class.html#motion_notify_event_cb" title="Fundamental mouse interaction with controls: &#160;&#160;Exit if not mouse still inside." alt="" coords="139,1188,416,1207"/>
+<area shape="rect" href="source.gui.control.GuiControl-class.html#button_press_event_cb" title="Button pressed in this active control" alt="" coords="139,1207,416,1225"/>
+<area shape="rect" href="source.gui.control.GuiControl-class.html#button_release_event_cb" title="Button released inside control" alt="" coords="139,1225,416,1244"/>
+<area shape="rect" href="source.gui.control.GuiControl-class.html#scroll_event_cb" title="Scroll wheel inside control." alt="" coords="139,1244,416,1263"/>
+<area shape="rect" href="source.gui.control.GuiControl-class.html#key_release_event_cb" title="Click" alt="" coords="139,1263,416,1281"/>
+<area shape="rect" href="source.gui.control.GuiControl-class.html#focus_in_event_cb" title="When the window manager gives our window focus (i.e." alt="" coords="139,1281,416,1300"/>
+<area shape="rect" href="source.gui.control.GuiControl-class.html#take_focus" title="source.gui.control.GuiControl.take_focus" alt="" coords="139,1300,416,1319"/>
+<area shape="rect" href="source.gui.control.GuiControl-class.html#mouse_move" title="Override to set behavior: whether control can move." alt="" coords="139,1319,416,1337"/>
+<area shape="rect" href="source.gui.control.GuiControl-class.html#drop" title="source.gui.control.GuiControl.drop" alt="" coords="139,1356,416,1375"/>
+<area shape="rect" href="source.gui.control.GuiControl-class.html" title="Base class for GUI controls i.e." alt="" coords="137,1069,417,1376"/>
+<area shape="rect" href="javascript:void(0);" title="override list.append to keep parent of each list element That is, hierachal model tree is digraph with bidirectional links." alt="" coords="177,628,377,647"/>
+<area shape="rect" href="javascript:void(0);" title="Draw self using context." alt="" coords="177,647,377,665"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.get_parent" alt="" coords="177,665,377,684"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.highlight" alt="" coords="177,684,377,703"/>
+<area shape="rect" href="javascript:void(0);" title="Layout members." alt="" coords="177,703,377,721"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.pick" alt="" coords="177,721,377,740"/>
+<area shape="rect" href="javascript:void(0);" title="Put path into context." alt="" coords="177,740,377,759"/>
+<area shape="rect" href="javascript:void(0);" title="A container of Transformer:Drawables." alt="" coords="176,603,379,760"/>
+<area shape="rect" href="javascript:void(0);" title="Return a unit vector orthogonal to self at point." alt="" coords="148,815,407,833"/>
+<area shape="rect" href="javascript:void(0);" title="insert object before index" alt="" coords="148,833,407,852"/>
+<area shape="rect" href="javascript:void(0);" title="Morph that is the root of the modeling tree." alt="" coords="148,852,407,871"/>
+<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.move_by_drag" alt="" coords="148,871,407,889"/>
+<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.move_by_drag_handle" alt="" coords="148,889,407,908"/>
+<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.resize" alt="" coords="148,908,407,927"/>
+<area shape="rect" href="javascript:void(0);" title="Assert morph is focused." alt="" coords="148,927,407,945"/>
+<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.set_by_drag" alt="" coords="148,945,407,964"/>
+<area shape="rect" href="javascript:void(0);" title="A Morph is a Composite with associated controls." alt="" coords="147,789,408,965"/>
+<area shape="rect" href="javascript:void(0);" title="hash(x)" alt="" coords="292,271,561,289"/>
+<area shape="rect" href="javascript:void(0);" title="x+y" alt="" coords="292,292,561,311"/>
+<area shape="rect" href="javascript:void(0);" title="y in x" alt="" coords="292,311,561,329"/>
+<area shape="rect" href="javascript:void(0);" title="del x[y]" alt="" coords="292,329,561,348"/>
+<area shape="rect" href="javascript:void(0);" title="del x[i:j]" alt="" coords="292,348,561,367"/>
+<area shape="rect" href="javascript:void(0);" title="x==y" alt="" coords="292,367,561,385"/>
+<area shape="rect" href="javascript:void(0);" title="x&gt;=y" alt="" coords="292,385,561,404"/>
+<area shape="rect" href="javascript:void(0);" title="x.__getattribute__(&#39;name&#39;) &lt;==&gt; x.name" alt="" coords="292,404,561,423"/>
+<area shape="rect" href="javascript:void(0);" title="x[y]" alt="" coords="292,423,561,441"/>
+<area shape="rect" href="javascript:void(0);" title="x[i:j]" alt="" coords="292,441,561,460"/>
+<area shape="rect" href="javascript:void(0);" title="x&gt;y" alt="" coords="292,460,561,479"/>
+<area shape="rect" href="javascript:void(0);" title="x+=y" alt="" coords="292,479,561,497"/>
+<area shape="rect" href="javascript:void(0);" title="x*=y" alt="" coords="292,497,561,516"/>
+<area shape="rect" href="javascript:void(0);" title="iter(x)" alt="" coords="292,516,561,535"/>
+<area shape="rect" href="javascript:void(0);" title="stable sort *IN PLACE*; cmp(x, y) &#45;&gt; &#45;1, 0, 1" alt="" coords="292,553,561,572"/>
+<area shape="rect" href="javascript:void(0);" title="list() &#45;&gt; new empty list list(iterable) &#45;&gt; new list initialized from iterable&#39;s items" alt="" coords="291,253,563,573"/>
+</map>
+  <img src="uml_class_diagram_for_source_g_3.gif" alt='' usemap="#uml_class_diagram_for_source_g_3" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
+<pre class="literalblock">
+
+Base class for GUI controls i.e. widgets.
+
+Has callbacks for *low-level* events, i.e. gtk events.
+Callbacks filter *low-level* into *high-level* gui events:
+  drags (not using GTK drags)
+  button press and release (high-level)
+Filters low-level events into high-level events for subclasses.
+
+Is active when events are connected to its callbacks.
+(Callbacks are not always connected.)
+
+A control is a morph because it has-a glyph that is transformed.
+That is, controls are transformable drawables.
+Is-a Morph is-a Transformer is-a Drawable.
+
+Some controls are in a different scheme than the graphic morphs the user is editing.
+The topmost transform for such controls is a user setting or preference.
+
+Other controls are members of another morph, and transformed by their parent morph.
+e.g. a text selection.
+
+Inherits Drawable.draw(), put_path_to(), is_inbounds(), invalidate_will_draw()
+!!! Overrides is_in_control_area see below.
+
+</pre>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">new empty list</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="source.gui.control.GuiControl-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      x.__init__(...) initializes x; see x.__class__.__doc__ for signature</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="source.gui.control.GuiControl-class.html#__repr__" class="summary-sig-name">__repr__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Represent by the class name</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.__repr__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="source.gui.control.GuiControl-class.html#activate" class="summary-sig-name">activate</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">controlee</span>)</span><br />
+      This control is active on given controlee.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.activate">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="source.gui.control.GuiControl-class.html#deactivate" class="summary-sig-name">deactivate</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Override if any special deactivation.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.deactivate">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="source.gui.control.GuiControl-class.html#_reset_state" class="summary-sig-name" onclick="show_private();">_reset_state</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Reset local state variables.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl._reset_state">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="source.gui.control.GuiControl-class.html#is_in_control_area" class="summary-sig-name">is_in_control_area</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>)</span><br />
+      Is the event in the hot area? For some controls the hot area is not 
+      same as the bounding box.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.is_in_control_area">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="source.gui.control.GuiControl-class.html#motion_notify_event_cb" class="summary-sig-name">motion_notify_event_cb</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">widget</span>,
+        <span class="summary-sig-arg">event</span>)</span><br />
+      Fundamental mouse interaction with controls:
+  Exit if not mouse still inside.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.motion_notify_event_cb">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="source.gui.control.GuiControl-class.html#button_press_event_cb" class="summary-sig-name">button_press_event_cb</a>(<span class="summary-sig-arg">*args</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      Button pressed in this active control</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="source.gui.control.GuiControl-class.html#_dispatch_button_release" class="summary-sig-name" onclick="show_private();">_dispatch_button_release</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>)</span><br />
+      Dispatch a button release.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl._dispatch_button_release">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="source.gui.control.GuiControl-class.html#button_release_event_cb" class="summary-sig-name">button_release_event_cb</a>(<span class="summary-sig-arg">*args</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      Button released inside control</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="scroll_event_cb"></a><span class="summary-sig-name">scroll_event_cb</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">widget</span>,
+        <span class="summary-sig-arg">event</span>)</span><br />
+      Scroll wheel inside control.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.scroll_event_cb">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="source.gui.control.GuiControl-class.html#key_release_event_cb" class="summary-sig-name">key_release_event_cb</a>(<span class="summary-sig-arg">*args</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      Click</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="source.gui.control.GuiControl-class.html#focus_in_event_cb" class="summary-sig-name">focus_in_event_cb</a>(<span class="summary-sig-arg">*args</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      When the window manager gives our window focus (i.e.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="take_focus"></a><span class="summary-sig-name">take_focus</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">direction</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.take_focus">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="mouse_move"></a><span class="summary-sig-name">mouse_move</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>)</span><br />
+      Override to set behavior: whether control can move.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.mouse_move">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="button_press_left"></a><span class="summary-sig-name">button_press_left</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.button_press_left">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="button_release_left"></a><span class="summary-sig-name">button_release_left</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.button_release_left">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="button_press_right"></a><span class="summary-sig-name">button_press_right</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.button_press_right">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="button_release_right"></a><span class="summary-sig-name">button_release_right</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.button_release_right">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="control_key_release"></a><span class="summary-sig-name">control_key_release</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.control_key_release">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="mouse_exit"></a><span class="summary-sig-name">mouse_exit</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>)</span><br />
+      If mouse exits the background, window manager grabs it? Possible to 
+      exit a non-bkgnd control directly to the window manager? 
+      #self.manager.deactivate_control(self, event)</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.mouse_exit">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="scroll_up"></a><span class="summary-sig-name">scroll_up</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.scroll_up">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="scroll_down"></a><span class="summary-sig-name">scroll_down</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.scroll_down">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="start_drag"></a><span class="summary-sig-name">start_drag</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.start_drag">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="continue_drag"></a><span class="summary-sig-name">continue_drag</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>,
+        <span class="summary-sig-arg">offset</span>,
+        <span class="summary-sig-arg">increment</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.continue_drag">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="drop"></a><span class="summary-sig-name">drop</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">source</span>,
+        <span class="summary-sig-arg">event</span>,
+        <span class="summary-sig-arg">offset</span>,
+        <span class="summary-sig-arg">source_control</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.drop">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>morph.morph.PrimitiveMorph</code></b>:
+      <code>is_primitive</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>morph.morph.Morph</code></b>:
+      <code>get_orthogonal</code>,
+      <code>insert</code>,
+      <code>is_top</code>,
+      <code>move_by_drag</code>,
+      <code>move_by_drag_handle</code>,
+      <code>resize</code>,
+      <code>rouse_feedback</code>,
+      <code>set_by_drag</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>composite.Composite</code></b>:
+      <code>append</code>,
+      <code>draw</code>,
+      <code>get_parent</code>,
+      <code>highlight</code>,
+      <code>layout</code>,
+      <code>pick</code>,
+      <code>put_path_to</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>list</code></b>:
+      <code>__add__</code>,
+      <code>__contains__</code>,
+      <code>__delitem__</code>,
+      <code>__delslice__</code>,
+      <code>__eq__</code>,
+      <code>__ge__</code>,
+      <code>__getattribute__</code>,
+      <code>__getitem__</code>,
+      <code>__getslice__</code>,
+      <code>__gt__</code>,
+      <code>__iadd__</code>,
+      <code>__imul__</code>,
+      <code>__iter__</code>,
+      <code>__le__</code>,
+      <code>__len__</code>,
+      <code>__lt__</code>,
+      <code>__mul__</code>,
+      <code>__ne__</code>,
+      <code>__new__</code>,
+      <code>__reversed__</code>,
+      <code>__rmul__</code>,
+      <code>__setitem__</code>,
+      <code>__setslice__</code>,
+      <code>__sizeof__</code>,
+      <code>count</code>,
+      <code>extend</code>,
+      <code>index</code>,
+      <code>pop</code>,
+      <code>remove</code>,
+      <code>reverse</code>,
+      <code>sort</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>transformer.Transformer</code></b>:
+      <code>__getstate__</code>,
+      <code>__setstate__</code>,
+      <code>center_at</code>,
+      <code>derive_transform</code>,
+      <code>device_to_local</code>,
+      <code>move_absolute</code>,
+      <code>move_origin</code>,
+      <code>move_relative</code>,
+      <code>put_transform_to</code>,
+      <code>relative_scale</code>,
+      <code>rotate</code>,
+      <code>scale_uniformly</code>,
+      <code>set_dimensions</code>,
+      <code>set_origin</code>,
+      <code>set_transform</code>,
+      <code>set_translation</code>,
+      <code>zoom</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>drawable.Drawable</code></b>:
+      <code>dump</code>,
+      <code>get_drawn_origin</code>,
+      <code>get_stroke_bounds</code>,
+      <code>in_fill</code>,
+      <code>in_path</code>,
+      <code>in_stroke</code>,
+      <code>invalidate_as_drawn</code>,
+      <code>invalidate_will_draw</code>,
+      <code>is_inbounds</code>,
+      <code>put_edge_to</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__setattr__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>list</code></b>:
+      <code>__hash__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>x.__init__(...) initializes x; see x.__class__.__doc__ for 
+  signature</p>
+  <dl class="fields">
+    <dt>Returns: new empty list</dt>
+    <dt>Overrides:
+        object.__init__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__repr__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__repr__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Representation operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.__repr__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Represent by the class name</p>
+  <dl class="fields">
+    <dt>Overrides:
+        object.__repr__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="activate"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">activate</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">controlee</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.activate">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>This control is active on given controlee. Override if any special 
+  activation.  Most controls do not override.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="deactivate"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">deactivate</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.deactivate">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Override if any special deactivation.  Most controls do not 
+  override.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_reset_state"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_reset_state</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl._reset_state">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Reset local state variables. Local means: there is other state, such 
+  as global dragging.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="is_in_control_area"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">is_in_control_area</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">event</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.is_in_control_area">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Is the event in the hot area? For some controls the hot area is not 
+  same as the bounding box. Can be overridden.</p>
+  <dl class="fields">
+    <dt>Overrides:
+        drawable.Drawable.is_in_control_area
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="motion_notify_event_cb"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">motion_notify_event_cb</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">widget</span>,
+        <span class="sig-arg">event</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl.motion_notify_event_cb">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Fundamental mouse interaction with controls:
+  Exit if not mouse still inside.
+  Move the control to follow the mouse.
+  Continue dragging.
+  
+!!! Note this is overridden by the bkgd manager.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="button_press_event_cb"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">button_press_event_cb</span>(<span class="sig-arg">*args</span>,
+        <span class="sig-arg">**kwargs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Button pressed in this active control</p>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@dump_event</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_dispatch_button_release"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_dispatch_button_release</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">event</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="source.gui.control-pysrc.html#GuiControl._dispatch_button_release">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Dispatch a button release. Usually dispatch filtered event to a 
+  handler that is a method in the subclass of the instance.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="button_release_event_cb"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">button_release_event_cb</span>(<span class="sig-arg">*args</span>,
+        <span class="sig-arg">**kwargs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Button released inside control</p>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@dump_event</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="key_release_event_cb"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">key_release_event_cb</span>(<span class="sig-arg">*args</span>,
+        <span class="sig-arg">**kwargs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Click</p>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@dump_event</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="focus_in_event_cb"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">focus_in_event_cb</span>(<span class="sig-arg">*args</span>,
+        <span class="sig-arg">**kwargs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>When the window manager gives our window focus (i.e. receiving 
+  keyboard events etc.). There might be more to do here??? Generally, we 
+  can just resume from our same state when we lost focus from the window 
+  manager (with the backgroundmgr control receiving events.) What if a OS 
+  window pops up under the mouse and user moves mouse?</p>
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@dump_event</code></li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:28 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

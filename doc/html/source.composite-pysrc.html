@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>source.composite</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="source-module.html">Package&nbsp;source</a> ::
+        Module&nbsp;composite
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="source.composite-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="source.composite-module.html">Module source.composite</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-docstring">Copyright 2010, 2011 Lloyd Konneker</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-docstring">    This file is part of Pensool.</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-docstring">    Pensool is free software: you can redistribute it and/or modify</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-docstring">    it under the terms of the GNU General Public License as published by</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-docstring">    the Free Software Foundation, either version 3 of the License, or</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-docstring">    (at your option) any later version.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-string">Composite drawables i.e. groups i.e. containers of drawables.</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-string"></tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-string">Subclasses are menus and morphs.</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-string">All composites are Transformers and Drawables.</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-string">All composites are pickable, even Controls. TODO</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-string">Menus are also Controls.</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-string">Morphs implement get_orthogonal, Menus don't.</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-string"></tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-string">Composites can contain other composites, or primitives (guicontrols or glyphs.)</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-string"></tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-string">Embodies:</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-string">   an op on composite is an iterated op on its members or elements.</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-string">   hiearchal modeling: drawing a composite transforms its members</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-string"></tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-string">Certain ops are iterated on members, e.g. highlight.</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-string">Certain ops are not iterated, but are ops on composite's transform, e.g. move.</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-string">For those, see transformer.py</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-string"></tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-string">The signature and documentation for each method</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-string">is the same as for methods on primitive members.</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-comment"># FIXME rename to composite</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module source.transformer=source.transformer-module.html"><a title="source.transformer" class="py-name" href="#" onclick="return doclink('link-0', 'transformer', 'link-0');">transformer</a></tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Module source.style=source.style-module.html"><a title="source.style" class="py-name" href="#" onclick="return doclink('link-1', 'style', 'link-1');">style</a></tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-2" class="py-name" targets="Module source.decorators=source.decorators-module.html"><a title="source.decorators" class="py-name" href="#" onclick="return doclink('link-2', 'decorators', 'link-2');">decorators</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-3" class="py-name" targets="Package source.base=source.base-module.html"><a title="source.base" class="py-name" href="#" onclick="return doclink('link-3', 'base', 'link-3');">base</a></tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Module source.base.bounds=source.base.bounds-module.html"><a title="source.base.bounds" class="py-name" href="#" onclick="return doclink('link-4', 'bounds', 'link-4');">bounds</a></tt> <tt class="py-keyword">as</tt> <tt id="link-5" class="py-name"><a title="source.base.bounds" class="py-name" href="#" onclick="return doclink('link-5', 'bounds', 'link-4');">bounds</a></tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"><tt class="py-string">It might be better not to inherit from list,</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt class="py-string">but to implement standard container API,</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt class="py-string">or to have-a container instead of be-a container.</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="Composite"></a><div id="Composite-def"><a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt> <a class="py-toggle" href="#" id="Composite-toggle" onclick="return toggle('Composite');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="source.composite.Composite-class.html">Composite</a><tt class="py-op">(</tt><tt class="py-base-class">list</tt><tt class="py-op">,</tt> <tt class="py-base-class">transformer</tt><tt class="py-op">.</tt><tt class="py-base-class">Transformer</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Composite-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Composite-expanded"><a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">  <tt class="py-docstring">'''</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"><tt class="py-docstring">  A container of Transformer:Drawables.</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"><tt class="py-docstring">  </tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt class="py-docstring">  Isolates hierarchy aspects:</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"><tt class="py-docstring">  Composites aggregate properties from their members.</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt class="py-docstring">  Composites donate default properties to members.</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"><tt class="py-docstring">  (Members inherit properties from parents.)</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"><tt class="py-docstring">  </tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"><tt class="py-docstring">  !!! inherits from Drawable:</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"><tt class="py-docstring">    in_path() </tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt class="py-docstring">    get_bounds()</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"><tt class="py-docstring">  They call put_path_to() which comes here and it does the right thing.</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"><tt class="py-docstring">  </tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"><tt class="py-docstring">  These ops are directly transformed for hierarchal modeling:</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"><tt class="py-docstring">    draw()</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"><tt class="py-docstring">    put_path_to()</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"><tt class="py-docstring">  </tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"><tt class="py-docstring">  The invalidate operation is aggregate and transformed</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"><tt class="py-docstring">  It invalidates the union region of members.</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"><tt class="py-docstring">  However, invalidate may be cached.</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"><tt class="py-docstring">  And invalidate may aggregate and be transformed via the recursion of put_path_to.</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"><tt class="py-docstring">  So you don't see invalidate as a method of composite.</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line"><tt class="py-docstring">  '''</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">   </tt>
+<a name="Composite.__init__"></a><div id="Composite.__init__-def"><a name="L77"></a><tt class="py-lineno"> 77</tt> <a class="py-toggle" href="#" id="Composite.__init__-toggle" onclick="return toggle('Composite.__init__');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.composite.Composite-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">parent</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Composite.__init__-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Composite.__init__-expanded"><a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">    <tt class="py-comment"># init just one of two supers?  Can't call list.__init__() ?</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">    <tt class="py-comment"># FIXME inconsistent use of super()</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">    <tt id="link-6" class="py-name"><a title="source.transformer" class="py-name" href="#" onclick="return doclink('link-6', 'transformer', 'link-0');">transformer</a></tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Class source.transformer.Transformer=source.transformer.Transformer-class.html"><a title="source.transformer.Transformer" class="py-name" href="#" onclick="return doclink('link-7', 'Transformer', 'link-7');">Transformer</a></tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Method source.base.bounds.Bounds.__init__()=source.base.bounds.Bounds-class.html#__init__,Method source.base.command.Command.__init__()=source.base.command.Command-class.html#__init__,Method source.base.timer.Timer.__init__()=source.base.timer.Timer-class.html#__init__,Method source.base.vector.Vector.__init__()=source.base.vector.Vector-class.html#__init__,Method source.clipboard.Clipboard.__init__()=source.clipboard.Clipboard-class.html#__init__,Method source.composite.Composite.__init__()=source.composite.Composite-class.html#__init__,Method source.drawable.Drawable.__init__()=source.drawable.Drawable-class.html#__init__,Method source.gui.backgroundcontrol.BackgroundControl.__init__()=source.gui.backgroundcontrol.BackgroundControl-class.html#__init__,Method source.gui.boundingbox.BoundingBox.__init__()=source.gui.boundingbox.BoundingBox-class.html#__init__,Method source.gui.control.GuiControl.__init__()=source.gui.control.GuiControl-class.html#__init__,Method source.gui.itemcontrol.CommandItemControl.__init__()=source.gui.itemcontrol.CommandItemControl-class.html#__init__,Method source.gui.itemcontrol.PopupItemControl.__init__()=source.gui.itemcontrol.PopupItemControl-class.html#__init__,Method source.gui.itemhandlecoords.MoveHandleItem.__init__()=source.gui.itemhandlecoords.MoveHandleItem-class.html#__init__,Method source.gui.itemhandlecoords.ResizeHandleItem.__init__()=source.gui.itemhandlecoords.ResizeHandleItem-class.html#__init__,Method source.gui.itemhandleline.DrawHandleItem.__init__()=source.gui.itemhandleline.DrawHandleItem-class.html#__init__,Method source.gui.itemmenu.IconMenuItem.__init__()=source.gui.itemmenu.IconMenuItem-class.html#__init__,Method source.gui.itemmenu.TextMenuItem.__init__()=source.gui.itemmenu.TextMenuItem-class.html#__init__,Method source.gui.manager.control.ControlsManager.__init__()=source.gui.manager.control.ControlsManager-class.html#__init__,Method source.gui.manager.drop.DropManager.__init__()=source.gui.manager.drop.DropManager-class.html#__init__,Method source.gui.menu.ItemGroup.__init__()=source.gui.menu.ItemGroup-class.html#__init__,Method source.gui.menuhandle.StationedHandleGroup.__init__()=source.gui.menuhandle.StationedHandleGroup-class.html#__init__,Method source.gui.menuhandle.TrackingHandleGroup.__init__()=source.gui.menuhandle.TrackingHandleGroup-class.html#__init__,Method source.gui.menuhandle._HandleGroup.__init__()=source.gui.menuhandle._HandleGroup-class.html#__init__,Method source.gui.textselectcontrol.TextSelectControl.__init__()=source.gui.textselectcontrol.TextSelectControl-class.html#__init__,Method source.layout.LayoutSpec.__init__()=source.layout.LayoutSpec-class.html#__init__,Method source.morph.morph.CircleMorph.__init__()=source.morph.morph.CircleMorph-class.html#__init__,Method source.morph.morph.HandlePoint.__init__()=source.morph.morph.HandlePoint-class.html#__init__,Method source.morph.morph.LineMorph.__init__()=source.morph.morph.LineMorph-class.html#__init__,Method source.morph.morph.Morph.__init__()=source.morph.morph.Morph-class.html#__init__,Method source.morph.morph.PointMorph.__init__()=source.morph.morph.PointMorph-class.html#__init__,Method source.morph.morph.RectMorph.__init__()=source.morph.morph.RectMorph-class.html#__init__,Method source.morph.textglyph.TextGlyph.__init__()=source.morph.textglyph.TextGlyph-class.html#__init__,Method source.morph.textmorph.TextEditMorph.__init__()=source.morph.textmorph.TextEditMorph-class.html#__init__,Method source.morph.textmorph.TextMorph.__init__()=source.morph.textmorph.TextMorph-class.html#__init__,Method source.port.FilePort.__init__()=source.port.FilePort-class.html#__init__,Method source.port.Port.__init__()=source.port.Port-class.html#__init__,Method source.port.PrinterPort.__init__()=source.port.PrinterPort-class.html#__init__,Method source.port.ViewPort.__init__()=source.port.ViewPort-class.html#__init__,Method source.scheme.Scheme.__init__()=source.scheme.Scheme-class.html#__init__,Method source.style.Style.__init__()=source.style.Style-class.html#__init__,Method source.transformer.Transformer.__init__()=source.transformer.Transformer-class.html#__init__"><a title="source.base.bounds.Bounds.__init__
+source.base.command.Command.__init__
+source.base.timer.Timer.__init__
+source.base.vector.Vector.__init__
+source.clipboard.Clipboard.__init__
+source.composite.Composite.__init__
+source.drawable.Drawable.__init__
+source.gui.backgroundcontrol.BackgroundControl.__init__
+source.gui.boundingbox.BoundingBox.__init__
+source.gui.control.GuiControl.__init__
+source.gui.itemcontrol.CommandItemControl.__init__
+source.gui.itemcontrol.PopupItemControl.__init__
+source.gui.itemhandlecoords.MoveHandleItem.__init__
+source.gui.itemhandlecoords.ResizeHandleItem.__init__
+source.gui.itemhandleline.DrawHandleItem.__init__
+source.gui.itemmenu.IconMenuItem.__init__
+source.gui.itemmenu.TextMenuItem.__init__
+source.gui.manager.control.ControlsManager.__init__
+source.gui.manager.drop.DropManager.__init__
+source.gui.menu.ItemGroup.__init__
+source.gui.menuhandle.StationedHandleGroup.__init__
+source.gui.menuhandle.TrackingHandleGroup.__init__
+source.gui.menuhandle._HandleGroup.__init__
+source.gui.textselectcontrol.TextSelectControl.__init__
+source.layout.LayoutSpec.__init__
+source.morph.morph.CircleMorph.__init__
+source.morph.morph.HandlePoint.__init__
+source.morph.morph.LineMorph.__init__
+source.morph.morph.Morph.__init__
+source.morph.morph.PointMorph.__init__
+source.morph.morph.RectMorph.__init__
+source.morph.textglyph.TextGlyph.__init__
+source.morph.textmorph.TextEditMorph.__init__
+source.morph.textmorph.TextMorph.__init__
+source.port.FilePort.__init__
+source.port.Port.__init__
+source.port.PrinterPort.__init__
+source.port.ViewPort.__init__
+source.scheme.Scheme.__init__
+source.style.Style.__init__
+source.transformer.Transformer.__init__" class="py-name" href="#" onclick="return doclink('link-8', '__init__', 'link-8');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">    <tt class="py-comment"># self.stroke_width = 1       # TODO style</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name"><a title="source.style" class="py-name" href="#" onclick="return doclink('link-9', 'style', 'link-1');">style</a></tt> <tt class="py-op">=</tt> <tt id="link-10" class="py-name"><a title="source.style" class="py-name" href="#" onclick="return doclink('link-10', 'style', 'link-1');">style</a></tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Class source.style.Style=source.style.Style-class.html"><a title="source.style.Style" class="py-name" href="#" onclick="return doclink('link-11', 'Style', 'link-11');">Style</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">parent</tt><tt class="py-op">:</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">      <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parent</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">      <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parent</tt> <tt class="py-op">=</tt> <tt class="py-name">parent</tt> </tt>
+</div><a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">     </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">   </tt>
+<a name="Composite.append"></a><div id="Composite.append-def"><a name="L89"></a><tt class="py-lineno"> 89</tt> <a class="py-toggle" href="#" id="Composite.append-toggle" onclick="return toggle('Composite.append');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.composite.Composite-class.html#append">append</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">item</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Composite.append-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Composite.append-expanded"><a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"><tt class="py-docstring">    override list.append to keep parent of each list element</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"><tt class="py-docstring">    That is, hierachal model tree is digraph with bidirectional links.</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">    <tt class="py-name">item</tt><tt class="py-op">.</tt><tt class="py-name">parent</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">    <tt class="py-name">list</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Method source.composite.Composite.append()=source.composite.Composite-class.html#append"><a title="source.composite.Composite.append" class="py-name" href="#" onclick="return doclink('link-12', 'append', 'link-12');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">item</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">   </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">   </tt>
+<a name="Composite.get_parent"></a><div id="Composite.get_parent-def"><a name="L98"></a><tt class="py-lineno"> 98</tt> <a class="py-toggle" href="#" id="Composite.get_parent-toggle" onclick="return toggle('Composite.get_parent');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.composite.Composite-class.html#get_parent">get_parent</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Composite.get_parent-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Composite.get_parent-expanded"><a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parent</tt> </tt>
+</div><a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">   </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">transforming</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">  <tt class="py-comment"># @dump_return  # Uncomment to debug composite draw()</tt> </tt>
+<a name="Composite.draw"></a><div id="Composite.draw-def"><a name="L104"></a><tt class="py-lineno">104</tt> <a class="py-toggle" href="#" id="Composite.draw-toggle" onclick="return toggle('Composite.draw');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.composite.Composite-class.html#draw">draw</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">context</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Composite.draw-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Composite.draw-expanded"><a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"><tt class="py-docstring">    Iterate draw contained objects.</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line"><tt class="py-docstring">    The drawing order is important.</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"><tt class="py-docstring">    !!! Note we draw separately, not in one stroke.</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"><tt class="py-docstring">    Note this is standard hierarchal modeling:</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"><tt class="py-docstring">    apply my transform to the current transform matrix of the context (CTM).</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="source.style" class="py-name" href="#" onclick="return doclink('link-13', 'style', 'link-1');">style</a></tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Method source.style.Style.put_to()=source.style.Style-class.html#put_to"><a title="source.style.Style.put_to" class="py-name" href="#" onclick="return doclink('link-14', 'put_to', 'link-14');">put_to</a></tt><tt class="py-op">(</tt><tt class="py-name">context</tt><tt class="py-op">)</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">    <tt class="py-name">union_bounds</tt> <tt class="py-op">=</tt> <tt id="link-15" class="py-name"><a title="source.base.bounds" class="py-name" href="#" onclick="return doclink('link-15', 'bounds', 'link-4');">bounds</a></tt><tt class="py-op">.</tt><tt id="link-16" class="py-name" targets="Class source.base.bounds.Bounds=source.base.bounds.Bounds-class.html"><a title="source.base.bounds.Bounds" class="py-name" href="#" onclick="return doclink('link-16', 'Bounds', 'link-16');">Bounds</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt>  <tt class="py-comment"># null </tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">item</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">:</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">      <tt class="py-comment"># !!! Each item is not necessarily in its own saved context.</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">      <tt class="py-comment"># !!! Be careful that one item does not mess the context for siblings.</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">      <tt class="py-name">item_bounds</tt> <tt class="py-op">=</tt> <tt class="py-name">item</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Method source.composite.Composite.draw()=source.composite.Composite-class.html#draw,Method source.drawable.Drawable.draw()=source.drawable.Drawable-class.html#draw,Method source.gui.backgroundcontrol.BackgroundControl.draw()=source.gui.backgroundcontrol.BackgroundControl-class.html#draw,Function source.gui.manager.handle.draw()=source.gui.manager.handle-module.html#draw,Method source.gui.menuhandle._HandleGroup.draw()=source.gui.menuhandle._HandleGroup-class.html#draw,Method source.morph.textglyph.TextGlyph.draw()=source.morph.textglyph.TextGlyph-class.html#draw"><a title="source.composite.Composite.draw
+source.drawable.Drawable.draw
+source.gui.backgroundcontrol.BackgroundControl.draw
+source.gui.manager.handle.draw
+source.gui.menuhandle._HandleGroup.draw
+source.morph.textglyph.TextGlyph.draw" class="py-name" href="#" onclick="return doclink('link-17', 'draw', 'link-17');">draw</a></tt><tt class="py-op">(</tt><tt class="py-name">context</tt><tt class="py-op">)</tt>  <tt class="py-comment"># walk tree</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">      <tt class="py-name">union_bounds</tt> <tt class="py-op">=</tt> <tt class="py-name">union_bounds</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Method source.base.bounds.Bounds.union()=source.base.bounds.Bounds-class.html#union"><a title="source.base.bounds.Bounds.union" class="py-name" href="#" onclick="return doclink('link-18', 'union', 'link-18');">union</a></tt><tt class="py-op">(</tt><tt class="py-name">item_bounds</tt><tt class="py-op">)</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">      <tt class="py-comment"># print "Matrix for item:", context.get_matrix()</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="source.base.bounds" class="py-name" href="#" onclick="return doclink('link-19', 'bounds', 'link-4');">bounds</a></tt> <tt class="py-op">=</tt> <tt class="py-name">union_bounds</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">    <tt class="py-comment"># !!! Note empty composites return null bounds</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="source.base.bounds" class="py-name" href="#" onclick="return doclink('link-20', 'bounds', 'link-4');">bounds</a></tt><tt class="py-op">.</tt><tt id="link-21" class="py-name" targets="Method source.base.bounds.Bounds.copy()=source.base.bounds.Bounds-class.html#copy,Function source.base.transform.copy()=source.base.transform-module.html#copy,Method source.base.vector.Vector.copy()=source.base.vector.Vector-class.html#copy,Method source.clipboard.Clipboard.copy()=source.clipboard.Clipboard-class.html#copy"><a title="source.base.bounds.Bounds.copy
+source.base.transform.copy
+source.base.vector.Vector.copy
+source.clipboard.Clipboard.copy" class="py-name" href="#" onclick="return doclink('link-21', 'copy', 'link-21');">copy</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-comment"># TODO return union_bounds to save a copy</tt> </tt>
+</div><a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">  </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">   </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">  <tt class="py-comment"># @dump_return</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">transforming</tt> </tt>
+<a name="Composite.pick"></a><div id="Composite.pick-def"><a name="L128"></a><tt class="py-lineno">128</tt> <a class="py-toggle" href="#" id="Composite.pick-toggle" onclick="return toggle('Composite.pick');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.composite.Composite-class.html#pick">pick</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">context</tt><tt class="py-op">,</tt> <tt class="py-param">point</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Composite.pick-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Composite.pick-expanded"><a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line"><tt class="py-docstring">    Pick: return first member that hits point.</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line"><tt class="py-docstring">    Ultimately calls glyph.pick() but it returns glyph.parent, a morph.</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line"><tt class="py-docstring">    Note: not returning self if member picks,</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line"><tt class="py-docstring">    that is, we are picking primitive morphs, not glyphs.</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line"><tt class="py-docstring">    That is, we are picking the smallest morph at coords.</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"><tt class="py-docstring">    Alternatively, we could return composite morphs (the largest pick.)</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">    <tt id="link-22" class="py-name" targets="Package source.morph=source.morph-module.html,Module source.morph.morph=source.morph.morph-module.html"><a title="source.morph
+source.morph.morph" class="py-name" href="#" onclick="return doclink('link-22', 'morph', 'link-22');">morph</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">item</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">:</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">      <tt id="link-23" class="py-name"><a title="source.morph
+source.morph.morph" class="py-name" href="#" onclick="return doclink('link-23', 'morph', 'link-22');">morph</a></tt> <tt class="py-op">=</tt> <tt class="py-name">item</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name" targets="Method source.composite.Composite.pick()=source.composite.Composite-class.html#pick,Function source.gui.manager.handle.pick()=source.gui.manager.handle-module.html#pick,Method source.morph.glyph.Glyph.pick()=source.morph.glyph.Glyph-class.html#pick"><a title="source.composite.Composite.pick
+source.gui.manager.handle.pick
+source.morph.glyph.Glyph.pick" class="py-name" href="#" onclick="return doclink('link-24', 'pick', 'link-24');">pick</a></tt><tt class="py-op">(</tt><tt class="py-name">context</tt><tt class="py-op">,</tt> <tt id="link-25" class="py-name" targets="Variable source.morph.morph.point=source.morph.morph-module.html#point"><a title="source.morph.morph.point" class="py-name" href="#" onclick="return doclink('link-25', 'point', 'link-25');">point</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">      <tt class="py-keyword">if</tt> <tt id="link-26" class="py-name"><a title="source.morph
+source.morph.morph" class="py-name" href="#" onclick="return doclink('link-26', 'morph', 'link-22');">morph</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">        <tt class="py-keyword">break</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-27" class="py-name"><a title="source.morph
+source.morph.morph" class="py-name" href="#" onclick="return doclink('link-27', 'morph', 'link-22');">morph</a></tt> </tt>
+</div><a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line"> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line"> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">  <tt class="py-comment"># @dump_event</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">transforming</tt> </tt>
+<a name="Composite.put_path_to"></a><div id="Composite.put_path_to-def"><a name="L147"></a><tt class="py-lineno">147</tt> <a class="py-toggle" href="#" id="Composite.put_path_to-toggle" onclick="return toggle('Composite.put_path_to');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.composite.Composite-class.html#put_path_to">put_path_to</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">context</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Composite.put_path_to-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Composite.put_path_to-expanded"><a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line"><tt class="py-docstring">    Aggregate the paths of members.</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line"><tt class="py-docstring">    !!! Note paths accumulate in the context even through save/restore</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">    <tt class="py-comment"># TODO putting style not necessary if only color?  Color not affect path?</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-28" class="py-name"><a title="source.style" class="py-name" href="#" onclick="return doclink('link-28', 'style', 'link-1');">style</a></tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="source.style.Style.put_to" class="py-name" href="#" onclick="return doclink('link-29', 'put_to', 'link-14');">put_to</a></tt><tt class="py-op">(</tt><tt class="py-name">context</tt><tt class="py-op">)</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">item</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">:</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">      <tt class="py-name">item</tt><tt class="py-op">.</tt><tt id="link-30" class="py-name" targets="Method source.composite.Composite.put_path_to()=source.composite.Composite-class.html#put_path_to,Method source.drawable.Drawable.put_path_to()=source.drawable.Drawable-class.html#put_path_to,Method source.gui.backgroundcontrol.BackgroundControl.put_path_to()=source.gui.backgroundcontrol.BackgroundControl-class.html#put_path_to,Method source.morph.glyph.CircleGlyph.put_path_to()=source.morph.glyph.CircleGlyph-class.html#put_path_to,Method source.morph.glyph.LineGlyph.put_path_to()=source.morph.glyph.LineGlyph-class.html#put_path_to,Method source.morph.glyph.PointGlyph.put_path_to()=source.morph.glyph.PointGlyph-class.html#put_path_to,Method source.morph.glyph.RectGlyph.put_path_to()=source.morph.glyph.RectGlyph-class.html#put_path_to,Method source.morph.textglyph.TextGlyph.put_path_to()=source.morph.textglyph.TextGlyph-class.html#put_path_to"><a title="source.composite.Composite.put_path_to
+source.drawable.Drawable.put_path_to
+source.gui.backgroundcontrol.BackgroundControl.put_path_to
+source.morph.glyph.CircleGlyph.put_path_to
+source.morph.glyph.LineGlyph.put_path_to
+source.morph.glyph.PointGlyph.put_path_to
+source.morph.glyph.RectGlyph.put_path_to
+source.morph.textglyph.TextGlyph.put_path_to" class="py-name" href="#" onclick="return doclink('link-30', 'put_path_to', 'link-30');">put_path_to</a></tt><tt class="py-op">(</tt><tt class="py-name">context</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">       </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line"> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">  <tt class="py-comment"># @dump_event</tt> </tt>
+<a name="Composite.layout"></a><div id="Composite.layout-def"><a name="L159"></a><tt class="py-lineno">159</tt> <a class="py-toggle" href="#" id="Composite.layout-toggle" onclick="return toggle('Composite.layout');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.composite.Composite-class.html#layout">layout</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">event</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Composite.layout-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Composite.layout-expanded"><a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line"><tt class="py-docstring">    Layout members.</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line"><tt class="py-docstring">    Usually based on origin and/or dimensions of group.</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line"><tt class="py-docstring">    Often overridden.</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line"><tt class="py-docstring">    Defaults to all items have same dimensions as the group.</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line"><tt class="py-docstring">    That is sensible for morphs, which have one item in a group. </tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">      <tt class="py-keyword">raise</tt> <tt class="py-name">RuntimeError</tt><tt class="py-op">(</tt><tt class="py-string">"Must override layout method for composite."</tt><tt class="py-op">)</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">      <tt class="py-comment"># Layout the single item as the dimensions of this group.</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">      <tt class="py-keyword">print</tt> <tt class="py-string">"Layout single item morph with group dimensions.&lt;&lt;&lt;&lt;&lt;&lt;"</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">      <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-31" class="py-name" targets="Method source.transformer.Transformer.set_dimensions()=source.transformer.Transformer-class.html#set_dimensions"><a title="source.transformer.Transformer.set_dimensions" class="py-name" href="#" onclick="return doclink('link-31', 'set_dimensions', 'link-31');">set_dimensions</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">get_dimensions</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">   </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">   </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">  <tt class="py-string">"""</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line"><tt class="py-string">  # FIXME the dimensions of a composite are not useful</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line"><tt class="py-string">  # only the bounds???</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line"><tt class="py-string">  @dump_return</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line"><tt class="py-string">  def get_dimensions(self):</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line"><tt class="py-string">    '''</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line"><tt class="py-string">    !!! Overrides drawable.get_dimensions getter for the dimensions property.</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line"><tt class="py-string">    !!! Dimensions of a composite is the union over member items.</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line"><tt class="py-string">    '''</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line"><tt class="py-string">    # Calculate dimensions</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line"><tt class="py-string">    rect = coordinats.copy(self[0].get_dimensions())</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line"><tt class="py-string">    for item in self:</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line"><tt class="py-string">      # print item, item.dimensions</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line"><tt class="py-string">      rect = coordinats.union(rect, item.get_dimensions())</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line"><tt class="py-string">    # No need to store it in this composite, always recalculated.</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line"><tt class="py-string">    # self.dimensions = rect  # calls Drawable.set_dimensions()</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line"><tt class="py-string">    # TODO do the calculation once, during layout</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line"><tt class="py-string">    return rect</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line"><tt class="py-string">  """</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">   </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line">  <tt class="py-comment">#@dump_event</tt> </tt>
+<a name="Composite.highlight"></a><div id="Composite.highlight-def"><a name="L196"></a><tt class="py-lineno">196</tt> <a class="py-toggle" href="#" id="Composite.highlight-toggle" onclick="return toggle('Composite.highlight');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.composite.Composite-class.html#highlight">highlight</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">direction</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Composite.highlight-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Composite.highlight-expanded"><a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">    <tt class="py-comment"># TODO transform??</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name" targets="Method source.morph.morph.Morph.is_primitive()=source.morph.morph.Morph-class.html#is_primitive,Method source.morph.morph.PrimitiveMorph.is_primitive()=source.morph.morph.PrimitiveMorph-class.html#is_primitive"><a title="source.morph.morph.Morph.is_primitive
+source.morph.morph.PrimitiveMorph.is_primitive" class="py-name" href="#" onclick="return doclink('link-32', 'is_primitive', 'link-32');">is_primitive</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">      <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name"><a title="source.style" class="py-name" href="#" onclick="return doclink('link-33', 'style', 'link-1');">style</a></tt><tt class="py-op">.</tt><tt id="link-34" class="py-name" targets="Method source.composite.Composite.highlight()=source.composite.Composite-class.html#highlight,Method source.style.Style.highlight()=source.style.Style-class.html#highlight"><a title="source.composite.Composite.highlight
+source.style.Style.highlight" class="py-name" href="#" onclick="return doclink('link-34', 'highlight', 'link-34');">highlight</a></tt><tt class="py-op">(</tt><tt class="py-name">direction</tt><tt class="py-op">)</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">      <tt class="py-keyword">for</tt> <tt class="py-name">item</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">:</tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line">        <tt class="py-name">item</tt><tt class="py-op">.</tt><tt id="link-35" class="py-name"><a title="source.composite.Composite.highlight
+source.style.Style.highlight" class="py-name" href="#" onclick="return doclink('link-35', 'highlight', 'link-34');">highlight</a></tt><tt class="py-op">(</tt><tt class="py-name">direction</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line">   </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">   </tt>
+<a name="Composite.rouse_feedback"></a><div id="Composite.rouse_feedback-def"><a name="L205"></a><tt class="py-lineno">205</tt> <a class="py-toggle" href="#" id="Composite.rouse_feedback-toggle" onclick="return toggle('Composite.rouse_feedback');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.composite.Composite-class.html#rouse_feedback">rouse_feedback</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">event</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Composite.rouse_feedback-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Composite.rouse_feedback-expanded"><a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line"><tt class="py-docstring">    Activating controls is NOT aggregate, but only on the top level.</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line"><tt class="py-docstring">    I.E. Don't activate all the controls in a tree of morphs.</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt class="py-string">"Virtual rouse_feedback"</tt> </tt>
+</div></div><a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:33 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

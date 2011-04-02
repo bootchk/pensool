@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>source.transformer</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="source-module.html">Package&nbsp;source</a> ::
+        Module&nbsp;transformer
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="source.transformer-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="source.transformer-module.html">Module source.transformer</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-docstring">Copyright 2010, 2011 Lloyd Konneker</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-docstring">    This file is part of Pensool.</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-docstring">    Pensool is free software: you can redistribute it and/or modify</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-docstring">    it under the terms of the GNU General Public License as published by</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-docstring">    the Free Software Foundation, either version 3 of the License, or</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-docstring">    (at your option) any later version.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-string">Transformer: transforms its members.</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-string"></tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-string">Transforms are part of hierarchal modeling.</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-string">Primitives are unit shapes and leaves in the hierarchy.</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-string">Composites are branches of the hierarchy and transformers of their members.</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-string"></tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-string">Drawables are transformers.</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-string">A view is also a transformer and the root of the hierarchy.</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-string"></tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-string">Note Transformer does NOT override draw(), but Composite does.</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-string">!!! But Composite.draw() can be overridden, for composites having both transformed and untransformed shapes.</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-comment"># TODO style part of transformation?</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-comment"># TODO derive_transform part of view_altering?</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module source.drawable=source.drawable-module.html"><a title="source.drawable" class="py-name" href="#" onclick="return doclink('link-0', 'drawable', 'link-0');">drawable</a></tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">cairo</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Package source.base=source.base-module.html"><a title="source.base" class="py-name" href="#" onclick="return doclink('link-1', 'base', 'link-1');">base</a></tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Module source.base.vector=source.base.vector-module.html"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-2', 'vector', 'link-2');">vector</a></tt> <tt class="py-keyword">as</tt> <tt id="link-3" class="py-name"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-3', 'vector', 'link-2');">vector</a></tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-4" class="py-name" targets="Module source.decorators=source.decorators-module.html"><a title="source.decorators" class="py-name" href="#" onclick="return doclink('link-4', 'decorators', 'link-4');">decorators</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-5" class="py-name" targets="Module source.config=source.config-module.html"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-5', 'config', 'link-5');">config</a></tt> </tt>
+<a name="Transformer"></a><div id="Transformer-def"><a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt> <a class="py-toggle" href="#" id="Transformer-toggle" onclick="return toggle('Transformer');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="source.transformer.Transformer-class.html">Transformer</a><tt class="py-op">(</tt><tt class="py-base-class">drawable</tt><tt class="py-op">.</tt><tt class="py-base-class">Drawable</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Transformer-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Transformer-expanded"><a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">  <tt class="py-docstring">'''</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"><tt class="py-docstring">  A transformer (of coordinate systems) </tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-docstring">  '''</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">  <tt class="py-comment">#@dump_event</tt> </tt>
+<a name="Transformer.__init__"></a><div id="Transformer.__init__-def"><a name="L44"></a><tt class="py-lineno"> 44</tt> <a class="py-toggle" href="#" id="Transformer.__init__-toggle" onclick="return toggle('Transformer.__init__');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.transformer.Transformer-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Transformer.__init__-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Transformer.__init__-expanded"><a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">    <tt id="link-6" class="py-name"><a title="source.drawable" class="py-name" href="#" onclick="return doclink('link-6', 'drawable', 'link-0');">drawable</a></tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Class source.drawable.Drawable=source.drawable.Drawable-class.html"><a title="source.drawable.Drawable" class="py-name" href="#" onclick="return doclink('link-7', 'Drawable', 'link-7');">Drawable</a></tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Method source.base.bounds.Bounds.__init__()=source.base.bounds.Bounds-class.html#__init__,Method source.base.command.Command.__init__()=source.base.command.Command-class.html#__init__,Method source.base.timer.Timer.__init__()=source.base.timer.Timer-class.html#__init__,Method source.base.vector.Vector.__init__()=source.base.vector.Vector-class.html#__init__,Method source.clipboard.Clipboard.__init__()=source.clipboard.Clipboard-class.html#__init__,Method source.composite.Composite.__init__()=source.composite.Composite-class.html#__init__,Method source.drawable.Drawable.__init__()=source.drawable.Drawable-class.html#__init__,Method source.gui.backgroundcontrol.BackgroundControl.__init__()=source.gui.backgroundcontrol.BackgroundControl-class.html#__init__,Method source.gui.boundingbox.BoundingBox.__init__()=source.gui.boundingbox.BoundingBox-class.html#__init__,Method source.gui.control.GuiControl.__init__()=source.gui.control.GuiControl-class.html#__init__,Method source.gui.itemcontrol.CommandItemControl.__init__()=source.gui.itemcontrol.CommandItemControl-class.html#__init__,Method source.gui.itemcontrol.PopupItemControl.__init__()=source.gui.itemcontrol.PopupItemControl-class.html#__init__,Method source.gui.itemhandlecoords.MoveHandleItem.__init__()=source.gui.itemhandlecoords.MoveHandleItem-class.html#__init__,Method source.gui.itemhandlecoords.ResizeHandleItem.__init__()=source.gui.itemhandlecoords.ResizeHandleItem-class.html#__init__,Method source.gui.itemhandleline.DrawHandleItem.__init__()=source.gui.itemhandleline.DrawHandleItem-class.html#__init__,Method source.gui.itemmenu.IconMenuItem.__init__()=source.gui.itemmenu.IconMenuItem-class.html#__init__,Method source.gui.itemmenu.TextMenuItem.__init__()=source.gui.itemmenu.TextMenuItem-class.html#__init__,Method source.gui.manager.control.ControlsManager.__init__()=source.gui.manager.control.ControlsManager-class.html#__init__,Method source.gui.manager.drop.DropManager.__init__()=source.gui.manager.drop.DropManager-class.html#__init__,Method source.gui.menu.ItemGroup.__init__()=source.gui.menu.ItemGroup-class.html#__init__,Method source.gui.menuhandle.StationedHandleGroup.__init__()=source.gui.menuhandle.StationedHandleGroup-class.html#__init__,Method source.gui.menuhandle.TrackingHandleGroup.__init__()=source.gui.menuhandle.TrackingHandleGroup-class.html#__init__,Method source.gui.menuhandle._HandleGroup.__init__()=source.gui.menuhandle._HandleGroup-class.html#__init__,Method source.gui.textselectcontrol.TextSelectControl.__init__()=source.gui.textselectcontrol.TextSelectControl-class.html#__init__,Method source.layout.LayoutSpec.__init__()=source.layout.LayoutSpec-class.html#__init__,Method source.morph.morph.CircleMorph.__init__()=source.morph.morph.CircleMorph-class.html#__init__,Method source.morph.morph.HandlePoint.__init__()=source.morph.morph.HandlePoint-class.html#__init__,Method source.morph.morph.LineMorph.__init__()=source.morph.morph.LineMorph-class.html#__init__,Method source.morph.morph.Morph.__init__()=source.morph.morph.Morph-class.html#__init__,Method source.morph.morph.PointMorph.__init__()=source.morph.morph.PointMorph-class.html#__init__,Method source.morph.morph.RectMorph.__init__()=source.morph.morph.RectMorph-class.html#__init__,Method source.morph.textglyph.TextGlyph.__init__()=source.morph.textglyph.TextGlyph-class.html#__init__,Method source.morph.textmorph.TextEditMorph.__init__()=source.morph.textmorph.TextEditMorph-class.html#__init__,Method source.morph.textmorph.TextMorph.__init__()=source.morph.textmorph.TextMorph-class.html#__init__,Method source.port.FilePort.__init__()=source.port.FilePort-class.html#__init__,Method source.port.Port.__init__()=source.port.Port-class.html#__init__,Method source.port.PrinterPort.__init__()=source.port.PrinterPort-class.html#__init__,Method source.port.ViewPort.__init__()=source.port.ViewPort-class.html#__init__,Method source.scheme.Scheme.__init__()=source.scheme.Scheme-class.html#__init__,Method source.style.Style.__init__()=source.style.Style-class.html#__init__,Method source.transformer.Transformer.__init__()=source.transformer.Transformer-class.html#__init__"><a title="source.base.bounds.Bounds.__init__
+source.base.command.Command.__init__
+source.base.timer.Timer.__init__
+source.base.vector.Vector.__init__
+source.clipboard.Clipboard.__init__
+source.composite.Composite.__init__
+source.drawable.Drawable.__init__
+source.gui.backgroundcontrol.BackgroundControl.__init__
+source.gui.boundingbox.BoundingBox.__init__
+source.gui.control.GuiControl.__init__
+source.gui.itemcontrol.CommandItemControl.__init__
+source.gui.itemcontrol.PopupItemControl.__init__
+source.gui.itemhandlecoords.MoveHandleItem.__init__
+source.gui.itemhandlecoords.ResizeHandleItem.__init__
+source.gui.itemhandleline.DrawHandleItem.__init__
+source.gui.itemmenu.IconMenuItem.__init__
+source.gui.itemmenu.TextMenuItem.__init__
+source.gui.manager.control.ControlsManager.__init__
+source.gui.manager.drop.DropManager.__init__
+source.gui.menu.ItemGroup.__init__
+source.gui.menuhandle.StationedHandleGroup.__init__
+source.gui.menuhandle.TrackingHandleGroup.__init__
+source.gui.menuhandle._HandleGroup.__init__
+source.gui.textselectcontrol.TextSelectControl.__init__
+source.layout.LayoutSpec.__init__
+source.morph.morph.CircleMorph.__init__
+source.morph.morph.HandlePoint.__init__
+source.morph.morph.LineMorph.__init__
+source.morph.morph.Morph.__init__
+source.morph.morph.PointMorph.__init__
+source.morph.morph.RectMorph.__init__
+source.morph.textglyph.TextGlyph.__init__
+source.morph.textmorph.TextEditMorph.__init__
+source.morph.textmorph.TextMorph.__init__
+source.port.FilePort.__init__
+source.port.Port.__init__
+source.port.PrinterPort.__init__
+source.port.ViewPort.__init__
+source.scheme.Scheme.__init__
+source.style.Style.__init__
+source.transformer.Transformer.__init__" class="py-name" href="#" onclick="return doclink('link-8', '__init__', 'link-8');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">     </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">    <tt class="py-comment"># My transform.</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">    <tt class="py-comment"># Default to identity transform.</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Module source.base.transform=source.base.transform-module.html"><a title="source.base.transform" class="py-name" href="#" onclick="return doclink('link-9', 'transform', 'link-9');">transform</a></tt> <tt class="py-op">=</tt> <tt class="py-name">cairo</tt><tt class="py-op">.</tt><tt class="py-name">Matrix</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-comment"># assert identity transform</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">     </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">    <tt class="py-comment"># Retained transform: saved cumulative transform from walking hierarchy.</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">retained_transform</tt> <tt class="py-op">=</tt> <tt class="py-name">cairo</tt><tt class="py-op">.</tt><tt class="py-name">Matrix</tt><tt class="py-op">(</tt><tt class="py-op">)</tt>  <tt class="py-comment"># Identity transform is benign</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">     </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">    <tt class="py-comment"># Specs for self.transform: identity transform</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">translation</tt> <tt class="py-op">=</tt> <tt id="link-10" class="py-name"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-10', 'vector', 'link-2');">vector</a></tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Class source.base.vector.Vector=source.base.vector.Vector-class.html"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-11', 'Vector', 'link-11');">Vector</a></tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">scale</tt> <tt class="py-op">=</tt> <tt id="link-12" class="py-name"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-12', 'vector', 'link-2');">vector</a></tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-13', 'Vector', 'link-11');">Vector</a></tt><tt class="py-op">(</tt><tt class="py-number">1.0</tt><tt class="py-op">,</tt> <tt class="py-number">1.0</tt><tt class="py-op">)</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">rotation</tt> <tt class="py-op">=</tt> <tt class="py-number">0.0</tt> </tt>
+</div><a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">     </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">  <tt class="py-string">'''</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"><tt class="py-string">  Pickling.</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"><tt class="py-string">  </tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"><tt class="py-string">  These must be defined because cairo.Matrix() is not picklable, throws exception when pickled.</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt class="py-string">  These are defined here, and not in Drawable.</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"><tt class="py-string">  Drawables are picklable (including glyphs) but they aren't transformers (don't have Matrix())</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"><tt class="py-string">  and pickle using built-in pickling functions.</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"><tt class="py-string">  '''</tt> </tt>
+<a name="Transformer.__getstate__"></a><div id="Transformer.__getstate__-def"><a name="L67"></a><tt class="py-lineno"> 67</tt> <a class="py-toggle" href="#" id="Transformer.__getstate__-toggle" onclick="return toggle('Transformer.__getstate__');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.transformer.Transformer-class.html#__getstate__">__getstate__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Transformer.__getstate__-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Transformer.__getstate__-expanded"><a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">    <tt class="py-docstring">"""Return state values to be pickled."""</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">    <tt class="py-comment"># !!! Parent is state, but top parent must be severed to avoid pickling entire tree</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">    <tt class="py-comment"># as a forward and backward linked graph.</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">translation</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">scale</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">rotation</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Module source.style=source.style-module.html"><a title="source.style" class="py-name" href="#" onclick="return doclink('link-14', 'style', 'link-14');">style</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parent</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"> </tt>
+<a name="Transformer.__setstate__"></a><div id="Transformer.__setstate__-def"><a name="L73"></a><tt class="py-lineno"> 73</tt> <a class="py-toggle" href="#" id="Transformer.__setstate__-toggle" onclick="return toggle('Transformer.__setstate__');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.transformer.Transformer-class.html#__setstate__">__setstate__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">state</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Transformer.__setstate__-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Transformer.__setstate__-expanded"><a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">    <tt class="py-docstring">"""Restore state from the unpickled state values."""</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">translation</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">scale</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">rotation</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="source.style" class="py-name" href="#" onclick="return doclink('link-15', 'style', 'link-14');">style</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parent</tt> <tt class="py-op">=</tt> <tt id="link-16" class="py-name" targets="Variable source.gui.manager.pointer.state=source.gui.manager.pointer-module.html#state"><a title="source.gui.manager.pointer.state" class="py-name" href="#" onclick="return doclink('link-16', 'state', 'link-16');">state</a></tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">    <tt class="py-comment"># Cached state recalculated now or at first tree walk.</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">retained_transform</tt> <tt class="py-op">=</tt> <tt class="py-name">cairo</tt><tt class="py-op">.</tt><tt class="py-name">Matrix</tt><tt class="py-op">(</tt><tt class="py-op">)</tt>  <tt class="py-comment"># Identity transform is benign until walk.</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Method source.transformer.Transformer.derive_transform()=source.transformer.Transformer-class.html#derive_transform"><a title="source.transformer.Transformer.derive_transform" class="py-name" href="#" onclick="return doclink('link-17', 'derive_transform', 'link-17');">derive_transform</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-comment"># now</tt> </tt>
+</div><a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">   </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">   </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">  <tt class="py-comment"># @dump_return</tt> </tt>
+<a name="Transformer.put_transform_to"></a><div id="Transformer.put_transform_to-def"><a name="L82"></a><tt class="py-lineno"> 82</tt> <a class="py-toggle" href="#" id="Transformer.put_transform_to-toggle" onclick="return toggle('Transformer.put_transform_to');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.transformer.Transformer-class.html#put_transform_to">put_transform_to</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">context</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Transformer.put_transform_to-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Transformer.put_transform_to-expanded"><a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line"><tt class="py-docstring">    Apply my transform to the current transform in the context.</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"><tt class="py-docstring">    FIXME and style?</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">      <tt class="py-name">context</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="source.base.transform" class="py-name" href="#" onclick="return doclink('link-18', 'transform', 'link-9');">transform</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="source.base.transform" class="py-name" href="#" onclick="return doclink('link-19', 'transform', 'link-9');">transform</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">cairo</tt><tt class="py-op">.</tt><tt class="py-name">Error</tt><tt class="py-op">:</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">      <tt class="py-keyword">print</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="source.base.transform" class="py-name" href="#" onclick="return doclink('link-20', 'transform', 'link-9');">transform</a></tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">      <tt class="py-keyword">raise</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="source.style" class="py-name" href="#" onclick="return doclink('link-21', 'style', 'link-14');">style</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name" targets="Method source.style.Style.put_to()=source.style.Style-class.html#put_to"><a title="source.style.Style.put_to" class="py-name" href="#" onclick="return doclink('link-22', 'put_to', 'link-22');">put_to</a></tt><tt class="py-op">(</tt><tt class="py-name">context</tt><tt class="py-op">)</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">    <tt class="py-comment"># print "CTM", self.transform, context.get_matrix()</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">    <tt class="py-comment"># Save a copy (!!!) of the CTM</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">retained_transform</tt> <tt class="py-op">=</tt> <tt class="py-name">cairo</tt><tt class="py-op">.</tt><tt class="py-name">Matrix</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">*</tt> <tt class="py-name">context</tt><tt class="py-op">.</tt><tt class="py-name">get_matrix</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">retained_transform</tt>  <tt class="py-comment"># debugging</tt> </tt>
+</div><a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">     </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">   </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">   </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">  <tt class="py-comment"># @dump_return</tt> </tt>
+<a name="Transformer.derive_transform"></a><div id="Transformer.derive_transform-def"><a name="L101"></a><tt class="py-lineno">101</tt> <a class="py-toggle" href="#" id="Transformer.derive_transform-toggle" onclick="return toggle('Transformer.derive_transform');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.transformer.Transformer-class.html#derive_transform">derive_transform</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Transformer.derive_transform-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Transformer.derive_transform-expanded"><a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line"><tt class="py-docstring">    Set my transform from my drawing specs.</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"><tt class="py-docstring">    !!! Afterwards, retained_transform doesn't correspond until walk model tree</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name"><a title="source.base.transform" class="py-name" href="#" onclick="return doclink('link-23', 'transform', 'link-9');">transform</a></tt> <tt class="py-op">=</tt> <tt class="py-name">cairo</tt><tt class="py-op">.</tt><tt class="py-name">Matrix</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">    <tt class="py-comment"># Standard sequence: rotate, scale, translate</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="source.base.transform" class="py-name" href="#" onclick="return doclink('link-24', 'transform', 'link-9');">transform</a></tt><tt class="py-op">.</tt><tt id="link-25" class="py-name" targets="Method source.transformer.Transformer.rotate()=source.transformer.Transformer-class.html#rotate"><a title="source.transformer.Transformer.rotate" class="py-name" href="#" onclick="return doclink('link-25', 'rotate', 'link-25');">rotate</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">rotation</tt><tt class="py-op">)</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name"><a title="source.base.transform" class="py-name" href="#" onclick="return doclink('link-26', 'transform', 'link-9');">transform</a></tt><tt class="py-op">.</tt><tt class="py-name">scale</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">scale</tt><tt class="py-op">.</tt><tt id="link-27" class="py-name" targets="Variable source.gui.manager.pointer.Event.x=source.gui.manager.pointer.Event-class.html#x"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-27', 'x', 'link-27');">x</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">scale</tt><tt class="py-op">.</tt><tt id="link-28" class="py-name" targets="Variable source.gui.manager.pointer.Event.y=source.gui.manager.pointer.Event-class.html#y"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-28', 'y', 'link-28');">y</a></tt><tt class="py-op">)</tt>  <tt class="py-comment"># Scale</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">    <tt class="py-name">translation_matrix</tt> <tt class="py-op">=</tt> <tt class="py-name">cairo</tt><tt class="py-op">.</tt><tt class="py-name">Matrix</tt><tt class="py-op">(</tt><tt class="py-name">x0</tt><tt class="py-op">=</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">translation</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-29', 'x', 'link-27');">x</a></tt><tt class="py-op">,</tt>  </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">      <tt class="py-name">y0</tt><tt class="py-op">=</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">translation</tt><tt class="py-op">.</tt><tt id="link-30" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-30', 'y', 'link-28');">y</a></tt><tt class="py-op">)</tt> <tt class="py-comment"># Translate</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">    <tt class="py-comment"># Multiply in correct order. Note self.transform.translate() would not work??</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-31" class="py-name"><a title="source.base.transform" class="py-name" href="#" onclick="return doclink('link-31', 'transform', 'link-9');">transform</a></tt> <tt class="py-op">*=</tt> <tt class="py-name">translation_matrix</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name"><a title="source.base.transform" class="py-name" href="#" onclick="return doclink('link-32', 'transform', 'link-9');">transform</a></tt> </tt>
+</div><a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">    </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">   </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">  <tt class="py-comment"># @dump_return</tt> </tt>
+<a name="Transformer.device_to_local"></a><div id="Transformer.device_to_local-def"><a name="L118"></a><tt class="py-lineno">118</tt> <a class="py-toggle" href="#" id="Transformer.device_to_local-toggle" onclick="return toggle('Transformer.device_to_local');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.transformer.Transformer-class.html#device_to_local">device_to_local</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">point</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Transformer.device_to_local-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Transformer.device_to_local-expanded"><a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line"><tt class="py-docstring">    Get local coordinates (group GCS) of DCS point.</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line"><tt class="py-docstring">    Uses parent retained transform: only works if previously model traversed and transforms derived.</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line"><tt class="py-docstring">    Will not work for the model (the top.)</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parent</tt><tt class="py-op">:</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">      <tt class="py-name">group_transform</tt> <tt class="py-op">=</tt> <tt class="py-name">cairo</tt><tt class="py-op">.</tt><tt class="py-name">Matrix</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">*</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">retained_transform</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">      <tt class="py-comment"># At the top, self is model.  Model's transform (viewing) transforms device to local.</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">      <tt class="py-name">group_transform</tt> <tt class="py-op">=</tt> <tt class="py-name">cairo</tt><tt class="py-op">.</tt><tt class="py-name">Matrix</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">*</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name"><a title="source.base.transform" class="py-name" href="#" onclick="return doclink('link-33', 'transform', 'link-9');">transform</a></tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">    <tt class="py-name">group_transform</tt><tt class="py-op">.</tt><tt class="py-name">invert</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">    <tt class="py-comment"># print group_transform</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-34" class="py-name"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-34', 'vector', 'link-2');">vector</a></tt><tt class="py-op">.</tt><tt id="link-35" class="py-name"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-35', 'Vector', 'link-11');">Vector</a></tt><tt class="py-op">(</tt><tt class="py-op">*</tt><tt class="py-name">group_transform</tt><tt class="py-op">.</tt><tt class="py-name">transform_point</tt><tt class="py-op">(</tt><tt id="link-36" class="py-name" targets="Variable source.morph.morph.point=source.morph.morph-module.html#point"><a title="source.morph.morph.point" class="py-name" href="#" onclick="return doclink('link-36', 'point', 'link-36');">point</a></tt><tt class="py-op">.</tt><tt id="link-37" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-37', 'x', 'link-27');">x</a></tt><tt class="py-op">,</tt> <tt id="link-38" class="py-name"><a title="source.morph.morph.point" class="py-name" href="#" onclick="return doclink('link-38', 'point', 'link-36');">point</a></tt><tt class="py-op">.</tt><tt id="link-39" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-39', 'y', 'link-28');">y</a></tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">     </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">     </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">  <tt class="py-string">"""</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"><tt class="py-string">  def device_to_user(self, x, y):</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"><tt class="py-string">    # TODO do I need the model context?</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line"><tt class="py-string">    context = self.view.da.window.cairo_create()</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line"><tt class="py-string">    ### context.set_matrix(self.matrix)</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line"><tt class="py-string">    return vector.Vector(*context.device_to_user(x, y))</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line"><tt class="py-string">  """</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">   </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">  <tt class="py-string">'''</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line"><tt class="py-string">  Setters of transform.</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line"><tt class="py-string">  Differ by component set: all, translation, scale, rotation, and pairs of.</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"><tt class="py-string">  '''</tt>   </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line"> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">  <tt class="py-string">'''</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line"><tt class="py-string">  NOT @view_altering.  Caller must be view_altering.</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line"><tt class="py-string">  Because some callers are just initializing, e.g. menus and model top.</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line"><tt class="py-string">  '''</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">  <tt class="py-comment">#@dump_return</tt> </tt>
+<a name="Transformer.set_transform"></a><div id="Transformer.set_transform-def"><a name="L152"></a><tt class="py-lineno">152</tt> <a class="py-toggle" href="#" id="Transformer.set_transform-toggle" onclick="return toggle('Transformer.set_transform');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.transformer.Transformer-class.html#set_transform">set_transform</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">translation</tt><tt class="py-op">,</tt> <tt class="py-param">scaltion</tt><tt class="py-op">,</tt> <tt class="py-param">rotation</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Transformer.set_transform-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Transformer.set_transform-expanded"><a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line"><tt class="py-docstring">    Set the specs for transform, and derive transform from specs.</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">    <tt class="py-comment"># copy these vectors so correspond with transform</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">translation</tt> <tt class="py-op">=</tt> <tt class="py-name">translation</tt><tt class="py-op">.</tt><tt id="link-40" class="py-name" targets="Method source.base.bounds.Bounds.copy()=source.base.bounds.Bounds-class.html#copy,Function source.base.transform.copy()=source.base.transform-module.html#copy,Method source.base.vector.Vector.copy()=source.base.vector.Vector-class.html#copy,Method source.clipboard.Clipboard.copy()=source.clipboard.Clipboard-class.html#copy"><a title="source.base.bounds.Bounds.copy
+source.base.transform.copy
+source.base.vector.Vector.copy
+source.clipboard.Clipboard.copy" class="py-name" href="#" onclick="return doclink('link-40', 'copy', 'link-40');">copy</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">scale</tt> <tt class="py-op">=</tt> <tt class="py-name">scaltion</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name"><a title="source.base.bounds.Bounds.copy
+source.base.transform.copy
+source.base.vector.Vector.copy
+source.clipboard.Clipboard.copy" class="py-name" href="#" onclick="return doclink('link-41', 'copy', 'link-40');">copy</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">rotation</tt> <tt class="py-op">=</tt> <tt class="py-name">rotation</tt>  <tt class="py-comment"># scalar</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-42" class="py-name"><a title="source.transformer.Transformer.derive_transform" class="py-name" href="#" onclick="return doclink('link-42', 'derive_transform', 'link-17');">derive_transform</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-43" class="py-name"><a title="source.base.transform" class="py-name" href="#" onclick="return doclink('link-43', 'transform', 'link-9');">transform</a></tt> <tt class="py-comment"># debug</tt> </tt>
+</div><a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">     </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">     </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">  <tt class="py-comment"># This will alter the view, but for now its broken on retained transform</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">  <tt class="py-comment"># @view_altering</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">  <tt class="py-comment"># @dump_return</tt> </tt>
+<a name="Transformer.set_dimensions"></a><div id="Transformer.set_dimensions-def"><a name="L167"></a><tt class="py-lineno">167</tt> <a class="py-toggle" href="#" id="Transformer.set_dimensions-toggle" onclick="return toggle('Transformer.set_dimensions');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.transformer.Transformer-class.html#set_dimensions">set_dimensions</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">dimensions</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Transformer.set_dimensions-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Transformer.set_dimensions-expanded"><a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line"><tt class="py-docstring">    Set the translation and scale (not rotation) of an object.</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"><tt class="py-docstring">    For testing: ordinarily, transforms are set by user actions using other methods.</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line"><tt class="py-docstring">    !!! Not view altering</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">    <tt class="py-comment"># Zero width or height later yields cairo error non-invertible matrix</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">    <tt class="py-keyword">assert</tt> <tt class="py-name">dimensions</tt><tt class="py-op">.</tt><tt class="py-name">width</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">    <tt class="py-keyword">assert</tt> <tt class="py-name">dimensions</tt><tt class="py-op">.</tt><tt class="py-name">height</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">     </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">    <tt class="py-comment"># Should be a non-empty morph (a Composite)</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">    <tt class="py-keyword">assert</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">     </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">translation</tt> <tt class="py-op">=</tt> <tt id="link-44" class="py-name"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-44', 'vector', 'link-2');">vector</a></tt><tt class="py-op">.</tt><tt id="link-45" class="py-name"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-45', 'Vector', 'link-11');">Vector</a></tt><tt class="py-op">(</tt><tt class="py-name">dimensions</tt><tt class="py-op">.</tt><tt id="link-46" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-46', 'x', 'link-27');">x</a></tt><tt class="py-op">,</tt> <tt class="py-name">dimensions</tt><tt class="py-op">.</tt><tt id="link-47" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-47', 'y', 'link-28');">y</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">scale</tt> <tt class="py-op">=</tt> <tt id="link-48" class="py-name"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-48', 'vector', 'link-2');">vector</a></tt><tt class="py-op">.</tt><tt id="link-49" class="py-name"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-49', 'Vector', 'link-11');">Vector</a></tt><tt class="py-op">(</tt><tt class="py-name">dimensions</tt><tt class="py-op">.</tt><tt class="py-name">width</tt><tt class="py-op">/</tt><tt class="py-number">1.0</tt><tt class="py-op">,</tt> <tt class="py-name">dimensions</tt><tt class="py-op">.</tt><tt class="py-name">height</tt><tt class="py-op">/</tt><tt class="py-number">1.0</tt><tt class="py-op">)</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-50" class="py-name"><a title="source.transformer.Transformer.derive_transform" class="py-name" href="#" onclick="return doclink('link-50', 'derive_transform', 'link-17');">derive_transform</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-51" class="py-name"><a title="source.base.transform" class="py-name" href="#" onclick="return doclink('link-51', 'transform', 'link-9');">transform</a></tt> <tt class="py-comment"># debug</tt> </tt>
+</div><a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line"> </tt>
+<a name="Transformer.set_translation"></a><div id="Transformer.set_translation-def"><a name="L185"></a><tt class="py-lineno">185</tt> <a class="py-toggle" href="#" id="Transformer.set_translation-toggle" onclick="return toggle('Transformer.set_translation');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.transformer.Transformer-class.html#set_translation">set_translation</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">point</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Transformer.set_translation-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Transformer.set_translation-expanded"><a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line"><tt class="py-docstring">    !!! Not view altering (can be called before view is established.)</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line"><tt class="py-docstring">    !!! point is not copied.</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">translation</tt> <tt class="py-op">=</tt> <tt id="link-52" class="py-name"><a title="source.morph.morph.point" class="py-name" href="#" onclick="return doclink('link-52', 'point', 'link-36');">point</a></tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-53" class="py-name"><a title="source.transformer.Transformer.derive_transform" class="py-name" href="#" onclick="return doclink('link-53', 'derive_transform', 'link-17');">derive_transform</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line">   </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">view_altering</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">dump_event</tt> </tt>
+<a name="Transformer.set_origin"></a><div id="Transformer.set_origin-def"><a name="L195"></a><tt class="py-lineno">195</tt> <a class="py-toggle" href="#" id="Transformer.set_origin-toggle" onclick="return toggle('Transformer.set_origin');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.transformer.Transformer-class.html#set_origin">set_origin</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">event</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Transformer.set_origin-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Transformer.set_origin-expanded"><a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line">    <tt class="py-docstring">''' Set translation '''</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">    <tt class="py-comment"># FIXME floats?  CS conversions?</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">translation</tt> <tt class="py-op">=</tt> <tt id="link-54" class="py-name"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-54', 'vector', 'link-2');">vector</a></tt><tt class="py-op">.</tt><tt id="link-55" class="py-name"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-55', 'Vector', 'link-11');">Vector</a></tt><tt class="py-op">(</tt><tt class="py-name">event</tt><tt class="py-op">.</tt><tt id="link-56" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-56', 'x', 'link-27');">x</a></tt><tt class="py-op">,</tt> <tt class="py-name">event</tt><tt class="py-op">.</tt><tt id="link-57" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-57', 'y', 'link-28');">y</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-58" class="py-name"><a title="source.transformer.Transformer.derive_transform" class="py-name" href="#" onclick="return doclink('link-58', 'derive_transform', 'link-17');">derive_transform</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">   </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">   </tt>
+<a name="Transformer.move_origin"></a><div id="Transformer.move_origin-def"><a name="L202"></a><tt class="py-lineno">202</tt> <a class="py-toggle" href="#" id="Transformer.move_origin-toggle" onclick="return toggle('Transformer.move_origin');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.transformer.Transformer-class.html#move_origin">move_origin</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">offset</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Transformer.move_origin-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Transformer.move_origin-expanded"><a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line"><tt class="py-docstring">    Move origin but keep other points fixed.</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">    <tt class="py-keyword">raise</tt> <tt class="py-name">RuntimeError</tt><tt class="py-op">(</tt><tt class="py-string">"Not implemented"</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">     </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line">     </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">view_altering</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">  <tt class="py-comment"># @dump_event</tt> </tt>
+<a name="Transformer.move_relative"></a><div id="Transformer.move_relative-def"><a name="L211"></a><tt class="py-lineno">211</tt> <a class="py-toggle" href="#" id="Transformer.move_relative-toggle" onclick="return toggle('Transformer.move_relative');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.transformer.Transformer-class.html#move_relative">move_relative</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">offset</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Transformer.move_relative-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Transformer.move_relative-expanded"><a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line">    <tt class="py-docstring">''' </tt> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line"><tt class="py-docstring">    Translate.</tt> </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line"><tt class="py-docstring">    Move origin by offset.  Offset is a delta in LCS (any really). </tt> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line">    <tt class="py-comment"># TODO calculate local coordinates by using parent transform.</tt> </tt>
+<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">translation</tt> <tt class="py-op">+=</tt> <tt class="py-name">offset</tt> </tt>
+<a name="L218"></a><tt class="py-lineno">218</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-59" class="py-name"><a title="source.transformer.Transformer.derive_transform" class="py-name" href="#" onclick="return doclink('link-59', 'derive_transform', 'link-17');">derive_transform</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line">   </tt>
+<a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">view_altering</tt> </tt>
+<a name="L221"></a><tt class="py-lineno">221</tt>  <tt class="py-line">  <tt class="py-comment">#@dump_event</tt> </tt>
+<a name="Transformer.move_absolute"></a><div id="Transformer.move_absolute-def"><a name="L222"></a><tt class="py-lineno">222</tt> <a class="py-toggle" href="#" id="Transformer.move_absolute-toggle" onclick="return toggle('Transformer.move_absolute');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.transformer.Transformer-class.html#move_absolute">move_absolute</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">offset</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Transformer.move_absolute-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Transformer.move_absolute-expanded"><a name="L223"></a><tt class="py-lineno">223</tt>  <tt class="py-line">    <tt class="py-docstring">''' Set translation by offset.'''</tt> </tt>
+<a name="L224"></a><tt class="py-lineno">224</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">translation</tt> <tt class="py-op">=</tt> <tt class="py-name">offset</tt><tt class="py-op">.</tt><tt id="link-60" class="py-name"><a title="source.base.bounds.Bounds.copy
+source.base.transform.copy
+source.base.vector.Vector.copy
+source.clipboard.Clipboard.copy" class="py-name" href="#" onclick="return doclink('link-60', 'copy', 'link-40');">copy</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L225"></a><tt class="py-lineno">225</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-61" class="py-name"><a title="source.transformer.Transformer.derive_transform" class="py-name" href="#" onclick="return doclink('link-61', 'derive_transform', 'link-17');">derive_transform</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line">     </tt>
+<a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">view_altering</tt> </tt>
+<a name="L228"></a><tt class="py-lineno">228</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">dump_event</tt> </tt>
+<a name="Transformer.scale_uniformly"></a><div id="Transformer.scale_uniformly-def"><a name="L229"></a><tt class="py-lineno">229</tt> <a class="py-toggle" href="#" id="Transformer.scale_uniformly-toggle" onclick="return toggle('Transformer.scale_uniformly');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.transformer.Transformer-class.html#scale_uniformly">scale_uniformly</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">delta</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Transformer.scale_uniformly-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Transformer.scale_uniformly-expanded"><a name="L230"></a><tt class="py-lineno">230</tt>  <tt class="py-line">    <tt class="py-docstring">''' Relative scale uniformly by the scalar delta'''</tt> </tt>
+<a name="L231"></a><tt class="py-lineno">231</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">scale</tt> <tt class="py-op">*=</tt> <tt class="py-name">delta</tt> </tt>
+<a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-62" class="py-name"><a title="source.transformer.Transformer.derive_transform" class="py-name" href="#" onclick="return doclink('link-62', 'derive_transform', 'link-17');">derive_transform</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L233"></a><tt class="py-lineno">233</tt>  <tt class="py-line">   </tt>
+<a name="L234"></a><tt class="py-lineno">234</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">view_altering</tt> </tt>
+<a name="L235"></a><tt class="py-lineno">235</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">dump_event</tt> </tt>
+<a name="Transformer.relative_scale"></a><div id="Transformer.relative_scale-def"><a name="L236"></a><tt class="py-lineno">236</tt> <a class="py-toggle" href="#" id="Transformer.relative_scale-toggle" onclick="return toggle('Transformer.relative_scale');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.transformer.Transformer-class.html#relative_scale">relative_scale</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">delta_x</tt><tt class="py-op">,</tt> <tt class="py-param">delta_y</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Transformer.relative_scale-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Transformer.relative_scale-expanded"><a name="L237"></a><tt class="py-lineno">237</tt>  <tt class="py-line">    <tt class="py-docstring">''' Relative scale each dimension by the scalar tuple delta'''</tt> </tt>
+<a name="L238"></a><tt class="py-lineno">238</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">scale</tt><tt class="py-op">.</tt><tt id="link-63" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-63', 'x', 'link-27');">x</a></tt> <tt class="py-op">*=</tt> <tt class="py-name">delta_x</tt> </tt>
+<a name="L239"></a><tt class="py-lineno">239</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">scale</tt><tt class="py-op">.</tt><tt id="link-64" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-64', 'y', 'link-28');">y</a></tt> <tt class="py-op">*=</tt> <tt class="py-name">delta_y</tt> </tt>
+<a name="L240"></a><tt class="py-lineno">240</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-65" class="py-name"><a title="source.transformer.Transformer.derive_transform" class="py-name" href="#" onclick="return doclink('link-65', 'derive_transform', 'link-17');">derive_transform</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L241"></a><tt class="py-lineno">241</tt>  <tt class="py-line">   </tt>
+<a name="L242"></a><tt class="py-lineno">242</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">view_altering</tt> </tt>
+<a name="L243"></a><tt class="py-lineno">243</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">dump_event</tt> </tt>
+<a name="Transformer.rotate"></a><div id="Transformer.rotate-def"><a name="L244"></a><tt class="py-lineno">244</tt> <a class="py-toggle" href="#" id="Transformer.rotate-toggle" onclick="return toggle('Transformer.rotate');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.transformer.Transformer-class.html#rotate">rotate</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">angle</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Transformer.rotate-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Transformer.rotate-expanded"><a name="L245"></a><tt class="py-lineno">245</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">rotation</tt> <tt class="py-op">=</tt> <tt id="link-66" class="py-name" targets="Method source.base.vector.Vector.angle()=source.base.vector.Vector-class.html#angle"><a title="source.base.vector.Vector.angle" class="py-name" href="#" onclick="return doclink('link-66', 'angle', 'link-66');">angle</a></tt> </tt>
+<a name="L246"></a><tt class="py-lineno">246</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-67" class="py-name"><a title="source.transformer.Transformer.derive_transform" class="py-name" href="#" onclick="return doclink('link-67', 'derive_transform', 'link-17');">derive_transform</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L247"></a><tt class="py-lineno">247</tt>  <tt class="py-line">     </tt>
+<a name="L248"></a><tt class="py-lineno">248</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">dump_event</tt> </tt>
+<a name="L249"></a><tt class="py-lineno">249</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">view_altering</tt> </tt>
+<a name="Transformer.zoom"></a><div id="Transformer.zoom-def"><a name="L250"></a><tt class="py-lineno">250</tt> <a class="py-toggle" href="#" id="Transformer.zoom-toggle" onclick="return toggle('Transformer.zoom');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.transformer.Transformer-class.html#zoom">zoom</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">delta</tt><tt class="py-op">,</tt> <tt class="py-param">event</tt><tt class="py-op">,</tt> <tt class="py-param">context</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Transformer.zoom-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Transformer.zoom-expanded"><a name="L251"></a><tt class="py-lineno">251</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L252"></a><tt class="py-lineno">252</tt>  <tt class="py-line"><tt class="py-docstring">    Scale on point.</tt> </tt>
+<a name="L253"></a><tt class="py-lineno">253</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L254"></a><tt class="py-lineno">254</tt>  <tt class="py-line"><tt class="py-docstring">    Currently, the user can only do this on the document</tt> </tt>
+<a name="L255"></a><tt class="py-lineno">255</tt>  <tt class="py-line"><tt class="py-docstring">    (not on smaller morphs.)</tt> </tt>
+<a name="L256"></a><tt class="py-lineno">256</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L257"></a><tt class="py-lineno">257</tt>  <tt class="py-line"><tt class="py-docstring">    Standard sequence of 3 transformations:</tt> </tt>
+<a name="L258"></a><tt class="py-lineno">258</tt>  <tt class="py-line"><tt class="py-docstring">      translate</tt> </tt>
+<a name="L259"></a><tt class="py-lineno">259</tt>  <tt class="py-line"><tt class="py-docstring">      scale</tt> </tt>
+<a name="L260"></a><tt class="py-lineno">260</tt>  <tt class="py-line"><tt class="py-docstring">      inverse translate</tt> </tt>
+<a name="L261"></a><tt class="py-lineno">261</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L262"></a><tt class="py-lineno">262</tt>  <tt class="py-line">    <tt class="py-string">"""</tt> </tt>
+<a name="L263"></a><tt class="py-lineno">263</tt>  <tt class="py-line"><tt class="py-string">    When part of view was</tt> </tt>
+<a name="L264"></a><tt class="py-lineno">264</tt>  <tt class="py-line"><tt class="py-string">    user_coords = self.device_to_user(event.x, event.y)</tt> </tt>
+<a name="L265"></a><tt class="py-lineno">265</tt>  <tt class="py-line"><tt class="py-string">    self.transform.translate(user_coords.x, user_coords.y)</tt> </tt>
+<a name="L266"></a><tt class="py-lineno">266</tt>  <tt class="py-line"><tt class="py-string">    self.transform.scale(delta, delta)</tt> </tt>
+<a name="L267"></a><tt class="py-lineno">267</tt>  <tt class="py-line"><tt class="py-string">    self.transform.translate(-user_coords.x, -user_coords.y)</tt> </tt>
+<a name="L268"></a><tt class="py-lineno">268</tt>  <tt class="py-line"><tt class="py-string">    """</tt> </tt>
+<a name="L269"></a><tt class="py-lineno">269</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">scale</tt> <tt class="py-op">*=</tt> <tt class="py-name">delta</tt> </tt>
+<a name="L270"></a><tt class="py-lineno">270</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt class="py-string">"Zoomed scale is"</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">scale</tt> </tt>
+<a name="L271"></a><tt class="py-lineno">271</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-68" class="py-name"><a title="source.transformer.Transformer.derive_transform" class="py-name" href="#" onclick="return doclink('link-68', 'derive_transform', 'link-17');">derive_transform</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L272"></a><tt class="py-lineno">272</tt>  <tt class="py-line">     </tt>
+<a name="L273"></a><tt class="py-lineno">273</tt>  <tt class="py-line">  <tt class="py-comment">#@dump_event</tt> </tt>
+<a name="Transformer.center_at"></a><div id="Transformer.center_at-def"><a name="L274"></a><tt class="py-lineno">274</tt> <a class="py-toggle" href="#" id="Transformer.center_at-toggle" onclick="return toggle('Transformer.center_at');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.transformer.Transformer-class.html#center_at">center_at</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">point</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Transformer.center_at-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Transformer.center_at-expanded"><a name="L275"></a><tt class="py-lineno">275</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L276"></a><tt class="py-lineno">276</tt>  <tt class="py-line"><tt class="py-docstring">    ??? This only works for controls,</tt> </tt>
+<a name="L277"></a><tt class="py-lineno">277</tt>  <tt class="py-line"><tt class="py-docstring">    where the scale is equivalent to pixels in DCS.</tt> </tt>
+<a name="L278"></a><tt class="py-lineno">278</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L279"></a><tt class="py-lineno">279</tt>  <tt class="py-line"><tt class="py-docstring">    Currently, there is no user command to center a graphical morph.</tt> </tt>
+<a name="L280"></a><tt class="py-lineno">280</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L281"></a><tt class="py-lineno">281</tt>  <tt class="py-line">    <tt class="py-name">delta_x</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">scale</tt><tt class="py-op">.</tt><tt id="link-69" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-69', 'x', 'link-27');">x</a></tt> <tt class="py-op">/</tt> <tt class="py-number">2</tt> </tt>
+<a name="L282"></a><tt class="py-lineno">282</tt>  <tt class="py-line">    <tt class="py-name">delta_y</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">scale</tt><tt class="py-op">.</tt><tt id="link-70" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-70', 'y', 'link-28');">y</a></tt> <tt class="py-op">/</tt> <tt class="py-number">2</tt> </tt>
+<a name="L283"></a><tt class="py-lineno">283</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">translation</tt> <tt class="py-op">=</tt> <tt id="link-71" class="py-name"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-71', 'vector', 'link-2');">vector</a></tt><tt class="py-op">.</tt><tt id="link-72" class="py-name"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-72', 'Vector', 'link-11');">Vector</a></tt><tt class="py-op">(</tt><tt id="link-73" class="py-name"><a title="source.morph.morph.point" class="py-name" href="#" onclick="return doclink('link-73', 'point', 'link-36');">point</a></tt><tt class="py-op">.</tt><tt id="link-74" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-74', 'x', 'link-27');">x</a></tt> <tt class="py-op">-</tt> <tt class="py-name">delta_x</tt><tt class="py-op">,</tt> <tt id="link-75" class="py-name"><a title="source.morph.morph.point" class="py-name" href="#" onclick="return doclink('link-75', 'point', 'link-36');">point</a></tt><tt class="py-op">.</tt><tt id="link-76" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-76', 'y', 'link-28');">y</a></tt> <tt class="py-op">-</tt> <tt class="py-name">delta_y</tt> <tt class="py-op">)</tt> </tt>
+<a name="L284"></a><tt class="py-lineno">284</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-77" class="py-name"><a title="source.transformer.Transformer.derive_transform" class="py-name" href="#" onclick="return doclink('link-77', 'derive_transform', 'link-17');">derive_transform</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L285"></a><tt class="py-lineno">285</tt>  <tt class="py-line">     </tt>
+<a name="L286"></a><tt class="py-lineno">286</tt>  <tt class="py-line">    <tt class="py-string">"""</tt> </tt>
+<a name="L287"></a><tt class="py-lineno">287</tt>  <tt class="py-line"><tt class="py-string">    OLD</tt> </tt>
+<a name="L288"></a><tt class="py-lineno">288</tt>  <tt class="py-line"><tt class="py-string">    '''</tt> </tt>
+<a name="L289"></a><tt class="py-lineno">289</tt>  <tt class="py-line"><tt class="py-string">    Set ul at event.</tt> </tt>
+<a name="L290"></a><tt class="py-lineno">290</tt>  <tt class="py-line"><tt class="py-string">    Center the bounding box at event.</tt> </tt>
+<a name="L291"></a><tt class="py-lineno">291</tt>  <tt class="py-line"><tt class="py-string">    Assert bounding box is a rectangle.</tt> </tt>
+<a name="L292"></a><tt class="py-lineno">292</tt>  <tt class="py-line"><tt class="py-string">    ??? Dimensions might not be a rectangle? TODO</tt> </tt>
+<a name="L293"></a><tt class="py-lineno">293</tt>  <tt class="py-line"><tt class="py-string">    (No redraws)</tt> </tt>
+<a name="L294"></a><tt class="py-lineno">294</tt>  <tt class="py-line"><tt class="py-string">    '''</tt> </tt>
+<a name="L295"></a><tt class="py-lineno">295</tt>  <tt class="py-line"><tt class="py-string">    self._dimensions = coordinates.center_on_coords(self.get_bounds(), event)</tt> </tt>
+<a name="L296"></a><tt class="py-lineno">296</tt>  <tt class="py-line"><tt class="py-string">    return self._dimensions # return rect so it is dumped</tt> </tt>
+<a name="L297"></a><tt class="py-lineno">297</tt>  <tt class="py-line"><tt class="py-string">    """</tt> </tt>
+</div></div><a name="L298"></a><tt class="py-lineno">298</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:33 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

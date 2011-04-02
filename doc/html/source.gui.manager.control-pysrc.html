@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>source.gui.manager.control</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="source-module.html">Package&nbsp;source</a> ::
+        <a href="source.gui-module.html">Package&nbsp;gui</a> ::
+        <a href="source.gui.manager-module.html">Package&nbsp;manager</a> ::
+        Module&nbsp;control
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="source.gui.manager.control-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="source.gui.manager.control-module.html">Module source.gui.manager.control</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-docstring">Manager of controls to insure only one is active: receiving events, being drawn, and it's controlee focused.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-string">Copyright 2010, 2011 Lloyd Konneker</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-string"></tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-string">    This file is part of Pensool.</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-string"></tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-string">    Pensool is free software: you can redistribute it and/or modify</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-string">    it under the terms of the GNU General Public License as published by</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-string">    the Free Software Foundation, either version 3 of the License, or</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-string">    (at your option) any later version.</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Module source.decorators=source.decorators-module.html"><a title="source.decorators" class="py-name" href="#" onclick="return doclink('link-0', 'decorators', 'link-0');">decorators</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Module source.config=source.config-module.html"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-1', 'config', 'link-1');">config</a></tt> <tt class="py-comment"># viewport and scheme</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"> </tt>
+<a name="ControlsManager"></a><div id="ControlsManager-def"><a name="L18"></a><tt class="py-lineno"> 18</tt> <a class="py-toggle" href="#" id="ControlsManager-toggle" onclick="return toggle('ControlsManager');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="source.gui.manager.control.ControlsManager-class.html">ControlsManager</a><tt class="py-op">(</tt><tt class="py-base-class">object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ControlsManager-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ControlsManager-expanded"><a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line">  <tt class="py-docstring">'''</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-docstring">  Manages active-ness in a set of controls on a view or window (gtk object that generates events)</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-docstring">  Only one is active at a time.</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-docstring">  Here active means: receiving events, callbacks connected. Also called focus.</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-docstring">  Controls are anonymous here: not keeping references to them.</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-docstring">  Other aspects of controls are also managed by group managers such as menus.</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-docstring">  '''</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">   </tt>
+<a name="ControlsManager.__init__"></a><div id="ControlsManager.__init__-def"><a name="L27"></a><tt class="py-lineno"> 27</tt> <a class="py-toggle" href="#" id="ControlsManager.__init__-toggle" onclick="return toggle('ControlsManager.__init__');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.manager.control.ControlsManager-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ControlsManager.__init__-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="ControlsManager.__init__-expanded"><a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_control</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">root_control</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+</div><a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"> </tt>
+<a name="ControlsManager.is_root_control_active"></a><div id="ControlsManager.is_root_control_active-def"><a name="L32"></a><tt class="py-lineno"> 32</tt> <a class="py-toggle" href="#" id="ControlsManager.is_root_control_active-toggle" onclick="return toggle('ControlsManager.is_root_control_active');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.manager.control.ControlsManager-class.html#is_root_control_active">is_root_control_active</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ControlsManager.is_root_control_active-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="ControlsManager.is_root_control_active-expanded"><a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">    <tt class="py-docstring">''' </tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-docstring">    Is root control already active?</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-docstring">    Used in race conditions.</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_control</tt> <tt class="py-keyword">is</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">root_control</tt> </tt>
+</div><a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">     </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">     </tt>
+<a name="ControlsManager.set_root_control"></a><div id="ControlsManager.set_root_control-def"><a name="L40"></a><tt class="py-lineno"> 40</tt> <a class="py-toggle" href="#" id="ControlsManager.set_root_control-toggle" onclick="return toggle('ControlsManager.set_root_control');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.manager.control.ControlsManager-class.html#set_root_control">set_root_control</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">control</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ControlsManager.set_root_control-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="ControlsManager.set_root_control-expanded"><a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-docstring">    Set root control which takes events when no other control does.</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt class="py-docstring">    The events below always go to the root control, not to the active control.</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">root_control</tt> <tt class="py-op">=</tt> <tt id="link-2" class="py-name" targets="Module source.gui.control=source.gui.control-module.html,Module source.gui.manager.control=source.gui.manager.control-module.html"><a title="source.gui.control
+source.gui.manager.control" class="py-name" href="#" onclick="return doclink('link-2', 'control', 'link-2');">control</a></tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">    <tt id="link-3" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-3', 'config', 'link-1');">config</a></tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Variable source.config.viewport=source.config-module.html#viewport,Variable source.morph.glyph.viewport=source.morph.glyph-module.html#viewport"><a title="source.config.viewport
+source.morph.glyph.viewport" class="py-name" href="#" onclick="return doclink('link-4', 'viewport', 'link-4');">viewport</a></tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Variable source.pensool.da=source.pensool-module.html#da"><a title="source.pensool.da" class="py-name" href="#" onclick="return doclink('link-5', 'da', 'link-5');">da</a></tt><tt class="py-op">.</tt><tt class="py-name">connect</tt><tt class="py-op">(</tt><tt class="py-string">'configure-event'</tt><tt class="py-op">,</tt> <tt id="link-6" class="py-name"><a title="source.gui.control
+source.gui.manager.control" class="py-name" href="#" onclick="return doclink('link-6', 'control', 'link-2');">control</a></tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Method source.gui.backgroundcontrol.BackgroundControl.configure_event_cb()=source.gui.backgroundcontrol.BackgroundControl-class.html#configure_event_cb"><a title="source.gui.backgroundcontrol.BackgroundControl.configure_event_cb" class="py-name" href="#" onclick="return doclink('link-7', 'configure_event_cb', 'link-7');">configure_event_cb</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">    <tt id="link-8" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-8', 'config', 'link-1');">config</a></tt><tt class="py-op">.</tt><tt id="link-9" class="py-name"><a title="source.config.viewport
+source.morph.glyph.viewport" class="py-name" href="#" onclick="return doclink('link-9', 'viewport', 'link-4');">viewport</a></tt><tt class="py-op">.</tt><tt id="link-10" class="py-name"><a title="source.pensool.da" class="py-name" href="#" onclick="return doclink('link-10', 'da', 'link-5');">da</a></tt><tt class="py-op">.</tt><tt class="py-name">connect</tt><tt class="py-op">(</tt><tt class="py-string">'focus-in-event'</tt><tt class="py-op">,</tt> <tt id="link-11" class="py-name"><a title="source.gui.control
+source.gui.manager.control" class="py-name" href="#" onclick="return doclink('link-11', 'control', 'link-2');">control</a></tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Method source.gui.control.GuiControl.focus_in_event_cb()=source.gui.control.GuiControl-class.html#focus_in_event_cb"><a title="source.gui.control.GuiControl.focus_in_event_cb" class="py-name" href="#" onclick="return doclink('link-12', 'focus_in_event_cb', 'link-12');">focus_in_event_cb</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">   </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">  <tt class="py-comment">#@dump_event</tt> </tt>
+<a name="ControlsManager._disconnect_callbacks"></a><div id="ControlsManager._disconnect_callbacks-def"><a name="L51"></a><tt class="py-lineno"> 51</tt> <a class="py-toggle" href="#" id="ControlsManager._disconnect_callbacks-toggle" onclick="return toggle('ControlsManager._disconnect_callbacks');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.manager.control.ControlsManager-class.html#_disconnect_callbacks">_disconnect_callbacks</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ControlsManager._disconnect_callbacks-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="ControlsManager._disconnect_callbacks-expanded"><a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_control</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">      <tt id="link-13" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-13', 'config', 'link-1');">config</a></tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="source.config.viewport
+source.morph.glyph.viewport" class="py-name" href="#" onclick="return doclink('link-14', 'viewport', 'link-4');">viewport</a></tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="source.pensool.da" class="py-name" href="#" onclick="return doclink('link-15', 'da', 'link-5');">da</a></tt><tt class="py-op">.</tt><tt class="py-name">disconnect</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_motion_handler</tt><tt class="py-op">)</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">      <tt id="link-16" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-16', 'config', 'link-1');">config</a></tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="source.config.viewport
+source.morph.glyph.viewport" class="py-name" href="#" onclick="return doclink('link-17', 'viewport', 'link-4');">viewport</a></tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="source.pensool.da" class="py-name" href="#" onclick="return doclink('link-18', 'da', 'link-5');">da</a></tt><tt class="py-op">.</tt><tt class="py-name">disconnect</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_press_handler</tt><tt class="py-op">)</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">      <tt id="link-19" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-19', 'config', 'link-1');">config</a></tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="source.config.viewport
+source.morph.glyph.viewport" class="py-name" href="#" onclick="return doclink('link-20', 'viewport', 'link-4');">viewport</a></tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="source.pensool.da" class="py-name" href="#" onclick="return doclink('link-21', 'da', 'link-5');">da</a></tt><tt class="py-op">.</tt><tt class="py-name">disconnect</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_release_handler</tt><tt class="py-op">)</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">      <tt id="link-22" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-22', 'config', 'link-1');">config</a></tt><tt class="py-op">.</tt><tt id="link-23" class="py-name"><a title="source.config.viewport
+source.morph.glyph.viewport" class="py-name" href="#" onclick="return doclink('link-23', 'viewport', 'link-4');">viewport</a></tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="source.pensool.da" class="py-name" href="#" onclick="return doclink('link-24', 'da', 'link-5');">da</a></tt><tt class="py-op">.</tt><tt class="py-name">disconnect</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_scroll_handler</tt><tt class="py-op">)</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">      <tt id="link-25" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-25', 'config', 'link-1');">config</a></tt><tt class="py-op">.</tt><tt id="link-26" class="py-name"><a title="source.config.viewport
+source.morph.glyph.viewport" class="py-name" href="#" onclick="return doclink('link-26', 'viewport', 'link-4');">viewport</a></tt><tt class="py-op">.</tt><tt id="link-27" class="py-name"><a title="source.pensool.da" class="py-name" href="#" onclick="return doclink('link-27', 'da', 'link-5');">da</a></tt><tt class="py-op">.</tt><tt class="py-name">disconnect</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_key_handler</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">     </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">     </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">  <tt class="py-comment">#@dump_event</tt> </tt>
+<a name="ControlsManager.activate_control"></a><div id="ControlsManager.activate_control-def"><a name="L61"></a><tt class="py-lineno"> 61</tt> <a class="py-toggle" href="#" id="ControlsManager.activate_control-toggle" onclick="return toggle('ControlsManager.activate_control');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.manager.control.ControlsManager-class.html#activate_control">activate_control</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">control</tt><tt class="py-op">,</tt> <tt class="py-param">controlee</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ControlsManager.activate_control-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="ControlsManager.activate_control-expanded"><a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt class="py-docstring">    Activate given control.</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"><tt class="py-docstring">    Active is synonymous with has focus.</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"><tt class="py-docstring">    Active means "handling events" while focus means "visually highlighted."</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">    <tt class="py-comment"># Must be preceded by deactivate or have just started app</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">    <tt class="py-keyword">assert</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_control</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">     </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">    <tt class="py-comment"># Reconnect events.   Mouse and keyboard.</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_press_handler</tt> <tt class="py-op">=</tt> <tt id="link-28" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-28', 'config', 'link-1');">config</a></tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="source.config.viewport
+source.morph.glyph.viewport" class="py-name" href="#" onclick="return doclink('link-29', 'viewport', 'link-4');">viewport</a></tt><tt class="py-op">.</tt><tt id="link-30" class="py-name"><a title="source.pensool.da" class="py-name" href="#" onclick="return doclink('link-30', 'da', 'link-5');">da</a></tt><tt class="py-op">.</tt><tt class="py-name">connect</tt><tt class="py-op">(</tt><tt class="py-string">'button-press-event'</tt><tt class="py-op">,</tt> <tt id="link-31" class="py-name"><a title="source.gui.control
+source.gui.manager.control" class="py-name" href="#" onclick="return doclink('link-31', 'control', 'link-2');">control</a></tt><tt class="py-op">.</tt><tt id="link-32" class="py-name" targets="Method source.gui.control.GuiControl.button_press_event_cb()=source.gui.control.GuiControl-class.html#button_press_event_cb"><a title="source.gui.control.GuiControl.button_press_event_cb" class="py-name" href="#" onclick="return doclink('link-32', 'button_press_event_cb', 'link-32');">button_press_event_cb</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_motion_handler</tt> <tt class="py-op">=</tt> <tt id="link-33" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-33', 'config', 'link-1');">config</a></tt><tt class="py-op">.</tt><tt id="link-34" class="py-name"><a title="source.config.viewport
+source.morph.glyph.viewport" class="py-name" href="#" onclick="return doclink('link-34', 'viewport', 'link-4');">viewport</a></tt><tt class="py-op">.</tt><tt id="link-35" class="py-name"><a title="source.pensool.da" class="py-name" href="#" onclick="return doclink('link-35', 'da', 'link-5');">da</a></tt><tt class="py-op">.</tt><tt class="py-name">connect</tt><tt class="py-op">(</tt><tt class="py-string">'motion-notify-event'</tt><tt class="py-op">,</tt> <tt id="link-36" class="py-name"><a title="source.gui.control
+source.gui.manager.control" class="py-name" href="#" onclick="return doclink('link-36', 'control', 'link-2');">control</a></tt><tt class="py-op">.</tt><tt id="link-37" class="py-name" targets="Method source.gui.backgroundcontrol.BackgroundControl.motion_notify_event_cb()=source.gui.backgroundcontrol.BackgroundControl-class.html#motion_notify_event_cb,Method source.gui.control.GuiControl.motion_notify_event_cb()=source.gui.control.GuiControl-class.html#motion_notify_event_cb"><a title="source.gui.backgroundcontrol.BackgroundControl.motion_notify_event_cb
+source.gui.control.GuiControl.motion_notify_event_cb" class="py-name" href="#" onclick="return doclink('link-37', 'motion_notify_event_cb', 'link-37');">motion_notify_event_cb</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_release_handler</tt> <tt class="py-op">=</tt> <tt id="link-38" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-38', 'config', 'link-1');">config</a></tt><tt class="py-op">.</tt><tt id="link-39" class="py-name"><a title="source.config.viewport
+source.morph.glyph.viewport" class="py-name" href="#" onclick="return doclink('link-39', 'viewport', 'link-4');">viewport</a></tt><tt class="py-op">.</tt><tt id="link-40" class="py-name"><a title="source.pensool.da" class="py-name" href="#" onclick="return doclink('link-40', 'da', 'link-5');">da</a></tt><tt class="py-op">.</tt><tt class="py-name">connect</tt><tt class="py-op">(</tt><tt class="py-string">'button-release-event'</tt><tt class="py-op">,</tt> <tt id="link-41" class="py-name"><a title="source.gui.control
+source.gui.manager.control" class="py-name" href="#" onclick="return doclink('link-41', 'control', 'link-2');">control</a></tt><tt class="py-op">.</tt><tt id="link-42" class="py-name" targets="Method source.gui.control.GuiControl.button_release_event_cb()=source.gui.control.GuiControl-class.html#button_release_event_cb"><a title="source.gui.control.GuiControl.button_release_event_cb" class="py-name" href="#" onclick="return doclink('link-42', 'button_release_event_cb', 'link-42');">button_release_event_cb</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_scroll_handler</tt> <tt class="py-op">=</tt> <tt id="link-43" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-43', 'config', 'link-1');">config</a></tt><tt class="py-op">.</tt><tt id="link-44" class="py-name"><a title="source.config.viewport
+source.morph.glyph.viewport" class="py-name" href="#" onclick="return doclink('link-44', 'viewport', 'link-4');">viewport</a></tt><tt class="py-op">.</tt><tt id="link-45" class="py-name"><a title="source.pensool.da" class="py-name" href="#" onclick="return doclink('link-45', 'da', 'link-5');">da</a></tt><tt class="py-op">.</tt><tt class="py-name">connect</tt><tt class="py-op">(</tt><tt class="py-string">'scroll-event'</tt><tt class="py-op">,</tt> <tt id="link-46" class="py-name"><a title="source.gui.control
+source.gui.manager.control" class="py-name" href="#" onclick="return doclink('link-46', 'control', 'link-2');">control</a></tt><tt class="py-op">.</tt><tt id="link-47" class="py-name" targets="Method source.gui.control.GuiControl.scroll_event_cb()=source.gui.control.GuiControl-class.html#scroll_event_cb"><a title="source.gui.control.GuiControl.scroll_event_cb" class="py-name" href="#" onclick="return doclink('link-47', 'scroll_event_cb', 'link-47');">scroll_event_cb</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_key_handler</tt> <tt class="py-op">=</tt> <tt id="link-48" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-48', 'config', 'link-1');">config</a></tt><tt class="py-op">.</tt><tt id="link-49" class="py-name"><a title="source.config.viewport
+source.morph.glyph.viewport" class="py-name" href="#" onclick="return doclink('link-49', 'viewport', 'link-4');">viewport</a></tt><tt class="py-op">.</tt><tt id="link-50" class="py-name"><a title="source.pensool.da" class="py-name" href="#" onclick="return doclink('link-50', 'da', 'link-5');">da</a></tt><tt class="py-op">.</tt><tt class="py-name">connect_after</tt><tt class="py-op">(</tt><tt class="py-string">'key-release-event'</tt><tt class="py-op">,</tt> <tt id="link-51" class="py-name"><a title="source.gui.control
+source.gui.manager.control" class="py-name" href="#" onclick="return doclink('link-51', 'control', 'link-2');">control</a></tt><tt class="py-op">.</tt><tt id="link-52" class="py-name" targets="Method source.gui.control.GuiControl.key_release_event_cb()=source.gui.control.GuiControl-class.html#key_release_event_cb"><a title="source.gui.control.GuiControl.key_release_event_cb" class="py-name" href="#" onclick="return doclink('link-52', 'key_release_event_cb', 'link-52');">key_release_event_cb</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">     </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">    <tt class="py-comment"># change focus (invalidates?)</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">    <tt id="link-53" class="py-name"><a title="source.gui.control
+source.gui.manager.control" class="py-name" href="#" onclick="return doclink('link-53', 'control', 'link-2');">control</a></tt><tt class="py-op">.</tt><tt id="link-54" class="py-name" targets="Method source.gui.control.GuiControl.take_focus()=source.gui.control.GuiControl-class.html#take_focus"><a title="source.gui.control.GuiControl.take_focus" class="py-name" href="#" onclick="return doclink('link-54', 'take_focus', 'link-54');">take_focus</a></tt><tt class="py-op">(</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_control</tt> <tt class="py-op">=</tt> <tt id="link-55" class="py-name"><a title="source.gui.control
+source.gui.manager.control" class="py-name" href="#" onclick="return doclink('link-55', 'control', 'link-2');">control</a></tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">    <tt id="link-56" class="py-name"><a title="source.gui.control
+source.gui.manager.control" class="py-name" href="#" onclick="return doclink('link-56', 'control', 'link-2');">control</a></tt><tt class="py-op">.</tt><tt id="link-57" class="py-name" targets="Method source.gui.backgroundcontrol.BackgroundControl.activate()=source.gui.backgroundcontrol.BackgroundControl-class.html#activate,Method source.gui.boundingbox.BoundingBox.activate()=source.gui.boundingbox.BoundingBox-class.html#activate,Method source.gui.control.GuiControl.activate()=source.gui.control.GuiControl-class.html#activate"><a title="source.gui.backgroundcontrol.BackgroundControl.activate
+source.gui.boundingbox.BoundingBox.activate
+source.gui.control.GuiControl.activate" class="py-name" href="#" onclick="return doclink('link-57', 'activate', 'link-57');">activate</a></tt><tt class="py-op">(</tt><tt class="py-name">controlee</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">     </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">     </tt>
+<a name="ControlsManager.draw_active_control"></a><div id="ControlsManager.draw_active_control-def"><a name="L83"></a><tt class="py-lineno"> 83</tt> <a class="py-toggle" href="#" id="ControlsManager.draw_active_control-toggle" onclick="return toggle('ControlsManager.draw_active_control');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.manager.control.ControlsManager-class.html#draw_active_control">draw_active_control</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">context</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ControlsManager.draw_active_control-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="ControlsManager.draw_active_control-expanded"><a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_control</tt><tt class="py-op">.</tt><tt id="link-58" class="py-name" targets="Method source.composite.Composite.draw()=source.composite.Composite-class.html#draw,Method source.drawable.Drawable.draw()=source.drawable.Drawable-class.html#draw,Method source.gui.backgroundcontrol.BackgroundControl.draw()=source.gui.backgroundcontrol.BackgroundControl-class.html#draw,Function source.gui.manager.handle.draw()=source.gui.manager.handle-module.html#draw,Method source.gui.menuhandle._HandleGroup.draw()=source.gui.menuhandle._HandleGroup-class.html#draw,Method source.morph.textglyph.TextGlyph.draw()=source.morph.textglyph.TextGlyph-class.html#draw"><a title="source.composite.Composite.draw
+source.drawable.Drawable.draw
+source.gui.backgroundcontrol.BackgroundControl.draw
+source.gui.manager.handle.draw
+source.gui.menuhandle._HandleGroup.draw
+source.morph.textglyph.TextGlyph.draw" class="py-name" href="#" onclick="return doclink('link-58', 'draw', 'link-58');">draw</a></tt><tt class="py-op">(</tt><tt class="py-name">context</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">   </tt>
+<a name="ControlsManager.deactivate_current_control"></a><div id="ControlsManager.deactivate_current_control-def"><a name="L86"></a><tt class="py-lineno"> 86</tt> <a class="py-toggle" href="#" id="ControlsManager.deactivate_current_control-toggle" onclick="return toggle('ControlsManager.deactivate_current_control');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.manager.control.ControlsManager-class.html#deactivate_current_control">deactivate_current_control</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ControlsManager.deactivate_current_control-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="ControlsManager.deactivate_current_control-expanded"><a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"><tt class="py-docstring">    Caller must soon reactivate some control or the app will be dead.</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"><tt class="py-docstring">    ## OLD Only call this if no controls will be active (except the root)</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">    <tt class="py-comment">## OLD The background manager should not deactivate itself</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">    <tt class="py-comment">## OLD assert(control is not self.root_control)</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_control</tt><tt class="py-op">.</tt><tt id="link-59" class="py-name" targets="Method source.gui.backgroundcontrol.BackgroundControl.deactivate()=source.gui.backgroundcontrol.BackgroundControl-class.html#deactivate,Method source.gui.control.GuiControl.deactivate()=source.gui.control.GuiControl-class.html#deactivate"><a title="source.gui.backgroundcontrol.BackgroundControl.deactivate
+source.gui.control.GuiControl.deactivate" class="py-name" href="#" onclick="return doclink('link-59', 'deactivate', 'link-59');">deactivate</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt>   <tt class="py-comment"># Control's own, special deactivation</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-60" class="py-name" targets="Method source.gui.manager.control.ControlsManager._disconnect_callbacks()=source.gui.manager.control.ControlsManager-class.html#_disconnect_callbacks"><a title="source.gui.manager.control.ControlsManager._disconnect_callbacks" class="py-name" href="#" onclick="return doclink('link-60', '_disconnect_callbacks', 'link-60');">_disconnect_callbacks</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_control</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+</div><a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">   </tt>
+<a name="ControlsManager.activate_root_control"></a><div id="ControlsManager.activate_root_control-def"><a name="L97"></a><tt class="py-lineno"> 97</tt> <a class="py-toggle" href="#" id="ControlsManager.activate_root_control-toggle" onclick="return toggle('ControlsManager.activate_root_control');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.manager.control.ControlsManager-class.html#activate_root_control">activate_root_control</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ControlsManager.activate_root_control-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="ControlsManager.activate_root_control-expanded"><a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"><tt class="py-docstring">    Activate the background manager</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"><tt class="py-docstring">    More generally, the root control.</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"><tt class="py-docstring">    This is the second place where defined that background manager controls itself.</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">    <tt class="py-keyword">assert</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_control</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-61" class="py-name" targets="Method source.gui.manager.control.ControlsManager.activate_control()=source.gui.manager.control.ControlsManager-class.html#activate_control"><a title="source.gui.manager.control.ControlsManager.activate_control" class="py-name" href="#" onclick="return doclink('link-61', 'activate_control', 'link-61');">activate_control</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">root_control</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">root_control</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line"> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">   </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">  <tt class="py-string">'''</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"><tt class="py-string">  The drawing portion of control management: only one control is drawn at a time.</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"><tt class="py-string">  Just like only one control is receiving events at a  time.</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"><tt class="py-string">  Note that the same control being drawn (e.g. a menu)</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"><tt class="py-string">  might not be the control receiving events (e.g. an item of the menu.)</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"><tt class="py-string">  '''</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">   </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">  <tt class="py-comment">#@dump_event</tt> </tt>
+<a name="ControlsManager.add_to_drawlist"></a><div id="ControlsManager.add_to_drawlist-def"><a name="L115"></a><tt class="py-lineno">115</tt> <a class="py-toggle" href="#" id="ControlsManager.add_to_drawlist-toggle" onclick="return toggle('ControlsManager.add_to_drawlist');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.manager.control.ControlsManager-class.html#add_to_drawlist">add_to_drawlist</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">drawable</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ControlsManager.add_to_drawlist-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="ControlsManager.add_to_drawlist-expanded"><a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">    <tt class="py-comment"># Only one control can be displayed at a time</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">    <tt class="py-keyword">assert</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt id="link-62" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-62', 'config', 'link-1');">config</a></tt><tt class="py-op">.</tt><tt id="link-63" class="py-name" targets="Variable source.config.scheme=source.config-module.html#scheme,Variable source.morph.glyph.scheme=source.morph.glyph-module.html#scheme,Module source.scheme=source.scheme-module.html"><a title="source.config.scheme
+source.morph.glyph.scheme
+source.scheme" class="py-name" href="#" onclick="return doclink('link-63', 'scheme', 'link-63');">scheme</a></tt><tt class="py-op">.</tt><tt class="py-name">widgets</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">    <tt id="link-64" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-64', 'config', 'link-1');">config</a></tt><tt class="py-op">.</tt><tt id="link-65" class="py-name"><a title="source.config.scheme
+source.morph.glyph.scheme
+source.scheme" class="py-name" href="#" onclick="return doclink('link-65', 'scheme', 'link-63');">scheme</a></tt><tt class="py-op">.</tt><tt class="py-name">widgets</tt><tt class="py-op">.</tt><tt id="link-66" class="py-name" targets="Method source.composite.Composite.append()=source.composite.Composite-class.html#append"><a title="source.composite.Composite.append" class="py-name" href="#" onclick="return doclink('link-66', 'append', 'link-66');">append</a></tt><tt class="py-op">(</tt><tt id="link-67" class="py-name" targets="Module source.drawable=source.drawable-module.html"><a title="source.drawable" class="py-name" href="#" onclick="return doclink('link-67', 'drawable', 'link-67');">drawable</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">   </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">  <tt class="py-comment">#@dump_event</tt> </tt>
+<a name="ControlsManager.remove_from_drawlist"></a><div id="ControlsManager.remove_from_drawlist-def"><a name="L123"></a><tt class="py-lineno">123</tt> <a class="py-toggle" href="#" id="ControlsManager.remove_from_drawlist-toggle" onclick="return toggle('ControlsManager.remove_from_drawlist');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.manager.control.ControlsManager-class.html#remove_from_drawlist">remove_from_drawlist</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">drawable</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ControlsManager.remove_from_drawlist-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="ControlsManager.remove_from_drawlist-expanded"><a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">      <tt id="link-68" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-68', 'config', 'link-1');">config</a></tt><tt class="py-op">.</tt><tt id="link-69" class="py-name"><a title="source.config.scheme
+source.morph.glyph.scheme
+source.scheme" class="py-name" href="#" onclick="return doclink('link-69', 'scheme', 'link-63');">scheme</a></tt><tt class="py-op">.</tt><tt class="py-name">widgets</tt><tt class="py-op">.</tt><tt class="py-name">remove</tt><tt class="py-op">(</tt><tt id="link-70" class="py-name"><a title="source.drawable" class="py-name" href="#" onclick="return doclink('link-70', 'drawable', 'link-67');">drawable</a></tt><tt class="py-op">)</tt> <tt class="py-comment"># hide</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">ValueError</tt><tt class="py-op">:</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">      <tt class="py-keyword">print</tt> <tt class="py-string">"Failed to remove"</tt><tt class="py-op">,</tt> <tt id="link-71" class="py-name"><a title="source.drawable" class="py-name" href="#" onclick="return doclink('link-71', 'drawable', 'link-67');">drawable</a></tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">      <tt class="py-keyword">print</tt> <tt class="py-string">"Scheme.widgets"</tt><tt class="py-op">,</tt> <tt id="link-72" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-72', 'config', 'link-1');">config</a></tt><tt class="py-op">.</tt><tt id="link-73" class="py-name"><a title="source.config.scheme
+source.morph.glyph.scheme
+source.scheme" class="py-name" href="#" onclick="return doclink('link-73', 'scheme', 'link-63');">scheme</a></tt><tt class="py-op">.</tt><tt class="py-name">widgets</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">      <tt class="py-keyword">raise</tt> </tt>
+</div><a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line"> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line"> </tt>
+<a name="ControlsManager.get_active_control"></a><div id="ControlsManager.get_active_control-def"><a name="L132"></a><tt class="py-lineno">132</tt> <a class="py-toggle" href="#" id="ControlsManager.get_active_control-toggle" onclick="return toggle('ControlsManager.get_active_control');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.manager.control.ControlsManager-class.html#get_active_control">get_active_control</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ControlsManager.get_active_control-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="ControlsManager.get_active_control-expanded"><a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">    <tt class="py-docstring">''' Return the active control '''</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_control</tt> </tt>
+</div></div><a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">     </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">     </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line"><tt class="py-comment"># singleton instance, initialized when port is known</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line"><tt id="link-74" class="py-name" targets="Variable source.gui.manager.control.control_manager=source.gui.manager.control-module.html#control_manager"><a title="source.gui.manager.control.control_manager" class="py-name" href="#" onclick="return doclink('link-74', 'control_manager', 'link-74');">control_manager</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:33 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

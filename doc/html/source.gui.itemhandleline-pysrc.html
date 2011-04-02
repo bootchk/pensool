@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>source.gui.itemhandleline</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="source-module.html">Package&nbsp;source</a> ::
+        <a href="source.gui-module.html">Package&nbsp;gui</a> ::
+        Module&nbsp;itemhandleline
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="source.gui.itemhandleline-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="source.gui.itemhandleline-module.html">Module source.gui.itemhandleline</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-docstring">Item in a handle menu that creates morphs (draws) when user drags.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring">TODO name should be itemhandledraw.py</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-string">Copyright 2010, 2011 Lloyd Konneker</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-string"></tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-string">    This file is part of Pensool.</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-string"></tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-string">    Pensool is free software: you can redistribute it and/or modify</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-string">    it under the terms of the GNU General Public License as published by</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-string">    the Free Software Foundation, either version 3 of the License, or</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-string">    (at your option) any later version.</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module source.gui.itemhandle=source.gui.itemhandle-module.html"><a title="source.gui.itemhandle" class="py-name" href="#" onclick="return doclink('link-0', 'itemhandle', 'link-0');">itemhandle</a></tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Package source.morph=source.morph-module.html,Module source.morph.morph=source.morph.morph-module.html"><a title="source.morph
+source.morph.morph" class="py-name" href="#" onclick="return doclink('link-1', 'morph', 'link-1');">morph</a></tt><tt class="py-op">.</tt><tt id="link-2" class="py-name"><a title="source.morph
+source.morph.morph" class="py-name" href="#" onclick="return doclink('link-2', 'morph', 'link-1');">morph</a></tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-3" class="py-name" targets="Package source.gui=source.gui-module.html"><a title="source.gui" class="py-name" href="#" onclick="return doclink('link-3', 'gui', 'link-3');">gui</a></tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Package source.gui.manager=source.gui.manager-module.html"><a title="source.gui.manager" class="py-name" href="#" onclick="return doclink('link-4', 'manager', 'link-4');">manager</a></tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Method source.gui.backgroundcontrol.BackgroundControl.drop()=source.gui.backgroundcontrol.BackgroundControl-class.html#drop,Method source.gui.control.GuiControl.drop()=source.gui.control.GuiControl-class.html#drop,Method source.gui.itemhandlecoords.MoveHandleItem.drop()=source.gui.itemhandlecoords.MoveHandleItem-class.html#drop,Method source.gui.itemhandlecoords.ResizeHandleItem.drop()=source.gui.itemhandlecoords.ResizeHandleItem-class.html#drop,Method source.gui.itemhandleline.DrawHandleItem.drop()=source.gui.itemhandleline.DrawHandleItem-class.html#drop,Module source.gui.manager.drop=source.gui.manager.drop-module.html"><a title="source.gui.backgroundcontrol.BackgroundControl.drop
+source.gui.control.GuiControl.drop
+source.gui.itemhandlecoords.MoveHandleItem.drop
+source.gui.itemhandlecoords.ResizeHandleItem.drop
+source.gui.itemhandleline.DrawHandleItem.drop
+source.gui.manager.drop" class="py-name" href="#" onclick="return doclink('link-5', 'drop', 'link-5');">drop</a></tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-6" class="py-name" targets="Module source.decorators=source.decorators-module.html"><a title="source.decorators" class="py-name" href="#" onclick="return doclink('link-6', 'decorators', 'link-6');">decorators</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-7" class="py-name" targets="Module source.config=source.config-module.html"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-7', 'config', 'link-7');">config</a></tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">logging</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt id="link-8" class="py-name" targets="Variable source.clipboard.my_logger=source.clipboard-module.html#my_logger,Variable source.edit.my_logger=source.edit-module.html#my_logger,Variable source.gui.itemhandlecoords.my_logger=source.gui.itemhandlecoords-module.html#my_logger,Variable source.gui.itemhandleline.my_logger=source.gui.itemhandleline-module.html#my_logger,Variable source.port.my_logger=source.port-module.html#my_logger"><a title="source.clipboard.my_logger
+source.edit.my_logger
+source.gui.itemhandlecoords.my_logger
+source.gui.itemhandleline.my_logger
+source.port.my_logger" class="py-name" href="#" onclick="return doclink('link-8', 'my_logger', 'link-8');">my_logger</a></tt> <tt class="py-op">=</tt> <tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">getLogger</tt><tt class="py-op">(</tt><tt class="py-string">"pensool"</tt><tt class="py-op">)</tt> </tt>
+<a name="DrawHandleItem"></a><div id="DrawHandleItem-def"><a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt> <a class="py-toggle" href="#" id="DrawHandleItem-toggle" onclick="return toggle('DrawHandleItem');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="source.gui.itemhandleline.DrawHandleItem-class.html">DrawHandleItem</a><tt class="py-op">(</tt><tt class="py-base-class">itemhandle</tt><tt class="py-op">.</tt><tt class="py-base-class">HandleItem</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="DrawHandleItem-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="DrawHandleItem-expanded"><a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">  <tt class="py-docstring">'''</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-docstring">  A handle that stretches a morph from the controlee, when a drag starts within.</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-docstring">  Another control (bkgd mgr usually)</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-docstring">  gets involved when drag moves out of this item control.</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-docstring">  '''</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">   </tt>
+<a name="DrawHandleItem.__init__"></a><div id="DrawHandleItem.__init__-def"><a name="L34"></a><tt class="py-lineno"> 34</tt> <a class="py-toggle" href="#" id="DrawHandleItem.__init__-toggle" onclick="return toggle('DrawHandleItem.__init__');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.itemhandleline.DrawHandleItem-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">command</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="DrawHandleItem.__init__-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="DrawHandleItem.__init__-expanded"><a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">    <tt id="link-9" class="py-name"><a title="source.gui.itemhandle" class="py-name" href="#" onclick="return doclink('link-9', 'itemhandle', 'link-0');">itemhandle</a></tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Class source.gui.itemhandle.HandleItem=source.gui.itemhandle.HandleItem-class.html"><a title="source.gui.itemhandle.HandleItem" class="py-name" href="#" onclick="return doclink('link-10', 'HandleItem', 'link-10');">HandleItem</a></tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Method source.base.bounds.Bounds.__init__()=source.base.bounds.Bounds-class.html#__init__,Method source.base.command.Command.__init__()=source.base.command.Command-class.html#__init__,Method source.base.timer.Timer.__init__()=source.base.timer.Timer-class.html#__init__,Method source.base.vector.Vector.__init__()=source.base.vector.Vector-class.html#__init__,Method source.clipboard.Clipboard.__init__()=source.clipboard.Clipboard-class.html#__init__,Method source.composite.Composite.__init__()=source.composite.Composite-class.html#__init__,Method source.drawable.Drawable.__init__()=source.drawable.Drawable-class.html#__init__,Method source.gui.backgroundcontrol.BackgroundControl.__init__()=source.gui.backgroundcontrol.BackgroundControl-class.html#__init__,Method source.gui.boundingbox.BoundingBox.__init__()=source.gui.boundingbox.BoundingBox-class.html#__init__,Method source.gui.control.GuiControl.__init__()=source.gui.control.GuiControl-class.html#__init__,Method source.gui.itemcontrol.CommandItemControl.__init__()=source.gui.itemcontrol.CommandItemControl-class.html#__init__,Method source.gui.itemcontrol.PopupItemControl.__init__()=source.gui.itemcontrol.PopupItemControl-class.html#__init__,Method source.gui.itemhandlecoords.MoveHandleItem.__init__()=source.gui.itemhandlecoords.MoveHandleItem-class.html#__init__,Method source.gui.itemhandlecoords.ResizeHandleItem.__init__()=source.gui.itemhandlecoords.ResizeHandleItem-class.html#__init__,Method source.gui.itemhandleline.DrawHandleItem.__init__()=source.gui.itemhandleline.DrawHandleItem-class.html#__init__,Method source.gui.itemmenu.IconMenuItem.__init__()=source.gui.itemmenu.IconMenuItem-class.html#__init__,Method source.gui.itemmenu.TextMenuItem.__init__()=source.gui.itemmenu.TextMenuItem-class.html#__init__,Method source.gui.manager.control.ControlsManager.__init__()=source.gui.manager.control.ControlsManager-class.html#__init__,Method source.gui.manager.drop.DropManager.__init__()=source.gui.manager.drop.DropManager-class.html#__init__,Method source.gui.menu.ItemGroup.__init__()=source.gui.menu.ItemGroup-class.html#__init__,Method source.gui.menuhandle.StationedHandleGroup.__init__()=source.gui.menuhandle.StationedHandleGroup-class.html#__init__,Method source.gui.menuhandle.TrackingHandleGroup.__init__()=source.gui.menuhandle.TrackingHandleGroup-class.html#__init__,Method source.gui.menuhandle._HandleGroup.__init__()=source.gui.menuhandle._HandleGroup-class.html#__init__,Method source.gui.textselectcontrol.TextSelectControl.__init__()=source.gui.textselectcontrol.TextSelectControl-class.html#__init__,Method source.layout.LayoutSpec.__init__()=source.layout.LayoutSpec-class.html#__init__,Method source.morph.morph.CircleMorph.__init__()=source.morph.morph.CircleMorph-class.html#__init__,Method source.morph.morph.HandlePoint.__init__()=source.morph.morph.HandlePoint-class.html#__init__,Method source.morph.morph.LineMorph.__init__()=source.morph.morph.LineMorph-class.html#__init__,Method source.morph.morph.Morph.__init__()=source.morph.morph.Morph-class.html#__init__,Method source.morph.morph.PointMorph.__init__()=source.morph.morph.PointMorph-class.html#__init__,Method source.morph.morph.RectMorph.__init__()=source.morph.morph.RectMorph-class.html#__init__,Method source.morph.textglyph.TextGlyph.__init__()=source.morph.textglyph.TextGlyph-class.html#__init__,Method source.morph.textmorph.TextEditMorph.__init__()=source.morph.textmorph.TextEditMorph-class.html#__init__,Method source.morph.textmorph.TextMorph.__init__()=source.morph.textmorph.TextMorph-class.html#__init__,Method source.port.FilePort.__init__()=source.port.FilePort-class.html#__init__,Method source.port.Port.__init__()=source.port.Port-class.html#__init__,Method source.port.PrinterPort.__init__()=source.port.PrinterPort-class.html#__init__,Method source.port.ViewPort.__init__()=source.port.ViewPort-class.html#__init__,Method source.scheme.Scheme.__init__()=source.scheme.Scheme-class.html#__init__,Method source.style.Style.__init__()=source.style.Style-class.html#__init__,Method source.transformer.Transformer.__init__()=source.transformer.Transformer-class.html#__init__"><a title="source.base.bounds.Bounds.__init__
+source.base.command.Command.__init__
+source.base.timer.Timer.__init__
+source.base.vector.Vector.__init__
+source.clipboard.Clipboard.__init__
+source.composite.Composite.__init__
+source.drawable.Drawable.__init__
+source.gui.backgroundcontrol.BackgroundControl.__init__
+source.gui.boundingbox.BoundingBox.__init__
+source.gui.control.GuiControl.__init__
+source.gui.itemcontrol.CommandItemControl.__init__
+source.gui.itemcontrol.PopupItemControl.__init__
+source.gui.itemhandlecoords.MoveHandleItem.__init__
+source.gui.itemhandlecoords.ResizeHandleItem.__init__
+source.gui.itemhandleline.DrawHandleItem.__init__
+source.gui.itemmenu.IconMenuItem.__init__
+source.gui.itemmenu.TextMenuItem.__init__
+source.gui.manager.control.ControlsManager.__init__
+source.gui.manager.drop.DropManager.__init__
+source.gui.menu.ItemGroup.__init__
+source.gui.menuhandle.StationedHandleGroup.__init__
+source.gui.menuhandle.TrackingHandleGroup.__init__
+source.gui.menuhandle._HandleGroup.__init__
+source.gui.textselectcontrol.TextSelectControl.__init__
+source.layout.LayoutSpec.__init__
+source.morph.morph.CircleMorph.__init__
+source.morph.morph.HandlePoint.__init__
+source.morph.morph.LineMorph.__init__
+source.morph.morph.Morph.__init__
+source.morph.morph.PointMorph.__init__
+source.morph.morph.RectMorph.__init__
+source.morph.textglyph.TextGlyph.__init__
+source.morph.textmorph.TextEditMorph.__init__
+source.morph.textmorph.TextMorph.__init__
+source.port.FilePort.__init__
+source.port.Port.__init__
+source.port.PrinterPort.__init__
+source.port.ViewPort.__init__
+source.scheme.Scheme.__init__
+source.style.Style.__init__
+source.transformer.Transformer.__init__" class="py-name" href="#" onclick="return doclink('link-11', '__init__', 'link-11');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt id="link-12" class="py-name" targets="Module source.base.command=source.base.command-module.html"><a title="source.base.command" class="py-name" href="#" onclick="return doclink('link-12', 'command', 'link-12');">command</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">    <tt class="py-comment"># unfilled circle</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Method source.composite.Composite.append()=source.composite.Composite-class.html#append"><a title="source.composite.Composite.append" class="py-name" href="#" onclick="return doclink('link-13', 'append', 'link-13');">append</a></tt><tt class="py-op">(</tt><tt id="link-14" class="py-name"><a title="source.morph
+source.morph.morph" class="py-name" href="#" onclick="return doclink('link-14', 'morph', 'link-1');">morph</a></tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Module source.morph.glyph=source.morph.glyph-module.html"><a title="source.morph.glyph" class="py-name" href="#" onclick="return doclink('link-15', 'glyph', 'link-15');">glyph</a></tt><tt class="py-op">.</tt><tt id="link-16" class="py-name" targets="Class source.morph.glyph.CircleGlyph=source.morph.glyph.CircleGlyph-class.html"><a title="source.morph.glyph.CircleGlyph" class="py-name" href="#" onclick="return doclink('link-16', 'CircleGlyph', 'link-16');">CircleGlyph</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Method source.transformer.Transformer.scale_uniformly()=source.transformer.Transformer-class.html#scale_uniformly"><a title="source.transformer.Transformer.scale_uniformly" class="py-name" href="#" onclick="return doclink('link-17', 'scale_uniformly', 'link-17');">scale_uniformly</a></tt><tt class="py-op">(</tt><tt id="link-18" class="py-name"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-18', 'config', 'link-7');">config</a></tt><tt class="py-op">.</tt><tt id="link-19" class="py-name" targets="Variable source.config.ITEM_SIZE=source.config-module.html#ITEM_SIZE,Variable source.morph.glyph.ITEM_SIZE=source.morph.glyph-module.html#ITEM_SIZE"><a title="source.config.ITEM_SIZE
+source.morph.glyph.ITEM_SIZE" class="py-name" href="#" onclick="return doclink('link-19', 'ITEM_SIZE', 'link-19');">ITEM_SIZE</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">symbol_type</tt> <tt class="py-op">=</tt> <tt class="py-string">"line"</tt> <tt class="py-comment"># mode: morph type to draw</tt> </tt>
+</div><a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">   </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">dump_event</tt> </tt>
+<a name="DrawHandleItem.scroll_down"></a><div id="DrawHandleItem.scroll_down-def"><a name="L42"></a><tt class="py-lineno"> 42</tt> <a class="py-toggle" href="#" id="DrawHandleItem.scroll_down-toggle" onclick="return toggle('DrawHandleItem.scroll_down');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.itemhandleline.DrawHandleItem-class.html#scroll_down">scroll_down</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">event</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="DrawHandleItem.scroll_down-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="DrawHandleItem.scroll_down-expanded"><a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt class="py-docstring">    Cycle tool through kinds of glyphs user can drag out.</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">symbol_type</tt> <tt class="py-op">==</tt> <tt class="py-string">"line"</tt><tt class="py-op">:</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">      <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">symbol_type</tt> <tt class="py-op">=</tt> <tt class="py-string">"rect"</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">      <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">symbol_type</tt> <tt class="py-op">=</tt> <tt class="py-string">"line"</tt> </tt>
+</div><a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">    <tt class="py-comment"># print "&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;Next line kind", self.symbol_type</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">    </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">   </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">dump_event</tt> </tt>
+<a name="DrawHandleItem.start_drag"></a><div id="DrawHandleItem.start_drag-def"><a name="L54"></a><tt class="py-lineno"> 54</tt> <a class="py-toggle" href="#" id="DrawHandleItem.start_drag-toggle" onclick="return toggle('DrawHandleItem.start_drag');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.itemhandleline.DrawHandleItem-class.html#start_drag">start_drag</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">event</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="DrawHandleItem.start_drag-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="DrawHandleItem.start_drag-expanded"><a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt class="py-docstring">    Generically: Mouse departed item with button down.</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"><tt class="py-docstring">    Start drag with source being controlee.</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"><tt class="py-docstring">    Specifically: Create a symbol to stretch.</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">    <tt id="link-20" class="py-name"><a title="source.gui.itemhandle" class="py-name" href="#" onclick="return doclink('link-20', 'itemhandle', 'link-0');">itemhandle</a></tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="source.gui.itemhandle.HandleItem" class="py-name" href="#" onclick="return doclink('link-21', 'HandleItem', 'link-10');">HandleItem</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name" targets="Method source.gui.backgroundcontrol.BackgroundControl.start_drag()=source.gui.backgroundcontrol.BackgroundControl-class.html#start_drag,Method source.gui.control.GuiControl.start_drag()=source.gui.control.GuiControl-class.html#start_drag,Method source.gui.itemcontrol.ItemControl.start_drag()=source.gui.itemcontrol.ItemControl-class.html#start_drag,Method source.gui.itemhandle.HandleItem.start_drag()=source.gui.itemhandle.HandleItem-class.html#start_drag,Method source.gui.itemhandleline.DrawHandleItem.start_drag()=source.gui.itemhandleline.DrawHandleItem-class.html#start_drag,Method source.gui.itemmenu.MenuItem.start_drag()=source.gui.itemmenu.MenuItem-class.html#start_drag"><a title="source.gui.backgroundcontrol.BackgroundControl.start_drag
+source.gui.control.GuiControl.start_drag
+source.gui.itemcontrol.ItemControl.start_drag
+source.gui.itemhandle.HandleItem.start_drag
+source.gui.itemhandleline.DrawHandleItem.start_drag
+source.gui.itemmenu.MenuItem.start_drag" class="py-name" href="#" onclick="return doclink('link-22', 'start_drag', 'link-22');">start_drag</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">event</tt><tt class="py-op">)</tt>  <tt class="py-comment"># Super</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">     </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">    <tt class="py-comment"># Create</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">    <tt id="link-23" class="py-name"><a title="source.clipboard.my_logger
+source.edit.my_logger
+source.gui.itemhandlecoords.my_logger
+source.gui.itemhandleline.my_logger
+source.port.my_logger" class="py-name" href="#" onclick="return doclink('link-23', 'my_logger', 'link-8');">my_logger</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">"Created morph"</tt><tt class="py-op">)</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">symbol_type</tt> <tt class="py-op">==</tt> <tt class="py-string">"line"</tt><tt class="py-op">:</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">      <tt class="py-name">new_thing</tt> <tt class="py-op">=</tt> <tt id="link-24" class="py-name"><a title="source.morph
+source.morph.morph" class="py-name" href="#" onclick="return doclink('link-24', 'morph', 'link-1');">morph</a></tt><tt class="py-op">.</tt><tt id="link-25" class="py-name"><a title="source.morph
+source.morph.morph" class="py-name" href="#" onclick="return doclink('link-25', 'morph', 'link-1');">morph</a></tt><tt class="py-op">.</tt><tt id="link-26" class="py-name" targets="Class source.morph.morph.LineMorph=source.morph.morph.LineMorph-class.html"><a title="source.morph.morph.LineMorph" class="py-name" href="#" onclick="return doclink('link-26', 'LineMorph', 'link-26');">LineMorph</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt>  </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">      <tt class="py-name">new_thing</tt> <tt class="py-op">=</tt> <tt id="link-27" class="py-name"><a title="source.morph
+source.morph.morph" class="py-name" href="#" onclick="return doclink('link-27', 'morph', 'link-1');">morph</a></tt><tt class="py-op">.</tt><tt id="link-28" class="py-name"><a title="source.morph
+source.morph.morph" class="py-name" href="#" onclick="return doclink('link-28', 'morph', 'link-1');">morph</a></tt><tt class="py-op">.</tt><tt id="link-29" class="py-name" targets="Class source.morph.morph.RectMorph=source.morph.morph.RectMorph-class.html"><a title="source.morph.morph.RectMorph" class="py-name" href="#" onclick="return doclink('link-29', 'RectMorph', 'link-29');">RectMorph</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">     </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">controlee</tt><tt class="py-op">.</tt><tt id="link-30" class="py-name" targets="Method source.morph.morph.Morph.insert()=source.morph.morph.Morph-class.html#insert"><a title="source.morph.morph.Morph.insert" class="py-name" href="#" onclick="return doclink('link-30', 'insert', 'link-30');">insert</a></tt><tt class="py-op">(</tt><tt class="py-name">new_thing</tt><tt class="py-op">)</tt>  <tt class="py-comment"># Insert morph into controlee's group, or make group</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">    <tt class="py-comment"># Assert the object now has a parent group.</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">    <tt class="py-comment"># But if controlee is the model (top), controlee is not in that group, controlee IS the group.</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">    <tt class="py-comment"># Morph extends from my menu manager's hotpot to the event.</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">    <tt class="py-name">new_thing</tt><tt class="py-op">.</tt><tt id="link-31" class="py-name" targets="Method source.morph.morph.Morph.set_by_drag()=source.morph.morph.Morph-class.html#set_by_drag"><a title="source.morph.morph.Morph.set_by_drag" class="py-name" href="#" onclick="return doclink('link-31', 'set_by_drag', 'link-31');">set_by_drag</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">group_manager</tt><tt class="py-op">.</tt><tt class="py-name">layout_spec</tt><tt class="py-op">.</tt><tt class="py-name">hotspot</tt><tt class="py-op">,</tt> <tt class="py-name">event</tt><tt class="py-op">)</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">    <tt class="py-comment"># !!! The draggee is different from source morph set above via super.start_drag()</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">    <tt id="link-32" class="py-name"><a title="source.gui" class="py-name" href="#" onclick="return doclink('link-32', 'gui', 'link-3');">gui</a></tt><tt class="py-op">.</tt><tt id="link-33" class="py-name"><a title="source.gui.manager" class="py-name" href="#" onclick="return doclink('link-33', 'manager', 'link-4');">manager</a></tt><tt class="py-op">.</tt><tt id="link-34" class="py-name"><a title="source.gui.backgroundcontrol.BackgroundControl.drop
+source.gui.control.GuiControl.drop
+source.gui.itemhandlecoords.MoveHandleItem.drop
+source.gui.itemhandlecoords.ResizeHandleItem.drop
+source.gui.itemhandleline.DrawHandleItem.drop
+source.gui.manager.drop" class="py-name" href="#" onclick="return doclink('link-34', 'drop', 'link-5');">drop</a></tt><tt class="py-op">.</tt><tt id="link-35" class="py-name" targets="Variable source.gui.manager.drop.dropmgr=source.gui.manager.drop-module.html#dropmgr"><a title="source.gui.manager.drop.dropmgr" class="py-name" href="#" onclick="return doclink('link-35', 'dropmgr', 'link-35');">dropmgr</a></tt><tt class="py-op">.</tt><tt id="link-36" class="py-name" targets="Method source.gui.manager.drop.DropManager.set_draggee()=source.gui.manager.drop.DropManager-class.html#set_draggee"><a title="source.gui.manager.drop.DropManager.set_draggee" class="py-name" href="#" onclick="return doclink('link-36', 'set_draggee', 'link-36');">set_draggee</a></tt><tt class="py-op">(</tt><tt class="py-name">new_thing</tt><tt class="py-op">)</tt>   </tt>
+</div><a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">     </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">     </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">  <tt class="py-string">'''</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"><tt class="py-string">  Note this control might not be active, drawn when this event comes.</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"><tt class="py-string">  A line is being dragged, but the handle menu item is hidden already.</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"><tt class="py-string">  '''</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">  <tt class="py-comment">#@dump_event</tt> </tt>
+<a name="DrawHandleItem.continue_drag"></a><div id="DrawHandleItem.continue_drag-def"><a name="L84"></a><tt class="py-lineno"> 84</tt> <a class="py-toggle" href="#" id="DrawHandleItem.continue_drag-toggle" onclick="return toggle('DrawHandleItem.continue_drag');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.itemhandleline.DrawHandleItem-class.html#continue_drag">continue_drag</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">event</tt><tt class="py-op">,</tt> <tt class="py-param">offset</tt><tt class="py-op">,</tt> <tt class="py-param">increment</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="DrawHandleItem.continue_drag-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="DrawHandleItem.continue_drag-expanded"><a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"><tt class="py-docstring">    animate/ghost morph being dragged/stretched</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"><tt class="py-docstring">    event, offset, increment are in device coord system</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">    <tt class="py-name">thing</tt> <tt class="py-op">=</tt> <tt id="link-37" class="py-name"><a title="source.gui" class="py-name" href="#" onclick="return doclink('link-37', 'gui', 'link-3');">gui</a></tt><tt class="py-op">.</tt><tt id="link-38" class="py-name"><a title="source.gui.manager" class="py-name" href="#" onclick="return doclink('link-38', 'manager', 'link-4');">manager</a></tt><tt class="py-op">.</tt><tt id="link-39" class="py-name"><a title="source.gui.backgroundcontrol.BackgroundControl.drop
+source.gui.control.GuiControl.drop
+source.gui.itemhandlecoords.MoveHandleItem.drop
+source.gui.itemhandlecoords.ResizeHandleItem.drop
+source.gui.itemhandleline.DrawHandleItem.drop
+source.gui.manager.drop" class="py-name" href="#" onclick="return doclink('link-39', 'drop', 'link-5');">drop</a></tt><tt class="py-op">.</tt><tt id="link-40" class="py-name"><a title="source.gui.manager.drop.dropmgr" class="py-name" href="#" onclick="return doclink('link-40', 'dropmgr', 'link-35');">dropmgr</a></tt><tt class="py-op">.</tt><tt id="link-41" class="py-name" targets="Method source.gui.manager.drop.DropManager.get_draggee()=source.gui.manager.drop.DropManager-class.html#get_draggee"><a title="source.gui.manager.drop.DropManager.get_draggee" class="py-name" href="#" onclick="return doclink('link-41', 'get_draggee', 'link-41');">get_draggee</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">    <tt class="py-name">thing</tt><tt class="py-op">.</tt><tt id="link-42" class="py-name"><a title="source.morph.morph.Morph.set_by_drag" class="py-name" href="#" onclick="return doclink('link-42', 'set_by_drag', 'link-31');">set_by_drag</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">group_manager</tt><tt class="py-op">.</tt><tt class="py-name">layout_spec</tt><tt class="py-op">.</tt><tt class="py-name">hotspot</tt><tt class="py-op">,</tt> <tt class="py-name">event</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">     </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">     </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">dump_event</tt> </tt>
+<a name="DrawHandleItem.drop"></a><div id="DrawHandleItem.drop-def"><a name="L95"></a><tt class="py-lineno"> 95</tt> <a class="py-toggle" href="#" id="DrawHandleItem.drop-toggle" onclick="return toggle('DrawHandleItem.drop');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.gui.itemhandleline.DrawHandleItem-class.html#drop">drop</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">source</tt><tt class="py-op">,</tt> <tt class="py-param">event</tt><tt class="py-op">,</tt> <tt class="py-param">offset</tt><tt class="py-op">,</tt> <tt class="py-param">source_control</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="DrawHandleItem.drop-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="DrawHandleItem.drop-expanded"><a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"><tt class="py-docstring">    Some control was the target of a drop that started in this control.</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"><tt class="py-docstring">    (Note that usually the background control is active now and called this method.)</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"><tt class="py-docstring">    Leave the morph as last ghosted.</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">    <tt class="py-comment"># TODO more precisely, the point on the controlee</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">    <tt class="py-comment"># TODO anchor line end at drag begin</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">    <tt class="py-string">'''</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"><tt class="py-string">    Notes about wrapping up a drag:</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line"><tt class="py-string">    assert the gui.manager.drop reset itself.</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"><tt class="py-string">    This control might not be reset from the dragging state (if the mouse never left this control.)</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line"><tt class="py-string">    If the mouse exited this control, the background control has been in charge of the drag.</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"><tt class="py-string">    </tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"><tt class="py-string">    '''</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">    <tt class="py-keyword">pass</tt> </tt>
+</div></div><a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:33 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

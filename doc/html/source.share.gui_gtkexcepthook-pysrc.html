@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>source.share.gui_gtkexcepthook</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="source-module.html">Package&nbsp;source</a> ::
+        <a href="source.share-module.html">Package&nbsp;share</a> ::
+        Module&nbsp;gui_gtkexcepthook
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="source.share.gui_gtkexcepthook-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="source.share.gui_gtkexcepthook-module.html">Module source.share.gui_gtkexcepthook</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment"># (c) 2003 Gustavo J A M Carneiro gjc at inescporto.pt</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment">#     2004-2005 Filip Van Raemdonck</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"># http://www.daa.com.au/pipermail/pygtk/2003-August/005775.html</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># Message-ID: &lt;1062087716.1196.5.camel@emperor.homelinux.net&gt;</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment">#     "The license is whatever you want."</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"># This file was downloaded from http://www.sysfs.be/downloads/</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"># Adaptions 2009-2010 by Martin Renold:</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># - let KeyboardInterrupt through</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"># - print traceback to stderr before showing the dialog</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># - nonzero exit code when hitting the "quit" button</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># - suppress more dialogs while one is already active</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"># - fix Details button when a context in the traceback is None</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment"># - remove email features</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment"># - fix lockup with dialog.run(), return to mainloop instead</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment"># see also http://faq.pygtk.org/index.py?req=show&amp;file=faq20.010.htp</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment"># (The license is still whatever you want.)</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">inspect</tt><tt class="py-op">,</tt> <tt class="py-name">linecache</tt><tt class="py-op">,</tt> <tt class="py-name">pydoc</tt><tt class="py-op">,</tt> <tt class="py-name">sys</tt><tt class="py-op">,</tt> <tt class="py-name">traceback</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">cStringIO</tt> <tt class="py-keyword">import</tt> <tt class="py-name">StringIO</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">gettext</tt> <tt class="py-keyword">import</tt> <tt class="py-name">gettext</tt> <tt class="py-keyword">as</tt> <tt class="py-name">_</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">pygtk</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-name">pygtk</tt><tt class="py-op">.</tt><tt class="py-name">require</tt> <tt class="py-op">(</tt><tt class="py-string">'2.0'</tt><tt class="py-op">)</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">gtk</tt><tt class="py-op">,</tt> <tt class="py-name">pango</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-comment"># Function that will be called when the user presses "Quit"</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-comment"># Return True to confirm quit, False to cancel</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt id="link-0" class="py-name" targets="Variable source.share.gui_gtkexcepthook.quit_confirmation_func=source.share.gui_gtkexcepthook-module.html#quit_confirmation_func"><a title="source.share.gui_gtkexcepthook.quit_confirmation_func" class="py-name" href="#" onclick="return doclink('link-0', 'quit_confirmation_func', 'link-0');">quit_confirmation_func</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt id="link-1" class="py-name" targets="Variable source.share.gui_gtkexcepthook.RESPONSE_QUIT=source.share.gui_gtkexcepthook-module.html#RESPONSE_QUIT"><a title="source.share.gui_gtkexcepthook.RESPONSE_QUIT" class="py-name" href="#" onclick="return doclink('link-1', 'RESPONSE_QUIT', 'link-1');">RESPONSE_QUIT</a></tt> <tt class="py-op">=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"> </tt>
+<a name="analyse_simple"></a><div id="analyse_simple-def"><a name="L34"></a><tt class="py-lineno"> 34</tt> <a class="py-toggle" href="#" id="analyse_simple-toggle" onclick="return toggle('analyse_simple');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="source.share.gui_gtkexcepthook-module.html#analyse_simple">analyse_simple</a> <tt class="py-op">(</tt><tt class="py-param">exctyp</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">,</tt> <tt class="py-param">tb</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="analyse_simple-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="analyse_simple-expanded"><a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">    <tt class="py-name">trace</tt> <tt class="py-op">=</tt> <tt class="py-name">StringIO</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">    <tt class="py-name">traceback</tt><tt class="py-op">.</tt><tt class="py-name">print_exception</tt> <tt class="py-op">(</tt><tt class="py-name">exctyp</tt><tt class="py-op">,</tt> <tt class="py-name">value</tt><tt class="py-op">,</tt> <tt class="py-name">tb</tt><tt class="py-op">,</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-name">trace</tt><tt class="py-op">)</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">trace</tt> </tt>
+</div><a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"> </tt>
+<a name="lookup"></a><div id="lookup-def"><a name="L39"></a><tt class="py-lineno"> 39</tt> <a class="py-toggle" href="#" id="lookup-toggle" onclick="return toggle('lookup');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="source.share.gui_gtkexcepthook-module.html#lookup">lookup</a> <tt class="py-op">(</tt><tt class="py-param">name</tt><tt class="py-op">,</tt> <tt class="py-param">frame</tt><tt class="py-op">,</tt> <tt class="py-param">lcls</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="lookup-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="lookup-expanded"><a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">    <tt class="py-docstring">'''Find the value for a given name in the given frame'''</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">name</tt> <tt class="py-keyword">in</tt> <tt class="py-name">lcls</tt><tt class="py-op">:</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">'local'</tt><tt class="py-op">,</tt> <tt class="py-name">lcls</tt><tt class="py-op">[</tt><tt class="py-name">name</tt><tt class="py-op">]</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">    <tt class="py-keyword">elif</tt> <tt class="py-name">name</tt> <tt class="py-keyword">in</tt> <tt class="py-name">frame</tt><tt class="py-op">.</tt><tt class="py-name">f_globals</tt><tt class="py-op">:</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">'global'</tt><tt class="py-op">,</tt> <tt class="py-name">frame</tt><tt class="py-op">.</tt><tt class="py-name">f_globals</tt><tt class="py-op">[</tt><tt class="py-name">name</tt><tt class="py-op">]</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">    <tt class="py-keyword">elif</tt> <tt class="py-string">'__builtins__'</tt> <tt class="py-keyword">in</tt> <tt class="py-name">frame</tt><tt class="py-op">.</tt><tt class="py-name">f_globals</tt><tt class="py-op">:</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">        <tt class="py-name">builtins</tt> <tt class="py-op">=</tt> <tt class="py-name">frame</tt><tt class="py-op">.</tt><tt class="py-name">f_globals</tt><tt class="py-op">[</tt><tt class="py-string">'__builtins__'</tt><tt class="py-op">]</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">type</tt> <tt class="py-op">(</tt><tt class="py-name">builtins</tt><tt class="py-op">)</tt> <tt class="py-keyword">is</tt> <tt class="py-name">dict</tt><tt class="py-op">:</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">name</tt> <tt class="py-keyword">in</tt> <tt class="py-name">builtins</tt><tt class="py-op">:</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-string">'builtin'</tt><tt class="py-op">,</tt> <tt class="py-name">builtins</tt><tt class="py-op">[</tt><tt class="py-name">name</tt><tt class="py-op">]</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">hasattr</tt> <tt class="py-op">(</tt><tt class="py-name">builtins</tt><tt class="py-op">,</tt> <tt class="py-name">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-string">'builtin'</tt><tt class="py-op">,</tt> <tt class="py-name">getattr</tt> <tt class="py-op">(</tt><tt class="py-name">builtins</tt><tt class="py-op">,</tt> <tt class="py-name">name</tt><tt class="py-op">)</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"> </tt>
+<a name="analyse"></a><div id="analyse-def"><a name="L55"></a><tt class="py-lineno"> 55</tt> <a class="py-toggle" href="#" id="analyse-toggle" onclick="return toggle('analyse');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="source.share.gui_gtkexcepthook-module.html#analyse">analyse</a> <tt class="py-op">(</tt><tt class="py-param">exctyp</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">,</tt> <tt class="py-param">tb</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="analyse-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="analyse-expanded"><a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">    <tt class="py-keyword">import</tt> <tt class="py-name">tokenize</tt><tt class="py-op">,</tt> <tt class="py-name">keyword</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">    <tt class="py-name">trace</tt> <tt class="py-op">=</tt> <tt class="py-name">StringIO</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">    <tt class="py-name">nlines</tt> <tt class="py-op">=</tt> <tt class="py-number">3</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">    <tt class="py-name">frecs</tt> <tt class="py-op">=</tt> <tt class="py-name">inspect</tt><tt class="py-op">.</tt><tt class="py-name">getinnerframes</tt> <tt class="py-op">(</tt><tt class="py-name">tb</tt><tt class="py-op">,</tt> <tt class="py-name">nlines</tt><tt class="py-op">)</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">    <tt class="py-name">trace</tt><tt class="py-op">.</tt><tt class="py-name">write</tt> <tt class="py-op">(</tt><tt class="py-string">'Traceback (most recent call last):\n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">frame</tt><tt class="py-op">,</tt> <tt class="py-name">fname</tt><tt class="py-op">,</tt> <tt class="py-name">lineno</tt><tt class="py-op">,</tt> <tt class="py-name">funcname</tt><tt class="py-op">,</tt> <tt class="py-name">context</tt><tt class="py-op">,</tt> <tt class="py-name">cindex</tt> <tt class="py-keyword">in</tt> <tt class="py-name">frecs</tt><tt class="py-op">:</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt class="py-name">trace</tt><tt class="py-op">.</tt><tt class="py-name">write</tt> <tt class="py-op">(</tt><tt class="py-string">'  File "%s", line %d, '</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">fname</tt><tt class="py-op">,</tt> <tt class="py-name">lineno</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">        <tt class="py-name">args</tt><tt class="py-op">,</tt> <tt class="py-name">varargs</tt><tt class="py-op">,</tt> <tt class="py-name">varkw</tt><tt class="py-op">,</tt> <tt class="py-name">lcls</tt> <tt class="py-op">=</tt> <tt class="py-name">inspect</tt><tt class="py-op">.</tt><tt class="py-name">getargvalues</tt> <tt class="py-op">(</tt><tt class="py-name">frame</tt><tt class="py-op">)</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">        <tt class="py-keyword">def</tt> <tt class="py-def-name">readline</tt> <tt class="py-op">(</tt><tt class="py-param">lno</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-name">lineno</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-op">*</tt><tt class="py-param">args</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">args</tt><tt class="py-op">:</tt> <tt class="py-keyword">print</tt> <tt class="py-name">args</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">            <tt class="py-keyword">try</tt><tt class="py-op">:</tt> <tt class="py-keyword">return</tt> <tt class="py-name">linecache</tt><tt class="py-op">.</tt><tt class="py-name">getline</tt> <tt class="py-op">(</tt><tt class="py-name">fname</tt><tt class="py-op">,</tt> <tt class="py-name">lno</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">            <tt class="py-keyword">finally</tt><tt class="py-op">:</tt> <tt class="py-name">lno</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">+=</tt> <tt class="py-number">1</tt> </tt>
+</div><a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-name">all</tt><tt class="py-op">,</tt> <tt class="py-name">prev</tt><tt class="py-op">,</tt> <tt class="py-name">name</tt><tt class="py-op">,</tt> <tt class="py-name">scope</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-string">''</tt><tt class="py-op">,</tt> <tt class="py-name">None</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">ttype</tt><tt class="py-op">,</tt> <tt class="py-name">tstr</tt><tt class="py-op">,</tt> <tt class="py-name">stup</tt><tt class="py-op">,</tt> <tt class="py-name">etup</tt><tt class="py-op">,</tt> <tt class="py-name">line</tt> <tt class="py-keyword">in</tt> <tt class="py-name">tokenize</tt><tt class="py-op">.</tt><tt class="py-name">generate_tokens</tt> <tt class="py-op">(</tt><tt class="py-name">readline</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">ttype</tt> <tt class="py-op">==</tt> <tt class="py-name">tokenize</tt><tt class="py-op">.</tt><tt class="py-name">NAME</tt> <tt class="py-keyword">and</tt> <tt class="py-name">tstr</tt> <tt class="py-keyword">not</tt> <tt class="py-keyword">in</tt> <tt class="py-name">keyword</tt><tt class="py-op">.</tt><tt class="py-name">kwlist</tt><tt class="py-op">:</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">name</tt><tt class="py-op">:</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">                    <tt class="py-keyword">if</tt> <tt class="py-name">name</tt><tt class="py-op">[</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">'.'</tt><tt class="py-op">:</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">                        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">                            <tt class="py-name">val</tt> <tt class="py-op">=</tt> <tt class="py-name">getattr</tt> <tt class="py-op">(</tt><tt class="py-name">prev</tt><tt class="py-op">,</tt> <tt class="py-name">tstr</tt><tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">                        <tt class="py-keyword">except</tt> <tt class="py-name">AttributeError</tt><tt class="py-op">:</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">                            <tt class="py-comment"># XXX skip the rest of this identifier only</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">                            <tt class="py-keyword">break</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">                        <tt class="py-name">name</tt> <tt class="py-op">+=</tt> <tt class="py-name">tstr</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">                    <tt class="py-keyword">assert</tt> <tt class="py-keyword">not</tt> <tt class="py-name">name</tt> <tt class="py-keyword">and</tt> <tt class="py-keyword">not</tt> <tt class="py-name">scope</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">                    <tt class="py-name">scope</tt><tt class="py-op">,</tt> <tt class="py-name">val</tt> <tt class="py-op">=</tt> <tt id="link-2" class="py-name" targets="Function source.share.gui_gtkexcepthook.lookup()=source.share.gui_gtkexcepthook-module.html#lookup"><a title="source.share.gui_gtkexcepthook.lookup" class="py-name" href="#" onclick="return doclink('link-2', 'lookup', 'link-2');">lookup</a></tt> <tt class="py-op">(</tt><tt class="py-name">tstr</tt><tt class="py-op">,</tt> <tt class="py-name">frame</tt><tt class="py-op">,</tt> <tt class="py-name">lcls</tt><tt class="py-op">)</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">                    <tt class="py-name">name</tt> <tt class="py-op">=</tt> <tt class="py-name">tstr</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">val</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">                    <tt class="py-name">prev</tt> <tt class="py-op">=</tt> <tt class="py-name">val</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">                <tt class="py-comment">#print '  found', scope, 'name', name, 'val', val, 'in', prev, 'for token', tstr</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">tstr</tt> <tt class="py-op">==</tt> <tt class="py-string">'.'</tt><tt class="py-op">:</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">prev</tt><tt class="py-op">:</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">                    <tt class="py-name">name</tt> <tt class="py-op">+=</tt> <tt class="py-string">'.'</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">name</tt><tt class="py-op">:</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">                    <tt class="py-name">all</tt><tt class="py-op">[</tt><tt class="py-name">name</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-name">scope</tt><tt class="py-op">,</tt> <tt class="py-name">prev</tt><tt class="py-op">)</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">                <tt class="py-name">prev</tt><tt class="py-op">,</tt> <tt class="py-name">name</tt><tt class="py-op">,</tt> <tt class="py-name">scope</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-string">''</tt><tt class="py-op">,</tt> <tt class="py-name">None</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">ttype</tt> <tt class="py-op">==</tt> <tt class="py-name">tokenize</tt><tt class="py-op">.</tt><tt class="py-name">NEWLINE</tt><tt class="py-op">:</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">                    <tt class="py-keyword">break</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">            <tt class="py-name">details</tt> <tt class="py-op">=</tt> <tt class="py-name">inspect</tt><tt class="py-op">.</tt><tt class="py-name">formatargvalues</tt> <tt class="py-op">(</tt><tt class="py-name">args</tt><tt class="py-op">,</tt> <tt class="py-name">varargs</tt><tt class="py-op">,</tt> <tt class="py-name">varkw</tt><tt class="py-op">,</tt> <tt class="py-name">lcls</tt><tt class="py-op">,</tt> <tt class="py-name">formatvalue</tt><tt class="py-op">=</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">v</tt><tt class="py-op">:</tt> <tt class="py-string">'='</tt> <tt class="py-op">+</tt> <tt class="py-name">pydoc</tt><tt class="py-op">.</tt><tt class="py-name">text</tt><tt class="py-op">.</tt><tt class="py-name">repr</tt> <tt class="py-op">(</tt><tt class="py-name">v</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">            <tt class="py-comment"># seen that one on Windows (actual exception was KeyError: self)</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">            <tt class="py-name">details</tt> <tt class="py-op">=</tt> <tt class="py-string">'(no details)'</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt class="py-name">trace</tt><tt class="py-op">.</tt><tt class="py-name">write</tt> <tt class="py-op">(</tt><tt class="py-name">funcname</tt> <tt class="py-op">+</tt> <tt class="py-name">details</tt> <tt class="py-op">+</tt> <tt class="py-string">'\n'</tt><tt class="py-op">)</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">context</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">            <tt class="py-name">context</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">'&lt;source context missing&gt;\n'</tt><tt class="py-op">]</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-name">trace</tt><tt class="py-op">.</tt><tt class="py-name">write</tt> <tt class="py-op">(</tt><tt class="py-string">''</tt><tt class="py-op">.</tt><tt class="py-name">join</tt> <tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-string">'    '</tt> <tt class="py-op">+</tt> <tt id="link-3" class="py-name" targets="Variable source.gui.manager.pointer.Event.x=source.gui.manager.pointer.Event-class.html#x"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-3', 'x', 'link-3');">x</a></tt><tt class="py-op">.</tt><tt class="py-name">replace</tt> <tt class="py-op">(</tt><tt class="py-string">'\t'</tt><tt class="py-op">,</tt> <tt class="py-string">'  '</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt id="link-4" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-4', 'x', 'link-3');">x</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">filter</tt> <tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">a</tt><tt class="py-op">:</tt> <tt class="py-name">a</tt><tt class="py-op">.</tt><tt class="py-name">strip</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">context</tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">len</tt> <tt class="py-op">(</tt><tt class="py-name">all</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">            <tt class="py-name">trace</tt><tt class="py-op">.</tt><tt class="py-name">write</tt> <tt class="py-op">(</tt><tt class="py-string">'  variables: %s\n'</tt> <tt class="py-op">%</tt> <tt class="py-name">str</tt> <tt class="py-op">(</tt><tt class="py-name">all</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">    <tt class="py-name">trace</tt><tt class="py-op">.</tt><tt class="py-name">write</tt> <tt class="py-op">(</tt><tt class="py-string">'%s: %s'</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">exctyp</tt><tt class="py-op">.</tt><tt class="py-name">__name__</tt><tt class="py-op">,</tt> <tt class="py-name">value</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">trace</tt> </tt>
+</div><a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"> </tt>
+<a name="_info"></a><div id="_info-def"><a name="L113"></a><tt class="py-lineno">113</tt> <a class="py-toggle" href="#" id="_info-toggle" onclick="return toggle('_info');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="source.share.gui_gtkexcepthook-module.html#_info">_info</a> <tt class="py-op">(</tt><tt class="py-param">exctyp</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">,</tt> <tt class="py-param">tb</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_info-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="_info-expanded"><a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">    <tt class="py-keyword">global</tt> <tt id="link-5" class="py-name" targets="Variable source.share.gui_gtkexcepthook.exception_dialog_active=source.share.gui_gtkexcepthook-module.html#exception_dialog_active"><a title="source.share.gui_gtkexcepthook.exception_dialog_active" class="py-name" href="#" onclick="return doclink('link-5', 'exception_dialog_active', 'link-5');">exception_dialog_active</a></tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">exctyp</tt> <tt class="py-keyword">is</tt> <tt class="py-name">KeyboardInterrupt</tt><tt class="py-op">:</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">original_excepthook</tt><tt class="py-op">(</tt><tt class="py-name">exctyp</tt><tt class="py-op">,</tt> <tt class="py-name">value</tt><tt class="py-op">,</tt> <tt class="py-name">tb</tt><tt class="py-op">)</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">    <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">stderr</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt id="link-6" class="py-name" targets="Function source.share.gui_gtkexcepthook.analyse_simple()=source.share.gui_gtkexcepthook-module.html#analyse_simple"><a title="source.share.gui_gtkexcepthook.analyse_simple" class="py-name" href="#" onclick="return doclink('link-6', 'analyse_simple', 'link-6');">analyse_simple</a></tt> <tt class="py-op">(</tt><tt class="py-name">exctyp</tt><tt class="py-op">,</tt> <tt class="py-name">value</tt><tt class="py-op">,</tt> <tt class="py-name">tb</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">getvalue</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-7" class="py-name"><a title="source.share.gui_gtkexcepthook.exception_dialog_active" class="py-name" href="#" onclick="return doclink('link-7', 'exception_dialog_active', 'link-5');">exception_dialog_active</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line"> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">    <tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">gdk</tt><tt class="py-op">.</tt><tt class="py-name">pointer_ungrab</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">    <tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">gdk</tt><tt class="py-op">.</tt><tt class="py-name">keyboard_ungrab</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">    <tt id="link-8" class="py-name"><a title="source.share.gui_gtkexcepthook.exception_dialog_active" class="py-name" href="#" onclick="return doclink('link-8', 'exception_dialog_active', 'link-5');">exception_dialog_active</a></tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">    <tt class="py-comment"># Create the dialog</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">    <tt class="py-name">dialog</tt> <tt class="py-op">=</tt> <tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">MessageDialog</tt> <tt class="py-op">(</tt><tt class="py-name">parent</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-name">flags</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-name">type</tt><tt class="py-op">=</tt><tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">MESSAGE_WARNING</tt><tt class="py-op">,</tt> <tt class="py-name">buttons</tt><tt class="py-op">=</tt><tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">BUTTONS_NONE</tt><tt class="py-op">)</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">    <tt class="py-name">dialog</tt><tt class="py-op">.</tt><tt class="py-name">set_title</tt> <tt class="py-op">(</tt><tt class="py-name">_</tt><tt class="py-op">(</tt><tt class="py-string">"Bug Detected"</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">check_version</tt> <tt class="py-op">(</tt><tt class="py-number">2</tt><tt class="py-op">,</tt> <tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">        <tt class="py-name">dialog</tt><tt class="py-op">.</tt><tt class="py-name">set_has_separator</tt> <tt class="py-op">(</tt><tt class="py-name">False</tt><tt class="py-op">)</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line"> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">    <tt class="py-name">primary</tt> <tt class="py-op">=</tt> <tt class="py-name">_</tt><tt class="py-op">(</tt><tt class="py-string">"&lt;big&gt;&lt;b&gt;A programming error has been detected.&lt;/b&gt;&lt;/big&gt;"</tt><tt class="py-op">)</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">    <tt class="py-name">secondary</tt> <tt class="py-op">=</tt> <tt class="py-name">_</tt><tt class="py-op">(</tt><tt class="py-string">"It probably isn't fatal, but the details should be reported to the developers nonetheless."</tt><tt class="py-op">)</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line"> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">        <tt class="py-name">setsec</tt> <tt class="py-op">=</tt> <tt class="py-name">dialog</tt><tt class="py-op">.</tt><tt class="py-name">format_secondary_text</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">AttributeError</tt><tt class="py-op">:</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">        <tt class="py-name">dialog</tt><tt class="py-op">.</tt><tt class="py-name">vbox</tt><tt class="py-op">.</tt><tt class="py-name">get_children</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">get_children</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">set_markup</tt> <tt class="py-op">(</tt><tt class="py-string">'%s\n\n%s'</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">primary</tt><tt class="py-op">,</tt> <tt class="py-name">secondary</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">        <tt class="py-comment">#lbl.set_property ("use-markup", True)</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">        <tt class="py-keyword">del</tt> <tt class="py-name">setsec</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">        <tt class="py-name">dialog</tt><tt class="py-op">.</tt><tt class="py-name">set_markup</tt> <tt class="py-op">(</tt><tt class="py-name">primary</tt><tt class="py-op">)</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">        <tt class="py-name">dialog</tt><tt class="py-op">.</tt><tt class="py-name">format_secondary_text</tt> <tt class="py-op">(</tt><tt class="py-name">secondary</tt><tt class="py-op">)</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line"> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">    <tt class="py-name">dialog</tt><tt class="py-op">.</tt><tt class="py-name">add_button</tt> <tt class="py-op">(</tt><tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">STOCK_CLOSE</tt><tt class="py-op">,</tt> <tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">RESPONSE_CLOSE</tt><tt class="py-op">)</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">    <tt class="py-name">dialog</tt><tt class="py-op">.</tt><tt class="py-name">add_button</tt> <tt class="py-op">(</tt><tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">STOCK_QUIT</tt><tt class="py-op">,</tt> <tt id="link-9" class="py-name"><a title="source.share.gui_gtkexcepthook.RESPONSE_QUIT" class="py-name" href="#" onclick="return doclink('link-9', 'RESPONSE_QUIT', 'link-1');">RESPONSE_QUIT</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">    <tt class="py-comment"># Add an expander with details of the problem to the dialog</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">    <tt class="py-keyword">def</tt> <tt class="py-def-name">expander_cb</tt><tt class="py-op">(</tt><tt class="py-param">expander</tt><tt class="py-op">,</tt> <tt class="py-op">*</tt><tt class="py-param">ignore</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">        <tt class="py-comment"># Ensures that on deactivating the expander, the dialog is resized down</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">expander</tt><tt class="py-op">.</tt><tt class="py-name">get_expanded</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">            <tt class="py-name">dialog</tt><tt class="py-op">.</tt><tt class="py-name">set_resizable</tt><tt class="py-op">(</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">            <tt class="py-name">dialog</tt><tt class="py-op">.</tt><tt class="py-name">set_resizable</tt><tt class="py-op">(</tt><tt class="py-name">False</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">    <tt class="py-name">details_expander</tt> <tt class="py-op">=</tt> <tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">Expander</tt><tt class="py-op">(</tt><tt class="py-name">_</tt><tt class="py-op">(</tt><tt class="py-string">"Details..."</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">    <tt class="py-name">details_expander</tt><tt class="py-op">.</tt><tt class="py-name">connect</tt><tt class="py-op">(</tt><tt class="py-string">"notify::expanded"</tt><tt class="py-op">,</tt> <tt class="py-name">expander_cb</tt><tt class="py-op">)</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line"> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">    <tt class="py-name">textview</tt> <tt class="py-op">=</tt> <tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">TextView</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">;</tt> <tt class="py-name">textview</tt><tt class="py-op">.</tt><tt class="py-name">show</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">    <tt class="py-name">textview</tt><tt class="py-op">.</tt><tt class="py-name">set_editable</tt> <tt class="py-op">(</tt><tt class="py-name">False</tt><tt class="py-op">)</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">    <tt class="py-name">textview</tt><tt class="py-op">.</tt><tt class="py-name">modify_font</tt> <tt class="py-op">(</tt><tt class="py-name">pango</tt><tt class="py-op">.</tt><tt class="py-name">FontDescription</tt> <tt class="py-op">(</tt><tt class="py-string">"Monospace"</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line"> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">    <tt class="py-name">sw</tt> <tt class="py-op">=</tt> <tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">ScrolledWindow</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">;</tt> <tt class="py-name">sw</tt><tt class="py-op">.</tt><tt class="py-name">show</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">    <tt class="py-name">sw</tt><tt class="py-op">.</tt><tt class="py-name">set_policy</tt> <tt class="py-op">(</tt><tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">POLICY_AUTOMATIC</tt><tt class="py-op">,</tt> <tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">POLICY_AUTOMATIC</tt><tt class="py-op">)</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">    <tt class="py-name">sw</tt><tt class="py-op">.</tt><tt class="py-name">set_size_request</tt><tt class="py-op">(</tt><tt class="py-number">800</tt><tt class="py-op">,</tt> <tt class="py-number">400</tt><tt class="py-op">)</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">    <tt class="py-name">sw</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method source.gui.menu.ItemGroup.add()=source.gui.menu.ItemGroup-class.html#add"><a title="source.gui.menu.ItemGroup.add" class="py-name" href="#" onclick="return doclink('link-10', 'add', 'link-10');">add</a></tt> <tt class="py-op">(</tt><tt class="py-name">textview</tt><tt class="py-op">)</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line"> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">    <tt class="py-name">details_expander</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="source.gui.menu.ItemGroup.add" class="py-name" href="#" onclick="return doclink('link-11', 'add', 'link-10');">add</a></tt> <tt class="py-op">(</tt><tt class="py-name">sw</tt><tt class="py-op">)</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">    <tt class="py-name">details_expander</tt><tt class="py-op">.</tt><tt class="py-name">show_all</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">    <tt class="py-name">dialog</tt><tt class="py-op">.</tt><tt class="py-name">get_content_area</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">pack_start</tt><tt class="py-op">(</tt><tt class="py-name">details_expander</tt><tt class="py-op">)</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">    <tt class="py-comment"># Get the traceback and set contents of the details</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">        <tt class="py-name">trace</tt> <tt class="py-op">=</tt> <tt id="link-12" class="py-name" targets="Function source.share.gui_gtkexcepthook.analyse()=source.share.gui_gtkexcepthook-module.html#analyse"><a title="source.share.gui_gtkexcepthook.analyse" class="py-name" href="#" onclick="return doclink('link-12', 'analyse', 'link-12');">analyse</a></tt> <tt class="py-op">(</tt><tt class="py-name">exctyp</tt><tt class="py-op">,</tt> <tt class="py-name">value</tt><tt class="py-op">,</tt> <tt class="py-name">tb</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">getvalue</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">            <tt class="py-name">trace</tt> <tt class="py-op">=</tt> <tt class="py-name">_</tt><tt class="py-op">(</tt><tt class="py-string">"Exception while analyzing the exception."</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">"\n"</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">            <tt class="py-name">trace</tt> <tt class="py-op">+=</tt> <tt id="link-13" class="py-name"><a title="source.share.gui_gtkexcepthook.analyse_simple" class="py-name" href="#" onclick="return doclink('link-13', 'analyse_simple', 'link-6');">analyse_simple</a></tt> <tt class="py-op">(</tt><tt class="py-name">exctyp</tt><tt class="py-op">,</tt> <tt class="py-name">value</tt><tt class="py-op">,</tt> <tt class="py-name">tb</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">getvalue</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">            <tt class="py-name">trace</tt> <tt class="py-op">=</tt> <tt class="py-name">_</tt><tt class="py-op">(</tt><tt class="py-string">"Exception while analyzing the exception."</tt><tt class="py-op">)</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">    <tt class="py-name">buf</tt> <tt class="py-op">=</tt> <tt class="py-name">textview</tt><tt class="py-op">.</tt><tt class="py-name">get_buffer</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">    <tt class="py-name">buf</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Method source.morph.textmorph.TextMorph.set_text()=source.morph.textmorph.TextMorph-class.html#set_text"><a title="source.morph.textmorph.TextMorph.set_text" class="py-name" href="#" onclick="return doclink('link-14', 'set_text', 'link-14');">set_text</a></tt> <tt class="py-op">(</tt><tt class="py-name">trace</tt><tt class="py-op">)</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">    <tt class="py-comment">## Would be nice to scroll to the bottom automatically, but @#&amp;%*@</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">    <tt class="py-comment">#first, last = buf.get_bounds()</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">    <tt class="py-comment">#buf.place_cursor(last)</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">    <tt class="py-comment">#mark = buf.get_insert()</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">    <tt class="py-comment">##buf.scroll_mark_onscreen()</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">    <tt class="py-comment">##textview.scroll_mark_onscreen(buf.get_insert(), 0)</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">    <tt class="py-comment">#textview.scroll_to_mark(mark, 0.0)</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line"> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">    <tt class="py-comment"># Connect callback and present the dialog</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">    <tt class="py-name">dialog</tt><tt class="py-op">.</tt><tt class="py-name">connect</tt><tt class="py-op">(</tt><tt class="py-string">'response'</tt><tt class="py-op">,</tt> <tt id="link-15" class="py-name" targets="Function source.share.gui_gtkexcepthook._dialog_response_cb()=source.share.gui_gtkexcepthook-module.html#_dialog_response_cb"><a title="source.share.gui_gtkexcepthook._dialog_response_cb" class="py-name" href="#" onclick="return doclink('link-15', '_dialog_response_cb', 'link-15');">_dialog_response_cb</a></tt><tt class="py-op">,</tt> <tt class="py-name">trace</tt><tt class="py-op">)</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line">    <tt class="py-comment">#dialog.set_modal(True) # this might actually be contra-productive...</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">    <tt class="py-name">dialog</tt><tt class="py-op">.</tt><tt class="py-name">show</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">    <tt class="py-comment"># calling dialog.run() here locks everything up in some cases, so</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line">    <tt class="py-comment"># we just return to the main loop instead</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line"> </tt>
+<a name="_dialog_response_cb"></a><div id="_dialog_response_cb-def"><a name="L197"></a><tt class="py-lineno">197</tt> <a class="py-toggle" href="#" id="_dialog_response_cb-toggle" onclick="return toggle('_dialog_response_cb');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="source.share.gui_gtkexcepthook-module.html#_dialog_response_cb">_dialog_response_cb</a><tt class="py-op">(</tt><tt class="py-param">dialog</tt><tt class="py-op">,</tt> <tt class="py-param">resp</tt><tt class="py-op">,</tt> <tt class="py-param">trace</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_dialog_response_cb-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="_dialog_response_cb-expanded"><a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line">    <tt class="py-keyword">global</tt> <tt id="link-16" class="py-name"><a title="source.share.gui_gtkexcepthook.exception_dialog_active" class="py-name" href="#" onclick="return doclink('link-16', 'exception_dialog_active', 'link-5');">exception_dialog_active</a></tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line"> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">resp</tt> <tt class="py-op">==</tt> <tt id="link-17" class="py-name"><a title="source.share.gui_gtkexcepthook.RESPONSE_QUIT" class="py-name" href="#" onclick="return doclink('link-17', 'RESPONSE_QUIT', 'link-1');">RESPONSE_QUIT</a></tt> <tt class="py-keyword">and</tt> <tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">main_level</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt id="link-18" class="py-name"><a title="source.share.gui_gtkexcepthook.quit_confirmation_func" class="py-name" href="#" onclick="return doclink('link-18', 'quit_confirmation_func', 'link-0');">quit_confirmation_func</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line">            <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">exit</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> <tt class="py-comment"># Exit code is important for IDEs</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt id="link-19" class="py-name"><a title="source.share.gui_gtkexcepthook.quit_confirmation_func" class="py-name" href="#" onclick="return doclink('link-19', 'quit_confirmation_func', 'link-0');">quit_confirmation_func</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">                <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">exit</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> <tt class="py-comment"># Exit code is important for IDEs</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">                <tt class="py-name">dialog</tt><tt class="py-op">.</tt><tt class="py-name">destroy</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line">                <tt id="link-20" class="py-name"><a title="source.share.gui_gtkexcepthook.exception_dialog_active" class="py-name" href="#" onclick="return doclink('link-20', 'exception_dialog_active', 'link-5');">exception_dialog_active</a></tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line"> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line">        <tt class="py-name">dialog</tt><tt class="py-op">.</tt><tt class="py-name">destroy</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line">        <tt id="link-21" class="py-name"><a title="source.share.gui_gtkexcepthook.exception_dialog_active" class="py-name" href="#" onclick="return doclink('link-21', 'exception_dialog_active', 'link-5');">exception_dialog_active</a></tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+</div><a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line"> </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line"> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line"><tt class="py-name">original_excepthook</tt> <tt class="py-op">=</tt> <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">excepthook</tt> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line"><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">excepthook</tt> <tt class="py-op">=</tt> <tt id="link-22" class="py-name" targets="Function source.share.gui_gtkexcepthook._info()=source.share.gui_gtkexcepthook-module.html#_info"><a title="source.share.gui_gtkexcepthook._info" class="py-name" href="#" onclick="return doclink('link-22', '_info', 'link-22');">_info</a></tt> </tt>
+<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line"><tt id="link-23" class="py-name"><a title="source.share.gui_gtkexcepthook.exception_dialog_active" class="py-name" href="#" onclick="return doclink('link-23', 'exception_dialog_active', 'link-5');">exception_dialog_active</a></tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L218"></a><tt class="py-lineno">218</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:33 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>source.base.vector</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="source-module.html">Package&nbsp;source</a> ::
+        <a href="source.base-module.html">Package&nbsp;base</a> ::
+        Module&nbsp;vector
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="source.base.vector-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="source.base.vector-module.html">Module source.base.vector</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-docstring">Copyright 2010, 2011 Lloyd Konneker</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-docstring">    This file is part of Pensool.</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-docstring">    Pensool is free software: you can redistribute it and/or modify</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-docstring">    it under the terms of the GNU General Public License as published by</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-docstring">    the Free Software Foundation, either version 3 of the License, or</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-docstring">    (at your option) any later version.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">math</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">cairo</tt>  <tt class="py-comment"># FIXME</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"> </tt>
+<a name="Vector"></a><div id="Vector-def"><a name="L15"></a><tt class="py-lineno"> 15</tt> <a class="py-toggle" href="#" id="Vector-toggle" onclick="return toggle('Vector');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html">Vector</a><tt class="py-op">(</tt><tt class="py-base-class">object</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Vector-expanded"><a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-docstring">    2D mathematical vectors (Not in the sense of sequence or array.)</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-docstring">    Note all operators except increment, decrement return a copy.</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-docstring">    Examples:</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-docstring">    # Test setup</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-docstring">    &gt;&gt;&gt; a = Vector(1,1)</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-docstring">    &gt;&gt;&gt; b = Vector(0,1)</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-docstring">    &gt;&gt;&gt; c = Vector(0,-1)</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-docstring">    &gt;&gt;&gt; b.scalar_projection(a)</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-docstring">    0.70710678118654746</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-docstring">    &gt;&gt;&gt; c.scalar_projection(a)</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-docstring">    -0.70710678118654746</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">     </tt>
+<a name="Vector.__init__"></a><div id="Vector.__init__-def"><a name="L36"></a><tt class="py-lineno"> 36</tt> <a class="py-toggle" href="#" id="Vector.__init__-toggle" onclick="return toggle('Vector.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">x</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-param">y</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.__init__-expanded"><a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-0" class="py-name" targets="Variable source.gui.manager.pointer.Event.x=source.gui.manager.pointer.Event-class.html#x"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-0', 'x', 'link-0');">x</a></tt> <tt class="py-op">=</tt> <tt class="py-name">float</tt><tt class="py-op">(</tt><tt id="link-1" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-1', 'x', 'link-0');">x</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Variable source.gui.manager.pointer.Event.y=source.gui.manager.pointer.Event-class.html#y"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-2', 'y', 'link-2');">y</a></tt> <tt class="py-op">=</tt> <tt class="py-name">float</tt><tt class="py-op">(</tt><tt id="link-3" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-3', 'y', 'link-2');">y</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">         </tt>
+<a name="Vector.__add__"></a><div id="Vector.__add__-def"><a name="L40"></a><tt class="py-lineno"> 40</tt> <a class="py-toggle" href="#" id="Vector.__add__-toggle" onclick="return toggle('Vector.__add__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#__add__">__add__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">val</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.__add__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.__add__-expanded"><a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">Point</tt><tt class="py-op">(</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">+</tt> <tt class="py-name">val</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">+</tt> <tt class="py-name">val</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">)</tt> </tt>
+</div><a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">     </tt>
+<a name="Vector.__sub__"></a><div id="Vector.__sub__-def"><a name="L43"></a><tt class="py-lineno"> 43</tt> <a class="py-toggle" href="#" id="Vector.__sub__-toggle" onclick="return toggle('Vector.__sub__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#__sub__">__sub__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt><tt class="py-param">val</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.__sub__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.__sub__-expanded"><a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">Point</tt><tt class="py-op">(</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">-</tt> <tt class="py-name">val</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">-</tt> <tt class="py-name">val</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">)</tt> </tt>
+</div><a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">     </tt>
+<a name="Vector.__iadd__"></a><div id="Vector.__iadd__-def"><a name="L46"></a><tt class="py-lineno"> 46</tt> <a class="py-toggle" href="#" id="Vector.__iadd__-toggle" onclick="return toggle('Vector.__iadd__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#__iadd__">__iadd__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">val</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.__iadd__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.__iadd__-expanded"><a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-4', 'x', 'link-0');">x</a></tt> <tt class="py-op">=</tt> <tt class="py-name">val</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">+</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-5', 'x', 'link-0');">x</a></tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-6', 'y', 'link-2');">y</a></tt> <tt class="py-op">=</tt> <tt class="py-name">val</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">+</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-7', 'y', 'link-2');">y</a></tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt> </tt>
+</div><a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">         </tt>
+<a name="Vector.__isub__"></a><div id="Vector.__isub__-def"><a name="L51"></a><tt class="py-lineno"> 51</tt> <a class="py-toggle" href="#" id="Vector.__isub__-toggle" onclick="return toggle('Vector.__isub__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#__isub__">__isub__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">val</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.__isub__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.__isub__-expanded"><a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-8" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-8', 'x', 'link-0');">x</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-9', 'x', 'link-0');">x</a></tt> <tt class="py-op">-</tt> <tt class="py-name">val</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-10', 'y', 'link-2');">y</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-11', 'y', 'link-2');">y</a></tt> <tt class="py-op">-</tt> <tt class="py-name">val</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt> </tt>
+</div><a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">     </tt>
+<a name="Vector.__div__"></a><div id="Vector.__div__-def"><a name="L56"></a><tt class="py-lineno"> 56</tt> <a class="py-toggle" href="#" id="Vector.__div__-toggle" onclick="return toggle('Vector.__div__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#__div__">__div__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">val</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.__div__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.__div__-expanded"><a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">Point</tt><tt class="py-op">(</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">/</tt> <tt class="py-name">val</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">/</tt> <tt class="py-name">val</tt> <tt class="py-op">)</tt> </tt>
+</div><a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">     </tt>
+<a name="Vector.__mul__"></a><div id="Vector.__mul__-def"><a name="L59"></a><tt class="py-lineno"> 59</tt> <a class="py-toggle" href="#" id="Vector.__mul__-toggle" onclick="return toggle('Vector.__mul__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#__mul__">__mul__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">val</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.__mul__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.__mul__-expanded"><a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">Point</tt><tt class="py-op">(</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">*</tt> <tt class="py-name">val</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">*</tt> <tt class="py-name">val</tt> <tt class="py-op">)</tt> </tt>
+</div><a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">     </tt>
+<a name="Vector.__idiv__"></a><div id="Vector.__idiv__-def"><a name="L62"></a><tt class="py-lineno"> 62</tt> <a class="py-toggle" href="#" id="Vector.__idiv__-toggle" onclick="return toggle('Vector.__idiv__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#__idiv__">__idiv__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">val</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.__idiv__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.__idiv__-expanded"><a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">/</tt> <tt class="py-name">val</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">/</tt> <tt class="py-name">val</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt> </tt>
+</div><a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">         </tt>
+<a name="Vector.__imul__"></a><div id="Vector.__imul__-def"><a name="L67"></a><tt class="py-lineno"> 67</tt> <a class="py-toggle" href="#" id="Vector.__imul__-toggle" onclick="return toggle('Vector.__imul__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#__imul__">__imul__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">val</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.__imul__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.__imul__-expanded"><a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">*</tt> <tt class="py-name">val</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">*</tt> <tt class="py-name">val</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt> </tt>
+</div><a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">                 </tt>
+<a name="Vector.__getitem__"></a><div id="Vector.__getitem__-def"><a name="L72"></a><tt class="py-lineno"> 72</tt> <a class="py-toggle" href="#" id="Vector.__getitem__-toggle" onclick="return toggle('Vector.__getitem__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#__getitem__">__getitem__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">key</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.__getitem__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.__getitem__-expanded"><a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt> <tt id="link-12" class="py-name" targets="Method source.gui.textselectcontrol.TextSelectControl.key()=source.gui.textselectcontrol.TextSelectControl-class.html#key"><a title="source.gui.textselectcontrol.TextSelectControl.key" class="py-name" href="#" onclick="return doclink('link-12', 'key', 'link-12');">key</a></tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-13', 'x', 'link-0');">x</a></tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">        <tt class="py-keyword">elif</tt><tt class="py-op">(</tt> <tt id="link-14" class="py-name"><a title="source.gui.textselectcontrol.TextSelectControl.key" class="py-name" href="#" onclick="return doclink('link-14', 'key', 'link-12');">key</a></tt> <tt class="py-op">==</tt> <tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-15', 'y', 'link-2');">y</a></tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">Exception</tt><tt class="py-op">(</tt><tt class="py-string">"Invalid key to Point"</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">         </tt>
+<a name="Vector.__setitem__"></a><div id="Vector.__setitem__-def"><a name="L80"></a><tt class="py-lineno"> 80</tt> <a class="py-toggle" href="#" id="Vector.__setitem__-toggle" onclick="return toggle('Vector.__setitem__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#__setitem__">__setitem__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">key</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.__setitem__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.__setitem__-expanded"><a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt> <tt id="link-16" class="py-name"><a title="source.gui.textselectcontrol.TextSelectControl.key" class="py-name" href="#" onclick="return doclink('link-16', 'key', 'link-12');">key</a></tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-17', 'x', 'link-0');">x</a></tt> <tt class="py-op">=</tt> <tt class="py-name">value</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">        <tt class="py-keyword">elif</tt><tt class="py-op">(</tt> <tt id="link-18" class="py-name"><a title="source.gui.textselectcontrol.TextSelectControl.key" class="py-name" href="#" onclick="return doclink('link-18', 'key', 'link-12');">key</a></tt> <tt class="py-op">==</tt> <tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-19', 'y', 'link-2');">y</a></tt> <tt class="py-op">=</tt> <tt class="py-name">value</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">Exception</tt><tt class="py-op">(</tt><tt class="py-string">"Invalid key to Point"</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">         </tt>
+<a name="Vector.__str__"></a><div id="Vector.__str__-def"><a name="L88"></a><tt class="py-lineno"> 88</tt> <a class="py-toggle" href="#" id="Vector.__str__-toggle" onclick="return toggle('Vector.__str__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#__str__">__str__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.__str__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.__str__-expanded"><a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">"("</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-20', 'x', 'link-0');">x</a></tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">","</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-21', 'y', 'link-2');">y</a></tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">")"</tt> </tt>
+</div><a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">     </tt>
+<a name="Vector.__repr__"></a><div id="Vector.__repr__-def"><a name="L91"></a><tt class="py-lineno"> 91</tt> <a class="py-toggle" href="#" id="Vector.__repr__-toggle" onclick="return toggle('Vector.__repr__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#__repr__">__repr__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.__repr__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.__repr__-expanded"><a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">      <tt class="py-keyword">return</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">       </tt>
+<a name="Vector.copy"></a><div id="Vector.copy-def"><a name="L94"></a><tt class="py-lineno"> 94</tt> <a class="py-toggle" href="#" id="Vector.copy-toggle" onclick="return toggle('Vector.copy');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#copy">copy</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.copy-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.copy-expanded"><a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">      <tt class="py-keyword">return</tt> <tt id="link-22" class="py-name" targets="Class source.base.vector.Vector=source.base.vector.Vector-class.html"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-22', 'Vector', 'link-22');">Vector</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-23', 'x', 'link-0');">x</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-24', 'y', 'link-2');">y</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">     </tt>
+<a name="Vector.orthogonal"></a><div id="Vector.orthogonal-def"><a name="L97"></a><tt class="py-lineno"> 97</tt> <a class="py-toggle" href="#" id="Vector.orthogonal-toggle" onclick="return toggle('Vector.orthogonal');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#orthogonal">orthogonal</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">handedness</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.orthogonal-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.orthogonal-expanded"><a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">      <tt class="py-docstring">'''</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"><tt class="py-docstring">      Return some vector orthogonal to self.</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"><tt class="py-docstring">      Swap x, y and negate one.</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"><tt class="py-docstring">      Note that there are many orthogonal vectors to a line, </tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"><tt class="py-docstring">      this is an orthogonal vector to a vector (from the origin.)</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line"><tt class="py-docstring">      Note also that there are two handednesses: right and left handed.</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"><tt class="py-docstring">      Handeness negative is left, postive is right.</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line"><tt class="py-docstring">      Alternative implementation is to use rotate by an angle, +-</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"><tt class="py-docstring">      '''</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">      <tt class="py-keyword">if</tt> <tt class="py-name">handedness</tt> <tt class="py-op">&lt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> <tt class="py-comment"># left</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-25" class="py-name"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-25', 'Vector', 'link-22');">Vector</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-26', 'y', 'link-2');">y</a></tt><tt class="py-op">,</tt> <tt class="py-op">-</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-27" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-27', 'x', 'link-0');">x</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">      <tt class="py-keyword">else</tt> <tt class="py-op">:</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-28" class="py-name"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-28', 'Vector', 'link-22');">Vector</a></tt><tt class="py-op">(</tt><tt class="py-op">-</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-29', 'y', 'link-2');">y</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-30" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-30', 'x', 'link-0');">x</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"> </tt>
+<a name="Vector.length"></a><div id="Vector.length-def"><a name="L112"></a><tt class="py-lineno">112</tt> <a class="py-toggle" href="#" id="Vector.length-toggle" onclick="return toggle('Vector.length');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#length">length</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.length-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.length-expanded"><a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">      <tt class="py-docstring">'''</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"><tt class="py-docstring">      Return scalar distance length.</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line"><tt class="py-docstring">      Distance is non-negative.</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line"><tt class="py-docstring">      '''</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">      <tt class="py-keyword">return</tt> <tt class="py-name">math</tt><tt class="py-op">.</tt><tt class="py-name">sqrt</tt><tt class="py-op">(</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-31" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-31', 'x', 'link-0');">x</a></tt><tt class="py-op">**</tt><tt class="py-number">2</tt> <tt class="py-op">+</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-32', 'y', 'link-2');">y</a></tt><tt class="py-op">**</tt><tt class="py-number">2</tt> <tt class="py-op">)</tt> </tt>
+</div><a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">       </tt>
+<a name="Vector.normal"></a><div id="Vector.normal-def"><a name="L119"></a><tt class="py-lineno">119</tt> <a class="py-toggle" href="#" id="Vector.normal-toggle" onclick="return toggle('Vector.normal');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#normal">normal</a><tt class="py-op">(</tt> <tt class="py-param">self</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.normal-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.normal-expanded"><a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">      <tt class="py-docstring">'Return new vector that has same direction as vec, but has length of one.'</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">      <tt class="py-keyword">if</tt><tt class="py-op">(</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-number">0.</tt> <tt class="py-keyword">and</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-number">0.</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">          <tt class="py-keyword">return</tt> <tt id="link-33" class="py-name"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-33', 'Vector', 'link-22');">Vector</a></tt><tt class="py-op">(</tt><tt class="py-number">0.</tt><tt class="py-op">,</tt><tt class="py-number">0.</tt><tt class="py-op">)</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">      <tt class="py-keyword">return</tt> <tt class="py-name">self</tt> <tt class="py-op">/</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-34" class="py-name" targets="Method source.base.vector.Vector.length()=source.base.vector.Vector-class.html#length"><a title="source.base.vector.Vector.length" class="py-name" href="#" onclick="return doclink('link-34', 'length', 'link-34');">length</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line"> </tt>
+<a name="Vector.angle"></a><div id="Vector.angle-def"><a name="L125"></a><tt class="py-lineno">125</tt> <a class="py-toggle" href="#" id="Vector.angle-toggle" onclick="return toggle('Vector.angle');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#angle">angle</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.angle-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.angle-expanded"><a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">      <tt class="py-docstring">''' </tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line"><tt class="py-docstring">      Return scalar angle in radians [-pi, pi] to the x-axis.</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line"><tt class="py-docstring">      '''</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">      <tt class="py-comment"># !!! atan2(y,x)</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">      <tt class="py-keyword">return</tt> <tt class="py-name">math</tt><tt class="py-op">.</tt><tt class="py-name">atan2</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-35" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-35', 'y', 'link-2');">y</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-36" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-36', 'x', 'link-0');">x</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">     </tt>
+<a name="Vector.angle_to"></a><div id="Vector.angle_to-def"><a name="L132"></a><tt class="py-lineno">132</tt> <a class="py-toggle" href="#" id="Vector.angle_to-toggle" onclick="return toggle('Vector.angle_to');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#angle_to">angle_to</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">b</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.angle_to-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.angle_to-expanded"><a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">      <tt class="py-docstring">'''</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line"><tt class="py-docstring">      Return scalar angle in radians of self to vector b.</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"><tt class="py-docstring">      '''</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">      <tt class="py-keyword">return</tt> <tt class="py-name">b</tt><tt class="py-op">.</tt><tt id="link-37" class="py-name" targets="Method source.base.vector.Vector.angle()=source.base.vector.Vector-class.html#angle"><a title="source.base.vector.Vector.angle" class="py-name" href="#" onclick="return doclink('link-37', 'angle', 'link-37');">angle</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">-</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-38" class="py-name"><a title="source.base.vector.Vector.angle" class="py-name" href="#" onclick="return doclink('link-38', 'angle', 'link-37');">angle</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">       </tt>
+<a name="Vector.dot"></a><div id="Vector.dot-def"><a name="L138"></a><tt class="py-lineno">138</tt> <a class="py-toggle" href="#" id="Vector.dot-toggle" onclick="return toggle('Vector.dot');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#dot">dot</a><tt class="py-op">(</tt> <tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">b</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.dot-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.dot-expanded"><a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">      <tt class="py-docstring">'''Return scalar dot product of self and b'''</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">      <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">*</tt><tt class="py-name">b</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">+</tt> <tt class="py-name">self</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">*</tt><tt class="py-name">b</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">       </tt>
+<a name="Vector.scalar_projection"></a><div id="Vector.scalar_projection-def"><a name="L142"></a><tt class="py-lineno">142</tt> <a class="py-toggle" href="#" id="Vector.scalar_projection-toggle" onclick="return toggle('Vector.scalar_projection');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector.Vector-class.html#scalar_projection">scalar_projection</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">b</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Vector.scalar_projection-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Vector.scalar_projection-expanded"><a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">      <tt class="py-docstring">'''</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line"><tt class="py-docstring">      Return scalar projection of self onto b.</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"><tt class="py-docstring">      Scalar projection is the magnitude of the projection of a onto b.</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line"><tt class="py-docstring">      The sign is significant:  Negative means in the opposite direction of b.</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"><tt class="py-docstring">      '''</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">      <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-39" class="py-name" targets="Method source.base.vector.Vector.dot()=source.base.vector.Vector-class.html#dot"><a title="source.base.vector.Vector.dot" class="py-name" href="#" onclick="return doclink('link-39', 'dot', 'link-39');">dot</a></tt><tt class="py-op">(</tt><tt class="py-name">b</tt><tt class="py-op">/</tt><tt class="py-name">b</tt><tt class="py-op">.</tt><tt id="link-40" class="py-name"><a title="source.base.vector.Vector.length" class="py-name" href="#" onclick="return doclink('link-40', 'length', 'link-34');">length</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">       </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">      <tt class="py-string">'''</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line"><tt class="py-string">      Alternate implementation?</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line"><tt class="py-string">      For three points p0, p1, p2.</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line"><tt class="py-string">      p1 and p2 define a line.</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line"><tt class="py-string">      (p0.x-p1.x)*(p2.y-p1.y) - (p2.x-p1.x)*(p0.y-p1.y)</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line"><tt class="py-string">      Yields:</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line"><tt class="py-string">        0 p0 on line</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line"><tt class="py-string">        + p0 left of line</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line"><tt class="py-string">        - p0 right of line</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line"><tt class="py-string">      '''</tt> </tt>
+</div></div><a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">     </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">     </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line"><tt class="py-comment"># Point is a synonym for the Vector class: they behave the same.</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line"><tt class="py-name">Point</tt> <tt class="py-op">=</tt> <tt id="link-41" class="py-name"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-41', 'Vector', 'link-22');">Vector</a></tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line"> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line"><tt class="py-comment"># Constant vectors</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line"><tt class="py-comment"># NOT singleton, a new instance each call</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line"><tt class="py-comment"># (If a singleton, insure it is read-only.</tt> </tt>
+<a name="downward_vector"></a><div id="downward_vector-def"><a name="L168"></a><tt class="py-lineno">168</tt> <a class="py-toggle" href="#" id="downward_vector-toggle" onclick="return toggle('downward_vector');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector-module.html#downward_vector">downward_vector</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="downward_vector-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="downward_vector-expanded"><a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">  <tt class="py-keyword">return</tt> <tt id="link-42" class="py-name"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-42', 'Vector', 'link-22');">Vector</a></tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line"><tt id="link-43" class="py-name" targets="Variable source.base.vector.ORIGIN=source.base.vector-module.html#ORIGIN"><a title="source.base.vector.ORIGIN" class="py-name" href="#" onclick="return doclink('link-43', 'ORIGIN', 'link-43');">ORIGIN</a></tt> <tt class="py-op">=</tt> <tt id="link-44" class="py-name"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-44', 'Vector', 'link-22');">Vector</a></tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">,</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line"><tt id="link-45" class="py-name" targets="Variable source.base.vector.ONES=source.base.vector-module.html#ONES"><a title="source.base.vector.ONES" class="py-name" href="#" onclick="return doclink('link-45', 'ONES', 'link-45');">ONES</a></tt> <tt class="py-op">=</tt> <tt id="link-46" class="py-name"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-46', 'Vector', 'link-22');">Vector</a></tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">,</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line"><tt id="link-47" class="py-name" targets="Variable source.base.vector.UNIT_X_AXIS=source.base.vector-module.html#UNIT_X_AXIS"><a title="source.base.vector.UNIT_X_AXIS" class="py-name" href="#" onclick="return doclink('link-47', 'UNIT_X_AXIS', 'link-47');">UNIT_X_AXIS</a></tt> <tt class="py-op">=</tt> <tt id="link-48" class="py-name"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-48', 'Vector', 'link-22');">Vector</a></tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">,</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line"><tt id="link-49" class="py-name" targets="Variable source.base.vector.UNIT_Y_AXIS=source.base.vector-module.html#UNIT_Y_AXIS"><a title="source.base.vector.UNIT_Y_AXIS" class="py-name" href="#" onclick="return doclink('link-49', 'UNIT_Y_AXIS', 'link-49');">UNIT_Y_AXIS</a></tt> <tt class="py-op">=</tt> <tt id="link-50" class="py-name"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-50', 'Vector', 'link-22');">Vector</a></tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">,</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">   </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line"><tt class="py-comment"># FIXME do it without cairo</tt> </tt>
+<a name="normalize_vector_to_vector"></a><div id="normalize_vector_to_vector-def"><a name="L177"></a><tt class="py-lineno">177</tt> <a class="py-toggle" href="#" id="normalize_vector_to_vector-toggle" onclick="return toggle('normalize_vector_to_vector');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="source.base.vector-module.html#normalize_vector_to_vector">normalize_vector_to_vector</a><tt class="py-op">(</tt><tt class="py-param">vector1</tt><tt class="py-op">,</tt> <tt class="py-param">vector2</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="normalize_vector_to_vector-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="normalize_vector_to_vector-expanded"><a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">  <tt class="py-docstring">'''</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line"><tt class="py-docstring">  Normalize first vector to second.</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line"><tt class="py-docstring">  Assert both vectors have same origin (0,0)?</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line"><tt class="py-docstring">  Transform (rotate) second vector to x-axis.</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line"><tt class="py-docstring">  Return second vector with same rotation.</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line"><tt class="py-docstring">  '''</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">  <tt class="py-comment"># Make transform to normalize and align vector2 with x-axis</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">  <tt id="link-51" class="py-name"><a title="source.base.vector.Vector.angle" class="py-name" href="#" onclick="return doclink('link-51', 'angle', 'link-37');">angle</a></tt> <tt class="py-op">=</tt> <tt class="py-name">vector2</tt><tt class="py-op">.</tt><tt id="link-52" class="py-name"><a title="source.base.vector.Vector.angle" class="py-name" href="#" onclick="return doclink('link-52', 'angle', 'link-37');">angle</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">  <tt class="py-comment"># inverse the angle.  Cairo's sign for angle is opposite of conventional.</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">  <tt class="py-name">rotate_transform</tt> <tt class="py-op">=</tt> <tt class="py-name">cairo</tt><tt class="py-op">.</tt><tt class="py-name">Matrix</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">init_rotate</tt><tt class="py-op">(</tt><tt class="py-op">-</tt><tt id="link-53" class="py-name"><a title="source.base.vector.Vector.angle" class="py-name" href="#" onclick="return doclink('link-53', 'angle', 'link-37');">angle</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">  <tt class="py-comment"># Not scaled, but if would transform.scale, the scale done before rotation</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">  <tt class="py-comment"># Transform exit_vector</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">  <tt class="py-op">(</tt><tt id="link-54" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-54', 'x', 'link-0');">x</a></tt><tt class="py-op">,</tt><tt id="link-55" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-55', 'y', 'link-2');">y</a></tt><tt class="py-op">)</tt> <tt class="py-op">=</tt> <tt class="py-name">rotate_transform</tt><tt class="py-op">.</tt><tt class="py-name">transform_point</tt><tt class="py-op">(</tt><tt class="py-name">vector1</tt><tt class="py-op">.</tt><tt id="link-56" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-56', 'x', 'link-0');">x</a></tt><tt class="py-op">,</tt> <tt class="py-name">vector1</tt><tt class="py-op">.</tt><tt id="link-57" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-57', 'y', 'link-2');">y</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">  <tt class="py-name">vect</tt> <tt class="py-op">=</tt> <tt id="link-58" class="py-name"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-58', 'Vector', 'link-22');">Vector</a></tt><tt class="py-op">(</tt><tt id="link-59" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-59', 'x', 'link-0');">x</a></tt><tt class="py-op">,</tt> <tt id="link-60" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-60', 'y', 'link-2');">y</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line">  <tt class="py-comment"># print "Angle", angle, "Vect1", vector1, "Vect2", vector2, "Normalized:", vect</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">  <tt class="py-keyword">return</tt> <tt class="py-name">vect</tt> </tt>
+</div><a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">   </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line">   </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line">   </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">   </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line"><tt class="py-string">"""</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line"><tt class="py-string">        </tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line"><tt class="py-string">def DistanceSqrd( point1, point2 ):</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line"><tt class="py-string">    'Return the distance between two points squared. Marginally faster than Distance()'</tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line"><tt class="py-string">    return ( (point1[0]-point2[0])**2 + (point1[1]-point2[1])**2)</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line"><tt class="py-string">    </tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line"><tt class="py-string">def Distance( point1, point2 ):</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line"><tt class="py-string">    'Return the distance between two points'</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line"><tt class="py-string">    return math.sqrt( DistanceSqrd(point1,point2) )</tt> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line"><tt class="py-string">    </tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line"><tt class="py-string">def Dot( a,b ):</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line"><tt class="py-string">    'Computes the dot product of a and b'</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line"><tt class="py-string">    return a[0]*b[0] + a[1]*b[1]</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line"><tt class="py-string">    </tt> </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line"><tt class="py-string">def ProjectOnto( w,v ):</tt> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line"><tt class="py-string">    'Projects w onto v.'</tt> </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line"><tt class="py-string">    return v * Dot(w,v) / LengthSqrd(v)</tt> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line"><tt class="py-string">"""</tt> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:33 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

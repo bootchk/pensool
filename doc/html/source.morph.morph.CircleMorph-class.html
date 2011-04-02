@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>source.morph.morph.CircleMorph</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="source-module.html">Package&nbsp;source</a> ::
+        <a href="source.morph-module.html">Package&nbsp;morph</a> ::
+        <a href="source.morph.morph-module.html">Module&nbsp;morph</a> ::
+        Class&nbsp;CircleMorph
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="source.morph.morph.CircleMorph-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class CircleMorph</h1><p class="nomargin-top"><span class="codelink"><a href="source.morph.morph-pysrc.html#CircleMorph">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_source_m_6" name="uml_class_diagram_for_source_m_6">
+<area shape="rect" href="source.morph.morph.PrimitiveMorph-class.html#is_primitive" title="Morph that is not class PrimitiveMorph is not primitive." alt="" coords="228,1020,327,1039"/>
+<area shape="rect" href="source.morph.morph.PrimitiveMorph-class.html" title="A PrimitiveMorph is a Composite of only Glyphs." alt="" coords="227,995,328,1040"/>
+<area shape="rect" href="source.morph.morph.CircleMorph-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="187,1095,368,1113"/>
+<area shape="rect" href="source.morph.morph.CircleMorph-class.html#rouse_feedback" title="Assert morph is focused." alt="" coords="187,1113,368,1132"/>
+<area shape="rect" href="source.morph.morph.CircleMorph-class.html" title="source.morph.morph.CircleMorph" alt="" coords="185,1069,369,1133"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.dump" alt="" coords="31,36,225,55"/>
+<area shape="rect" href="javascript:void(0);" title="Return device coords of origin where drawn." alt="" coords="31,55,225,73"/>
+<area shape="rect" href="javascript:void(0);" title="Compute bounding rect in DCS of path in context as inked." alt="" coords="31,73,225,92"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_fill" alt="" coords="31,92,225,111"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_path" alt="" coords="31,111,225,129"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_stroke" alt="" coords="31,129,225,148"/>
+<area shape="rect" href="javascript:void(0);" title="Invalidate as previously drawn." alt="" coords="31,148,225,167"/>
+<area shape="rect" href="javascript:void(0);" title="Invalidate as will be drawn (hasn&#39;t been drawn yet.) This walks a branch of model to determine bounds." alt="" coords="31,167,225,185"/>
+<area shape="rect" href="javascript:void(0);" title="Is the event in the hot area." alt="" coords="31,185,225,204"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.is_inbounds" alt="" coords="31,204,225,223"/>
+<area shape="rect" href="javascript:void(0);" title="Put my boundary in the context." alt="" coords="31,223,225,241"/>
+<area shape="rect" href="javascript:void(0);" title="Things that can be drawn (morphs, glyphs, and controls)." alt="" coords="29,11,227,243"/>
+<area shape="rect" href="javascript:void(0);" title="Return state values to be pickled." alt="" coords="17,304,239,323"/>
+<area shape="rect" href="javascript:void(0);" title="Restore state from the unpickled state values." alt="" coords="17,323,239,341"/>
+<area shape="rect" href="javascript:void(0);" title="??? This only works for controls, where the scale is equivalent to pixels &#160;in DCS." alt="" coords="17,341,239,360"/>
+<area shape="rect" href="javascript:void(0);" title="Set my transform from my drawing specs." alt="" coords="17,360,239,379"/>
+<area shape="rect" href="javascript:void(0);" title="Get local coordinates (group GCS) of DCS point." alt="" coords="17,379,239,397"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.move_absolute" alt="" coords="17,397,239,416"/>
+<area shape="rect" href="javascript:void(0);" title="Move origin but keep other points fixed." alt="" coords="17,416,239,435"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.move_relative" alt="" coords="17,435,239,453"/>
+<area shape="rect" href="javascript:void(0);" title="Apply my transform to the current transform in the context." alt="" coords="17,453,239,472"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.relative_scale" alt="" coords="17,472,239,491"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.rotate" alt="" coords="17,491,239,509"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.scale_uniformly" alt="" coords="17,509,239,528"/>
+<area shape="rect" href="javascript:void(0);" title="Set the translation and scale (not rotation) of an object." alt="" coords="17,528,239,547"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.zoom" alt="" coords="17,565,239,584"/>
+<area shape="rect" href="javascript:void(0);" title="A transformer (of coordinate systems)" alt="" coords="16,279,240,585"/>
+<area shape="rect" href="javascript:void(0);" title="override list.append to keep parent of each list element That is, hierachal model tree is digraph with bidirectional links." alt="" coords="177,647,377,665"/>
+<area shape="rect" href="javascript:void(0);" title="Draw self using context." alt="" coords="177,665,377,684"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.get_parent" alt="" coords="177,684,377,703"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.highlight" alt="" coords="177,703,377,721"/>
+<area shape="rect" href="javascript:void(0);" title="Layout members." alt="" coords="177,721,377,740"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.pick" alt="" coords="177,740,377,759"/>
+<area shape="rect" href="javascript:void(0);" title="Put path into context." alt="" coords="177,759,377,777"/>
+<area shape="rect" href="javascript:void(0);" title="A container of Transformer:Drawables." alt="" coords="176,621,379,779"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#insert" title="Insert morph into this group." alt="" coords="148,833,407,852"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#get_orthogonal" title="Return a unit vector orthogonal to self at point." alt="" coords="148,852,407,871"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#resize" title="source.morph.morph.Morph.resize" alt="" coords="148,871,407,889"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#is_top" title="Morph that is the root of the modeling tree." alt="" coords="148,889,407,908"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#set_by_drag" title="Establish my dimensions (set transform) according to drag op from &#160;start_coords to event." alt="" coords="148,908,407,927"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#move_by_drag" title="Establish my translation according to drag op of glyph by offset" alt="" coords="148,927,407,945"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#move_by_drag_handle" title="Establish my dimensions (set transform) according to drag op of handle by &#160;offset" alt="" coords="148,945,407,964"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html" title="A Morph is a Composite with associated controls." alt="" coords="147,808,408,965"/>
+<area shape="rect" href="javascript:void(0);" title="hash(x)" alt="" coords="292,289,561,308"/>
+<area shape="rect" href="javascript:void(0);" title="x+y" alt="" coords="292,311,561,329"/>
+<area shape="rect" href="javascript:void(0);" title="y in x" alt="" coords="292,329,561,348"/>
+<area shape="rect" href="javascript:void(0);" title="del x[y]" alt="" coords="292,348,561,367"/>
+<area shape="rect" href="javascript:void(0);" title="del x[i:j]" alt="" coords="292,367,561,385"/>
+<area shape="rect" href="javascript:void(0);" title="x==y" alt="" coords="292,385,561,404"/>
+<area shape="rect" href="javascript:void(0);" title="x&gt;=y" alt="" coords="292,404,561,423"/>
+<area shape="rect" href="javascript:void(0);" title="x.__getattribute__(&#39;name&#39;) &lt;==&gt; x.name" alt="" coords="292,423,561,441"/>
+<area shape="rect" href="javascript:void(0);" title="x[y]" alt="" coords="292,441,561,460"/>
+<area shape="rect" href="javascript:void(0);" title="x[i:j]" alt="" coords="292,460,561,479"/>
+<area shape="rect" href="javascript:void(0);" title="x&gt;y" alt="" coords="292,479,561,497"/>
+<area shape="rect" href="javascript:void(0);" title="x+=y" alt="" coords="292,497,561,516"/>
+<area shape="rect" href="javascript:void(0);" title="x*=y" alt="" coords="292,516,561,535"/>
+<area shape="rect" href="javascript:void(0);" title="iter(x)" alt="" coords="292,535,561,553"/>
+<area shape="rect" href="javascript:void(0);" title="stable sort *IN PLACE*; cmp(x, y) &#45;&gt; &#45;1, 0, 1" alt="" coords="292,572,561,591"/>
+<area shape="rect" href="javascript:void(0);" title="list() &#45;&gt; new empty list list(iterable) &#45;&gt; new list initialized from iterable&#39;s items" alt="" coords="291,272,563,592"/>
+</map>
+  <img src="uml_class_diagram_for_source_m_6.gif" alt='' usemap="#uml_class_diagram_for_source_m_6" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">new empty list</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="source.morph.morph.CircleMorph-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      x.__init__(...) initializes x; see x.__class__.__doc__ for signature</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.morph.morph-pysrc.html#CircleMorph.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="source.morph.morph.CircleMorph-class.html#rouse_feedback" class="summary-sig-name">rouse_feedback</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">direction</span>)</span><br />
+      Assert morph is focused.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.morph.morph-pysrc.html#CircleMorph.rouse_feedback">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="source.morph.morph.PrimitiveMorph-class.html">PrimitiveMorph</a></code></b>:
+      <code><a href="source.morph.morph.PrimitiveMorph-class.html#is_primitive">is_primitive</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="source.morph.morph.Morph-class.html">Morph</a></code></b>:
+      <code><a href="source.morph.morph.Morph-class.html#get_orthogonal">get_orthogonal</a></code>,
+      <code><a href="source.morph.morph.Morph-class.html#insert">insert</a></code>,
+      <code><a href="source.morph.morph.Morph-class.html#is_top">is_top</a></code>,
+      <code><a href="source.morph.morph.Morph-class.html#move_by_drag">move_by_drag</a></code>,
+      <code><a href="source.morph.morph.Morph-class.html#move_by_drag_handle">move_by_drag_handle</a></code>,
+      <code><a href="source.morph.morph.Morph-class.html#resize">resize</a></code>,
+      <code><a href="source.morph.morph.Morph-class.html#set_by_drag">set_by_drag</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>composite.Composite</code></b>:
+      <code>append</code>,
+      <code>draw</code>,
+      <code>get_parent</code>,
+      <code>highlight</code>,
+      <code>layout</code>,
+      <code>pick</code>,
+      <code>put_path_to</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>list</code></b>:
+      <code>__add__</code>,
+      <code>__contains__</code>,
+      <code>__delitem__</code>,
+      <code>__delslice__</code>,
+      <code>__eq__</code>,
+      <code>__ge__</code>,
+      <code>__getattribute__</code>,
+      <code>__getitem__</code>,
+      <code>__getslice__</code>,
+      <code>__gt__</code>,
+      <code>__iadd__</code>,
+      <code>__imul__</code>,
+      <code>__iter__</code>,
+      <code>__le__</code>,
+      <code>__len__</code>,
+      <code>__lt__</code>,
+      <code>__mul__</code>,
+      <code>__ne__</code>,
+      <code>__new__</code>,
+      <code>__repr__</code>,
+      <code>__reversed__</code>,
+      <code>__rmul__</code>,
+      <code>__setitem__</code>,
+      <code>__setslice__</code>,
+      <code>__sizeof__</code>,
+      <code>count</code>,
+      <code>extend</code>,
+      <code>index</code>,
+      <code>pop</code>,
+      <code>remove</code>,
+      <code>reverse</code>,
+      <code>sort</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>transformer.Transformer</code></b>:
+      <code>__getstate__</code>,
+      <code>__setstate__</code>,
+      <code>center_at</code>,
+      <code>derive_transform</code>,
+      <code>device_to_local</code>,
+      <code>move_absolute</code>,
+      <code>move_origin</code>,
+      <code>move_relative</code>,
+      <code>put_transform_to</code>,
+      <code>relative_scale</code>,
+      <code>rotate</code>,
+      <code>scale_uniformly</code>,
+      <code>set_dimensions</code>,
+      <code>set_origin</code>,
+      <code>set_transform</code>,
+      <code>set_translation</code>,
+      <code>zoom</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>drawable.Drawable</code></b>:
+      <code>dump</code>,
+      <code>get_drawn_origin</code>,
+      <code>get_stroke_bounds</code>,
+      <code>in_fill</code>,
+      <code>in_path</code>,
+      <code>in_stroke</code>,
+      <code>invalidate_as_drawn</code>,
+      <code>invalidate_will_draw</code>,
+      <code>is_in_control_area</code>,
+      <code>is_inbounds</code>,
+      <code>put_edge_to</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__setattr__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>list</code></b>:
+      <code>__hash__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="source.morph.morph-pysrc.html#CircleMorph.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>x.__init__(...) initializes x; see x.__class__.__doc__ for 
+  signature</p>
+  <dl class="fields">
+    <dt>Returns: new empty list</dt>
+    <dt>Overrides:
+        object.__init__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="rouse_feedback"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">rouse_feedback</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">direction</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="source.morph.morph-pysrc.html#CircleMorph.rouse_feedback">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+Assert morph is focused.
+Activate associated feedback.
+
+Feedback:
+  handles
+  bounding box
+ 
+Feedback is not a control: doesn't take events.
+Some feedback is pickable.
+Some morphs default to have no controls.
+
+If this composite has more than one component, 
+AND if this is the top level of a tree of composites,
+activate control: ghost of bounding box enclosing components.
+Note simple morphs are degenerate composites (one element) so do not get bounding boxes.
+
+</pre>
+  <dl class="fields">
+    <dt>Overrides:
+        composite.Composite.rouse_feedback
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:31 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

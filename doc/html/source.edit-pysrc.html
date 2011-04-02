@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>source.edit</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="source-module.html">Package&nbsp;source</a> ::
+        Module&nbsp;edit
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="source.edit-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="source.edit-module.html">Module source.edit</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-docstring">Copyright 2010, 2011 Lloyd Konneker</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-docstring">    This file is part of Pensool.</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-docstring">    Pensool is free software: you can redistribute it and/or modify</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-docstring">    it under the terms of the GNU General Public License as published by</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-docstring">    the Free Software Foundation, either version 3 of the License, or</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-docstring">    (at your option) any later version.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-string">Edit operations: cut, copy, paste.</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-string">Glue between app and clipboard.</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-string"></tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-string">Strategy is to pickle a morph, put the pickle on the clipboard.</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-string"></tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-string">!!! Important to break a morph's reference to parent, else whole model is pickled.</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-string">IOW, model tree is doubly linked, remove the rootward references.</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-string">Disown: parent breaks with child: remove parent's reference to child morph.</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt class="py-string">Emancipate: child breaks with parent: Remove child's reference to parent morph.</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-string">Adopt: refer parent to child</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Method source.base.bounds.Bounds.copy()=source.base.bounds.Bounds-class.html#copy,Function source.base.transform.copy()=source.base.transform-module.html#copy,Method source.base.vector.Vector.copy()=source.base.vector.Vector-class.html#copy,Method source.clipboard.Clipboard.copy()=source.clipboard.Clipboard-class.html#copy"><a title="source.base.bounds.Bounds.copy
+source.base.transform.copy
+source.base.vector.Vector.copy
+source.clipboard.Clipboard.copy" class="py-name" href="#" onclick="return doclink('link-0', 'copy', 'link-0');">copy</a></tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">pickle</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Module source.clipboard=source.clipboard-module.html,Variable source.clipboard.clipboard=source.clipboard-module.html#clipboard"><a title="source.clipboard
+source.clipboard.clipboard" class="py-name" href="#" onclick="return doclink('link-1', 'clipboard', 'link-1');">clipboard</a></tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-2" class="py-name" targets="Module source.decorators=source.decorators-module.html"><a title="source.decorators" class="py-name" href="#" onclick="return doclink('link-2', 'decorators', 'link-2');">decorators</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">logging</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line"><tt id="link-3" class="py-name" targets="Variable source.clipboard.my_logger=source.clipboard-module.html#my_logger,Variable source.edit.my_logger=source.edit-module.html#my_logger,Variable source.gui.itemhandlecoords.my_logger=source.gui.itemhandlecoords-module.html#my_logger,Variable source.gui.itemhandleline.my_logger=source.gui.itemhandleline-module.html#my_logger,Variable source.port.my_logger=source.port-module.html#my_logger"><a title="source.clipboard.my_logger
+source.edit.my_logger
+source.gui.itemhandlecoords.my_logger
+source.gui.itemhandleline.my_logger
+source.port.my_logger" class="py-name" href="#" onclick="return doclink('link-3', 'my_logger', 'link-3');">my_logger</a></tt> <tt class="py-op">=</tt> <tt class="py-name">logging</tt><tt class="py-op">.</tt><tt class="py-name">getLogger</tt><tt class="py-op">(</tt><tt class="py-string">'pensool'</tt><tt class="py-op">)</tt> </tt>
+<a name="do_cut"></a><div id="do_cut-def"><a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line"> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line"><tt class="py-decorator">@</tt><tt class="py-decorator">view_altering</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt> <a class="py-toggle" href="#" id="do_cut-toggle" onclick="return toggle('do_cut');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="source.edit-module.html#do_cut">do_cut</a><tt class="py-op">(</tt><tt class="py-param">operand</tt><tt class="py-op">,</tt> <tt class="py-param">event</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="do_cut-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="do_cut-expanded"><a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">  <tt class="py-docstring">'''</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"><tt class="py-docstring">  Cut from model to clipboard.</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line"><tt class="py-docstring">  Operand is the morph the user chose Cut upon.</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"><tt class="py-docstring">  Event is DCS coords.</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line"><tt class="py-docstring">  '''</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">  <tt class="py-name">parent</tt> <tt class="py-op">=</tt> <tt class="py-name">operand</tt><tt class="py-op">.</tt><tt class="py-name">parent</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">  <tt class="py-name">operand</tt><tt class="py-op">.</tt><tt class="py-name">parent</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> <tt class="py-comment"># Emancipate to prevent pickle from crawling uptree</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">   </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">  <tt id="link-4" class="py-name" targets="Function source.pensool.foo()=source.pensool-module.html#foo"><a title="source.pensool.foo" class="py-name" href="#" onclick="return doclink('link-4', 'foo', 'link-4');">foo</a></tt> <tt class="py-op">=</tt> <tt class="py-name">pickle</tt><tt class="py-op">.</tt><tt class="py-name">dumps</tt><tt class="py-op">(</tt><tt class="py-name">operand</tt><tt class="py-op">,</tt> <tt class="py-name">pickle</tt><tt class="py-op">.</tt><tt class="py-name">HIGHEST_PROTOCOL</tt><tt class="py-op">)</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">  <tt id="link-5" class="py-name"><a title="source.clipboard
+source.clipboard.clipboard" class="py-name" href="#" onclick="return doclink('link-5', 'clipboard', 'link-1');">clipboard</a></tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="source.clipboard
+source.clipboard.clipboard" class="py-name" href="#" onclick="return doclink('link-6', 'clipboard', 'link-1');">clipboard</a></tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Method source.clipboard.Clipboard.paste()=source.clipboard.Clipboard-class.html#paste"><a title="source.clipboard.Clipboard.paste" class="py-name" href="#" onclick="return doclink('link-7', 'paste', 'link-7');">paste</a></tt><tt class="py-op">(</tt><tt id="link-8" class="py-name"><a title="source.pensool.foo" class="py-name" href="#" onclick="return doclink('link-8', 'foo', 'link-4');">foo</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">   </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">  <tt class="py-keyword">if</tt> <tt class="py-name">parent</tt><tt class="py-op">:</tt>  <tt class="py-comment"># If not top i.e. cutting document</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">    <tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">remove</tt><tt class="py-op">(</tt><tt class="py-name">operand</tt><tt class="py-op">)</tt>  <tt class="py-comment"># Disown</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">  <tt class="py-keyword">else</tt><tt class="py-op">:</tt> <tt class="py-comment"># Is top, the document.  Empty the document morph.</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">    <tt class="py-keyword">del</tt> <tt class="py-name">operand</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">  <tt class="py-comment"># Referred-to cut objects will be garbage collected.</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">  <tt id="link-9" class="py-name"><a title="source.clipboard.my_logger
+source.edit.my_logger
+source.gui.itemhandlecoords.my_logger
+source.gui.itemhandleline.my_logger
+source.port.my_logger" class="py-name" href="#" onclick="return doclink('link-9', 'my_logger', 'link-3');">my_logger</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">"Cutted"</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line"> </tt>
+<a name="do_paste"></a><div id="do_paste-def"><a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line"> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line"><tt class="py-decorator">@</tt><tt class="py-decorator">view_altering</tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt> <a class="py-toggle" href="#" id="do_paste-toggle" onclick="return toggle('do_paste');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="source.edit-module.html#do_paste">do_paste</a><tt class="py-op">(</tt><tt class="py-param">operand</tt><tt class="py-op">,</tt> <tt class="py-param">event</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="do_paste-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="do_paste-expanded"><a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">  <tt class="py-docstring">'''</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line"><tt class="py-docstring">  From clipboard to model.</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line"><tt class="py-docstring">  Operand is a morph the paste op was chosen upon.</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"><tt class="py-docstring">  Event is DCS coords.</tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line"><tt class="py-docstring">  '''</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">  <tt id="link-10" class="py-name"><a title="source.pensool.foo" class="py-name" href="#" onclick="return doclink('link-10', 'foo', 'link-4');">foo</a></tt> <tt class="py-op">=</tt> <tt class="py-name">pickle</tt><tt class="py-op">.</tt><tt class="py-name">loads</tt><tt class="py-op">(</tt><tt id="link-11" class="py-name"><a title="source.clipboard
+source.clipboard.clipboard" class="py-name" href="#" onclick="return doclink('link-11', 'clipboard', 'link-1');">clipboard</a></tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="source.clipboard
+source.clipboard.clipboard" class="py-name" href="#" onclick="return doclink('link-12', 'clipboard', 'link-1');">clipboard</a></tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="source.base.bounds.Bounds.copy
+source.base.transform.copy
+source.base.vector.Vector.copy
+source.clipboard.Clipboard.copy" class="py-name" href="#" onclick="return doclink('link-13', 'copy', 'link-0');">copy</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt>  <tt class="py-comment"># Unpickle</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line">  </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">  <tt class="py-comment"># TODO refactor this to transformer.py</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line">  <tt class="py-comment"># Transform the pasted morph.</tt> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line">  <tt class="py-comment"># Get offset of event from operand group origin.</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">  <tt class="py-comment"># Translate pasted morph to that offset.</tt> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line">  <tt class="py-name">offset</tt> <tt class="py-op">=</tt> <tt class="py-name">operand</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Method source.transformer.Transformer.device_to_local()=source.transformer.Transformer-class.html#device_to_local"><a title="source.transformer.Transformer.device_to_local" class="py-name" href="#" onclick="return doclink('link-14', 'device_to_local', 'link-14');">device_to_local</a></tt><tt class="py-op">(</tt><tt class="py-name">event</tt><tt class="py-op">)</tt> </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line">  <tt id="link-15" class="py-name"><a title="source.pensool.foo" class="py-name" href="#" onclick="return doclink('link-15', 'foo', 'link-4');">foo</a></tt><tt class="py-op">.</tt><tt class="py-name">translation</tt> <tt class="py-op">=</tt> <tt class="py-name">offset</tt> </tt>
+<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line">  <tt class="py-comment"># Transforms on unpickled morphs are messed.  Derive them again.</tt> </tt>
+<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line">  <tt id="link-16" class="py-name"><a title="source.pensool.foo" class="py-name" href="#" onclick="return doclink('link-16', 'foo', 'link-4');">foo</a></tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Method source.transformer.Transformer.derive_transform()=source.transformer.Transformer-class.html#derive_transform"><a title="source.transformer.Transformer.derive_transform" class="py-name" href="#" onclick="return doclink('link-17', 'derive_transform', 'link-17');">derive_transform</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line">   </tt>
+<a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line">  <tt class="py-name">operand</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Method source.morph.morph.Morph.insert()=source.morph.morph.Morph-class.html#insert"><a title="source.morph.morph.Morph.insert" class="py-name" href="#" onclick="return doclink('link-18', 'insert', 'link-18');">insert</a></tt><tt class="py-op">(</tt><tt id="link-19" class="py-name"><a title="source.pensool.foo" class="py-name" href="#" onclick="return doclink('link-19', 'foo', 'link-4');">foo</a></tt><tt class="py-op">)</tt> <tt class="py-comment"># Adopt</tt> </tt>
+<a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line">  <tt id="link-20" class="py-name"><a title="source.clipboard.my_logger
+source.edit.my_logger
+source.gui.itemhandlecoords.my_logger
+source.gui.itemhandleline.my_logger
+source.port.my_logger" class="py-name" href="#" onclick="return doclink('link-20', 'my_logger', 'link-3');">my_logger</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">"Pasted"</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line"> </tt>
+<a name="do_copy"></a><div id="do_copy-def"><a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line"> </tt>
+<a name="L76"></a><tt class="py-lineno">76</tt>  <tt class="py-line"><tt class="py-comment"># copy does not alter the view</tt> </tt>
+<a name="L77"></a><tt class="py-lineno">77</tt> <a class="py-toggle" href="#" id="do_copy-toggle" onclick="return toggle('do_copy');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="source.edit-module.html#do_copy">do_copy</a><tt class="py-op">(</tt><tt class="py-param">morph</tt><tt class="py-op">,</tt> <tt class="py-param">event</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="do_copy-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="do_copy-expanded"><a name="L78"></a><tt class="py-lineno">78</tt>  <tt class="py-line">  <tt class="py-docstring">'''</tt> </tt>
+<a name="L79"></a><tt class="py-lineno">79</tt>  <tt class="py-line"><tt class="py-docstring">  From model to clipboard.</tt> </tt>
+<a name="L80"></a><tt class="py-lineno">80</tt>  <tt class="py-line"><tt class="py-docstring">  '''</tt> </tt>
+<a name="L81"></a><tt class="py-lineno">81</tt>  <tt class="py-line">  <tt class="py-comment"># Temporarily emancipate from model tree</tt> </tt>
+<a name="L82"></a><tt class="py-lineno">82</tt>  <tt class="py-line">  <tt class="py-name">saved_parent</tt> <tt class="py-op">=</tt> <tt id="link-21" class="py-name" targets="Package source.morph=source.morph-module.html,Module source.morph.morph=source.morph.morph-module.html"><a title="source.morph
+source.morph.morph" class="py-name" href="#" onclick="return doclink('link-21', 'morph', 'link-21');">morph</a></tt><tt class="py-op">.</tt><tt class="py-name">parent</tt> </tt>
+<a name="L83"></a><tt class="py-lineno">83</tt>  <tt class="py-line">  <tt id="link-22" class="py-name"><a title="source.morph
+source.morph.morph" class="py-name" href="#" onclick="return doclink('link-22', 'morph', 'link-21');">morph</a></tt><tt class="py-op">.</tt><tt class="py-name">parent</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L84"></a><tt class="py-lineno">84</tt>  <tt class="py-line">   </tt>
+<a name="L85"></a><tt class="py-lineno">85</tt>  <tt class="py-line">  <tt id="link-23" class="py-name"><a title="source.clipboard
+source.clipboard.clipboard" class="py-name" href="#" onclick="return doclink('link-23', 'clipboard', 'link-1');">clipboard</a></tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="source.clipboard
+source.clipboard.clipboard" class="py-name" href="#" onclick="return doclink('link-24', 'clipboard', 'link-1');">clipboard</a></tt><tt class="py-op">.</tt><tt id="link-25" class="py-name"><a title="source.clipboard.Clipboard.paste" class="py-name" href="#" onclick="return doclink('link-25', 'paste', 'link-7');">paste</a></tt><tt class="py-op">(</tt><tt class="py-name">pickle</tt><tt class="py-op">.</tt><tt class="py-name">dumps</tt><tt class="py-op">(</tt><tt id="link-26" class="py-name"><a title="source.morph
+source.morph.morph" class="py-name" href="#" onclick="return doclink('link-26', 'morph', 'link-21');">morph</a></tt><tt class="py-op">,</tt> <tt class="py-name">pickle</tt><tt class="py-op">.</tt><tt class="py-name">HIGHEST_PROTOCOL</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L86"></a><tt class="py-lineno">86</tt>  <tt class="py-line">   </tt>
+<a name="L87"></a><tt class="py-lineno">87</tt>  <tt class="py-line">  <tt id="link-27" class="py-name"><a title="source.morph
+source.morph.morph" class="py-name" href="#" onclick="return doclink('link-27', 'morph', 'link-21');">morph</a></tt><tt class="py-op">.</tt><tt class="py-name">parent</tt> <tt class="py-op">=</tt> <tt class="py-name">saved_parent</tt> <tt class="py-comment"># Reverse the emancipate</tt> </tt>
+<a name="L88"></a><tt class="py-lineno">88</tt>  <tt class="py-line">  <tt id="link-28" class="py-name"><a title="source.clipboard.my_logger
+source.edit.my_logger
+source.gui.itemhandlecoords.my_logger
+source.gui.itemhandleline.my_logger
+source.port.my_logger" class="py-name" href="#" onclick="return doclink('link-28', 'my_logger', 'link-3');">my_logger</a></tt><tt class="py-op">.</tt><tt class="py-name">debug</tt><tt class="py-op">(</tt><tt class="py-string">"Copied"</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L89"></a><tt class="py-lineno">89</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:33 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

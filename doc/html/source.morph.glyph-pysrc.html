@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>source.morph.glyph</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="source-module.html">Package&nbsp;source</a> ::
+        <a href="source.morph-module.html">Package&nbsp;morph</a> ::
+        Module&nbsp;glyph
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="source.morph.glyph-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="source.morph.glyph-module.html">Module source.morph.glyph</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-docstring">Copyright 2010, 2011 Lloyd Konneker</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-docstring">    This file is part of Pensool.</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-docstring">    Pensool is free software: you can redistribute it and/or modify</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-docstring">    it under the terms of the GNU General Public License as published by</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-docstring">    the Free Software Foundation, either version 3 of the License, or</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-docstring">    (at your option) any later version.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-docstring">Glyph: drawable primitives.</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-docstring">Note glyphs are not just text characters as in cairo.</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-docstring">However glyphs are primitives as in cairo.</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-docstring">See morph.py for discussion of strategy for instantiating.</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module source.drawable=source.drawable-module.html"><a title="source.drawable" class="py-name" href="#" onclick="return doclink('link-0', 'drawable', 'link-0');">drawable</a></tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">math</tt> <tt class="py-keyword">import</tt> <tt class="py-name">pi</tt> <tt class="py-keyword">as</tt> <tt class="py-name">PI</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Package source.base=source.base-module.html"><a title="source.base" class="py-name" href="#" onclick="return doclink('link-1', 'base', 'link-1');">base</a></tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Module source.base.orthogonal=source.base.orthogonal-module.html,Method source.base.vector.Vector.orthogonal()=source.base.vector.Vector-class.html#orthogonal"><a title="source.base.orthogonal
+source.base.vector.Vector.orthogonal" class="py-name" href="#" onclick="return doclink('link-2', 'orthogonal', 'link-2');">orthogonal</a></tt> <tt class="py-keyword">as</tt> <tt id="link-3" class="py-name"><a title="source.base.orthogonal
+source.base.vector.Vector.orthogonal" class="py-name" href="#" onclick="return doclink('link-3', 'orthogonal', 'link-2');">orthogonal</a></tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-4" class="py-name"><a title="source.base" class="py-name" href="#" onclick="return doclink('link-4', 'base', 'link-1');">base</a></tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Module source.base.vector=source.base.vector-module.html"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-5', 'vector', 'link-5');">vector</a></tt> <tt class="py-keyword">as</tt> <tt id="link-6" class="py-name"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-6', 'vector', 'link-5');">vector</a></tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-7" class="py-name" targets="Module source.decorators=source.decorators-module.html"><a title="source.decorators" class="py-name" href="#" onclick="return doclink('link-7', 'decorators', 'link-7');">decorators</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-8" class="py-name" targets="Module source.style=source.style-module.html"><a title="source.style" class="py-name" href="#" onclick="return doclink('link-8', 'style', 'link-8');">style</a></tt>  <tt class="py-comment"># set_line_width</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-9" class="py-name" targets="Module source.config=source.config-module.html"><a title="source.config" class="py-name" href="#" onclick="return doclink('link-9', 'config', 'link-9');">config</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="Glyph"></a><div id="Glyph-def"><a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-comment"># import traceback</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-comment"># traceback.print_stack()</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">     </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">     </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt> <a class="py-toggle" href="#" id="Glyph-toggle" onclick="return toggle('Glyph');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="source.morph.glyph.Glyph-class.html">Glyph</a><tt class="py-op">(</tt><tt class="py-base-class">drawable</tt><tt class="py-op">.</tt><tt class="py-base-class">Drawable</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Glyph-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Glyph-expanded"><a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">  <tt class="py-docstring">'''</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-docstring">  Symbols in the document or model.</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-docstring">  Subclasses of Glyph differ in path.</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-docstring">  </tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-docstring">  API: virtual methods to be implemented by subclass:</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-docstring">    put_path_to()</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-docstring">    get_orthogonal()</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-docstring">  </tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-docstring">  A Glyph is in user coordinate system.</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-docstring">  The primary difference from a drawable</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"><tt class="py-docstring">  is that a glyph does coordinate transformation at invalidate. ????</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-docstring">  </tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-docstring">  A Glyph is in "natural" coordinates, i.e. at the origin and unit dimensions.</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt class="py-docstring">  A Glyph is a Drawable, usually transformed, but not a Transformer.</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt class="py-docstring">  </tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"><tt class="py-docstring">  Prototype for get_orthogonal(self, point):</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt class="py-docstring">    Return some vector orthogonal to self at this point on self.</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt class="py-docstring">    Assert point is in DCS and is on self.</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"><tt class="py-docstring">    Returned orthogonal can be any length; only angle matters.</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-docstring">    Returned orthogonal is in DCS (angle is to screen aligned axis.)</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-docstring">  '''</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">  <tt class="py-comment"># __init__ inherited</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">   </tt>
+<a name="Glyph.__repr__"></a><div id="Glyph.__repr__-def"><a name="L53"></a><tt class="py-lineno"> 53</tt> <a class="py-toggle" href="#" id="Glyph.__repr__-toggle" onclick="return toggle('Glyph.__repr__');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.morph.glyph.Glyph-class.html#__repr__">__repr__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Glyph.__repr__-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Glyph.__repr__-expanded"><a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">    <tt class="py-comment">#  Simplfied reprt.  Omit this to get address of instance.</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">__class__</tt><tt class="py-op">.</tt><tt class="py-name">__name__</tt> </tt>
+</div><a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">   </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">   </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">  <tt class="py-comment"># @dump_return</tt> </tt>
+<a name="Glyph.pick"></a><div id="Glyph.pick-def"><a name="L59"></a><tt class="py-lineno"> 59</tt> <a class="py-toggle" href="#" id="Glyph.pick-toggle" onclick="return toggle('Glyph.pick');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.morph.glyph.Glyph-class.html#pick">pick</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">context</tt><tt class="py-op">,</tt> <tt class="py-param">point</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Glyph.pick-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Glyph.pick-expanded"><a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method source.composite.Composite.put_path_to()=source.composite.Composite-class.html#put_path_to,Method source.drawable.Drawable.put_path_to()=source.drawable.Drawable-class.html#put_path_to,Method source.gui.backgroundcontrol.BackgroundControl.put_path_to()=source.gui.backgroundcontrol.BackgroundControl-class.html#put_path_to,Method source.morph.glyph.CircleGlyph.put_path_to()=source.morph.glyph.CircleGlyph-class.html#put_path_to,Method source.morph.glyph.LineGlyph.put_path_to()=source.morph.glyph.LineGlyph-class.html#put_path_to,Method source.morph.glyph.PointGlyph.put_path_to()=source.morph.glyph.PointGlyph-class.html#put_path_to,Method source.morph.glyph.RectGlyph.put_path_to()=source.morph.glyph.RectGlyph-class.html#put_path_to,Method source.morph.textglyph.TextGlyph.put_path_to()=source.morph.textglyph.TextGlyph-class.html#put_path_to"><a title="source.composite.Composite.put_path_to
+source.drawable.Drawable.put_path_to
+source.gui.backgroundcontrol.BackgroundControl.put_path_to
+source.morph.glyph.CircleGlyph.put_path_to
+source.morph.glyph.LineGlyph.put_path_to
+source.morph.glyph.PointGlyph.put_path_to
+source.morph.glyph.RectGlyph.put_path_to
+source.morph.textglyph.TextGlyph.put_path_to" class="py-name" href="#" onclick="return doclink('link-10', 'put_path_to', 'link-10');">put_path_to</a></tt><tt class="py-op">(</tt><tt class="py-name">context</tt><tt class="py-op">)</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">    <tt class="py-comment"># Pick width is user preference or constant.</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">    <tt class="py-comment"># Does NOT depend on style of the object.  WAS self.parent.style.pen_width</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">    <tt id="link-11" class="py-name"><a title="source.style" class="py-name" href="#" onclick="return doclink('link-11', 'style', 'link-8');">style</a></tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Function source.style.set_line_width()=source.style-module.html#set_line_width"><a title="source.style.set_line_width" class="py-name" href="#" onclick="return doclink('link-12', 'set_line_width', 'link-12');">set_line_width</a></tt><tt class="py-op">(</tt><tt class="py-name">context</tt><tt class="py-op">,</tt> <tt id="link-13" class="py-name" targets="Variable source.config.PENSOOL_PICK_PEN_WIDTH=source.config-module.html#PENSOOL_PICK_PEN_WIDTH,Variable source.morph.glyph.PENSOOL_PICK_PEN_WIDTH=source.morph.glyph-module.html#PENSOOL_PICK_PEN_WIDTH"><a title="source.config.PENSOOL_PICK_PEN_WIDTH
+source.morph.glyph.PENSOOL_PICK_PEN_WIDTH" class="py-name" href="#" onclick="return doclink('link-13', 'PENSOOL_PICK_PEN_WIDTH', 'link-13');">PENSOOL_PICK_PEN_WIDTH</a></tt><tt class="py-op">)</tt>  <tt class="py-comment"># !!! After path</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">context</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Method source.drawable.Drawable.in_stroke()=source.drawable.Drawable-class.html#in_stroke"><a title="source.drawable.Drawable.in_stroke" class="py-name" href="#" onclick="return doclink('link-14', 'in_stroke', 'link-14');">in_stroke</a></tt><tt class="py-op">(</tt><tt class="py-op">*</tt><tt class="py-name">context</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Method source.port.ViewPort.device_to_user()=source.port.ViewPort-class.html#device_to_user"><a title="source.port.ViewPort.device_to_user" class="py-name" href="#" onclick="return doclink('link-15', 'device_to_user', 'link-15');">device_to_user</a></tt><tt class="py-op">(</tt><tt id="link-16" class="py-name" targets="Variable source.morph.morph.point=source.morph.morph-module.html#point"><a title="source.morph.morph.point" class="py-name" href="#" onclick="return doclink('link-16', 'point', 'link-16');">point</a></tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Variable source.gui.manager.pointer.Event.x=source.gui.manager.pointer.Event-class.html#x"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-17', 'x', 'link-17');">x</a></tt><tt class="py-op">,</tt> <tt id="link-18" class="py-name"><a title="source.morph.morph.point" class="py-name" href="#" onclick="return doclink('link-18', 'point', 'link-16');">point</a></tt><tt class="py-op">.</tt><tt id="link-19" class="py-name" targets="Variable source.gui.manager.pointer.Event.y=source.gui.manager.pointer.Event-class.html#y"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-19', 'y', 'link-19');">y</a></tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">      <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parent</tt>  <tt class="py-comment"># !!! Don't return a glyph, return glyph's parent morph</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">      <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+</div><a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">    <tt class="py-comment"># Assert a context.restore() soon follows.</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">     </tt>
+<a name="Glyph.cleanse"></a><div id="Glyph.cleanse-def"><a name="L70"></a><tt class="py-lineno"> 70</tt> <a class="py-toggle" href="#" id="Glyph.cleanse-toggle" onclick="return toggle('Glyph.cleanse');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.morph.glyph.Glyph-class.html#cleanse">cleanse</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Glyph.cleanse-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="Glyph.cleanse-expanded"><a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">    <tt class="py-comment"># No transforms to cleanse</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> </tt>
+</div></div><a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">   </tt>
+<a name="PointGlyph"></a><div id="PointGlyph-def"><a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt> <a class="py-toggle" href="#" id="PointGlyph-toggle" onclick="return toggle('PointGlyph');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="source.morph.glyph.PointGlyph-class.html">PointGlyph</a><tt class="py-op">(</tt><tt class="py-base-class">Glyph</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PointGlyph-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="PointGlyph-expanded"><a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">  <tt class="py-docstring">'''</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"><tt class="py-docstring">  Point: zero length line.  Appears as a single pen touch ( style of line cap.)</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"><tt class="py-docstring">  '''</tt> </tt>
+<a name="PointGlyph.put_path_to"></a><div id="PointGlyph.put_path_to-def"><a name="L79"></a><tt class="py-lineno"> 79</tt> <a class="py-toggle" href="#" id="PointGlyph.put_path_to-toggle" onclick="return toggle('PointGlyph.put_path_to');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.morph.glyph.PointGlyph-class.html#put_path_to">put_path_to</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">context</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PointGlyph.put_path_to-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="PointGlyph.put_path_to-expanded"><a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"><tt class="py-docstring">    See cairo.stroke().  Degenerate (zero length) segments draw as points for some line_cap values.</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">    <tt class="py-name">context</tt><tt class="py-op">.</tt><tt class="py-name">set_line_cap</tt><tt class="py-op">(</tt><tt id="link-20" class="py-name" targets="Variable source.config.PENSOOL_LINE_CAP_SQUARE=source.config-module.html#PENSOOL_LINE_CAP_SQUARE,Variable source.morph.glyph.PENSOOL_LINE_CAP_SQUARE=source.morph.glyph-module.html#PENSOOL_LINE_CAP_SQUARE"><a title="source.config.PENSOOL_LINE_CAP_SQUARE
+source.morph.glyph.PENSOOL_LINE_CAP_SQUARE" class="py-name" href="#" onclick="return doclink('link-20', 'PENSOOL_LINE_CAP_SQUARE', 'link-20');">PENSOOL_LINE_CAP_SQUARE</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">    <tt class="py-name">context</tt><tt class="py-op">.</tt><tt class="py-name">move_to</tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">    <tt class="py-string">'''</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"><tt class="py-string">    Getting a degenerate segment in cairo:</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"><tt class="py-string">    ??? line_to(0,0) should work, but doesn't.</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"><tt class="py-string">    ??? context.close_path() doesn't work either</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"><tt class="py-string">    '''</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">    <tt class="py-name">context</tt><tt class="py-op">.</tt><tt class="py-name">line_to</tt><tt class="py-op">(</tt><tt class="py-number">0.001</tt><tt class="py-op">,</tt> <tt class="py-number">0.001</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">     </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"> </tt>
+<a name="PointGlyph.get_orthogonal"></a><div id="PointGlyph.get_orthogonal-def"><a name="L93"></a><tt class="py-lineno"> 93</tt> <a class="py-toggle" href="#" id="PointGlyph.get_orthogonal-toggle" onclick="return toggle('PointGlyph.get_orthogonal');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.morph.glyph.PointGlyph-class.html#get_orthogonal">get_orthogonal</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">point</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="PointGlyph.get_orthogonal-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="PointGlyph.get_orthogonal-expanded"><a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line"><tt class="py-docstring">    Return orthogonal to point: arbitrary.</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-21" class="py-name"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-21', 'vector', 'link-5');">vector</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name" targets="Variable source.base.vector.UNIT_Y_AXIS=source.base.vector-module.html#UNIT_Y_AXIS"><a title="source.base.vector.UNIT_Y_AXIS" class="py-name" href="#" onclick="return doclink('link-22', 'UNIT_Y_AXIS', 'link-22');">UNIT_Y_AXIS</a></tt> </tt>
+</div></div><a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">     </tt>
+<a name="LineGlyph"></a><div id="LineGlyph-def"><a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt> <a class="py-toggle" href="#" id="LineGlyph-toggle" onclick="return toggle('LineGlyph');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="source.morph.glyph.LineGlyph-class.html">LineGlyph</a><tt class="py-op">(</tt><tt class="py-base-class">Glyph</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="LineGlyph-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="LineGlyph-expanded"><a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">  <tt class="py-docstring">'''</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line"><tt class="py-docstring">  Unit line along the x-axis.</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"><tt class="py-docstring">  '''</tt> </tt>
+<a name="LineGlyph.put_path_to"></a><div id="LineGlyph.put_path_to-def"><a name="L105"></a><tt class="py-lineno">105</tt> <a class="py-toggle" href="#" id="LineGlyph.put_path_to-toggle" onclick="return toggle('LineGlyph.put_path_to');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.morph.glyph.LineGlyph-class.html#put_path_to">put_path_to</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">context</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="LineGlyph.put_path_to-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="LineGlyph.put_path_to-expanded"><a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">    <tt class="py-name">context</tt><tt class="py-op">.</tt><tt class="py-name">move_to</tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">    <tt class="py-name">context</tt><tt class="py-op">.</tt><tt class="py-name">line_to</tt><tt class="py-op">(</tt><tt class="py-number">1.0</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">     </tt>
+<a name="LineGlyph.get_orthogonal"></a><div id="LineGlyph.get_orthogonal-def"><a name="L110"></a><tt class="py-lineno">110</tt> <a class="py-toggle" href="#" id="LineGlyph.get_orthogonal-toggle" onclick="return toggle('LineGlyph.get_orthogonal');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.morph.glyph.LineGlyph-class.html#get_orthogonal">get_orthogonal</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">point</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="LineGlyph.get_orthogonal-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="LineGlyph.get_orthogonal-expanded"><a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"><tt class="py-docstring">    Return unit orthogonal to drawn self at this point on self.</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"><tt class="py-docstring">    Assert point is in DCS and is on self.</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"><tt class="py-docstring">    Note drawn self means in the DCS.</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line"><tt class="py-docstring">    Note the orthogonal does NOT necessarily pass through the point.</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line"><tt class="py-docstring">    TODO return one of two directional orthogonal vectors,</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"><tt class="py-docstring">    the one that is in the direction of the mouse trail (not the point.)</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line"><tt class="py-docstring">    For a line, point is immaterial.</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line"><tt class="py-docstring">    The point is on (or near) the line and so some ortho to the line</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line"><tt class="py-docstring">    MUST hit the point (the point can't be on the extension</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line"><tt class="py-docstring">    of a finite line.)</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line"><tt class="py-docstring">    For a line, there are two orthogonals to a point.</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"><tt class="py-docstring">    This is a somewhat arbitray one for now.</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">    <tt id="link-23" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-23', 'x', 'link-17');">x</a></tt><tt class="py-op">,</tt> <tt id="link-24" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-24', 'y', 'link-19');">y</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">retained_transform</tt><tt class="py-op">.</tt><tt class="py-name">transform_point</tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">,</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">    <tt class="py-name">point1</tt> <tt class="py-op">=</tt> <tt id="link-25" class="py-name"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-25', 'vector', 'link-5');">vector</a></tt><tt class="py-op">.</tt><tt id="link-26" class="py-name" targets="Class source.base.vector.Vector=source.base.vector.Vector-class.html"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-26', 'Vector', 'link-26');">Vector</a></tt><tt class="py-op">(</tt><tt id="link-27" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-27', 'x', 'link-17');">x</a></tt><tt class="py-op">,</tt><tt id="link-28" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-28', 'y', 'link-19');">y</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">    <tt id="link-29" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-29', 'x', 'link-17');">x</a></tt><tt class="py-op">,</tt> <tt id="link-30" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-30', 'y', 'link-19');">y</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parent</tt><tt class="py-op">.</tt><tt class="py-name">retained_transform</tt><tt class="py-op">.</tt><tt class="py-name">transform_point</tt><tt class="py-op">(</tt><tt class="py-number">1.0</tt><tt class="py-op">,</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">    <tt class="py-name">point2</tt> <tt class="py-op">=</tt> <tt id="link-31" class="py-name"><a title="source.base.vector" class="py-name" href="#" onclick="return doclink('link-31', 'vector', 'link-5');">vector</a></tt><tt class="py-op">.</tt><tt id="link-32" class="py-name"><a title="source.base.vector.Vector" class="py-name" href="#" onclick="return doclink('link-32', 'Vector', 'link-26');">Vector</a></tt><tt class="py-op">(</tt><tt id="link-33" class="py-name"><a title="source.gui.manager.pointer.Event.x" class="py-name" href="#" onclick="return doclink('link-33', 'x', 'link-17');">x</a></tt><tt class="py-op">,</tt><tt id="link-34" class="py-name"><a title="source.gui.manager.pointer.Event.y" class="py-name" href="#" onclick="return doclink('link-34', 'y', 'link-19');">y</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-35" class="py-name"><a title="source.base.orthogonal
+source.base.vector.Vector.orthogonal" class="py-name" href="#" onclick="return doclink('link-35', 'orthogonal', 'link-2');">orthogonal</a></tt><tt class="py-op">.</tt><tt id="link-36" class="py-name" targets="Function source.base.orthogonal.line_orthogonal()=source.base.orthogonal-module.html#line_orthogonal"><a title="source.base.orthogonal.line_orthogonal" class="py-name" href="#" onclick="return doclink('link-36', 'line_orthogonal', 'link-36');">line_orthogonal</a></tt><tt class="py-op">(</tt><tt class="py-name">point1</tt><tt class="py-op">,</tt> <tt class="py-name">point2</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line"> </tt>
+<a name="RectGlyph"></a><div id="RectGlyph-def"><a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line"> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line"> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt> <a class="py-toggle" href="#" id="RectGlyph-toggle" onclick="return toggle('RectGlyph');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="source.morph.glyph.RectGlyph-class.html">RectGlyph</a><tt class="py-op">(</tt><tt class="py-base-class">Glyph</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RectGlyph-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="RectGlyph-expanded"><a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">   </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">  <tt class="py-comment"># @dump_event</tt> </tt>
+<a name="RectGlyph.put_path_to"></a><div id="RectGlyph.put_path_to-def"><a name="L138"></a><tt class="py-lineno">138</tt> <a class="py-toggle" href="#" id="RectGlyph.put_path_to-toggle" onclick="return toggle('RectGlyph.put_path_to');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.morph.glyph.RectGlyph-class.html#put_path_to">put_path_to</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">context</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RectGlyph.put_path_to-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="RectGlyph.put_path_to-expanded"><a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">    <tt class="py-name">context</tt><tt class="py-op">.</tt><tt class="py-name">rectangle</tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">,</tt><tt class="py-number">0</tt><tt class="py-op">,</tt><tt class="py-number">1.0</tt><tt class="py-op">,</tt><tt class="py-number">1.0</tt><tt class="py-op">)</tt>  <tt class="py-comment"># Unit rectangle at origin</tt> </tt>
+</div><a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line"> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">  </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">dump_return</tt> </tt>
+<a name="RectGlyph.get_orthogonal"></a><div id="RectGlyph.get_orthogonal-def"><a name="L143"></a><tt class="py-lineno">143</tt> <a class="py-toggle" href="#" id="RectGlyph.get_orthogonal-toggle" onclick="return toggle('RectGlyph.get_orthogonal');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.morph.glyph.RectGlyph-class.html#get_orthogonal">get_orthogonal</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">point</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="RectGlyph.get_orthogonal-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="RectGlyph.get_orthogonal-expanded"><a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">    <tt class="py-comment"># FIXME, should be the rotated glyph?</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-37" class="py-name"><a title="source.base.orthogonal
+source.base.vector.Vector.orthogonal" class="py-name" href="#" onclick="return doclink('link-37', 'orthogonal', 'link-2');">orthogonal</a></tt><tt class="py-op">.</tt><tt id="link-38" class="py-name" targets="Function source.base.orthogonal.rect_orthogonal()=source.base.orthogonal-module.html#rect_orthogonal"><a title="source.base.orthogonal.rect_orthogonal" class="py-name" href="#" onclick="return doclink('link-38', 'rect_orthogonal', 'link-38');">rect_orthogonal</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-39" class="py-name" targets="Module source.base.bounds=source.base.bounds-module.html"><a title="source.base.bounds" class="py-name" href="#" onclick="return doclink('link-39', 'bounds', 'link-39');">bounds</a></tt><tt class="py-op">,</tt> <tt id="link-40" class="py-name"><a title="source.morph.morph.point" class="py-name" href="#" onclick="return doclink('link-40', 'point', 'link-16');">point</a></tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">       </tt>
+<a name="CircleGlyph"></a><div id="CircleGlyph-def"><a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">     </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt> <a class="py-toggle" href="#" id="CircleGlyph-toggle" onclick="return toggle('CircleGlyph');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="source.morph.glyph.CircleGlyph-class.html">CircleGlyph</a><tt class="py-op">(</tt><tt class="py-base-class">Glyph</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="CircleGlyph-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="CircleGlyph-expanded"><a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">  <tt class="py-docstring">'''</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line"><tt class="py-docstring">  Unit circle.</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line"><tt class="py-docstring">  Unit diameter.</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line"><tt class="py-docstring">  Bounding box origin at 0,0</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line"><tt class="py-docstring">  '''</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">  <tt class="py-comment"># @dump_event</tt> </tt>
+<a name="CircleGlyph.put_path_to"></a><div id="CircleGlyph.put_path_to-def"><a name="L155"></a><tt class="py-lineno">155</tt> <a class="py-toggle" href="#" id="CircleGlyph.put_path_to-toggle" onclick="return toggle('CircleGlyph.put_path_to');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.morph.glyph.CircleGlyph-class.html#put_path_to">put_path_to</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">context</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="CircleGlyph.put_path_to-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="CircleGlyph.put_path_to-expanded"><a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">    <tt class="py-comment"># x, y, radius, ?, radians</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">    <tt class="py-comment">## context.arc(0, 0, 1.0, 0, 2.0*PI)</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">    <tt class="py-name">context</tt><tt class="py-op">.</tt><tt class="py-name">arc</tt><tt class="py-op">(</tt><tt class="py-number">0.5</tt><tt class="py-op">,</tt> <tt class="py-number">0.5</tt><tt class="py-op">,</tt> <tt class="py-number">0.5</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-number">2.0</tt><tt class="py-op">*</tt><tt class="py-name">PI</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line"> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">   </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">  <tt class="py-decorator">@</tt><tt class="py-decorator">dump_return</tt> </tt>
+<a name="CircleGlyph.get_orthogonal"></a><div id="CircleGlyph.get_orthogonal-def"><a name="L162"></a><tt class="py-lineno">162</tt> <a class="py-toggle" href="#" id="CircleGlyph.get_orthogonal-toggle" onclick="return toggle('CircleGlyph.get_orthogonal');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="source.morph.glyph.CircleGlyph-class.html#get_orthogonal">get_orthogonal</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">point</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="CircleGlyph.get_orthogonal-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="CircleGlyph.get_orthogonal-expanded"><a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">    <tt class="py-comment"># Working in DCS</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">    <tt class="py-comment"># Assert the center of the bounds is the same as the center of the circle.</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-41" class="py-name"><a title="source.base.orthogonal
+source.base.vector.Vector.orthogonal" class="py-name" href="#" onclick="return doclink('link-41', 'orthogonal', 'link-2');">orthogonal</a></tt><tt class="py-op">.</tt><tt id="link-42" class="py-name" targets="Function source.base.orthogonal.circle_orthogonal()=source.base.orthogonal-module.html#circle_orthogonal"><a title="source.base.orthogonal.circle_orthogonal" class="py-name" href="#" onclick="return doclink('link-42', 'circle_orthogonal', 'link-42');">circle_orthogonal</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-43" class="py-name"><a title="source.base.bounds" class="py-name" href="#" onclick="return doclink('link-43', 'bounds', 'link-39');">bounds</a></tt><tt class="py-op">.</tt><tt id="link-44" class="py-name" targets="Method source.base.bounds.Bounds.center_of()=source.base.bounds.Bounds-class.html#center_of"><a title="source.base.bounds.Bounds.center_of" class="py-name" href="#" onclick="return doclink('link-44', 'center_of', 'link-44');">center_of</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt>  <tt id="link-45" class="py-name"><a title="source.morph.morph.point" class="py-name" href="#" onclick="return doclink('link-45', 'point', 'link-16');">point</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">    <tt class="py-string">"""</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line"><tt class="py-string">    OLD</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"><tt class="py-string">    centerx, centery, radius = coordinates.circle_from_dimensions(self.bounds())</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line"><tt class="py-string">    vect_to_center = vector.Vector(centerx, centery)</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line"><tt class="py-string">    """</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">    <tt class="py-string">"""</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line"><tt class="py-string">    OLD</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line"><tt class="py-string">    center_DCS = self.bounds.center_of()</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line"><tt class="py-string">    vect_to_center = vector.Vector(center_DCS.x, center_DCS.y)</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line"><tt class="py-string">    # vector from center to point on circle</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line"><tt class="py-string">    vect_center_to_point = vector.Vector(point.x, point.y) - vect_to_center</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line"><tt class="py-string">    return vect_center_to_point.normal()</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line"><tt class="py-string">    """</tt> </tt>
+</div></div><a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:33 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

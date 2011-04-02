@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>source.gui.itemmenu.TextMenuItem</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="source-module.html">Package&nbsp;source</a> ::
+        <a href="source.gui-module.html">Package&nbsp;gui</a> ::
+        <a href="source.gui.itemmenu-module.html">Module&nbsp;itemmenu</a> ::
+        Class&nbsp;TextMenuItem
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="source.gui.itemmenu.TextMenuItem-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class TextMenuItem</h1><p class="nomargin-top"><span class="codelink"><a href="source.gui.itemmenu-pysrc.html#TextMenuItem">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_source_g_13" name="uml_class_diagram_for_source_g_13">
+<area shape="rect" href="source.gui.itemmenu.TextMenuItem-class.html#__init__" title="Has a command, could be NULL_COMMAND." alt="" coords="215,1735,388,1753"/>
+<area shape="rect" href="source.gui.itemmenu.TextMenuItem-class.html#__repr__" title="For debugging, represent self by my text." alt="" coords="215,1753,388,1772"/>
+<area shape="rect" href="source.gui.itemmenu.TextMenuItem-class.html" title="source.gui.itemmenu.TextMenuItem" alt="" coords="213,1709,389,1773"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.dump" alt="" coords="353,36,548,55"/>
+<area shape="rect" href="javascript:void(0);" title="Return device coords of origin where drawn." alt="" coords="353,55,548,73"/>
+<area shape="rect" href="javascript:void(0);" title="Compute bounding rect in DCS of path in context as inked." alt="" coords="353,73,548,92"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_fill" alt="" coords="353,92,548,111"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_path" alt="" coords="353,111,548,129"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_stroke" alt="" coords="353,129,548,148"/>
+<area shape="rect" href="javascript:void(0);" title="Invalidate as previously drawn." alt="" coords="353,148,548,167"/>
+<area shape="rect" href="javascript:void(0);" title="Invalidate as will be drawn (hasn&#39;t been drawn yet.) This walks a branch of model to determine bounds." alt="" coords="353,167,548,185"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.is_inbounds" alt="" coords="353,185,548,204"/>
+<area shape="rect" href="javascript:void(0);" title="Put my boundary in the context." alt="" coords="353,204,548,223"/>
+<area shape="rect" href="javascript:void(0);" title="Things that can be drawn (morphs, glyphs, and controls)." alt="" coords="352,11,549,224"/>
+<area shape="rect" href="javascript:void(0);" title="Return state values to be pickled." alt="" coords="340,285,561,304"/>
+<area shape="rect" href="javascript:void(0);" title="Restore state from the unpickled state values." alt="" coords="340,304,561,323"/>
+<area shape="rect" href="javascript:void(0);" title="??? This only works for controls, where the scale is equivalent to pixels &#160;in DCS." alt="" coords="340,323,561,341"/>
+<area shape="rect" href="javascript:void(0);" title="Set my transform from my drawing specs." alt="" coords="340,341,561,360"/>
+<area shape="rect" href="javascript:void(0);" title="Get local coordinates (group GCS) of DCS point." alt="" coords="340,360,561,379"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.move_absolute" alt="" coords="340,379,561,397"/>
+<area shape="rect" href="javascript:void(0);" title="Move origin but keep other points fixed." alt="" coords="340,397,561,416"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.move_relative" alt="" coords="340,416,561,435"/>
+<area shape="rect" href="javascript:void(0);" title="Apply my transform to the current transform in the context." alt="" coords="340,435,561,453"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.relative_scale" alt="" coords="340,453,561,472"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.rotate" alt="" coords="340,472,561,491"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.scale_uniformly" alt="" coords="340,491,561,509"/>
+<area shape="rect" href="javascript:void(0);" title="Set the translation and scale (not rotation) of an object." alt="" coords="340,509,561,528"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.zoom" alt="" coords="340,547,561,565"/>
+<area shape="rect" href="javascript:void(0);" title="A transformer (of coordinate systems)" alt="" coords="339,260,563,567"/>
+<area shape="rect" href="source.gui.itemmenu.MenuItem-class.html#button_release_left" title="source.gui.itemmenu.MenuItem.button_release_left" alt="" coords="191,1585,412,1604"/>
+<area shape="rect" href="source.gui.itemmenu.MenuItem-class.html#button_release_right" title="RMB Release: execute, close menu" alt="" coords="191,1604,412,1623"/>
+<area shape="rect" href="source.gui.itemmenu.MenuItem-class.html#start_drag" title="Filtered event from GuiControl." alt="" coords="191,1623,412,1641"/>
+<area shape="rect" href="source.gui.itemmenu.MenuItem-class.html#mouse_exit" title="Handler for filtered mouse_exit event from control." alt="" coords="191,1641,412,1660"/>
+<area shape="rect" href="source.gui.itemmenu.MenuItem-class.html#mouse_move" title="Pass because classic menu items do not move i.e." alt="" coords="191,1660,412,1679"/>
+<area shape="rect" href="source.gui.itemmenu.MenuItem-class.html" title="A classic menu item control: &#45;appears anywhere (locatable) &#45;fixed location after appears &#45;not necessarily dissappear on mouse_exit (only on menu close)" alt="" coords="189,1560,413,1680"/>
+<area shape="rect" href="javascript:void(0);" title="override list.append to keep parent of each list element That is, hierachal model tree is digraph with bidirectional links." alt="" coords="201,628,401,647"/>
+<area shape="rect" href="javascript:void(0);" title="Draw self using context." alt="" coords="201,647,401,665"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.get_parent" alt="" coords="201,665,401,684"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.highlight" alt="" coords="201,684,401,703"/>
+<area shape="rect" href="javascript:void(0);" title="Layout members." alt="" coords="201,703,401,721"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.pick" alt="" coords="201,721,401,740"/>
+<area shape="rect" href="javascript:void(0);" title="Put path into context." alt="" coords="201,740,401,759"/>
+<area shape="rect" href="javascript:void(0);" title="A container of Transformer:Drawables." alt="" coords="200,603,403,760"/>
+<area shape="rect" href="javascript:void(0);" title="Return a unit vector orthogonal to self at point." alt="" coords="172,815,431,833"/>
+<area shape="rect" href="javascript:void(0);" title="insert object before index" alt="" coords="172,833,431,852"/>
+<area shape="rect" href="javascript:void(0);" title="Morph that is the root of the modeling tree." alt="" coords="172,852,431,871"/>
+<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.move_by_drag" alt="" coords="172,871,431,889"/>
+<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.move_by_drag_handle" alt="" coords="172,889,431,908"/>
+<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.resize" alt="" coords="172,908,431,927"/>
+<area shape="rect" href="javascript:void(0);" title="Assert morph is focused." alt="" coords="172,927,431,945"/>
+<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.set_by_drag" alt="" coords="172,945,431,964"/>
+<area shape="rect" href="javascript:void(0);" title="A Morph is a Composite with associated controls." alt="" coords="171,789,432,965"/>
+<area shape="rect" href="javascript:void(0);" title="This control is active on given controlee." alt="" coords="163,1095,440,1113"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.button_press_event_cb" alt="" coords="163,1113,440,1132"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.button_press_left" alt="" coords="163,1132,440,1151"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.button_press_right" alt="" coords="163,1151,440,1169"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.button_release_event_cb" alt="" coords="163,1169,440,1188"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.continue_drag" alt="" coords="163,1188,440,1207"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.control_key_release" alt="" coords="163,1207,440,1225"/>
+<area shape="rect" href="javascript:void(0);" title="Override if any special deactivation." alt="" coords="163,1225,440,1244"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.drop" alt="" coords="163,1244,440,1263"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.focus_in_event_cb" alt="" coords="163,1263,440,1281"/>
+<area shape="rect" href="javascript:void(0);" title="Is the event in the hot area? For some controls the hot area is not same as the bounding box." alt="" coords="163,1281,440,1300"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.key_release_event_cb" alt="" coords="163,1300,440,1319"/>
+<area shape="rect" href="javascript:void(0);" title="Fundamental mouse interaction with controls: &#160;&#160;Exit if not mouse still inside." alt="" coords="163,1319,440,1337"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.take_focus" alt="" coords="163,1356,440,1375"/>
+<area shape="rect" href="javascript:void(0);" title="Base class for GUI controls i.e." alt="" coords="161,1069,441,1376"/>
+<area shape="rect" href="javascript:void(0);" title="Close my manager and relinquish control." alt="" coords="199,1431,404,1449"/>
+<area shape="rect" href="javascript:void(0);" title="gui.itemcontrol.ItemControl.set_group_manager" alt="" coords="199,1449,404,1468"/>
+<area shape="rect" href="javascript:void(0);" title="A control that is part of a group (an item in a group.) Usually a menu item." alt="" coords="197,1405,405,1469"/>
+<area shape="rect" href="javascript:void(0);" title="hash(x)" alt="" coords="17,271,287,289"/>
+<area shape="rect" href="javascript:void(0);" title="x+y" alt="" coords="17,292,287,311"/>
+<area shape="rect" href="javascript:void(0);" title="y in x" alt="" coords="17,311,287,329"/>
+<area shape="rect" href="javascript:void(0);" title="del x[y]" alt="" coords="17,329,287,348"/>
+<area shape="rect" href="javascript:void(0);" title="del x[i:j]" alt="" coords="17,348,287,367"/>
+<area shape="rect" href="javascript:void(0);" title="x==y" alt="" coords="17,367,287,385"/>
+<area shape="rect" href="javascript:void(0);" title="x&gt;=y" alt="" coords="17,385,287,404"/>
+<area shape="rect" href="javascript:void(0);" title="x.__getattribute__(&#39;name&#39;) &lt;==&gt; x.name" alt="" coords="17,404,287,423"/>
+<area shape="rect" href="javascript:void(0);" title="x[y]" alt="" coords="17,423,287,441"/>
+<area shape="rect" href="javascript:void(0);" title="x[i:j]" alt="" coords="17,441,287,460"/>
+<area shape="rect" href="javascript:void(0);" title="x&gt;y" alt="" coords="17,460,287,479"/>
+<area shape="rect" href="javascript:void(0);" title="x+=y" alt="" coords="17,479,287,497"/>
+<area shape="rect" href="javascript:void(0);" title="x*=y" alt="" coords="17,497,287,516"/>
+<area shape="rect" href="javascript:void(0);" title="iter(x)" alt="" coords="17,516,287,535"/>
+<area shape="rect" href="javascript:void(0);" title="stable sort *IN PLACE*; cmp(x, y) &#45;&gt; &#45;1, 0, 1" alt="" coords="17,553,287,572"/>
+<area shape="rect" href="javascript:void(0);" title="list() &#45;&gt; new empty list list(iterable) &#45;&gt; new list initialized from iterable&#39;s items" alt="" coords="16,253,288,573"/>
+<area shape="rect" href="javascript:void(0);" title="An item that executes a command." alt="" coords="192,1499,411,1531"/>
+<area shape="rect" href="javascript:void(0);" title="Morph that is not class PrimitiveMorph is not primitive." alt="" coords="219,1020,384,1039"/>
+<area shape="rect" href="javascript:void(0);" title="A PrimitiveMorph is a Composite of only Glyphs." alt="" coords="217,995,385,1040"/>
+</map>
+  <img src="uml_class_diagram_for_source_g_13.gif" alt='' usemap="#uml_class_diagram_for_source_g_13" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">new empty list</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="source.gui.itemmenu.TextMenuItem-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">text</span>,
+        <span class="summary-sig-arg">command</span>)</span><br />
+      Has a command, could be NULL_COMMAND.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.itemmenu-pysrc.html#TextMenuItem.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="source.gui.itemmenu.TextMenuItem-class.html#__repr__" class="summary-sig-name">__repr__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      For debugging, represent self by my text.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="source.gui.itemmenu-pysrc.html#TextMenuItem.__repr__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="source.gui.itemmenu.MenuItem-class.html">MenuItem</a></code></b>:
+      <code><a href="source.gui.itemmenu.MenuItem-class.html#button_release_left">button_release_left</a></code>,
+      <code><a href="source.gui.itemmenu.MenuItem-class.html#button_release_right">button_release_right</a></code>,
+      <code><a href="source.gui.itemmenu.MenuItem-class.html#mouse_exit">mouse_exit</a></code>,
+      <code><a href="source.gui.itemmenu.MenuItem-class.html#mouse_move">mouse_move</a></code>,
+      <code><a href="source.gui.itemmenu.MenuItem-class.html#start_drag">start_drag</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>gui.itemcontrol.ItemControl</code></b>:
+      <code>close_manager</code>,
+      <code>set_group_manager</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>gui.control.GuiControl</code></b>:
+      <code>activate</code>,
+      <code>button_press_event_cb</code>,
+      <code>button_press_left</code>,
+      <code>button_press_right</code>,
+      <code>button_release_event_cb</code>,
+      <code>continue_drag</code>,
+      <code>control_key_release</code>,
+      <code>deactivate</code>,
+      <code>drop</code>,
+      <code>focus_in_event_cb</code>,
+      <code>is_in_control_area</code>,
+      <code>key_release_event_cb</code>,
+      <code>motion_notify_event_cb</code>,
+      <code>scroll_down</code>,
+      <code>scroll_event_cb</code>,
+      <code>scroll_up</code>,
+      <code>take_focus</code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>gui.control.GuiControl</code></b> (private):
+      <code>_dispatch_button_release</code>,
+      <code>_reset_state</code>
+      </p></div>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>morph.morph.PrimitiveMorph</code></b>:
+      <code>is_primitive</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>morph.morph.Morph</code></b>:
+      <code>get_orthogonal</code>,
+      <code>insert</code>,
+      <code>is_top</code>,
+      <code>move_by_drag</code>,
+      <code>move_by_drag_handle</code>,
+      <code>resize</code>,
+      <code>rouse_feedback</code>,
+      <code>set_by_drag</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>composite.Composite</code></b>:
+      <code>append</code>,
+      <code>draw</code>,
+      <code>get_parent</code>,
+      <code>highlight</code>,
+      <code>layout</code>,
+      <code>pick</code>,
+      <code>put_path_to</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>list</code></b>:
+      <code>__add__</code>,
+      <code>__contains__</code>,
+      <code>__delitem__</code>,
+      <code>__delslice__</code>,
+      <code>__eq__</code>,
+      <code>__ge__</code>,
+      <code>__getattribute__</code>,
+      <code>__getitem__</code>,
+      <code>__getslice__</code>,
+      <code>__gt__</code>,
+      <code>__iadd__</code>,
+      <code>__imul__</code>,
+      <code>__iter__</code>,
+      <code>__le__</code>,
+      <code>__len__</code>,
+      <code>__lt__</code>,
+      <code>__mul__</code>,
+      <code>__ne__</code>,
+      <code>__new__</code>,
+      <code>__reversed__</code>,
+      <code>__rmul__</code>,
+      <code>__setitem__</code>,
+      <code>__setslice__</code>,
+      <code>__sizeof__</code>,
+      <code>count</code>,
+      <code>extend</code>,
+      <code>index</code>,
+      <code>pop</code>,
+      <code>remove</code>,
+      <code>reverse</code>,
+      <code>sort</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>transformer.Transformer</code></b>:
+      <code>__getstate__</code>,
+      <code>__setstate__</code>,
+      <code>center_at</code>,
+      <code>derive_transform</code>,
+      <code>device_to_local</code>,
+      <code>move_absolute</code>,
+      <code>move_origin</code>,
+      <code>move_relative</code>,
+      <code>put_transform_to</code>,
+      <code>relative_scale</code>,
+      <code>rotate</code>,
+      <code>scale_uniformly</code>,
+      <code>set_dimensions</code>,
+      <code>set_origin</code>,
+      <code>set_transform</code>,
+      <code>set_translation</code>,
+      <code>zoom</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>drawable.Drawable</code></b>:
+      <code>dump</code>,
+      <code>get_drawn_origin</code>,
+      <code>get_stroke_bounds</code>,
+      <code>in_fill</code>,
+      <code>in_path</code>,
+      <code>in_stroke</code>,
+      <code>invalidate_as_drawn</code>,
+      <code>invalidate_will_draw</code>,
+      <code>is_inbounds</code>,
+      <code>put_edge_to</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__setattr__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>list</code></b>:
+      <code>__hash__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">text</span>,
+        <span class="sig-arg">command</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="source.gui.itemmenu-pysrc.html#TextMenuItem.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Has a command, could be NULL_COMMAND.</p>
+  <p>After the command is executed, usually the parent menu (item group) is
+  finished, but the higher menu may remain (if a cascading menu) or be 
+  restarted.</p>
+  <dl class="fields">
+    <dt>Returns: new empty list</dt>
+    <dt>Overrides:
+        object.__init__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__repr__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__repr__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Representation operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="source.gui.itemmenu-pysrc.html#TextMenuItem.__repr__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>For debugging, represent self by my text.</p>
+  <dl class="fields">
+    <dt>Overrides:
+        object.__repr__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="source-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:29 2011
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

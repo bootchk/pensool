@@ -1,0 +1,46 @@
+README for the Pensool application
+==================================
+
+Installation
+------------
+
+No installation required.  Execute pensool.py.
+
+Dependencies
+------------
+
+Requires Python.  Usually a Python distribution includes pyGTK and pycairo, also required.
+
+Documentation
+-------------
+
+The directory 'doc' includes a user's manual in HTML and a 'html' directory which documents the source code.
+
+For Programmers
+---------------
+
+Pensool is pure python (no C extensions, yet.)
+
+To generate the source code documentation.
+++++++++++++++++++++++++++++++++++++++++++
+
+Install the tools epydoc and graphviz (the 'dot' program). Then:
+
+cd pensool
+epydoc --graph all source/ --o doc/html
+
+Note that the source directory is a package (has an empty __init__.py)
+
+To run functional test
+++++++++++++++++++++++
+
+Install the tools texttest and pyusecase.
+Follow the instructions in test/foo
+
+Then run texttest.  Choose the top level test suite.  Choose 'Run'.
+
+
+
+
+
+
