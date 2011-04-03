@@ -1,22 +1,22 @@
 '''
-Copyright 2010, 2011 Lloyd Konneker
+Most Pensool decorators for debug, transform, invalidate.  See also picking.
 
-    This file is part of Pensool.
-
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-'''
-
-'''
-decorators:
-
-Generically: functions that modify other functions i.e. metaprogramming.
-Also similar to macros.
+Generically: functions that modify other functions i.e. metaprogramming.  Like macros.
 
 Specifically, modify function calls with pre- and post- operations.
 '''
+
+'''
+Copyright 2010, 2011 Lloyd Konneker
+
+This file is part of Pensool.
+
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+'''
+
 import inspect  # for indent by stack depth
 
 

@@ -60,59 +60,55 @@
 <h1 class="epydoc">Class Glyph</h1><p class="nomargin-top"><span class="codelink"><a href="source.morph.glyph-pysrc.html#Glyph">source&nbsp;code</a></span></p>
 <center>
 <center>  <map id="uml_class_diagram_for_source_m_2" name="uml_class_diagram_for_source_m_2">
-<area shape="rect" href="source.morph.glyph.Glyph-class.html#__repr__" title="repr(x)" alt="" coords="240,372,384,391"/>
-<area shape="rect" href="source.morph.glyph.Glyph-class.html#pick" title="source.morph.glyph.Glyph.pick" alt="" coords="240,391,384,409"/>
-<area shape="rect" href="source.morph.glyph.Glyph-class.html#cleanse" title="source.morph.glyph.Glyph.cleanse" alt="" coords="240,409,384,428"/>
-<area shape="rect" href="source.morph.glyph.Glyph-class.html" title="Symbols in the document or model." alt="" coords="239,347,385,429"/>
-<area shape="rect" href="source.morph.glyph.CircleGlyph-class.html" title="Unit circle." alt="" coords="16,459,96,485"/>
-<area shape="rect" href="source.morph.glyph.PointGlyph-class.html" title="Point: zero length line." alt="" coords="147,459,224,485"/>
-<area shape="rect" href="source.morph.glyph.RectGlyph-class.html" title="source.morph.glyph.RectGlyph" alt="" coords="275,459,349,485"/>
-<area shape="rect" href="source.morph.textglyph.TextGlyph-class.html" title="A text glyph does layout to fit in its parent morph." alt="" coords="400,459,528,485"/>
+<area shape="rect" href="source.morph.glyph.Glyph-class.html#__repr__" title="repr(x)" alt="" coords="288,372,432,391"/>
+<area shape="rect" href="source.morph.glyph.Glyph-class.html#pick" title="source.morph.glyph.Glyph.pick" alt="" coords="288,391,432,409"/>
+<area shape="rect" href="source.morph.glyph.Glyph-class.html#cleanse" title="source.morph.glyph.Glyph.cleanse" alt="" coords="288,409,432,428"/>
+<area shape="rect" href="source.morph.glyph.Glyph-class.html" title="Symbols in the document or model. Subclasses of Glyph differ in path." alt="" coords="287,347,433,429"/>
+<area shape="rect" href="source.morph.textglyph.TextGlyph-class.html" title="A text glyph does layout to fit in its parent morph." alt="" coords="16,459,144,485"/>
+<area shape="rect" href="source.morph.glyph.PointGlyph-class.html" title="Point: zero length line. Appears as a single pen touch ( style of line cap.)" alt="" coords="195,459,272,485"/>
+<area shape="rect" href="source.morph.glyph.RectGlyph-class.html" title="Unit rect along positive x and y axis." alt="" coords="323,459,397,485"/>
+<area shape="rect" href="source.morph.glyph.CircleGlyph-class.html" title="Unit circle. Unit diameter. Center at 0,0." alt="" coords="448,459,528,485"/>
 <area shape="rect" href="source.morph.glyph.LineGlyph-class.html" title="Unit line along the x&#45;axis." alt="" coords="579,459,651,485"/>
-<area shape="rect" href="javascript:void(0);" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="215,36,409,55"/>
-<area shape="rect" href="javascript:void(0);" title="Draw self using context." alt="" coords="215,55,409,73"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.dump" alt="" coords="215,73,409,92"/>
-<area shape="rect" href="javascript:void(0);" title="Return device coords of origin where drawn." alt="" coords="215,92,409,111"/>
-<area shape="rect" href="javascript:void(0);" title="Return an orthogonal unit vector at given point on boundary." alt="" coords="215,111,409,129"/>
-<area shape="rect" href="javascript:void(0);" title="Compute bounding rect in DCS of path in context as inked." alt="" coords="215,129,409,148"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_fill" alt="" coords="215,148,409,167"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_path" alt="" coords="215,167,409,185"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_stroke" alt="" coords="215,185,409,204"/>
-<area shape="rect" href="javascript:void(0);" title="Invalidate as previously drawn." alt="" coords="215,204,409,223"/>
-<area shape="rect" href="javascript:void(0);" title="Invalidate as will be drawn (hasn&#39;t been drawn yet.) This walks a branch of model to determine bounds." alt="" coords="215,223,409,241"/>
-<area shape="rect" href="javascript:void(0);" title="Is the event in the hot area." alt="" coords="215,241,409,260"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.is_inbounds" alt="" coords="215,260,409,279"/>
-<area shape="rect" href="javascript:void(0);" title="Put my boundary in the context." alt="" coords="215,279,409,297"/>
-<area shape="rect" href="javascript:void(0);" title="Put path into context." alt="" coords="215,297,409,316"/>
-<area shape="rect" href="javascript:void(0);" title="Things that can be drawn (morphs, glyphs, and controls)." alt="" coords="213,11,411,317"/>
+<area shape="rect" href="javascript:void(0);" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="263,36,457,55"/>
+<area shape="rect" href="javascript:void(0);" title="Draw self using context. Return bounds in DCS for later use to invalidate." alt="" coords="263,55,457,73"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.dump" alt="" coords="263,73,457,92"/>
+<area shape="rect" href="javascript:void(0);" title="Return device coords of origin where drawn." alt="" coords="263,92,457,111"/>
+<area shape="rect" href="javascript:void(0);" title="Return an orthogonal unit vector at given point on boundary. Virtual: each subclass knows its orthogonal." alt="" coords="263,111,457,129"/>
+<area shape="rect" href="javascript:void(0);" title="Compute bounding rect in DCS of path in context as inked. !!! Note not recursive, takes path from context." alt="" coords="263,129,457,148"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_fill" alt="" coords="263,148,457,167"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_path" alt="" coords="263,167,457,185"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_stroke" alt="" coords="263,185,457,204"/>
+<area shape="rect" href="javascript:void(0);" title="Invalidate as previously drawn. Caching drawn bounds is an optimization; alternative is to walk model branch. This is for composite and primitive drawables: every drawable has bounds." alt="" coords="263,204,457,223"/>
+<area shape="rect" href="javascript:void(0);" title="Invalidate as will be drawn (hasn&#39;t been drawn yet.) This walks a branch of model to determine bounds." alt="" coords="263,223,457,241"/>
+<area shape="rect" href="javascript:void(0);" title="Is the event in the hot area. Usually only for control subclass of drawable." alt="" coords="263,241,457,260"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.is_inbounds" alt="" coords="263,260,457,279"/>
+<area shape="rect" href="javascript:void(0);" title="Put my boundary in the context. For most drawables (e.g. circle), the path is the boundary. If NOT path is boundary, override. &#160;E.G. text has a frame. Edge is used for hit detection." alt="" coords="263,279,457,297"/>
+<area shape="rect" href="javascript:void(0);" title="Put path into context. Virtual: each subclass knows its shape." alt="" coords="263,297,457,316"/>
+<area shape="rect" href="javascript:void(0);" title="Things that can be drawn (morphs, glyphs, and controls)." alt="" coords="261,11,459,317"/>
 </map>
   <img src="uml_class_diagram_for_source_m_2.gif" alt='' usemap="#uml_class_diagram_for_source_m_2" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
-<pre class="literalblock">
-
-Symbols in the document or model.
-Subclasses of Glyph differ in path.
-
-API: virtual methods to be implemented by subclass:
-  put_path_to()
-  get_orthogonal()
-
-A Glyph is in user coordinate system.
+<p>Symbols in the document or model.
+Subclasses of Glyph differ in path.</p>
+<dl class="rst-docutils">
+<dt>API: virtual methods to be implemented by subclass:</dt>
+<dd>put_path_to()
+get_orthogonal()</dd>
+</dl>
+<p>A Glyph is in user coordinate system.
 The primary difference from a drawable
-is that a glyph does coordinate transformation at invalidate. ????
-
-A Glyph is in &quot;natural&quot; coordinates, i.e. at the origin and unit dimensions.
-A Glyph is a Drawable, usually transformed, but not a Transformer.
-
-Prototype for get_orthogonal(self, point):
-  Return some vector orthogonal to self at this point on self.
-  Assert point is in DCS and is on self.
-  Returned orthogonal can be any length; only angle matters.
-  Returned orthogonal is in DCS (angle is to screen aligned axis.)
-
-</pre>
+is that a glyph does coordinate transformation at invalidate. ????</p>
+<p>A Glyph is in &quot;natural&quot; coordinates, i.e. at the origin and unit dimensions.
+A Glyph is a Drawable, usually transformed, but not a Transformer.</p>
+<dl class="rst-docutils">
+<dt>Prototype for get_orthogonal(self, point):</dt>
+<dd>Return some vector orthogonal to self at this point on self.
+Assert point is in DCS and is on self.
+Returned orthogonal can be any length; only angle matters.
+Returned orthogonal is in DCS (angle is to screen aligned axis.)</dd>
+</dl>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -275,7 +271,7 @@ Prototype for get_orthogonal(self, point):
     </td>
   </tr></table>
   
-  <p>repr(x)</p>
+  repr(x)
   <dl class="fields">
     <dt>Overrides:
         object.__repr__
@@ -311,7 +307,7 @@ Prototype for get_orthogonal(self, point):
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:31 2011
+    Generated by Epydoc 3.0.1 on Sun Apr  3 10:43:13 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

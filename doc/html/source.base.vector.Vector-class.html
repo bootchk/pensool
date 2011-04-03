@@ -73,7 +73,7 @@
 <area shape="rect" href="source.base.vector.Vector-class.html#__setitem__" title="source.base.vector.Vector.__setitem__" alt="" coords="17,223,188,241"/>
 <area shape="rect" href="source.base.vector.Vector-class.html#__str__" title="str(x)" alt="" coords="17,241,188,260"/>
 <area shape="rect" href="source.base.vector.Vector-class.html#__repr__" title="repr(x)" alt="" coords="17,260,188,279"/>
-<area shape="rect" href="source.base.vector.Vector-class.html#scalar_projection" title="Return scalar projection of self onto b." alt="" coords="17,297,188,316"/>
+<area shape="rect" href="source.base.vector.Vector-class.html#scalar_projection" title="Return scalar projection of self onto b. Scalar projection is the magnitude of the projection of a onto b. The sign is significant: &#160;Negative means in the opposite direction of b." alt="" coords="17,297,188,316"/>
 <area shape="rect" href="source.base.vector.Vector-class.html" title="2D mathematical vectors (Not in the sense of sequence or array.)" alt="" coords="16,11,189,317"/>
 </map>
   <img src="uml_class_diagram_for_source_b_5.gif" alt='' usemap="#uml_class_diagram_for_source_b_5" ismap="ismap" class="graph-without-title" />
@@ -81,10 +81,12 @@
 </center>
 <hr />
 <p>2D mathematical vectors (Not in the sense of sequence or array.)</p>
-  <p>Note all operators except increment, decrement return a copy.</p>
-  <p>Examples:</p>
-  <p># Test setup &gt;&gt;&gt; a = Vector(1,1) &gt;&gt;&gt; b = Vector(0,1)
-  &gt;&gt;&gt; c = Vector(0,-1)</p>
+<p>Note all operators except increment, decrement return a copy.</p>
+<p>Examples:</p>
+<p># Test setup
+&gt;&gt;&gt; a = Vector(1,1)
+&gt;&gt;&gt; b = Vector(0,1)
+&gt;&gt;&gt; c = Vector(0,-1)</p>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span>b.scalar_projection(a)
 <span class="py-output">0.70710678118654746</span></pre>
@@ -355,9 +357,15 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.base.vector.Vector-class.html#orthogonal" class="summary-sig-name">orthogonal</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="orthogonal"></a><span class="summary-sig-name">orthogonal</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">handedness</span>)</span><br />
-      Return some vector orthogonal to self.</td>
+      Return some vector orthogonal to self.
+Swap x, y and negate one.
+Note that there are many orthogonal vectors to a line,
+this is an orthogonal vector to a vector (from the origin.)
+Note also that there are two handednesses: right and left handed.
+Handeness negative is left, postive is right.
+Alternative implementation is to use rotate by an angle, +-</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.base.vector-pysrc.html#Vector.orthogonal">source&nbsp;code</a></span>
             
@@ -373,8 +381,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.base.vector.Vector-class.html#length" class="summary-sig-name">length</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Return scalar distance length.</td>
+          <td><span class="summary-sig"><a name="length"></a><span class="summary-sig-name">length</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Return scalar distance length.
+Distance is non-negative.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.base.vector-pysrc.html#Vector.length">source&nbsp;code</a></span>
             
@@ -391,8 +400,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="normal"></a><span class="summary-sig-name">normal</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Return new vector that has same direction as vec, but has length of 
-      one.</td>
+      Return new vector that has same direction as vec, but has length of one.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.base.vector-pysrc.html#Vector.normal">source&nbsp;code</a></span>
             
@@ -461,9 +469,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.base.vector.Vector-class.html#scalar_projection" class="summary-sig-name">scalar_projection</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="scalar_projection"></a><span class="summary-sig-name">scalar_projection</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">b</span>)</span><br />
-      Return scalar projection of self onto b.</td>
+      Return scalar projection of self onto b.
+Scalar projection is the magnitude of the projection of a onto b.
+The sign is significant:  Negative means in the opposite direction of b.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.base.vector-pysrc.html#Vector.scalar_projection">source&nbsp;code</a></span>
             
@@ -550,8 +560,7 @@
     </td>
   </tr></table>
   
-  <p>x.__init__(...) initializes x; see x.__class__.__doc__ for 
-  signature</p>
+  x.__init__(...) initializes x; see x.__class__.__doc__ for signature
   <dl class="fields">
     <dt>Overrides:
         object.__init__
@@ -575,7 +584,7 @@
     </td>
   </tr></table>
   
-  <p>str(x)</p>
+  str(x)
   <dl class="fields">
     <dt>Overrides:
         object.__str__
@@ -599,77 +608,12 @@
     </td>
   </tr></table>
   
-  <p>repr(x)</p>
+  repr(x)
   <dl class="fields">
     <dt>Overrides:
         object.__repr__
         <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
-  </dl>
-</td></tr></table>
-</div>
-<a name="orthogonal"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">orthogonal</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">handedness</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.base.vector-pysrc.html#Vector.orthogonal">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Return some vector orthogonal to self. Swap x, y and negate one. Note 
-  that there are many orthogonal vectors to a line, this is an orthogonal 
-  vector to a vector (from the origin.) Note also that there are two 
-  handednesses: right and left handed. Handeness negative is left, postive 
-  is right. Alternative implementation is to use rotate by an angle, +-</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="length"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">length</span>(<span class="sig-arg">self</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.base.vector-pysrc.html#Vector.length">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Return scalar distance length. Distance is non-negative.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="scalar_projection"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">scalar_projection</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">b</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.base.vector-pysrc.html#Vector.scalar_projection">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Return scalar projection of self onto b. Scalar projection is the 
-  magnitude of the projection of a onto b. The sign is significant:  
-  Negative means in the opposite direction of b.</p>
-  <dl class="fields">
   </dl>
 </td></tr></table>
 </div>
@@ -700,7 +644,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:27 2011
+    Generated by Epydoc 3.0.1 on Sun Apr  3 10:43:10 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

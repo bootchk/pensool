@@ -1,17 +1,4 @@
 '''
-Copyright 2010, 2011 Lloyd Konneker
-
-    This file is part of Pensool.
-
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-'''
-
-'''
-textselectmanager.py
-
 Manager of text selection controls.
 
 Many text selections can be displayed.
@@ -22,10 +9,18 @@ Generally, when the pointer is in a TextMorph.
 
 Note distinction between TextMorph and TextGlyph
 '''
+'''
+Copyright 2010, 2011 Lloyd Konneker
+
+This file is part of Pensool.
+
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+'''
 
 from decorators import *
-
-
 
 text_select = {}  # TextGlyph -> TextSelectControl
 active_text_select = None

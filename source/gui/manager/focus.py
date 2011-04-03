@@ -1,30 +1,27 @@
 '''
-Copyright 2010, 2011 Lloyd Konneker
+FocusManager coordinates focus, including:
 
-    This file is part of Pensool.
-
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-'''
-
-'''
-FocusManager
-
-Manages focus.
-Focus includes:
-  keyboard focus (receiving keyboard events)
-  feedback ie highlighting
-  activating controls associated with or part of operand
+-  keyboard focus (receiving keyboard events)
+-  feedback ie highlighting
+-  activating controls associated with or part of operand
   
-There is no selection, but there is focused (or current) operand.
+Pensool has no selection of morphs, but there is focused (or current) operand.
 Focused operand is a morph, not a control?
 Drawables can be highlighted.
 '''
+'''
+Copyright 2010, 2011 Lloyd Konneker
+
+This file is part of Pensool.
+
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+'''
+
 
 import gui.manager.fade
-
 from decorators import *
 
 # Attribute private to module
@@ -32,9 +29,7 @@ _focused_operand = None
   
 @dump_event
 def focus(thing):
-  '''
-  Focus on an operand.
-  '''
+  ''' Focus on an operand. '''
   global _focused_operand
   
   ## OLD unfocus()

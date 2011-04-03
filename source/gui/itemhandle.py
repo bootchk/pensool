@@ -1,17 +1,17 @@
 '''
+Base class for iconic items in a handle menu.
+'''
+'''
 Copyright 2010, 2011 Lloyd Konneker
 
-    This file is part of Pensool.
+This file is part of Pensool.
 
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 '''
 
-'''
-Items in a handle menu.
-'''
 
 import gui.itemcontrol
 import gui.manager.drop
@@ -28,16 +28,20 @@ MOUSE_OFF_AXIS_PIXELS = 2
 
 class HandleItem(gui.itemcontrol.PopupItemControl):
   '''
-  A handle control:
-    -appears on the edge of a controlee
-    -mouseover appearance and dissappearance, without a click
-    -not usually clickable (drag is preferred) ???
-    -tracks mouse: moveable along the path of its controlee (without a button press)
-    -starts drag (after a press)
+  A HandleItem control is a member of a HandleMenu group.
+  It :
   
-  Singleton subclasses with different look and behavior:
-    on end drag
-    on scroll
+  - appears on the edge of a controlee
+  - mouseover appearance and dissappearance, without a click
+  - not usually clickable (drag is preferred) ???
+  - tracks mouse: moveable along the path of its controlee (without a button press)
+  - starts drag (after a press)
+  
+  Singleton subclasses with different look and different behavior upon:
+  
+  - end drag
+  - scroll
+  
   '''
 
 

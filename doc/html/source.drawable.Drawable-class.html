@@ -59,23 +59,23 @@
 <h1 class="epydoc">Class Drawable</h1><p class="nomargin-top"><span class="codelink"><a href="source.drawable-pysrc.html#Drawable">source&nbsp;code</a></span></p>
 <center>
 <center>  <map id="uml_class_diagram_for_source_d" name="uml_class_diagram_for_source_d">
-<area shape="rect" href="source.transformer.Transformer-class.html" title="A transformer (of coordinate systems)" alt="" coords="39,347,191,373"/>
+<area shape="rect" href="source.transformer.Transformer-class.html" title="Transformer between coordinate systems. Affine drawing transformation by matrix." alt="" coords="39,347,191,373"/>
 <area shape="rect" href="source.composite.Composite-class.html" title="A container of Transformer:Drawables." alt="" coords="44,403,185,429"/>
 <area shape="rect" href="source.drawable.Drawable-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="17,36,212,55"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#draw" title="Draw self using context." alt="" coords="17,55,212,73"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#invalidate_as_drawn" title="Invalidate as previously drawn." alt="" coords="17,73,212,92"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#draw" title="Draw self using context. Return bounds in DCS for later use to invalidate." alt="" coords="17,55,212,73"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#invalidate_as_drawn" title="Invalidate as previously drawn. Caching drawn bounds is an optimization; alternative is to walk model branch. This is for composite and primitive drawables: every drawable has bounds." alt="" coords="17,73,212,92"/>
 <area shape="rect" href="source.drawable.Drawable-class.html#invalidate_will_draw" title="Invalidate as will be drawn (hasn&#39;t been drawn yet.) This walks a branch of model to determine bounds." alt="" coords="17,92,212,111"/>
 <area shape="rect" href="source.drawable.Drawable-class.html#dump" title="source.drawable.Drawable.dump" alt="" coords="17,111,212,129"/>
 <area shape="rect" href="source.drawable.Drawable-class.html#get_drawn_origin" title="Return device coords of origin where drawn." alt="" coords="17,129,212,148"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#put_edge_to" title="Put my boundary in the context." alt="" coords="17,148,212,167"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#in_path" title="Does coords hit *ideal* edge of this drawable? Contrast to in_stroke." alt="" coords="17,167,212,185"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#in_stroke" title="Does coords hit edge of this drawable? Stroke: hit on inked, visible." alt="" coords="17,185,212,204"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#in_fill" title="Is event in our filled shape? Bounding box is DCS axis aligned, drawn fill &#160;is NOT, so use in_fill()." alt="" coords="17,204,212,223"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#is_inbounds" title="Is event in our bounding box? Intersect bounding rect with event point &#160;converted to rectangle of width one." alt="" coords="17,223,212,241"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#get_stroke_bounds" title="Compute bounding rect in DCS of path in context as inked." alt="" coords="17,241,212,260"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#is_in_control_area" title="Is the event in the hot area." alt="" coords="17,260,212,279"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#put_path_to" title="Put path into context." alt="" coords="17,279,212,297"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#get_orthogonal" title="Return an orthogonal unit vector at given point on boundary." alt="" coords="17,297,212,316"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#put_edge_to" title="Put my boundary in the context. For most drawables (e.g. circle), the path is the boundary. If NOT path is boundary, override. &#160;E.G. text has a frame. Edge is used for hit detection." alt="" coords="17,148,212,167"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#in_path" title="Does coords hit ideal edge of this drawable? Contrast to in_stroke." alt="" coords="17,167,212,185"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#in_stroke" title="Does coords hit edge of this drawable? Stroke: hit on inked, visible. Edge: not including possible interior features, just the hittable boundary. Distinguish from a bounding box, which is a rectangle in DCS." alt="" coords="17,185,212,204"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#in_fill" title="Is event in our filled shape? Bounding box is DCS axis aligned, drawn fill is NOT, so use in_fill()." alt="" coords="17,204,212,223"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#is_inbounds" title="Is event in our bounding box? Intersect bounding rect with event point converted to rectangle of width one." alt="" coords="17,223,212,241"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#get_stroke_bounds" title="Compute bounding rect in DCS of path in context as inked. !!! Note not recursive, takes path from context." alt="" coords="17,241,212,260"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#is_in_control_area" title="Is the event in the hot area. Usually only for control subclass of drawable." alt="" coords="17,260,212,279"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#put_path_to" title="Put path into context. Virtual: each subclass knows its shape." alt="" coords="17,279,212,297"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#get_orthogonal" title="Return an orthogonal unit vector at given point on boundary. Virtual: each subclass knows its orthogonal." alt="" coords="17,297,212,316"/>
 <area shape="rect" href="source.drawable.Drawable-class.html" title="Things that can be drawn (morphs, glyphs, and controls)." alt="" coords="16,11,213,317"/>
 </map>
   <img src="uml_class_diagram_for_source_d.gif" alt='' usemap="#uml_class_diagram_for_source_d" ismap="ismap" class="graph-without-title" />
@@ -83,17 +83,22 @@
 </center>
 <hr />
 <p>Things that can be drawn (morphs, glyphs, and controls).</p>
-  <p>DRAWING: See below draw() See below virtual method put_path_to() which
-  distinguishes subclasses.</p>
-  <p>SURFACES: Drawing is on a surface (device or file). Some of this is 
-  specific to a GUI surface (a display). Queries, such as is_inbounds() are
-  for GUI's.</p>
-  <p>CONTROL subclasses: Controls are specific to a GUI, but there is no 
-  reason controls could not be drawn to another surface.</p>
-  <p>Some controls are not actually be drawn (the background manager), but 
-  data is there to support it.</p>
-  <p>COORDS: !!! Note these are all ideal coords, not inked coords. That 
-  is, model coords. FIXME</p>
+<p>DRAWING:
+See below draw()
+See below virtual method put_path_to() which distinguishes subclasses.</p>
+<p>SURFACES:
+Drawing is on a surface (device or file).
+Some of this is specific to a GUI surface (a display).
+Queries, such as is_inbounds() are for GUI's.</p>
+<p>CONTROL subclasses:
+Controls are specific to a GUI, but there is no reason
+controls could not be drawn to another surface.</p>
+<p>Some controls are not actually drawn (the background manager),
+but data is there to support it.</p>
+<p>COORDS:
+!!! Note these are all ideal coords, not inked coords.
+That is, model coords.
+FIXME</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -137,7 +142,8 @@
         <tr>
           <td><span class="summary-sig"><a href="source.drawable.Drawable-class.html#draw" class="summary-sig-name">draw</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">context</span>)</span><br />
-      Draw self using context.</td>
+      Draw self using context.
+Return bounds in DCS for later use to invalidate.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.drawable-pysrc.html#Drawable.draw">source&nbsp;code</a></span>
             
@@ -153,8 +159,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.drawable.Drawable-class.html#invalidate_as_drawn" class="summary-sig-name">invalidate_as_drawn</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Invalidate as previously drawn.</td>
+          <td><span class="summary-sig"><a name="invalidate_as_drawn"></a><span class="summary-sig-name">invalidate_as_drawn</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Invalidate as previously drawn.
+Caching drawn bounds is an optimization; alternative is to walk model branch.
+This is for composite and primitive drawables: every drawable has bounds.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.drawable-pysrc.html#Drawable.invalidate_as_drawn">source&nbsp;code</a></span>
             
@@ -171,8 +179,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="invalidate_will_draw"></a><span class="summary-sig-name">invalidate_will_draw</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Invalidate as will be drawn (hasn't been drawn yet.) This walks a 
-      branch of model to determine bounds.</td>
+      Invalidate as will be drawn (hasn't been drawn yet.)
+This walks a branch of model to determine bounds.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.drawable-pysrc.html#Drawable.invalidate_will_draw">source&nbsp;code</a></span>
             
@@ -221,9 +229,12 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.drawable.Drawable-class.html#put_edge_to" class="summary-sig-name">put_edge_to</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="put_edge_to"></a><span class="summary-sig-name">put_edge_to</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">context</span>)</span><br />
-      Put my boundary in the context.</td>
+      Put my boundary in the context.
+For most drawables (e.g. circle), the path is the boundary.
+If NOT path is boundary, override.  E.G. text has a frame.
+Edge is used for hit detection.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.drawable-pysrc.html#Drawable.put_edge_to">source&nbsp;code</a></span>
             
@@ -241,7 +252,8 @@
         <tr>
           <td><span class="summary-sig"><a href="source.drawable.Drawable-class.html#in_path" class="summary-sig-name">in_path</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">point</span>)</span><br />
-      Does coords hit *ideal* edge of this drawable? Contrast to in_stroke.</td>
+      Does coords hit <em>ideal</em> edge of this drawable?
+Contrast to in_stroke.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.drawable-pysrc.html#Drawable.in_path">source&nbsp;code</a></span>
             
@@ -259,7 +271,10 @@
         <tr>
           <td><span class="summary-sig"><a href="source.drawable.Drawable-class.html#in_stroke" class="summary-sig-name">in_stroke</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">point</span>)</span><br />
-      Does coords hit edge of this drawable? Stroke: hit on inked, visible.</td>
+      Does coords hit edge of this drawable?
+Stroke: hit on inked, visible.
+Edge: not including possible interior features, just the hittable boundary.
+Distinguish from a bounding box, which is a rectangle in DCS.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.drawable-pysrc.html#Drawable.in_stroke">source&nbsp;code</a></span>
             
@@ -277,8 +292,8 @@
         <tr>
           <td><span class="summary-sig"><a href="source.drawable.Drawable-class.html#in_fill" class="summary-sig-name">in_fill</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">point</span>)</span><br />
-      Is event in our filled shape? Bounding box is DCS axis aligned, drawn
-      fill is NOT, so use in_fill().</td>
+      Is event in our filled shape?
+Bounding box is DCS axis aligned, drawn fill is NOT, so use in_fill().</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.drawable-pysrc.html#Drawable.in_fill">source&nbsp;code</a></span>
             
@@ -296,8 +311,8 @@
         <tr>
           <td><span class="summary-sig"><a href="source.drawable.Drawable-class.html#is_inbounds" class="summary-sig-name">is_inbounds</a>(<span class="summary-sig-arg">*args</span>,
         <span class="summary-sig-arg">**kwargs</span>)</span><br />
-      Is event in our bounding box? Intersect bounding rect with event 
-      point converted to rectangle of width one.</td>
+      Is event in our bounding box?
+Intersect bounding rect with event point converted to rectangle of width one.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.decorators-pysrc.html">source&nbsp;code</a></span>
             
@@ -313,9 +328,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.drawable.Drawable-class.html#get_stroke_bounds" class="summary-sig-name">get_stroke_bounds</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="get_stroke_bounds"></a><span class="summary-sig-name">get_stroke_bounds</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">context</span>)</span><br />
-      Compute bounding rect in DCS of path in context as inked.</td>
+      Compute bounding rect in DCS of path in context as inked.
+!!! Note not recursive, takes path from context.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.drawable-pysrc.html#Drawable.get_stroke_bounds">source&nbsp;code</a></span>
             
@@ -331,9 +347,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.drawable.Drawable-class.html#is_in_control_area" class="summary-sig-name">is_in_control_area</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="is_in_control_area"></a><span class="summary-sig-name">is_in_control_area</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">event</span>)</span><br />
-      Is the event in the hot area.</td>
+      Is the event in the hot area.
+Usually only for control subclass of drawable.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.drawable-pysrc.html#Drawable.is_in_control_area">source&nbsp;code</a></span>
             
@@ -349,9 +366,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.drawable.Drawable-class.html#put_path_to" class="summary-sig-name">put_path_to</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="put_path_to"></a><span class="summary-sig-name">put_path_to</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">context</span>)</span><br />
-      Put path into context.</td>
+      Put path into context.
+Virtual: each subclass knows its shape.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.drawable-pysrc.html#Drawable.put_path_to">source&nbsp;code</a></span>
             
@@ -367,9 +385,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.drawable.Drawable-class.html#get_orthogonal" class="summary-sig-name">get_orthogonal</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="get_orthogonal"></a><span class="summary-sig-name">get_orthogonal</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">point</span>)</span><br />
-      Return an orthogonal unit vector at given point on boundary.</td>
+      Return an orthogonal unit vector at given point on boundary.
+Virtual: each subclass knows its orthogonal.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.drawable-pysrc.html#Drawable.get_orthogonal">source&nbsp;code</a></span>
             
@@ -456,8 +475,7 @@
     </td>
   </tr></table>
   
-  <p>x.__init__(...) initializes x; see x.__class__.__doc__ for 
-  signature</p>
+  x.__init__(...) initializes x; see x.__class__.__doc__ for signature
   <dl class="fields">
     <dt>Overrides:
         object.__init__
@@ -481,54 +499,11 @@
     </td>
   </tr></table>
   
-  <p>Draw self using context. Return bounds in DCS for later use to 
-  invalidate.</p>
-  <p>!!! This is the primitive draw.  See also composite.draw().</p>
-  <p>!!! Transform and style must already be in the context CTM. My parent 
-  transforms and styles me.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="invalidate_as_drawn"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">invalidate_as_drawn</span>(<span class="sig-arg">self</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.drawable-pysrc.html#Drawable.invalidate_as_drawn">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Invalidate as previously drawn. Caching drawn bounds is an 
-  optimization; alternative is to walk model branch. This is for composite 
-  and primitive drawables: every drawable has bounds.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="put_edge_to"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">put_edge_to</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">context</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.drawable-pysrc.html#Drawable.put_edge_to">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Put my boundary in the context. For most drawables (e.g. circle), the 
-  path is the boundary. If NOT path is boundary, override.  E.G. text has a
-  frame. This is used for hit detection.</p>
+  <p>Draw self using context.
+Return bounds in DCS for later use to invalidate.</p>
+<p>!!! This is the primitive draw.  See also composite.draw().</p>
+<p>!!! Transform and style must already be in the context CTM.
+My parent transforms and styles me.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -548,8 +523,8 @@
     </td>
   </tr></table>
   
-  <p>Does coords hit *ideal* edge of this drawable? Contrast to 
-  in_stroke.</p>
+  Does coords hit <em>ideal</em> edge of this drawable?
+Contrast to in_stroke.
   <dl class="fields">
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
@@ -573,10 +548,10 @@
     </td>
   </tr></table>
   
-  <p>Does coords hit edge of this drawable? Stroke: hit on inked, visible. 
-  Edge: not including possible interior features, just the hittable 
-  boundary. Distinguish from a bounding box, which is a rectangle in 
-  DCS.</p>
+  Does coords hit edge of this drawable?
+Stroke: hit on inked, visible.
+Edge: not including possible interior features, just the hittable boundary.
+Distinguish from a bounding box, which is a rectangle in DCS.
   <dl class="fields">
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
@@ -600,8 +575,8 @@
     </td>
   </tr></table>
   
-  <p>Is event in our filled shape? Bounding box is DCS axis aligned, drawn 
-  fill is NOT, so use in_fill().</p>
+  Is event in our filled shape?
+Bounding box is DCS axis aligned, drawn fill is NOT, so use in_fill().
   <dl class="fields">
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
@@ -625,96 +600,13 @@
     </td>
   </tr></table>
   
-  <p>Is event in our bounding box? Intersect bounding rect with event point
-  converted to rectangle of width one.</p>
+  Is event in our bounding box?
+Intersect bounding rect with event point converted to rectangle of width one.
   <dl class="fields">
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
         <li><code>@dump_return</code></li>
     </ul></dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="get_stroke_bounds"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_stroke_bounds</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">context</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.drawable-pysrc.html#Drawable.get_stroke_bounds">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Compute bounding rect in DCS of path in context as inked. !!! Note not
-  recursive, takes path from context.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="is_in_control_area"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">is_in_control_area</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">event</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.drawable-pysrc.html#Drawable.is_in_control_area">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Is the event in the hot area. Usually only for control subclass of 
-  drawable.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="put_path_to"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">put_path_to</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">context</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.drawable-pysrc.html#Drawable.put_path_to">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Put path into context. Virtual: each subclass knows its own shape.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="get_orthogonal"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_orthogonal</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">point</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.drawable-pysrc.html#Drawable.get_orthogonal">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Return an orthogonal unit vector at given point on boundary.</p>
-  <p>Virtual: each subclass knows its own shape.</p>
-  <dl class="fields">
   </dl>
 </td></tr></table>
 </div>
@@ -745,7 +637,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:27 2011
+    Generated by Epydoc 3.0.1 on Sun Apr  3 10:43:10 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

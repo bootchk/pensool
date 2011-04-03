@@ -1,17 +1,17 @@
 '''
+Drawable primitives, primitive, unit shapes, non-transforming.
+Note glyphs are not just text characters as in cairo, however glyphs are primitives as in cairo.
+See morph.py for discussion of strategy for instantiating.
+'''
+'''
 Copyright 2010, 2011 Lloyd Konneker
 
-    This file is part of Pensool.
+This file is part of Pensool.
 
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-Glyph: drawable primitives.
-Note glyphs are not just text characters as in cairo.
-However glyphs are primitives as in cairo.
-See morph.py for discussion of strategy for instantiating.
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 '''
 
 import drawable
@@ -99,9 +99,7 @@ class PointGlyph(Glyph):
 
 
 class LineGlyph(Glyph):
-  '''
-  Unit line along the x-axis.
-  '''
+  ''' Unit line along the x-axis. '''
   def put_path_to(self, context):
     context.move_to(0, 0)
     context.line_to(1.0, 0)
@@ -133,6 +131,7 @@ class LineGlyph(Glyph):
 
 
 class RectGlyph(Glyph):
+  ''' Unit rect along positive x and y axis. '''
   
   # @dump_event
   def put_path_to(self, context):
@@ -146,11 +145,7 @@ class RectGlyph(Glyph):
       
     
 class CircleGlyph(Glyph):
-  '''
-  Unit circle.
-  Unit diameter.
-  Bounding box origin at 0,0
-  '''
+  ''' Unit circle.  Unit diameter. Center at 0,0.'''
   # @dump_event
   def put_path_to(self, context):
     # x, y, radius, ?, radians

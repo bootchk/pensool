@@ -1,15 +1,16 @@
 '''
+The Handle subclass of menu, i.e. a menu of type "handle menu".
+See itemhandle.py for the HandleItem subclass of MenuItem.
+'''
+'''
 Copyright 2010, 2011 Lloyd Konneker
 
-    This file is part of Pensool.
+This file is part of Pensool.
 
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-The Handle subclass of menu, i.e. a menu of type "handle menu".
-See itemhandle.py for the handle subclass of menu item.
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 '''
 
 import menu
@@ -87,11 +88,11 @@ class _HandleGroup(menu.ItemGroup):
 
 class StationedHandleGroup(_HandleGroup):
   '''
-  Stationary:
-    Opens at a point (e.g. in the background)
-    Layout is always the same axis (vertical usually.)
-    Does not move or track the edge of controlee.
-    
+  Stationary HandleMenu, opening on a point.
+  
+  - Opens at a point (e.g. in the background)
+  - Layout is always the same axis (vertical usually.)
+  - Does not move or track the edge of controlee.
   '''
   def __init__(self, name):
     super(StationedHandleGroup, self).__init__(name)
@@ -125,12 +126,11 @@ class StationedHandleGroup(_HandleGroup):
 
 class TrackingHandleGroup(_HandleGroup):
   '''
-  Tracking Handle Menu:
-    Opens on an edge
-    Layout is:
-      moveable,
-      rotates to remain orthogonal to edge
-    Acquires (picks) handles on controlee when it moves
+  Tracking (follows pointer) HandleMenu
+  
+  - Opens on an edge
+  - Layout is moveable and rotates to remain orthogonal to edge
+  - Acquires (picks) handles on controlee when it moves
   '''
   
   def __init__(self, name):

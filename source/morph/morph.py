@@ -1,16 +1,6 @@
 '''
-Copyright 2010, 2011 Lloyd Konneker
-
-    This file is part of Pensool.
-
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-Morph: drawable composites.  Synonyms: shapes, forms, symbols.
-
-Note morphs are containers, of other morphs or primitive glyphs.
+Morph: composite, transforming drawables (containers) of other morphs or primitive glyphs.  
+Synonyms: shapes, forms, symbols.
 
 A strategy:
 We always instantiate morphs, not glyphs.
@@ -23,6 +13,16 @@ Morphs can contain controls:
   
 Morphs do NOT contain the BoundingBox morph used for feedback,
 it is a singleton.
+'''
+'''
+Copyright 2010, 2011 Lloyd Konneker
+
+This file is part of Pensool.
+
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 '''
 
 import composite

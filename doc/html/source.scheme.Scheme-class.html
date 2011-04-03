@@ -60,18 +60,18 @@
 <center>
 <center>  <map id="uml_class_diagram_for_source_s" name="uml_class_diagram_for_source_s">
 <area shape="rect" href="source.scheme.Scheme-class.html#model" title="root of modeling tree of user&#39;s objects" alt="" coords="17,28,177,47"/>
-<area shape="rect" href="source.scheme.Scheme-class.html#bounding_box" title="Singleton controls." alt="" coords="17,47,177,65"/>
-<area shape="rect" href="source.scheme.Scheme-class.html#transformed_controls" title="Semi&#45;permanent GUI controls widgets e.g." alt="" coords="17,65,177,84"/>
-<area shape="rect" href="source.scheme.Scheme-class.html#widgets" title="Untransformed." alt="" coords="17,84,177,103"/>
+<area shape="rect" href="source.scheme.Scheme-class.html#bounding_box" title="Singleton controls. &#160;Ghosts, not directly controllable by user" alt="" coords="17,47,177,65"/>
+<area shape="rect" href="source.scheme.Scheme-class.html#transformed_controls" title="Semi&#45;permanent GUI controls widgets e.g. text selections that are attached to transformed morphs, thus also need to be transformed." alt="" coords="17,65,177,84"/>
+<area shape="rect" href="source.scheme.Scheme-class.html#widgets" title="Untransformed. Ephemeral GUI controls widgets" alt="" coords="17,84,177,103"/>
 <area shape="rect" href="source.scheme.Scheme-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="17,105,177,124"/>
-<area shape="rect" href="source.scheme.Scheme-class.html#zoom" title="Zoom is op on viewing transformation, i.e." alt="" coords="17,124,177,143"/>
+<area shape="rect" href="source.scheme.Scheme-class.html#zoom" title="Zoom is op on viewing transformation, i.e. the top transformation. It zooms the model and other controls that might be visible. TODO the bounding box. Note that some morphs contain controls but those controls are transformed by their morph. FIXME and of certain controls such as handles?" alt="" coords="17,124,177,143"/>
 <area shape="rect" href="source.scheme.Scheme-class.html" title="Named struct of things to draw." alt="" coords="16,11,179,144"/>
 </map>
   <img src="uml_class_diagram_for_source_s.gif" alt='' usemap="#uml_class_diagram_for_source_s" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
-<p>Named struct of things to draw.</p>
+Named struct of things to draw.
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -116,7 +116,11 @@
           <td><span class="summary-sig"><a href="source.scheme.Scheme-class.html#zoom" class="summary-sig-name">zoom</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">direction</span>,
         <span class="summary-sig-arg">event</span>)</span><br />
-      Zoom is op on viewing transformation, i.e.</td>
+      Zoom is op on viewing transformation, i.e. the top transformation.
+It zooms the model and other controls that might be visible.
+TODO the bounding box.
+Note that some morphs contain controls but those controls are transformed by their morph.
+FIXME and of certain controls such as handles?</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.scheme-pysrc.html#Scheme.zoom">source&nbsp;code</a></span>
             
@@ -174,24 +178,24 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="source.scheme.Scheme-class.html#bounding_box" class="summary-name">bounding_box</a><br />
-      Singleton controls.
+        <a name="bounding_box"></a><span class="summary-name">bounding_box</span><br />
+      Singleton controls.  Ghosts, not directly controllable by user
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="source.scheme.Scheme-class.html#transformed_controls" class="summary-name">transformed_controls</a><br />
-      Semi-permanent GUI controls widgets e.g.
+        <a name="transformed_controls"></a><span class="summary-name">transformed_controls</span><br />
+      Semi-permanent GUI controls widgets e.g. text selections that are attached to transformed morphs, thus also need to be transformed.
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="source.scheme.Scheme-class.html#widgets" class="summary-name">widgets</a><br />
-      Untransformed.
+        <a name="widgets"></a><span class="summary-name">widgets</span><br />
+      Untransformed. Ephemeral GUI controls widgets
     </td>
   </tr>
 </table>
@@ -253,8 +257,7 @@
     </td>
   </tr></table>
   
-  <p>x.__init__(...) initializes x; see x.__class__.__doc__ for 
-  signature</p>
+  x.__init__(...) initializes x; see x.__class__.__doc__ for signature
   <dl class="fields">
     <dt>Overrides:
         object.__init__
@@ -279,66 +282,12 @@
     </td>
   </tr></table>
   
-  <p>Zoom is op on viewing transformation, i.e. the top transformation. It 
-  zooms the model and other controls that might be visible. TODO the 
-  bounding box. Note that some morphs contain controls but those controls 
-  are transformed by their morph. FIXME and of certain controls such as 
-  handles?</p>
-  <p>This encapsulates knowledge of what scheme objects need to be 
-  transformed, and also the knowledge of the step size.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<br />
-<!-- ==================== INSTANCE VARIABLE DETAILS ==================== -->
-<a name="section-InstanceVariableDetails"></a>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td colspan="2" class="table-header">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-      <tr valign="top">
-        <td align="left"><span class="table-header">Instance Variable Details</span></td>
-        <td align="right" valign="top"
-         ><span class="options">[<a href="#section-InstanceVariableDetails"
-         class="privatelink" onclick="toggle_private();"
-         >hide private</a>]</span></td>
-      </tr>
-    </table>
-  </td>
-</tr>
-</table>
-<a name="bounding_box"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <h3 class="epydoc">bounding_box</h3>
-  <p>Singleton controls.  Ghosts, not directly controllable by user</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="transformed_controls"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <h3 class="epydoc">transformed_controls</h3>
-  <p>Semi-permanent GUI controls widgets e.g. text selections that are 
-  attached to transformed morphs, thus also need to be transformed.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="widgets"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <h3 class="epydoc">widgets</h3>
-  <p>Untransformed. Ephemeral GUI controls widgets</p>
+  <p>Zoom is op on viewing transformation, i.e. the top transformation.
+It zooms the model and other controls that might be visible.
+TODO the bounding box.
+Note that some morphs contain controls but those controls are transformed by their morph.
+FIXME and of certain controls such as handles?</p>
+<p>This encapsulates knowledge of what scheme objects need to be transformed, and also the knowledge of the step size.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -370,7 +319,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:32 2011
+    Generated by Epydoc 3.0.1 on Sun Apr  3 10:43:15 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

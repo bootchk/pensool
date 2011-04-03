@@ -1,12 +1,13 @@
+''' Style class '''
 '''
 Copyright 2010, 2011 Lloyd Konneker
 
-    This file is part of Pensool.
+This file is part of Pensool.
 
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 '''
 
 import base.transform as transform
@@ -54,7 +55,7 @@ def calculate_line_width(context, pen_width):
 
 
 class Style(object):
-  
+  ''' User changeable style for a morph. '''
   def __init__(self):
     # attributes of style
     self.pen_width = 1

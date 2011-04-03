@@ -1,14 +1,15 @@
 '''
+Classic vertical, linear, static, non-tracking menu.
+'''
+'''
 Copyright 2010, 2011 Lloyd Konneker
 
-    This file is part of Pensool.
+This file is part of Pensool.
 
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-Classic vertical, linear, static menu.
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 '''
 
 import menu
@@ -20,10 +21,12 @@ import config
 class MenuGroup(menu.ItemGroup):
   '''
   Traditional menu, layout is:
-    fixed position (menu does not track cursor)
-    static layout (items in same relation every open)
-    vertical layout (items one above the other), 
-    all items visible concurrently
+  
+  -  fixed position (menu does not track cursor)
+  -  static layout (items in same relation every open)
+  -  vertical layout (items one above the other), 
+  -  all items visible concurrently
+  
   '''
   
   def new_layout_spec(self, event):

@@ -1,19 +1,18 @@
 '''
-Copyright 2010, 2011 Lloyd Konneker
-
-    This file is part of Pensool.
-
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-'''
-
-'''
-Fade manager: handles persist for a short time after pointer moves away.
+Fade manager: persists handles for a short period after pointer moves away.
 So user can grab handles that are remote from the edge
 (for curve tangent lines and center handles.)
 Fade has only one step, it is not a slow dissolve.
+'''
+'''
+Copyright 2010, 2011 Lloyd Konneker
+
+This file is part of Pensool.
+
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 '''
 
 import base.timer as timer

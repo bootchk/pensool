@@ -60,28 +60,14 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class ControlsManager</h1><p class="nomargin-top"><span class="codelink"><a href="source.gui.manager.control-pysrc.html#ControlsManager">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_source_g_14" name="uml_class_diagram_for_source_g_14">
-<area shape="rect" href="source.gui.manager.control.ControlsManager-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="17,36,249,55"/>
-<area shape="rect" href="source.gui.manager.control.ControlsManager-class.html#is_root_control_active" title="Is root control already active? Used in race conditions." alt="" coords="17,55,249,73"/>
-<area shape="rect" href="source.gui.manager.control.ControlsManager-class.html#set_root_control" title="Set root control which takes events when no other control does." alt="" coords="17,73,249,92"/>
-<area shape="rect" href="source.gui.manager.control.ControlsManager-class.html#activate_control" title="Activate given control." alt="" coords="17,92,249,111"/>
-<area shape="rect" href="source.gui.manager.control.ControlsManager-class.html#draw_active_control" title="source.gui.manager.control.ControlsManager.draw_active_control" alt="" coords="17,111,249,129"/>
-<area shape="rect" href="source.gui.manager.control.ControlsManager-class.html#deactivate_current_control" title="Caller must soon reactivate some control or the app will be dead." alt="" coords="17,129,249,148"/>
-<area shape="rect" href="source.gui.manager.control.ControlsManager-class.html#activate_root_control" title="Activate the background manager More generally, the root control." alt="" coords="17,148,249,167"/>
-<area shape="rect" href="source.gui.manager.control.ControlsManager-class.html#add_to_drawlist" title="source.gui.manager.control.ControlsManager.add_to_drawlist" alt="" coords="17,167,249,185"/>
-<area shape="rect" href="source.gui.manager.control.ControlsManager-class.html#remove_from_drawlist" title="source.gui.manager.control.ControlsManager.remove_from_drawlist" alt="" coords="17,185,249,204"/>
-<area shape="rect" href="source.gui.manager.control.ControlsManager-class.html#get_active_control" title="Return the active control" alt="" coords="17,204,249,223"/>
-<area shape="rect" href="source.gui.manager.control.ControlsManager-class.html" title="Manages active&#45;ness in a set of controls on a view or window (gtk object that generates events) Only one is active at a time." alt="" coords="16,11,251,224"/>
-</map>
-  <img src="uml_class_diagram_for_source_g_14.gif" alt='' usemap="#uml_class_diagram_for_source_g_14" ismap="ismap" class="graph-without-title" />
-</center>
+
 </center>
 <hr />
-<p>Manages active-ness in a set of controls on a view or window (gtk 
-  object that generates events) Only one is active at a time. Here active 
-  means: receiving events, callbacks connected. Also called focus. Controls
-  are anonymous here: not keeping references to them. Other aspects of 
-  controls are also managed by group managers such as menus.</p>
+Manages active-ness in a set of controls on a view or window (gtk object that generates events)
+Only one is active at a time.
+Here active means: receiving events, callbacks connected. Also called focus.
+Controls are anonymous here: not keeping references to them.
+Other aspects of controls are also managed by group managers such as menus.
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -124,7 +110,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="is_root_control_active"></a><span class="summary-sig-name">is_root_control_active</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Is root control already active? Used in race conditions.</td>
+      Is root control already active?
+Used in race conditions.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.gui.manager.control-pysrc.html#ControlsManager.is_root_control_active">source&nbsp;code</a></span>
             
@@ -140,9 +127,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.gui.manager.control.ControlsManager-class.html#set_root_control" class="summary-sig-name">set_root_control</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="set_root_control"></a><span class="summary-sig-name">set_root_control</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">control</span>)</span><br />
-      Set root control which takes events when no other control does.</td>
+      Set root control which takes events when no other control does.
+The events below always go to the root control, not to the active control.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.gui.manager.control-pysrc.html#ControlsManager.set_root_control">source&nbsp;code</a></span>
             
@@ -174,10 +162,12 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.gui.manager.control.ControlsManager-class.html#activate_control" class="summary-sig-name">activate_control</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="activate_control"></a><span class="summary-sig-name">activate_control</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">control</span>,
         <span class="summary-sig-arg">controlee</span>)</span><br />
-      Activate given control.</td>
+      Activate given control.
+Active is synonymous with has focus.
+Active means &quot;handling events&quot; while focus means &quot;visually highlighted.&quot;</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.gui.manager.control-pysrc.html#ControlsManager.activate_control">source&nbsp;code</a></span>
             
@@ -210,8 +200,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.gui.manager.control.ControlsManager-class.html#deactivate_current_control" class="summary-sig-name">deactivate_current_control</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Caller must soon reactivate some control or the app will be dead.</td>
+          <td><span class="summary-sig"><a name="deactivate_current_control"></a><span class="summary-sig-name">deactivate_current_control</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Caller must soon reactivate some control or the app will be dead.
+## OLD Only call this if no controls will be active (except the root)</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.gui.manager.control-pysrc.html#ControlsManager.deactivate_current_control">source&nbsp;code</a></span>
             
@@ -227,8 +218,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.gui.manager.control.ControlsManager-class.html#activate_root_control" class="summary-sig-name">activate_root_control</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Activate the background manager More generally, the root control.</td>
+          <td><span class="summary-sig"><a name="activate_root_control"></a><span class="summary-sig-name">activate_root_control</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Activate the background manager
+More generally, the root control.
+This is the second place where defined that background manager controls itself.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.gui.manager.control-pysrc.html#ControlsManager.activate_root_control">source&nbsp;code</a></span>
             
@@ -366,99 +359,12 @@
     </td>
   </tr></table>
   
-  <p>x.__init__(...) initializes x; see x.__class__.__doc__ for 
-  signature</p>
+  x.__init__(...) initializes x; see x.__class__.__doc__ for signature
   <dl class="fields">
     <dt>Overrides:
         object.__init__
         <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
-  </dl>
-</td></tr></table>
-</div>
-<a name="set_root_control"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_root_control</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">control</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.gui.manager.control-pysrc.html#ControlsManager.set_root_control">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Set root control which takes events when no other control does. The 
-  events below always go to the root control, not to the active 
-  control.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="activate_control"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">activate_control</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">control</span>,
-        <span class="sig-arg">controlee</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.gui.manager.control-pysrc.html#ControlsManager.activate_control">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Activate given control. Active is synonymous with has focus. Active 
-  means &quot;handling events&quot; while focus means &quot;visually 
-  highlighted.&quot;</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="deactivate_current_control"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">deactivate_current_control</span>(<span class="sig-arg">self</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.gui.manager.control-pysrc.html#ControlsManager.deactivate_current_control">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Caller must soon reactivate some control or the app will be dead. ## 
-  OLD Only call this if no controls will be active (except the root)</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="activate_root_control"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">activate_root_control</span>(<span class="sig-arg">self</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.gui.manager.control-pysrc.html#ControlsManager.activate_root_control">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Activate the background manager More generally, the root control. This
-  is the second place where defined that background manager controls 
-  itself.</p>
-  <dl class="fields">
   </dl>
 </td></tr></table>
 </div>
@@ -489,7 +395,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:29 2011
+    Generated by Epydoc 3.0.1 on Sun Apr  3 10:43:12 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

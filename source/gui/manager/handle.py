@@ -1,16 +1,5 @@
 '''
-Copyright 2010, 2011 Lloyd Konneker
-
-    This file is part of Pensool.
-
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-'''
-
-'''
-Handle manager: ensure only one set of handles active.
+Handle manager: ensure only one handle set is active.
 
 HandleSet's are not in the model.
 An active HandleSet is in the scheme and is drawn.
@@ -21,6 +10,17 @@ E.G. style of handles may be invisible.
 A HandleSet is drawn and picked in the transform of its parent morph.
 A HandleSet is not a child of parent morph !!!
 '''
+'''
+Copyright 2010, 2011 Lloyd Konneker
+
+This file is part of Pensool.
+
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+'''
+
 import config
 from decorators import *
 

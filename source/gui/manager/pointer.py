@@ -1,18 +1,6 @@
 '''
-Copyright 2010, 2011 Lloyd Konneker
-
-    This file is part of Pensool.
-
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-'''
-
-'''
-Pointer manager: state machine for pointer movement.
-The pointer must remain within a few pixels
-for a short time
+Pointer manager: state machine for pointer motion
+The pointer must stop (remain within a few pixels for a short period)
 before mouseover (picking) is done.
 
 Alternatively, we could pick at every mouse move, and delay the result
@@ -46,9 +34,22 @@ Examples:
   >>> decide_stopped(foo)
   >>> decide_stopped(bar)
   >>> time.sleep(2)
+  callback should have been called.
   
   # How to get a callback?
+  This is not testable without a doctest having asynchronous or threaded ops,
+  such as in Zope?
   
+'''
+'''
+Copyright 2010, 2011 Lloyd Konneker
+
+This file is part of Pensool.
+
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 '''
 
 import base.vector as vector

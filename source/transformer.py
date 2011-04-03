@@ -1,15 +1,4 @@
 '''
-Copyright 2010, 2011 Lloyd Konneker
-
-    This file is part of Pensool.
-
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-'''
-
-'''
 Transformer: transforms its members.
 
 Transforms are part of hierarchal modeling.
@@ -21,6 +10,16 @@ A view is also a transformer and the root of the hierarchy.
 
 Note Transformer does NOT override draw(), but Composite does.
 !!! But Composite.draw() can be overridden, for composites having both transformed and untransformed shapes.
+'''
+'''
+Copyright 2010, 2011 Lloyd Konneker
+
+This file is part of Pensool.
+
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 '''
 
 # TODO style part of transformation?
@@ -37,7 +36,7 @@ import config
 
 class Transformer(drawable.Drawable):
   '''
-  A transformer (of coordinate systems) 
+  Transformer between coordinate systems.  Affine drawing transformation by matrix.
   '''
 
   #@dump_event

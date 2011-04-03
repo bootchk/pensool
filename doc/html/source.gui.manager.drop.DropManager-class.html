@@ -62,26 +62,28 @@
 <center>
 <center>  <map id="uml_class_diagram_for_source_g_15" name="uml_class_diagram_for_source_g_15">
 <area shape="rect" href="source.gui.manager.drop.DropManager-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="17,36,185,55"/>
-<area shape="rect" href="source.gui.manager.drop.DropManager-class.html#begin" title="Enter dragging state." alt="" coords="17,55,185,73"/>
-<area shape="rect" href="source.gui.manager.drop.DropManager-class.html#continued" title="Some control received mouse motion while is_drag." alt="" coords="17,73,185,92"/>
-<area shape="rect" href="source.gui.manager.drop.DropManager-class.html#end" title="On mouse button release after motion (that&#39;s the definition of drag.) Tell &#160;the target object that source object dropped on it." alt="" coords="17,92,185,111"/>
-<area shape="rect" href="source.gui.manager.drop.DropManager-class.html#cancel" title="Cancel drag." alt="" coords="17,111,185,129"/>
+<area shape="rect" href="source.gui.manager.drop.DropManager-class.html#begin" title="Enter dragging state. Remember event and source controlee and control." alt="" coords="17,55,185,73"/>
+<area shape="rect" href="source.gui.manager.drop.DropManager-class.html#continued" title="Some control received mouse motion while is_drag. Tell source (EG to ghost its action.)" alt="" coords="17,73,185,92"/>
+<area shape="rect" href="source.gui.manager.drop.DropManager-class.html#end" title="On mouse button release after motion (that&#39;s the definition of drag.) Tell the target object that source object dropped on it." alt="" coords="17,92,185,111"/>
+<area shape="rect" href="source.gui.manager.drop.DropManager-class.html#cancel" title="Cancel drag. ??? When would this happen" alt="" coords="17,111,185,129"/>
 <area shape="rect" href="source.gui.manager.drop.DropManager-class.html#is_drag" title="source.gui.manager.drop.DropManager.is_drag" alt="" coords="17,129,185,148"/>
 <area shape="rect" href="source.gui.manager.drop.DropManager-class.html#set_draggee" title="source.gui.manager.drop.DropManager.set_draggee" alt="" coords="17,148,185,167"/>
 <area shape="rect" href="source.gui.manager.drop.DropManager-class.html#get_draggee" title="source.gui.manager.drop.DropManager.get_draggee" alt="" coords="17,167,185,185"/>
-<area shape="rect" href="source.gui.manager.drop.DropManager-class.html" title="Manages drag and drop within the app." alt="" coords="16,11,187,187"/>
+<area shape="rect" href="source.gui.manager.drop.DropManager-class.html" title="Manages drag and drop within the app. (Doesn&#39;t manage drag and drop between apps.) Similar to Carbon Drop Manager." alt="" coords="16,11,187,187"/>
 </map>
   <img src="uml_class_diagram_for_source_g_15.gif" alt='' usemap="#uml_class_diagram_for_source_g_15" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
-<p>Manages drag and drop within the app. (Doesn't manage drag and drop 
-  between apps.) Similar to Carbon Drop Manager.</p>
-  <p>Source: the control where drag started Target: the control where drag 
-  ended (dropped) Controlee: the drawable being dragged.</p>
-  <p>Enforces: only one drag and drop operation at a time.</p>
-  <p>For now, each object must implement drop() method. TODO query each 
-  object for acceptance of drop.</p>
+<p>Manages drag and drop within the app.
+(Doesn't manage drag and drop between apps.)
+Similar to Carbon Drop Manager.</p>
+<p>Source: the control where drag started
+Target: the control where drag ended (dropped)
+Controlee: the drawable being dragged.</p>
+<p>Enforces: only one drag and drop operation at a time.</p>
+<p>For now, each object must implement drop() method.
+TODO query each object for acceptance of drop.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -125,7 +127,8 @@
         <tr>
           <td><span class="summary-sig"><a href="source.gui.manager.drop.DropManager-class.html#begin" class="summary-sig-name">begin</a>(<span class="summary-sig-arg">*args</span>,
         <span class="summary-sig-arg">**kwargs</span>)</span><br />
-      Enter dragging state.</td>
+      Enter dragging state.
+Remember event and source controlee and control.</td>
           <td align="right" valign="top">
             
             
@@ -141,10 +144,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.gui.manager.drop.DropManager-class.html#continued" class="summary-sig-name">continued</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="continued"></a><span class="summary-sig-name">continued</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">event</span>,
         <span class="summary-sig-arg">target</span>)</span><br />
-      Some control received mouse motion while is_drag.</td>
+      Some control received mouse motion while is_drag.
+Tell source (EG to ghost its action.)</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.gui.manager.drop-pysrc.html#DropManager.continued">source&nbsp;code</a></span>
             
@@ -163,7 +167,7 @@
           <td><span class="summary-sig"><a href="source.gui.manager.drop.DropManager-class.html#end" class="summary-sig-name">end</a>(<span class="summary-sig-arg">*args</span>,
         <span class="summary-sig-arg">**kwargs</span>)</span><br />
       On mouse button release after motion (that's the definition of drag.)
-      Tell the target object that source object dropped on it.</td>
+Tell the target object that source object dropped on it.</td>
           <td align="right" valign="top">
             
             
@@ -181,7 +185,8 @@
         <tr>
           <td><span class="summary-sig"><a href="source.gui.manager.drop.DropManager-class.html#cancel" class="summary-sig-name">cancel</a>(<span class="summary-sig-arg">*args</span>,
         <span class="summary-sig-arg">**kwargs</span>)</span><br />
-      Cancel drag.</td>
+      Cancel drag.
+??? When would this happen</td>
           <td align="right" valign="top">
             
             
@@ -351,8 +356,7 @@
     </td>
   </tr></table>
   
-  <p>x.__init__(...) initializes x; see x.__class__.__doc__ for 
-  signature</p>
+  x.__init__(...) initializes x; see x.__class__.__doc__ for signature
   <dl class="fields">
     <dt>Overrides:
         object.__init__
@@ -376,36 +380,14 @@
     </td>
   </tr></table>
   
-  <p>Enter dragging state. Remember event and source controlee and 
-  control.</p>
-  <p>!!! Event already in user coords.</p>
+  <p>Enter dragging state.
+Remember event and source controlee and control.</p>
+<p>!!! Event already in user coords.</p>
   <dl class="fields">
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
         <li><code>@dump_event</code></li>
     </ul></dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="continued"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">continued</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">event</span>,
-        <span class="sig-arg">target</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.gui.manager.drop-pysrc.html#DropManager.continued">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Some control received mouse motion while is_drag. Tell source (EG to 
-  ghost its action.)</p>
-  <dl class="fields">
   </dl>
 </td></tr></table>
 </div>
@@ -424,8 +406,8 @@
     </td>
   </tr></table>
   
-  <p>On mouse button release after motion (that's the definition of drag.) 
-  Tell the target object that source object dropped on it.</p>
+  On mouse button release after motion (that's the definition of drag.)
+Tell the target object that source object dropped on it.
   <dl class="fields">
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
@@ -449,7 +431,8 @@
     </td>
   </tr></table>
   
-  <p>Cancel drag. ??? When would this happen</p>
+  Cancel drag.
+??? When would this happen
   <dl class="fields">
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
@@ -485,7 +468,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:29 2011
+    Generated by Epydoc 3.0.1 on Sun Apr  3 10:43:12 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

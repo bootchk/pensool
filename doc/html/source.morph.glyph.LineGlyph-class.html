@@ -63,30 +63,30 @@
 <area shape="rect" href="source.morph.glyph.Glyph-class.html#__repr__" title="repr(x)" alt="" coords="43,335,187,353"/>
 <area shape="rect" href="source.morph.glyph.Glyph-class.html#pick" title="source.morph.glyph.Glyph.pick" alt="" coords="43,353,187,372"/>
 <area shape="rect" href="source.morph.glyph.Glyph-class.html#cleanse" title="source.morph.glyph.Glyph.cleanse" alt="" coords="43,372,187,391"/>
-<area shape="rect" href="source.morph.glyph.Glyph-class.html" title="Symbols in the document or model." alt="" coords="41,309,188,392"/>
-<area shape="rect" href="source.morph.glyph.LineGlyph-class.html#put_path_to" title="Put path into context." alt="" coords="37,447,192,465"/>
-<area shape="rect" href="source.morph.glyph.LineGlyph-class.html#get_orthogonal" title="Return unit orthogonal to drawn self at this point on self." alt="" coords="37,465,192,484"/>
+<area shape="rect" href="source.morph.glyph.Glyph-class.html" title="Symbols in the document or model. Subclasses of Glyph differ in path." alt="" coords="41,309,188,392"/>
+<area shape="rect" href="source.morph.glyph.LineGlyph-class.html#put_path_to" title="Put path into context. Virtual: each subclass knows its shape." alt="" coords="37,447,192,465"/>
+<area shape="rect" href="source.morph.glyph.LineGlyph-class.html#get_orthogonal" title="Return unit orthogonal to drawn self at this point on self. Assert point is in DCS and is on self. Note drawn self means in the DCS. Note the orthogonal does NOT necessarily pass through the point. TODO return one of two directional orthogonal vectors, the one that is in the direction of the mouse trail (not the point.)" alt="" coords="37,465,192,484"/>
 <area shape="rect" href="source.morph.glyph.LineGlyph-class.html" title="Unit line along the x&#45;axis." alt="" coords="36,421,193,485"/>
 <area shape="rect" href="javascript:void(0);" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="17,36,212,55"/>
-<area shape="rect" href="javascript:void(0);" title="Draw self using context." alt="" coords="17,55,212,73"/>
+<area shape="rect" href="javascript:void(0);" title="Draw self using context. Return bounds in DCS for later use to invalidate." alt="" coords="17,55,212,73"/>
 <area shape="rect" href="javascript:void(0);" title="drawable.Drawable.dump" alt="" coords="17,73,212,92"/>
 <area shape="rect" href="javascript:void(0);" title="Return device coords of origin where drawn." alt="" coords="17,92,212,111"/>
-<area shape="rect" href="javascript:void(0);" title="Compute bounding rect in DCS of path in context as inked." alt="" coords="17,111,212,129"/>
+<area shape="rect" href="javascript:void(0);" title="Compute bounding rect in DCS of path in context as inked. !!! Note not recursive, takes path from context." alt="" coords="17,111,212,129"/>
 <area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_fill" alt="" coords="17,129,212,148"/>
 <area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_path" alt="" coords="17,148,212,167"/>
 <area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_stroke" alt="" coords="17,167,212,185"/>
-<area shape="rect" href="javascript:void(0);" title="Invalidate as previously drawn." alt="" coords="17,185,212,204"/>
+<area shape="rect" href="javascript:void(0);" title="Invalidate as previously drawn. Caching drawn bounds is an optimization; alternative is to walk model branch. This is for composite and primitive drawables: every drawable has bounds." alt="" coords="17,185,212,204"/>
 <area shape="rect" href="javascript:void(0);" title="Invalidate as will be drawn (hasn&#39;t been drawn yet.) This walks a branch of model to determine bounds." alt="" coords="17,204,212,223"/>
-<area shape="rect" href="javascript:void(0);" title="Is the event in the hot area." alt="" coords="17,223,212,241"/>
+<area shape="rect" href="javascript:void(0);" title="Is the event in the hot area. Usually only for control subclass of drawable." alt="" coords="17,223,212,241"/>
 <area shape="rect" href="javascript:void(0);" title="drawable.Drawable.is_inbounds" alt="" coords="17,241,212,260"/>
-<area shape="rect" href="javascript:void(0);" title="Put my boundary in the context." alt="" coords="17,260,212,279"/>
+<area shape="rect" href="javascript:void(0);" title="Put my boundary in the context. For most drawables (e.g. circle), the path is the boundary. If NOT path is boundary, override. &#160;E.G. text has a frame. Edge is used for hit detection." alt="" coords="17,260,212,279"/>
 <area shape="rect" href="javascript:void(0);" title="Things that can be drawn (morphs, glyphs, and controls)." alt="" coords="16,11,213,280"/>
 </map>
   <img src="uml_class_diagram_for_source_m_3.gif" alt='' usemap="#uml_class_diagram_for_source_m_3" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
-<p>Unit line along the x-axis.</p>
+Unit line along the x-axis.
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -113,7 +113,8 @@
         <tr>
           <td><span class="summary-sig"><a href="source.morph.glyph.LineGlyph-class.html#put_path_to" class="summary-sig-name">put_path_to</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">context</span>)</span><br />
-      Put path into context.</td>
+      Put path into context.
+Virtual: each subclass knows its shape.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.morph.glyph-pysrc.html#LineGlyph.put_path_to">source&nbsp;code</a></span>
             
@@ -131,7 +132,12 @@
         <tr>
           <td><span class="summary-sig"><a href="source.morph.glyph.LineGlyph-class.html#get_orthogonal" class="summary-sig-name">get_orthogonal</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">point</span>)</span><br />
-      Return unit orthogonal to drawn self at this point on self.</td>
+      Return unit orthogonal to drawn self at this point on self.
+Assert point is in DCS and is on self.
+Note drawn self means in the DCS.
+Note the orthogonal does NOT necessarily pass through the point.
+TODO return one of two directional orthogonal vectors,
+the one that is in the direction of the mouse trail (not the point.)</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.morph.glyph-pysrc.html#LineGlyph.get_orthogonal">source&nbsp;code</a></span>
             
@@ -237,7 +243,8 @@
     </td>
   </tr></table>
   
-  <p>Put path into context. Virtual: each subclass knows its own shape.</p>
+  Put path into context.
+Virtual: each subclass knows its shape.
   <dl class="fields">
     <dt>Overrides:
         drawable.Drawable.put_path_to
@@ -261,16 +268,18 @@
     </td>
   </tr></table>
   
-  <p>Return unit orthogonal to drawn self at this point on self. Assert 
-  point is in DCS and is on self. Note drawn self means in the DCS. Note 
-  the orthogonal does NOT necessarily pass through the point. TODO return 
-  one of two directional orthogonal vectors, the one that is in the 
-  direction of the mouse trail (not the point.)</p>
-  <p>For a line, point is immaterial. The point is on (or near) the line 
-  and so some ortho to the line MUST hit the point (the point can't be on 
-  the extension of a finite line.)</p>
-  <p>For a line, there are two orthogonals to a point. This is a somewhat 
-  arbitray one for now.</p>
+  <p>Return unit orthogonal to drawn self at this point on self.
+Assert point is in DCS and is on self.
+Note drawn self means in the DCS.
+Note the orthogonal does NOT necessarily pass through the point.
+TODO return one of two directional orthogonal vectors,
+the one that is in the direction of the mouse trail (not the point.)</p>
+<p>For a line, point is immaterial.
+The point is on (or near) the line and so some ortho to the line
+MUST hit the point (the point can't be on the extension
+of a finite line.)</p>
+<p>For a line, there are two orthogonals to a point.
+This is a somewhat arbitray one for now.</p>
   <dl class="fields">
     <dt>Overrides:
         drawable.Drawable.get_orthogonal
@@ -305,7 +314,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:31 2011
+    Generated by Epydoc 3.0.1 on Sun Apr  3 10:43:13 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

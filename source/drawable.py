@@ -1,12 +1,13 @@
+''' Drawable class '''
 '''
 Copyright 2010, 2011 Lloyd Konneker
 
-    This file is part of Pensool.
+This file is part of Pensool.
 
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 '''
 
 import base.bounds as bounds
@@ -16,7 +17,7 @@ import style  # set_line_width
 from decorators import *
 import config
 
-
+# TODO move to decorators?
 def picking(func):
   '''
   Decorator: macro that prepares for drawable picking functions.
@@ -53,7 +54,7 @@ class Drawable(object):
   Controls are specific to a GUI, but there is no reason
   controls could not be drawn to another surface.
   
-  Some controls are not actually be drawn (the background manager), 
+  Some controls are not actually drawn (the background manager), 
   but data is there to support it.
   
   COORDS:
@@ -215,7 +216,7 @@ class Drawable(object):
     Put my boundary in the context.
     For most drawables (e.g. circle), the path is the boundary.
     If NOT path is boundary, override.  E.G. text has a frame.
-    This is used for hit detection.
+    Edge is used for hit detection.
     '''
     self.put_path_to(context)
     
@@ -339,7 +340,7 @@ class Drawable(object):
   def put_path_to(self, context):
     '''
     Put path into context.
-    Virtual: each subclass knows its own shape.
+    Virtual: each subclass knows its shape.
     '''
     raise NotImplementedError("Virtual")
 
@@ -347,16 +348,10 @@ class Drawable(object):
   def get_orthogonal(self, point):
     '''
     Return an orthogonal unit vector at given point on boundary.
-    
-    Virtual: each subclass knows its own shape.
+    Virtual: each subclass knows its orthogonal.
     '''
     print self
     raise NotImplementedError("Virtual")
     
-    
-    
-    
-
-  
       
 

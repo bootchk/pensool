@@ -59,91 +59,87 @@
 <h1 class="epydoc">Class Composite</h1><p class="nomargin-top"><span class="codelink"><a href="source.composite-pysrc.html#Composite">source&nbsp;code</a></span></p>
 <center>
 <center>  <map id="uml_class_diagram_for_source_c_2" name="uml_class_diagram_for_source_c_2">
-<area shape="rect" href="source.drawable.Drawable-class.html#invalidate_as_drawn" title="Invalidate as previously drawn." alt="" coords="63,36,257,55"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#invalidate_will_draw" title="Invalidate as will be drawn (hasn&#39;t been drawn yet.) This walks a branch of model to determine bounds." alt="" coords="63,55,257,73"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#dump" title="source.drawable.Drawable.dump" alt="" coords="63,73,257,92"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#get_drawn_origin" title="Return device coords of origin where drawn." alt="" coords="63,92,257,111"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#put_edge_to" title="Put my boundary in the context." alt="" coords="63,111,257,129"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#in_path" title="Does coords hit *ideal* edge of this drawable? Contrast to in_stroke." alt="" coords="63,129,257,148"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#in_stroke" title="Does coords hit edge of this drawable? Stroke: hit on inked, visible." alt="" coords="63,148,257,167"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#in_fill" title="Is event in our filled shape? Bounding box is DCS axis aligned, drawn fill &#160;is NOT, so use in_fill()." alt="" coords="63,167,257,185"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#is_inbounds" title="Is event in our bounding box? Intersect bounding rect with event point &#160;converted to rectangle of width one." alt="" coords="63,185,257,204"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#get_stroke_bounds" title="Compute bounding rect in DCS of path in context as inked." alt="" coords="63,204,257,223"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#is_in_control_area" title="Is the event in the hot area." alt="" coords="63,223,257,241"/>
-<area shape="rect" href="source.drawable.Drawable-class.html#get_orthogonal" title="Return an orthogonal unit vector at given point on boundary." alt="" coords="63,241,257,260"/>
-<area shape="rect" href="source.drawable.Drawable-class.html" title="Things that can be drawn (morphs, glyphs, and controls)." alt="" coords="61,11,259,261"/>
-<area shape="rect" href="source.transformer.Transformer-class.html#rotation" title="Pickling." alt="" coords="17,308,303,327"/>
-<area shape="rect" href="source.transformer.Transformer-class.html#__getstate__" title="Return state values to be pickled." alt="" coords="17,329,303,348"/>
-<area shape="rect" href="source.transformer.Transformer-class.html#__setstate__" title="Restore state from the unpickled state values." alt="" coords="17,348,303,367"/>
-<area shape="rect" href="source.transformer.Transformer-class.html#put_transform_to" title="Apply my transform to the current transform in the context." alt="" coords="17,367,303,385"/>
-<area shape="rect" href="source.transformer.Transformer-class.html#derive_transform" title="Set my transform from my drawing specs." alt="" coords="17,385,303,404"/>
-<area shape="rect" href="source.transformer.Transformer-class.html#device_to_local" title="Get local coordinates (group GCS) of DCS point." alt="" coords="17,404,303,423"/>
-<area shape="rect" href="source.transformer.Transformer-class.html#set_transform" title="Set the specs for transform, and derive transform from specs." alt="" coords="17,423,303,441"/>
-<area shape="rect" href="source.transformer.Transformer-class.html#set_dimensions" title="Set the translation and scale (not rotation) of an object." alt="" coords="17,441,303,460"/>
-<area shape="rect" href="source.transformer.Transformer-class.html#set_translation" title="!!! Not view altering (can be called before view is established.) !!! point is not copied." alt="" coords="17,460,303,479"/>
-<area shape="rect" href="source.transformer.Transformer-class.html#set_origin" title="Set translation" alt="" coords="17,479,303,497"/>
-<area shape="rect" href="source.transformer.Transformer-class.html#move_origin" title="Move origin but keep other points fixed." alt="" coords="17,497,303,516"/>
-<area shape="rect" href="source.transformer.Transformer-class.html#move_relative" title="Translate." alt="" coords="17,516,303,535"/>
-<area shape="rect" href="source.transformer.Transformer-class.html#move_absolute" title="Set translation by offset." alt="" coords="17,535,303,553"/>
-<area shape="rect" href="source.transformer.Transformer-class.html#scale_uniformly" title="Relative scale uniformly by the scalar delta" alt="" coords="17,553,303,572"/>
-<area shape="rect" href="source.transformer.Transformer-class.html#center_at" title="??? This only works for controls, where the scale is equivalent to pixels &#160;in DCS." alt="" coords="17,591,303,609"/>
-<area shape="rect" href="source.transformer.Transformer-class.html" title="A transformer (of coordinate systems)" alt="" coords="16,291,304,611"/>
-<area shape="rect" href="javascript:void(0);" title="hash(x)" alt="" coords="356,308,625,327"/>
-<area shape="rect" href="javascript:void(0);" title="x+y" alt="" coords="356,329,625,348"/>
-<area shape="rect" href="javascript:void(0);" title="y in x" alt="" coords="356,348,625,367"/>
-<area shape="rect" href="javascript:void(0);" title="del x[y]" alt="" coords="356,367,625,385"/>
-<area shape="rect" href="javascript:void(0);" title="del x[i:j]" alt="" coords="356,385,625,404"/>
-<area shape="rect" href="javascript:void(0);" title="x==y" alt="" coords="356,404,625,423"/>
-<area shape="rect" href="javascript:void(0);" title="x&gt;=y" alt="" coords="356,423,625,441"/>
-<area shape="rect" href="javascript:void(0);" title="x.__getattribute__(&#39;name&#39;) &lt;==&gt; x.name" alt="" coords="356,441,625,460"/>
-<area shape="rect" href="javascript:void(0);" title="x[y]" alt="" coords="356,460,625,479"/>
-<area shape="rect" href="javascript:void(0);" title="x[i:j]" alt="" coords="356,479,625,497"/>
-<area shape="rect" href="javascript:void(0);" title="x&gt;y" alt="" coords="356,497,625,516"/>
-<area shape="rect" href="javascript:void(0);" title="x+=y" alt="" coords="356,516,625,535"/>
-<area shape="rect" href="javascript:void(0);" title="x*=y" alt="" coords="356,535,625,553"/>
-<area shape="rect" href="javascript:void(0);" title="iter(x)" alt="" coords="356,553,625,572"/>
-<area shape="rect" href="javascript:void(0);" title="stable sort *IN PLACE*; cmp(x, y) &#45;&gt; &#45;1, 0, 1" alt="" coords="356,591,625,609"/>
-<area shape="rect" href="javascript:void(0);" title="list() &#45;&gt; new empty list list(iterable) &#45;&gt; new list initialized from iterable&#39;s items" alt="" coords="355,291,627,611"/>
-<area shape="rect" href="source.composite.Composite-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="225,665,425,684"/>
-<area shape="rect" href="source.composite.Composite-class.html#append" title="override list.append to keep parent of each list element That is, hierachal model tree is digraph with bidirectional links." alt="" coords="225,684,425,703"/>
-<area shape="rect" href="source.composite.Composite-class.html#get_parent" title="source.composite.Composite.get_parent" alt="" coords="225,703,425,721"/>
-<area shape="rect" href="source.composite.Composite-class.html#draw" title="Iterate draw contained objects." alt="" coords="225,721,425,740"/>
-<area shape="rect" href="source.composite.Composite-class.html#pick" title="Pick: return first member that hits point." alt="" coords="225,740,425,759"/>
-<area shape="rect" href="source.composite.Composite-class.html#put_path_to" title="Aggregate the paths of members." alt="" coords="225,759,425,777"/>
-<area shape="rect" href="source.composite.Composite-class.html#layout" title="Layout members." alt="" coords="225,777,425,796"/>
-<area shape="rect" href="source.composite.Composite-class.html#highlight" title="source.composite.Composite.highlight" alt="" coords="225,796,425,815"/>
-<area shape="rect" href="source.composite.Composite-class.html#rouse_feedback" title="Activating controls is NOT aggregate, but only on the top level." alt="" coords="225,815,425,833"/>
-<area shape="rect" href="source.composite.Composite-class.html" title="A container of Transformer:Drawables." alt="" coords="224,640,427,835"/>
+<area shape="rect" href="javascript:void(0);" title="hash(x)" alt="" coords="17,308,287,327"/>
+<area shape="rect" href="javascript:void(0);" title="x+y" alt="" coords="17,329,287,348"/>
+<area shape="rect" href="javascript:void(0);" title="y in x" alt="" coords="17,348,287,367"/>
+<area shape="rect" href="javascript:void(0);" title="del x[y]" alt="" coords="17,367,287,385"/>
+<area shape="rect" href="javascript:void(0);" title="del x[i:j]" alt="" coords="17,385,287,404"/>
+<area shape="rect" href="javascript:void(0);" title="x==y" alt="" coords="17,404,287,423"/>
+<area shape="rect" href="javascript:void(0);" title="x&gt;=y" alt="" coords="17,423,287,441"/>
+<area shape="rect" href="javascript:void(0);" title="x.__getattribute__(&#39;name&#39;) &lt;==&gt; x.name" alt="" coords="17,441,287,460"/>
+<area shape="rect" href="javascript:void(0);" title="x[y]" alt="" coords="17,460,287,479"/>
+<area shape="rect" href="javascript:void(0);" title="x[i:j]" alt="" coords="17,479,287,497"/>
+<area shape="rect" href="javascript:void(0);" title="x&gt;y" alt="" coords="17,497,287,516"/>
+<area shape="rect" href="javascript:void(0);" title="x+=y" alt="" coords="17,516,287,535"/>
+<area shape="rect" href="javascript:void(0);" title="x*=y" alt="" coords="17,535,287,553"/>
+<area shape="rect" href="javascript:void(0);" title="iter(x)" alt="" coords="17,553,287,572"/>
+<area shape="rect" href="javascript:void(0);" title="stable sort IN PLACE; cmp(x, y) &#45;&gt; &#45;1, 0, 1" alt="" coords="17,591,287,609"/>
+<area shape="rect" href="javascript:void(0);" title="list() &#45;&gt; new empty list list(iterable) &#45;&gt; new list initialized from iterable&#39;s items" alt="" coords="16,291,288,611"/>
+<area shape="rect" href="source.composite.Composite-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="217,665,417,684"/>
+<area shape="rect" href="source.composite.Composite-class.html#append" title="override list.append to keep parent of each list element That is, hierachal model tree is digraph with bidirectional links." alt="" coords="217,684,417,703"/>
+<area shape="rect" href="source.composite.Composite-class.html#get_parent" title="source.composite.Composite.get_parent" alt="" coords="217,703,417,721"/>
+<area shape="rect" href="source.composite.Composite-class.html#draw" title="Iterate draw contained objects. The drawing order is important. !!! Note we draw separately, not in one stroke." alt="" coords="217,721,417,740"/>
+<area shape="rect" href="source.composite.Composite-class.html#pick" title="Pick: return first member that hits point. Ultimately calls glyph.pick() but it returns glyph.parent, a morph. Note: not returning self if member picks, that is, we are picking primitive morphs, not glyphs. That is, we are picking the smallest morph at coords. Alternatively, we could return composite morphs (the largest pick.)" alt="" coords="217,740,417,759"/>
+<area shape="rect" href="source.composite.Composite-class.html#put_path_to" title="Aggregate the paths of members. !!! Note paths accumulate in the context even through save/restore" alt="" coords="217,759,417,777"/>
+<area shape="rect" href="source.composite.Composite-class.html#layout" title="Layout members. Usually based on origin and/or dimensions of group. Often overridden. Defaults to all items have same dimensions as the group. That is sensible for morphs, which have one item in a group." alt="" coords="217,777,417,796"/>
+<area shape="rect" href="source.composite.Composite-class.html#highlight" title="source.composite.Composite.highlight" alt="" coords="217,796,417,815"/>
+<area shape="rect" href="source.composite.Composite-class.html#rouse_feedback" title="Activating controls is NOT aggregate, but only on the top level. I.E. Don&#39;t activate all the controls in a tree of morphs." alt="" coords="217,815,417,833"/>
+<area shape="rect" href="source.composite.Composite-class.html" title="A container of Transformer:Drawables." alt="" coords="216,640,419,835"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#invalidate_as_drawn" title="Invalidate as previously drawn. Caching drawn bounds is an optimization; alternative is to walk model branch. This is for composite and primitive drawables: every drawable has bounds." alt="" coords="385,36,580,55"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#invalidate_will_draw" title="Invalidate as will be drawn (hasn&#39;t been drawn yet.) This walks a branch of model to determine bounds." alt="" coords="385,55,580,73"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#dump" title="source.drawable.Drawable.dump" alt="" coords="385,73,580,92"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#get_drawn_origin" title="Return device coords of origin where drawn." alt="" coords="385,92,580,111"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#put_edge_to" title="Put my boundary in the context. For most drawables (e.g. circle), the path is the boundary. If NOT path is boundary, override. &#160;E.G. text has a frame. Edge is used for hit detection." alt="" coords="385,111,580,129"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#in_path" title="Does coords hit ideal edge of this drawable? Contrast to in_stroke." alt="" coords="385,129,580,148"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#in_stroke" title="Does coords hit edge of this drawable? Stroke: hit on inked, visible. Edge: not including possible interior features, just the hittable boundary. Distinguish from a bounding box, which is a rectangle in DCS." alt="" coords="385,148,580,167"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#in_fill" title="Is event in our filled shape? Bounding box is DCS axis aligned, drawn fill is NOT, so use in_fill()." alt="" coords="385,167,580,185"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#is_inbounds" title="Is event in our bounding box? Intersect bounding rect with event point converted to rectangle of width one." alt="" coords="385,185,580,204"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#get_stroke_bounds" title="Compute bounding rect in DCS of path in context as inked. !!! Note not recursive, takes path from context." alt="" coords="385,204,580,223"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#is_in_control_area" title="Is the event in the hot area. Usually only for control subclass of drawable." alt="" coords="385,223,580,241"/>
+<area shape="rect" href="source.drawable.Drawable-class.html#get_orthogonal" title="Return an orthogonal unit vector at given point on boundary. Virtual: each subclass knows its orthogonal." alt="" coords="385,241,580,260"/>
+<area shape="rect" href="source.drawable.Drawable-class.html" title="Things that can be drawn (morphs, glyphs, and controls)." alt="" coords="384,11,581,261"/>
+<area shape="rect" href="source.transformer.Transformer-class.html#rotation" title="Pickling." alt="" coords="340,308,625,327"/>
+<area shape="rect" href="source.transformer.Transformer-class.html#__getstate__" title="Return state values to be pickled." alt="" coords="340,329,625,348"/>
+<area shape="rect" href="source.transformer.Transformer-class.html#__setstate__" title="Restore state from the unpickled state values." alt="" coords="340,348,625,367"/>
+<area shape="rect" href="source.transformer.Transformer-class.html#put_transform_to" title="Apply my transform to the current transform in the context. FIXME and style?" alt="" coords="340,367,625,385"/>
+<area shape="rect" href="source.transformer.Transformer-class.html#derive_transform" title="Set my transform from my drawing specs. !!! Afterwards, retained_transform doesn&#39;t correspond until walk model tree" alt="" coords="340,385,625,404"/>
+<area shape="rect" href="source.transformer.Transformer-class.html#device_to_local" title="Get local coordinates (group GCS) of DCS point. Uses parent retained transform: only works if previously model traversed and transforms derived. Will not work for the model (the top.)" alt="" coords="340,404,625,423"/>
+<area shape="rect" href="source.transformer.Transformer-class.html#set_transform" title="Set the specs for transform, and derive transform from specs." alt="" coords="340,423,625,441"/>
+<area shape="rect" href="source.transformer.Transformer-class.html#set_dimensions" title="Set the translation and scale (not rotation) of an object. For testing: ordinarily, transforms are set by user actions using other methods. !!! Not view altering" alt="" coords="340,441,625,460"/>
+<area shape="rect" href="source.transformer.Transformer-class.html#set_translation" title="!!! Not view altering (can be called before view is established.) !!! point is not copied." alt="" coords="340,460,625,479"/>
+<area shape="rect" href="source.transformer.Transformer-class.html#set_origin" title="Set translation" alt="" coords="340,479,625,497"/>
+<area shape="rect" href="source.transformer.Transformer-class.html#move_origin" title="Move origin but keep other points fixed." alt="" coords="340,497,625,516"/>
+<area shape="rect" href="source.transformer.Transformer-class.html#move_relative" title="Translate. Move origin by offset. &#160;Offset is a delta in LCS (any really)." alt="" coords="340,516,625,535"/>
+<area shape="rect" href="source.transformer.Transformer-class.html#move_absolute" title="Set translation by offset." alt="" coords="340,535,625,553"/>
+<area shape="rect" href="source.transformer.Transformer-class.html#scale_uniformly" title="Relative scale uniformly by the scalar delta" alt="" coords="340,553,625,572"/>
+<area shape="rect" href="source.transformer.Transformer-class.html#center_at" title="??? This only works for controls, where the scale is equivalent to pixels in DCS." alt="" coords="340,591,625,609"/>
+<area shape="rect" href="source.transformer.Transformer-class.html" title="Transformer between coordinate systems. Affine drawing transformation by matrix." alt="" coords="339,291,627,611"/>
 </map>
   <img src="uml_class_diagram_for_source_c_2.gif" alt='' usemap="#uml_class_diagram_for_source_c_2" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
-<pre class="literalblock">
-
-A container of Transformer:Drawables.
-
-Isolates hierarchy aspects:
+<p>A container of Transformer:Drawables.</p>
+<p>Isolates hierarchy aspects:
 Composites aggregate properties from their members.
 Composites donate default properties to members.
-(Members inherit properties from parents.)
-
-!!! inherits from Drawable:
-  in_path() 
-  get_bounds()
-They call put_path_to() which comes here and it does the right thing.
-
-These ops are directly transformed for hierarchal modeling:
-  draw()
-  put_path_to()
-
-The invalidate operation is aggregate and transformed
+(Members inherit properties from parents.)</p>
+<dl class="rst-docutils">
+<dt>!!! inherits from Drawable:</dt>
+<dd>in_path()
+get_bounds()</dd>
+</dl>
+<p>They call put_path_to() which comes here and it does the right thing.</p>
+<dl class="rst-docutils">
+<dt>These ops are directly transformed for hierarchal modeling:</dt>
+<dd>draw()
+put_path_to()</dd>
+</dl>
+<p>The invalidate operation is aggregate and transformed
 It invalidates the union region of members.
 However, invalidate may be cached.
 And invalidate may aggregate and be transformed via the recursion of put_path_to.
-So you don't see invalidate as a method of composite.
-
-</pre>
+So you don't see invalidate as a method of composite.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -188,8 +184,8 @@ So you don't see invalidate as a method of composite.
         <tr>
           <td><span class="summary-sig"><a href="source.composite.Composite-class.html#append" class="summary-sig-name">append</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">item</span>)</span><br />
-      override list.append to keep parent of each list element That is, 
-      hierachal model tree is digraph with bidirectional links.</td>
+      override list.append to keep parent of each list element
+That is, hierachal model tree is digraph with bidirectional links.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.composite-pysrc.html#Composite.append">source&nbsp;code</a></span>
             
@@ -224,7 +220,9 @@ So you don't see invalidate as a method of composite.
           <td><span class="summary-sig"><a href="source.composite.Composite-class.html#draw" class="summary-sig-name">draw</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">*args</span>,
         <span class="summary-sig-arg">**kwargs</span>)</span><br />
-      Iterate draw contained objects.</td>
+      Iterate draw contained objects.
+The drawing order is important.
+!!! Note we draw separately, not in one stroke.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.decorators-pysrc.html">source&nbsp;code</a></span>
             
@@ -243,7 +241,12 @@ So you don't see invalidate as a method of composite.
           <td><span class="summary-sig"><a href="source.composite.Composite-class.html#pick" class="summary-sig-name">pick</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">*args</span>,
         <span class="summary-sig-arg">**kwargs</span>)</span><br />
-      Pick: return first member that hits point.</td>
+      Pick: return first member that hits point.
+Ultimately calls glyph.pick() but it returns glyph.parent, a morph.
+Note: not returning self if member picks,
+that is, we are picking primitive morphs, not glyphs.
+That is, we are picking the smallest morph at coords.
+Alternatively, we could return composite morphs (the largest pick.)</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.decorators-pysrc.html">source&nbsp;code</a></span>
             
@@ -262,7 +265,8 @@ So you don't see invalidate as a method of composite.
           <td><span class="summary-sig"><a href="source.composite.Composite-class.html#put_path_to" class="summary-sig-name">put_path_to</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">*args</span>,
         <span class="summary-sig-arg">**kwargs</span>)</span><br />
-      Aggregate the paths of members.</td>
+      Aggregate the paths of members.
+!!! Note paths accumulate in the context even through save/restore</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.decorators-pysrc.html">source&nbsp;code</a></span>
             
@@ -278,9 +282,13 @@ So you don't see invalidate as a method of composite.
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.composite.Composite-class.html#layout" class="summary-sig-name">layout</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="layout"></a><span class="summary-sig-name">layout</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">event</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Layout members.</td>
+      Layout members.
+Usually based on origin and/or dimensions of group.
+Often overridden.
+Defaults to all items have same dimensions as the group.
+That is sensible for morphs, which have one item in a group.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.composite-pysrc.html#Composite.layout">source&nbsp;code</a></span>
             
@@ -313,9 +321,10 @@ So you don't see invalidate as a method of composite.
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.composite.Composite-class.html#rouse_feedback" class="summary-sig-name">rouse_feedback</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="rouse_feedback"></a><span class="summary-sig-name">rouse_feedback</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">event</span>)</span><br />
-      Activating controls is NOT aggregate, but only on the top level.</td>
+      Activating controls is NOT aggregate, but only on the top level.
+I.E. Don't activate all the controls in a tree of morphs.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.composite-pysrc.html#Composite.rouse_feedback">source&nbsp;code</a></span>
             
@@ -516,8 +525,7 @@ So you don't see invalidate as a method of composite.
     </td>
   </tr></table>
   
-  <p>x.__init__(...) initializes x; see x.__class__.__doc__ for 
-  signature</p>
+  x.__init__(...) initializes x; see x.__class__.__doc__ for signature
   <dl class="fields">
     <dt>Returns: new empty list</dt>
     <dt>Overrides:
@@ -542,8 +550,8 @@ So you don't see invalidate as a method of composite.
     </td>
   </tr></table>
   
-  <p>override list.append to keep parent of each list element That is, 
-  hierachal model tree is digraph with bidirectional links.</p>
+  override list.append to keep parent of each list element
+That is, hierachal model tree is digraph with bidirectional links.
   <dl class="fields">
     <dt>Overrides:
         list.append
@@ -567,10 +575,11 @@ So you don't see invalidate as a method of composite.
     </td>
   </tr></table>
   
-  <p>Iterate draw contained objects. The drawing order is important. !!! 
-  Note we draw separately, not in one stroke.</p>
-  <p>Note this is standard hierarchal modeling: apply my transform to the 
-  current transform matrix of the context (CTM).</p>
+  <p>Iterate draw contained objects.
+The drawing order is important.
+!!! Note we draw separately, not in one stroke.</p>
+<p>Note this is standard hierarchal modeling:
+apply my transform to the current transform matrix of the context (CTM).</p>
   <dl class="fields">
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
@@ -598,11 +607,12 @@ So you don't see invalidate as a method of composite.
     </td>
   </tr></table>
   
-  <p>Pick: return first member that hits point. Ultimately calls 
-  glyph.pick() but it returns glyph.parent, a morph. Note: not returning 
-  self if member picks, that is, we are picking primitive morphs, not 
-  glyphs. That is, we are picking the smallest morph at coords. 
-  Alternatively, we could return composite morphs (the largest pick.)</p>
+  Pick: return first member that hits point.
+Ultimately calls glyph.pick() but it returns glyph.parent, a morph.
+Note: not returning self if member picks,
+that is, we are picking primitive morphs, not glyphs.
+That is, we are picking the smallest morph at coords.
+Alternatively, we could return composite morphs (the largest pick.)
   <dl class="fields">
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
@@ -627,8 +637,8 @@ So you don't see invalidate as a method of composite.
     </td>
   </tr></table>
   
-  <p>Aggregate the paths of members. !!! Note paths accumulate in the 
-  context even through save/restore</p>
+  Aggregate the paths of members.
+!!! Note paths accumulate in the context even through save/restore
   <dl class="fields">
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
@@ -637,49 +647,6 @@ So you don't see invalidate as a method of composite.
     <dt>Overrides:
         <a href="source.drawable.Drawable-class.html#put_path_to">drawable.Drawable.put_path_to</a>
     </dt>
-  </dl>
-</td></tr></table>
-</div>
-<a name="layout"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">layout</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">event</span>=<span class="sig-default">None</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.composite-pysrc.html#Composite.layout">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Layout members. Usually based on origin and/or dimensions of group. 
-  Often overridden. Defaults to all items have same dimensions as the 
-  group. That is sensible for morphs, which have one item in a group.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="rouse_feedback"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">rouse_feedback</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">event</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.composite-pysrc.html#Composite.rouse_feedback">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Activating controls is NOT aggregate, but only on the top level. I.E. 
-  Don't activate all the controls in a tree of morphs.</p>
-  <dl class="fields">
   </dl>
 </td></tr></table>
 </div>
@@ -710,7 +677,7 @@ So you don't see invalidate as a method of composite.
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:27 2011
+    Generated by Epydoc 3.0.1 on Sun Apr  3 10:43:10 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

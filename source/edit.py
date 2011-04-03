@@ -1,17 +1,5 @@
 '''
-Copyright 2010, 2011 Lloyd Konneker
-
-    This file is part of Pensool.
-
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-'''
-
-'''
-Edit operations: cut, copy, paste.
-Glue between app and clipboard.
+Edit operations: cut, copy, paste.  Glue between app and clipboard.
 
 Strategy is to pickle a morph, put the pickle on the clipboard.
 
@@ -21,6 +9,18 @@ Disown: parent breaks with child: remove parent's reference to child morph.
 Emancipate: child breaks with parent: Remove child's reference to parent morph.
 Adopt: refer parent to child
 '''
+'''
+Copyright 2010, 2011 Lloyd Konneker
+
+This file is part of Pensool.
+
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+'''
+
+
 import copy
 import pickle
 import clipboard

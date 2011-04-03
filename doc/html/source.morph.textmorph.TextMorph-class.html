@@ -60,56 +60,56 @@
 <h1 class="epydoc">Class TextMorph</h1><p class="nomargin-top"><span class="codelink"><a href="source.morph.textmorph-pysrc.html#TextMorph">source&nbsp;code</a></span></p>
 <center>
 <center>  <map id="uml_class_diagram_for_source_m_15" name="uml_class_diagram_for_source_m_15">
-<area shape="rect" href="source.morph.morph.PrimitiveMorph-class.html#is_primitive" title="Morph that is not class PrimitiveMorph is not primitive." alt="" coords="215,1020,340,1039"/>
-<area shape="rect" href="source.morph.morph.PrimitiveMorph-class.html" title="A PrimitiveMorph is a Composite of only Glyphs." alt="" coords="213,995,341,1040"/>
+<area shape="rect" href="source.morph.textmorph.TextEditMorph-class.html" title="TextMorph with extra selection control." alt="" coords="229,1181,325,1208"/>
+<area shape="rect" href="source.morph.morph.PrimitiveMorph-class.html#is_primitive" title="Morph that is not class PrimitiveMorph is not primitive. A PrimitiveMorph can be a group but only of glyphs. A non&#45;primitive morph is a group of other morphs." alt="" coords="215,1020,340,1039"/>
+<area shape="rect" href="source.morph.morph.PrimitiveMorph-class.html" title="A PrimitiveMorph is a Composite of only Glyphs. The transform and style of a PrimitiveMorph defines aspect of its glyph, a unit shape. Cannot append a Morph to a PrimitiveMorph, only glyphs. TODO enforce?" alt="" coords="213,995,341,1040"/>
 <area shape="rect" href="source.morph.textmorph.TextMorph-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="176,1095,379,1113"/>
 <area shape="rect" href="source.morph.textmorph.TextMorph-class.html#set_text" title="source.morph.textmorph.TextMorph.set_text" alt="" coords="176,1113,379,1132"/>
-<area shape="rect" href="source.morph.textmorph.TextMorph-class.html#put_edge_to" title="!!! Override: Hit detection is just on frame, not text glyphs TODO hit &#160;detection on TextSelect control" alt="" coords="176,1132,379,1151"/>
+<area shape="rect" href="source.morph.textmorph.TextMorph-class.html#put_edge_to" title="!!! Override: Hit detection is just on frame, not text glyphs TODO hit detection on TextSelect control" alt="" coords="176,1132,379,1151"/>
 <area shape="rect" href="source.morph.textmorph.TextMorph-class.html" title="Morph comprising frame, text" alt="" coords="175,1069,380,1152"/>
-<area shape="rect" href="javascript:void(0);" title="override list.append to keep parent of each list element That is, hierachal model tree is digraph with bidirectional links." alt="" coords="177,628,377,647"/>
-<area shape="rect" href="javascript:void(0);" title="Draw self using context." alt="" coords="177,647,377,665"/>
-<area shape="rect" href="javascript:void(0);" title="composite.Composite.get_parent" alt="" coords="177,665,377,684"/>
-<area shape="rect" href="javascript:void(0);" title="composite.Composite.highlight" alt="" coords="177,684,377,703"/>
-<area shape="rect" href="javascript:void(0);" title="Layout members." alt="" coords="177,703,377,721"/>
-<area shape="rect" href="javascript:void(0);" title="composite.Composite.pick" alt="" coords="177,721,377,740"/>
-<area shape="rect" href="javascript:void(0);" title="Put path into context." alt="" coords="177,740,377,759"/>
-<area shape="rect" href="javascript:void(0);" title="A container of Transformer:Drawables." alt="" coords="176,603,379,760"/>
-<area shape="rect" href="source.morph.morph.Morph-class.html#insert" title="Insert morph into this group." alt="" coords="148,815,407,833"/>
-<area shape="rect" href="source.morph.morph.Morph-class.html#rouse_feedback" title="Assert morph is focused." alt="" coords="148,833,407,852"/>
-<area shape="rect" href="source.morph.morph.Morph-class.html#get_orthogonal" title="Return a unit vector orthogonal to self at point." alt="" coords="148,852,407,871"/>
-<area shape="rect" href="source.morph.morph.Morph-class.html#resize" title="source.morph.morph.Morph.resize" alt="" coords="148,871,407,889"/>
-<area shape="rect" href="source.morph.morph.Morph-class.html#is_top" title="Morph that is the root of the modeling tree." alt="" coords="148,889,407,908"/>
-<area shape="rect" href="source.morph.morph.Morph-class.html#set_by_drag" title="Establish my dimensions (set transform) according to drag op from &#160;start_coords to event." alt="" coords="148,908,407,927"/>
-<area shape="rect" href="source.morph.morph.Morph-class.html#move_by_drag" title="Establish my translation according to drag op of glyph by offset" alt="" coords="148,927,407,945"/>
-<area shape="rect" href="source.morph.morph.Morph-class.html#move_by_drag_handle" title="Establish my dimensions (set transform) according to drag op of handle by &#160;offset" alt="" coords="148,945,407,964"/>
-<area shape="rect" href="source.morph.morph.Morph-class.html" title="A Morph is a Composite with associated controls." alt="" coords="147,789,408,965"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.dump" alt="" coords="31,36,225,55"/>
-<area shape="rect" href="javascript:void(0);" title="Return device coords of origin where drawn." alt="" coords="31,55,225,73"/>
-<area shape="rect" href="javascript:void(0);" title="Compute bounding rect in DCS of path in context as inked." alt="" coords="31,73,225,92"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_fill" alt="" coords="31,92,225,111"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_path" alt="" coords="31,111,225,129"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_stroke" alt="" coords="31,129,225,148"/>
-<area shape="rect" href="javascript:void(0);" title="Invalidate as previously drawn." alt="" coords="31,148,225,167"/>
-<area shape="rect" href="javascript:void(0);" title="Invalidate as will be drawn (hasn&#39;t been drawn yet.) This walks a branch of model to determine bounds." alt="" coords="31,167,225,185"/>
-<area shape="rect" href="javascript:void(0);" title="Is the event in the hot area." alt="" coords="31,185,225,204"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.is_inbounds" alt="" coords="31,204,225,223"/>
-<area shape="rect" href="javascript:void(0);" title="Things that can be drawn (morphs, glyphs, and controls)." alt="" coords="29,11,227,224"/>
 <area shape="rect" href="javascript:void(0);" title="Return state values to be pickled." alt="" coords="17,285,239,304"/>
 <area shape="rect" href="javascript:void(0);" title="Restore state from the unpickled state values." alt="" coords="17,304,239,323"/>
-<area shape="rect" href="javascript:void(0);" title="??? This only works for controls, where the scale is equivalent to pixels &#160;in DCS." alt="" coords="17,323,239,341"/>
-<area shape="rect" href="javascript:void(0);" title="Set my transform from my drawing specs." alt="" coords="17,341,239,360"/>
-<area shape="rect" href="javascript:void(0);" title="Get local coordinates (group GCS) of DCS point." alt="" coords="17,360,239,379"/>
+<area shape="rect" href="javascript:void(0);" title="??? This only works for controls, where the scale is equivalent to pixels in DCS." alt="" coords="17,323,239,341"/>
+<area shape="rect" href="javascript:void(0);" title="Set my transform from my drawing specs. !!! Afterwards, retained_transform doesn&#39;t correspond until walk model tree" alt="" coords="17,341,239,360"/>
+<area shape="rect" href="javascript:void(0);" title="Get local coordinates (group GCS) of DCS point. Uses parent retained transform: only works if previously model traversed and transforms derived. Will not work for the model (the top.)" alt="" coords="17,360,239,379"/>
 <area shape="rect" href="javascript:void(0);" title="transformer.Transformer.move_absolute" alt="" coords="17,379,239,397"/>
 <area shape="rect" href="javascript:void(0);" title="Move origin but keep other points fixed." alt="" coords="17,397,239,416"/>
 <area shape="rect" href="javascript:void(0);" title="transformer.Transformer.move_relative" alt="" coords="17,416,239,435"/>
-<area shape="rect" href="javascript:void(0);" title="Apply my transform to the current transform in the context." alt="" coords="17,435,239,453"/>
+<area shape="rect" href="javascript:void(0);" title="Apply my transform to the current transform in the context. FIXME and style?" alt="" coords="17,435,239,453"/>
 <area shape="rect" href="javascript:void(0);" title="transformer.Transformer.relative_scale" alt="" coords="17,453,239,472"/>
 <area shape="rect" href="javascript:void(0);" title="transformer.Transformer.rotate" alt="" coords="17,472,239,491"/>
 <area shape="rect" href="javascript:void(0);" title="transformer.Transformer.scale_uniformly" alt="" coords="17,491,239,509"/>
-<area shape="rect" href="javascript:void(0);" title="Set the translation and scale (not rotation) of an object." alt="" coords="17,509,239,528"/>
+<area shape="rect" href="javascript:void(0);" title="Set the translation and scale (not rotation) of an object. For testing: ordinarily, transforms are set by user actions using other methods. !!! Not view altering" alt="" coords="17,509,239,528"/>
 <area shape="rect" href="javascript:void(0);" title="transformer.Transformer.zoom" alt="" coords="17,547,239,565"/>
-<area shape="rect" href="javascript:void(0);" title="A transformer (of coordinate systems)" alt="" coords="16,260,240,567"/>
-<area shape="rect" href="source.morph.textmorph.TextEditMorph-class.html" title="TextMorph with extra selection control." alt="" coords="229,1181,325,1208"/>
+<area shape="rect" href="javascript:void(0);" title="Transformer between coordinate systems. Affine drawing transformation by matrix." alt="" coords="16,260,240,567"/>
+<area shape="rect" href="javascript:void(0);" title="override list.append to keep parent of each list element That is, hierachal model tree is digraph with bidirectional links." alt="" coords="177,628,377,647"/>
+<area shape="rect" href="javascript:void(0);" title="Draw self using context. Return bounds in DCS for later use to invalidate." alt="" coords="177,647,377,665"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.get_parent" alt="" coords="177,665,377,684"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.highlight" alt="" coords="177,684,377,703"/>
+<area shape="rect" href="javascript:void(0);" title="Layout members. Usually based on origin and/or dimensions of group. Often overridden. Defaults to all items have same dimensions as the group. That is sensible for morphs, which have one item in a group." alt="" coords="177,703,377,721"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.pick" alt="" coords="177,721,377,740"/>
+<area shape="rect" href="javascript:void(0);" title="Put path into context. Virtual: each subclass knows its shape." alt="" coords="177,740,377,759"/>
+<area shape="rect" href="javascript:void(0);" title="A container of Transformer:Drawables." alt="" coords="176,603,379,760"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#insert" title="Insert morph into this group. If self is a primitive morph, insert new group morph in hierarchy, i.e. branch. Because, if self is a primitive morph, it has a transform that shapes its glyphs but we want a distinct transform for the new group [self,morph]." alt="" coords="148,815,407,833"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#rouse_feedback" title="Assert morph is focused. Activate associated feedback." alt="" coords="148,833,407,852"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#get_orthogonal" title="Return a unit vector orthogonal to self at point." alt="" coords="148,852,407,871"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#resize" title="source.morph.morph.Morph.resize" alt="" coords="148,871,407,889"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#is_top" title="Morph that is the root of the modeling tree." alt="" coords="148,889,407,908"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#set_by_drag" title="Establish my dimensions (set transform) according to drag op from start_coords to event. My glyph is a unitary thing (unit scale, translation.) Set my transform within my parent group&#39;s coordinate system (GCS)." alt="" coords="148,908,407,927"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#move_by_drag" title="Establish my translation according to drag op of glyph by offset" alt="" coords="148,927,407,945"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#move_by_drag_handle" title="Establish my dimensions (set transform) according to drag op of handle by offset" alt="" coords="148,945,407,964"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html" title="A Morph is a Composite with associated controls. A composite of Morphs or Glyphs." alt="" coords="147,789,408,965"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.dump" alt="" coords="31,36,225,55"/>
+<area shape="rect" href="javascript:void(0);" title="Return device coords of origin where drawn." alt="" coords="31,55,225,73"/>
+<area shape="rect" href="javascript:void(0);" title="Compute bounding rect in DCS of path in context as inked. !!! Note not recursive, takes path from context." alt="" coords="31,73,225,92"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_fill" alt="" coords="31,92,225,111"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_path" alt="" coords="31,111,225,129"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_stroke" alt="" coords="31,129,225,148"/>
+<area shape="rect" href="javascript:void(0);" title="Invalidate as previously drawn. Caching drawn bounds is an optimization; alternative is to walk model branch. This is for composite and primitive drawables: every drawable has bounds." alt="" coords="31,148,225,167"/>
+<area shape="rect" href="javascript:void(0);" title="Invalidate as will be drawn (hasn&#39;t been drawn yet.) This walks a branch of model to determine bounds." alt="" coords="31,167,225,185"/>
+<area shape="rect" href="javascript:void(0);" title="Is the event in the hot area. Usually only for control subclass of drawable." alt="" coords="31,185,225,204"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.is_inbounds" alt="" coords="31,204,225,223"/>
+<area shape="rect" href="javascript:void(0);" title="Things that can be drawn (morphs, glyphs, and controls)." alt="" coords="29,11,227,224"/>
 <area shape="rect" href="javascript:void(0);" title="hash(x)" alt="" coords="292,271,561,289"/>
 <area shape="rect" href="javascript:void(0);" title="x+y" alt="" coords="292,292,561,311"/>
 <area shape="rect" href="javascript:void(0);" title="y in x" alt="" coords="292,311,561,329"/>
@@ -124,7 +124,7 @@
 <area shape="rect" href="javascript:void(0);" title="x+=y" alt="" coords="292,479,561,497"/>
 <area shape="rect" href="javascript:void(0);" title="x*=y" alt="" coords="292,497,561,516"/>
 <area shape="rect" href="javascript:void(0);" title="iter(x)" alt="" coords="292,516,561,535"/>
-<area shape="rect" href="javascript:void(0);" title="stable sort *IN PLACE*; cmp(x, y) &#45;&gt; &#45;1, 0, 1" alt="" coords="292,553,561,572"/>
+<area shape="rect" href="javascript:void(0);" title="stable sort IN PLACE; cmp(x, y) &#45;&gt; &#45;1, 0, 1" alt="" coords="292,553,561,572"/>
 <area shape="rect" href="javascript:void(0);" title="list() &#45;&gt; new empty list list(iterable) &#45;&gt; new list initialized from iterable&#39;s items" alt="" coords="291,253,563,573"/>
 </map>
   <img src="uml_class_diagram_for_source_m_15.gif" alt='' usemap="#uml_class_diagram_for_source_m_15" ismap="ismap" class="graph-without-title" />
@@ -132,8 +132,8 @@
 </center>
 <hr />
 <p>Morph comprising frame, text</p>
-  <p>Text does layout to fit the frame. set_dimensions of the frame should 
-  layout.</p>
+<p>Text does layout to fit the frame.
+set_dimensions of the frame should layout.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -196,8 +196,8 @@
           <td><span class="summary-sig"><a href="source.morph.textmorph.TextMorph-class.html#put_edge_to" class="summary-sig-name">put_edge_to</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">*args</span>,
         <span class="summary-sig-arg">**kwargs</span>)</span><br />
-      !!! Override: Hit detection is just on frame, not text glyphs TODO 
-      hit detection on TextSelect control</td>
+      !!! Override: Hit detection is just on frame, not text glyphs
+TODO hit detection on TextSelect control</td>
           <td align="right" valign="top">
             
             
@@ -392,8 +392,7 @@
     </td>
   </tr></table>
   
-  <p>x.__init__(...) initializes x; see x.__class__.__doc__ for 
-  signature</p>
+  x.__init__(...) initializes x; see x.__class__.__doc__ for signature
   <dl class="fields">
     <dt>Returns: new empty list</dt>
     <dt>Overrides:
@@ -419,8 +418,8 @@
     </td>
   </tr></table>
   
-  <p>!!! Override: Hit detection is just on frame, not text glyphs TODO hit
-  detection on TextSelect control</p>
+  !!! Override: Hit detection is just on frame, not text glyphs
+TODO hit detection on TextSelect control
   <dl class="fields">
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
@@ -459,7 +458,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:32 2011
+    Generated by Epydoc 3.0.1 on Sun Apr  3 10:43:15 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

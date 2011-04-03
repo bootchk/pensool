@@ -1,16 +1,5 @@
 '''
-Copyright 2010, 2011 Lloyd Konneker
-
-    This file is part of Pensool.
-
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-'''
-
-'''
-Composite drawables i.e. groups i.e. containers of drawables.
+Composite drawables.  A transforming group (container) of drawables.
 
 Subclasses are menus and morphs.
 All composites are Transformers and Drawables.
@@ -32,7 +21,16 @@ The signature and documentation for each method
 is the same as for methods on primitive members.
 '''
 
-# FIXME rename to composite
+'''
+Copyright 2010, 2011 Lloyd Konneker
+
+This file is part of Pensool.
+
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+'''
 
 import transformer
 import style

@@ -1,16 +1,6 @@
-'''
-Copyright 2010, 2011 Lloyd Konneker
 
-    This file is part of Pensool.
-
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
 '''
-'''
-Clipboard wrapper.
-Wraps clipboard provided by underlying OS/window system.
+Clipboard wrapper. Wraps clipboard of OS/window system.
 
 A singleton within the app, called clipboard.clipboard.
 Maintains global_clipboard, the wrapped clipboard.
@@ -27,6 +17,17 @@ API:
   is_contents(): return whether clipboard has contents  TODO
 '''
 
+'''
+Copyright 2010, 2011 Lloyd Konneker
+
+This file is part of Pensool.
+
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+'''
+
 import gtk
 import logging
 
@@ -35,6 +36,7 @@ my_logger = logging.getLogger('pensool')
 PENSOOL_TARGET = ("PENSOOL", gtk.TARGET_SAME_APP, 1)
 
 class Clipboard(object):
+  ''' Wrapper of GUI toolkit's clipboard.'''
 
   def __init__(self):
     self.global_clipboard = gtk.clipboard_get(gtk.gdk.SELECTION_CLIPBOARD)

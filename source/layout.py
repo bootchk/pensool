@@ -1,18 +1,7 @@
-'''
-Copyright 2010, 2011 Lloyd Konneker
 
-    This file is part of Pensool.
-
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-'''
 
 '''
-LayoutSpec
-
-Specifications (parameters) for layout.
+LayoutSpec class.  Specifications (parameters) for layout.
 For menu layout.
 For other composites?
 
@@ -34,13 +23,24 @@ Coordinates: currently in DCS.
 A menu is drawn in DCS effectively since controls drawn in their own context.
 FIXME should be in GCS of glyph?
 '''
+'''
+Copyright 2010, 2011 Lloyd Konneker
+
+This file is part of Pensool.
+
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+'''
+
 import base.vector as vector
 import cairo
 from decorators import *
 
 
 class LayoutSpec(object):
-
+  ''' Specification for layout of control groups (menus). '''
   def __init__(self, hotspot=None, benchmark=None, a_vector=None, opening_item=0):
     if hotspot:
       self.hotspot = vector.Point(hotspot.x, hotspot.y) # intersection point of vector and morph

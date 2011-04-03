@@ -1,17 +1,16 @@
 '''
+Managers of groups of controls, enforces policy: one active item in a menu.
+There is another manager that enforces a policy over the whole application.
+'''
+'''
 Copyright 2010, 2011 Lloyd Konneker
 
-    This file is part of Pensool.
+This file is part of Pensool.
 
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-Managers of groups of controls.
-Enforces a policy on the group.
-Here the policy is for menus: one active item.
-There is another manager that enforces a policy over the whole application.
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 '''
 
 import logging
@@ -22,7 +21,6 @@ import gui.manager.control
 from decorators import *
 import layout
 import base.vector as vector
-## import config
 
 # FIXME
 import gui.manager.textselect

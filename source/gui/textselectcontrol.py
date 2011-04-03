@@ -1,14 +1,5 @@
 '''
-Copyright 2010, 2011 Lloyd Konneker
-
-    This file is part of Pensool.
-
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-Text selection control (i.e. a selection)
+Text selection control (i.e. a selection).
 A zero-length selection is an insertion bar.
 Pensool only has selections in text.
 
@@ -20,6 +11,16 @@ Receives key presses when parent text glyph is active operand.
 
 !!! A control that can be controlled by another control, a handle menu.
 '''
+'''
+Copyright 2010, 2011 Lloyd Konneker
+
+This file is part of Pensool.
+
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+'''
 
 import gui.control
 import gui.manager.textselect
@@ -29,10 +30,8 @@ import morph
 
 
 class TextSelectControl(gui.control.GuiControl):
-  
+  ''' A control that is a user's selection in text.'''
   def __init__(self, textglyph):
-    '''
-    '''
     gui.control.GuiControl.__init__(self)
     
     # selection in units of glyph (character) index

@@ -57,18 +57,7 @@
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
 <h1 class="epydoc">Module orthogonal</h1><p class="nomargin-top"><span class="codelink"><a href="source.base.orthogonal-pysrc.html">source&nbsp;code</a></span></p>
-<pre class="literalblock">
-
-Copyright 2010, 2011 Lloyd Konneker
-
-    This file is part of Pensool.
-
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-</pre>
+Geometry: orthogonality.
 
 <!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
@@ -93,9 +82,11 @@ Copyright 2010, 2011 Lloyd Konneker
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.base.orthogonal-module.html#circle_orthogonal" class="summary-sig-name">circle_orthogonal</a>(<span class="summary-sig-arg">center</span>,
+          <td><span class="summary-sig"><a name="circle_orthogonal"></a><span class="summary-sig-name">circle_orthogonal</span>(<span class="summary-sig-arg">center</span>,
         <span class="summary-sig-arg">point</span>)</span><br />
-      Ortho of circle is: vector from center to point.</td>
+      Ortho of circle is: vector from center to point.
+The point can be inside or outside the circle.
+Orthogonal to the center is the (0,0) null vector, causes problem?</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.base.orthogonal-pysrc.html#circle_orthogonal">source&nbsp;code</a></span>
             
@@ -111,9 +102,10 @@ Copyright 2010, 2011 Lloyd Konneker
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.base.orthogonal-module.html#line_orthogonal" class="summary-sig-name">line_orthogonal</a>(<span class="summary-sig-arg">point1</span>,
+          <td><span class="summary-sig"><a name="line_orthogonal"></a><span class="summary-sig-name">line_orthogonal</span>(<span class="summary-sig-arg">point1</span>,
         <span class="summary-sig-arg">point2</span>)</span><br />
-      Canonical ortho of infinite line defined by two points.</td>
+      Canonical ortho of infinite line defined by two points.
+Canonical means not the orthogonal in the direction of a third point.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.base.orthogonal-pysrc.html#line_orthogonal">source&nbsp;code</a></span>
             
@@ -129,10 +121,12 @@ Copyright 2010, 2011 Lloyd Konneker
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.base.orthogonal-module.html#magnitude_to_line" class="summary-sig-name">magnitude_to_line</a>(<span class="summary-sig-arg">point1</span>,
+          <td><span class="summary-sig"><a name="magnitude_to_line"></a><span class="summary-sig-name">magnitude_to_line</span>(<span class="summary-sig-arg">point1</span>,
         <span class="summary-sig-arg">point2</span>,
         <span class="summary-sig-arg">point3</span>)</span><br />
-      Magnitude from point3 to line defined by point1 and point2.</td>
+      Magnitude from point3 to line defined by point1 and point2.
+Magnitude is signed.
+Sign indicates left or right in direction from point1 to point2.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.base.orthogonal-pysrc.html#magnitude_to_line">source&nbsp;code</a></span>
             
@@ -148,10 +142,11 @@ Copyright 2010, 2011 Lloyd Konneker
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.base.orthogonal-module.html#distance_to_line" class="summary-sig-name">distance_to_line</a>(<span class="summary-sig-arg">point1</span>,
+          <td><span class="summary-sig"><a name="distance_to_line"></a><span class="summary-sig-name">distance_to_line</span>(<span class="summary-sig-arg">point1</span>,
         <span class="summary-sig-arg">point2</span>,
         <span class="summary-sig-arg">point3</span>)</span><br />
-      Distance from point3 to line defined by point1 and point2.</td>
+      Distance from point3 to line defined by point1 and point2.
+Distance is always positive.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.base.orthogonal-pysrc.html#distance_to_line">source&nbsp;code</a></span>
             
@@ -169,8 +164,9 @@ Copyright 2010, 2011 Lloyd Konneker
         <tr>
           <td><span class="summary-sig"><a href="source.base.orthogonal-module.html#rect_orthogonal" class="summary-sig-name">rect_orthogonal</a>(<span class="summary-sig-arg">rect</span>,
         <span class="summary-sig-arg">point</span>)</span><br />
-      Ortho of rect given a point is: outward pointing vector orthogonal to
-      side nearest point.</td>
+      Ortho of rect given a point is:
+outward pointing vector orthogonal to side nearest point.
+Point can be inside, outside, or on the rect.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.base.orthogonal-pysrc.html#rect_orthogonal">source&nbsp;code</a></span>
             
@@ -231,94 +227,6 @@ Copyright 2010, 2011 Lloyd Konneker
   </td>
 </tr>
 </table>
-<a name="circle_orthogonal"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">circle_orthogonal</span>(<span class="sig-arg">center</span>,
-        <span class="sig-arg">point</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.base.orthogonal-pysrc.html#circle_orthogonal">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Ortho of circle is: vector from center to point. The point can be 
-  inside or outside the circle. Orthogonal to the center is the (0,0) null 
-  vector, causes problem?</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="line_orthogonal"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">line_orthogonal</span>(<span class="sig-arg">point1</span>,
-        <span class="sig-arg">point2</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.base.orthogonal-pysrc.html#line_orthogonal">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Canonical ortho of infinite line defined by two points. Canonical 
-  means not the orthogonal in the direction of a third point.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="magnitude_to_line"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">magnitude_to_line</span>(<span class="sig-arg">point1</span>,
-        <span class="sig-arg">point2</span>,
-        <span class="sig-arg">point3</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.base.orthogonal-pysrc.html#magnitude_to_line">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Magnitude from point3 to line defined by point1 and point2. Magnitude 
-  is signed. Sign indicates left or right in direction from point1 to 
-  point2.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="distance_to_line"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">distance_to_line</span>(<span class="sig-arg">point1</span>,
-        <span class="sig-arg">point2</span>,
-        <span class="sig-arg">point3</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.base.orthogonal-pysrc.html#distance_to_line">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Distance from point3 to line defined by point1 and point2. Distance is
-  always positive.</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
 <a name="rect_orthogonal"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -334,11 +242,12 @@ Copyright 2010, 2011 Lloyd Konneker
     </td>
   </tr></table>
   
-  <p>Ortho of rect given a point is: outward pointing vector orthogonal to 
-  side nearest point. Point can be inside, outside, or on the rect.</p>
-  <p>Implementation: four combinations of left and right of diagonals. That
-  is, divide rect into quadrants by its two diagonals. Each quadrant has an
-  orthogonal.</p>
+  <p>Ortho of rect given a point is:
+outward pointing vector orthogonal to side nearest point.
+Point can be inside, outside, or on the rect.</p>
+<p>Implementation: four combinations of left and right of diagonals.
+That is, divide rect into quadrants by its two diagonals.
+Each quadrant has an orthogonal.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -370,7 +279,7 @@ Copyright 2010, 2011 Lloyd Konneker
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:27 2011
+    Generated by Epydoc 3.0.1 on Sun Apr  3 10:43:09 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

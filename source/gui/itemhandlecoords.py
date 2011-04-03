@@ -26,7 +26,7 @@ my_logger = logging.getLogger('pensool')
 
 class MoveHandleItem(itemhandle.HandleItem):
   '''
-  A handle that moves the controlee, when a drag starts within.
+  HandleItem that moves the controlee, when user drags.
   Another control is involved when a drag moves out of this item control.
   
   Scrolling descends/rises into controlee when it is composite.
@@ -121,8 +121,8 @@ class MoveHandleItem(itemhandle.HandleItem):
   
 class ResizeHandleItem(itemhandle.HandleItem):
   '''
-  A handle that resizes the controlee, when a drag starts within.
-    Another control is involved when drag exits this item control.
+  HandleItem that resizes controlee, when user drags.
+  Another control is involved when drag exits this item control.
   
   Scrolling alters constraints on resize. TODO
   '''

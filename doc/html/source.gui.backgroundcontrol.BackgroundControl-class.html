@@ -127,7 +127,8 @@ Understands:
         <tr>
           <td><span class="summary-sig"><a href="source.gui.backgroundcontrol.BackgroundControl-class.html#activate" class="summary-sig-name">activate</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">controlee</span>)</span><br />
-      This control is active on given controlee.</td>
+      This control is active on given controlee.
+Override if any special activation.  Most controls do not override.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.gui.backgroundcontrol-pysrc.html#BackgroundControl.activate">source&nbsp;code</a></span>
             
@@ -144,8 +145,8 @@ Understands:
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="source.gui.backgroundcontrol.BackgroundControl-class.html#deactivate" class="summary-sig-name">deactivate</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Overrides control.deactivate() Background control cancels timer on 
-      pointer.</td>
+      Overrides control.deactivate()
+Background control cancels timer on pointer.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.gui.backgroundcontrol-pysrc.html#BackgroundControl.deactivate">source&nbsp;code</a></span>
             
@@ -161,8 +162,11 @@ Understands:
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.gui.backgroundcontrol.BackgroundControl-class.html#set_background_bounds" class="summary-sig-name">set_background_bounds</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Set the invisible, undrawn bounds of the background.</td>
+          <td><span class="summary-sig"><a name="set_background_bounds"></a><span class="summary-sig-name">set_background_bounds</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Set the invisible, undrawn bounds of the background.
+This is a control, a drawable, has bounds
+even though it is not really drawn.
+Might not be necessary?</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.gui.backgroundcontrol-pysrc.html#BackgroundControl.set_background_bounds">source&nbsp;code</a></span>
             
@@ -180,7 +184,10 @@ Understands:
         <tr>
           <td><span class="summary-sig"><a href="source.gui.backgroundcontrol.BackgroundControl-class.html#pick_cb" class="summary-sig-name">pick_cb</a>(<span class="summary-sig-arg">*args</span>,
         <span class="summary-sig-arg">**kwargs</span>)</span><br />
-      A callback from a timer.</td>
+      A callback from a timer.
+Called when pointer has stopped moving.
+Point is approximately coordinates of pointer when it stopped.
+Attempt pick (popup on mouseover.)</td>
           <td align="right" valign="top">
             
             
@@ -196,10 +203,11 @@ Understands:
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.gui.backgroundcontrol.BackgroundControl-class.html#configure_event_cb" class="summary-sig-name">configure_event_cb</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="configure_event_cb"></a><span class="summary-sig-name">configure_event_cb</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">widget</span>,
         <span class="summary-sig-arg">event</span>)</span><br />
-      Event from window manager: window size changed.</td>
+      Event from window manager: window size changed.
+We don't care about window moves?</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.gui.backgroundcontrol-pysrc.html#BackgroundControl.configure_event_cb">source&nbsp;code</a></span>
             
@@ -236,7 +244,11 @@ Understands:
         <tr>
           <td><span class="summary-sig"><a href="source.gui.backgroundcontrol.BackgroundControl-class.html#button_press_left" class="summary-sig-name">button_press_left</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">event</span>)</span><br />
-      Generally: left button pressed: begin drag.</td>
+      Generally: left button pressed: begin drag.
+App logic: background control drags are pans of view.
+Since the background controls the document,
+meaning of drag is move (pan) document beneath the window.
+IE a hand icon drag.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.gui.backgroundcontrol-pysrc.html#BackgroundControl.button_press_left">source&nbsp;code</a></span>
             
@@ -254,7 +266,10 @@ Understands:
         <tr>
           <td><span class="summary-sig"><a href="source.gui.backgroundcontrol.BackgroundControl-class.html#button_release_left" class="summary-sig-name">button_release_left</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">event</span>)</span><br />
-      This defines that the background manager accepts a left drop.</td>
+      This defines that the background manager accepts a left drop.
+From self into self: becomes self.drop()
+Drops from not self to self are handled differently:
+dropmgr calls the originating control drop() method.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.gui.backgroundcontrol-pysrc.html#BackgroundControl.button_release_left">source&nbsp;code</a></span>
             
@@ -272,7 +287,8 @@ Understands:
         <tr>
           <td><span class="summary-sig"><a href="source.gui.backgroundcontrol.BackgroundControl-class.html#button_press_right" class="summary-sig-name">button_press_right</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">event</span>)</span><br />
-      This defines that background manager shows traditional context menu.</td>
+      This defines that background manager shows traditional context menu.
+Controlee is document.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.gui.backgroundcontrol-pysrc.html#BackgroundControl.button_press_right">source&nbsp;code</a></span>
             
@@ -290,7 +306,7 @@ Understands:
         <tr>
           <td><span class="summary-sig"><a href="source.gui.backgroundcontrol.BackgroundControl-class.html#scroll_up" class="summary-sig-name">scroll_up</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">event</span>)</span><br />
-      Scroll wheel event in background is zoom op on *document*.</td>
+      Scroll wheel event in background is zoom op on <em>document</em>.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.gui.backgroundcontrol-pysrc.html#BackgroundControl.scroll_up">source&nbsp;code</a></span>
             
@@ -325,8 +341,7 @@ Understands:
         <tr>
           <td><span class="summary-sig"><a href="source.gui.backgroundcontrol.BackgroundControl-class.html#control_key_release" class="summary-sig-name">control_key_release</a>(<span class="summary-sig-arg">*args</span>,
         <span class="summary-sig-arg">**kwargs</span>)</span><br />
-      Show handle menu so user can create independent morphs at top level 
-      of scheme.</td>
+      Show handle menu so user can create independent morphs at top level of scheme.</td>
           <td align="right" valign="top">
             
             
@@ -344,8 +359,7 @@ Understands:
         <tr>
           <td><span class="summary-sig"><a href="source.gui.backgroundcontrol.BackgroundControl-class.html#bland_key_release" class="summary-sig-name">bland_key_release</a>(<span class="summary-sig-arg">*args</span>,
         <span class="summary-sig-arg">**kwargs</span>)</span><br />
-      Background control redirects ordinary keys to active text selection 
-      if any.</td>
+      Background control redirects ordinary keys to active text selection if any.</td>
           <td align="right" valign="top">
             
             
@@ -436,7 +450,10 @@ Understands:
         <tr>
           <td><span class="summary-sig"><a href="source.gui.backgroundcontrol.BackgroundControl-class.html#draw" class="summary-sig-name">draw</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">context</span>)</span><br />
-      !!! One of few controls to override draw.</td>
+      !!! One of few controls to override draw.
+This control is not visible: draw nothing, just pass.
+It has attributes of a drawable (size).
+TODO use the size to implement frame controls on the background.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.gui.backgroundcontrol-pysrc.html#BackgroundControl.draw">source&nbsp;code</a></span>
             
@@ -454,7 +471,8 @@ Understands:
         <tr>
           <td><span class="summary-sig"><a href="source.gui.backgroundcontrol.BackgroundControl-class.html#put_path_to" class="summary-sig-name">put_path_to</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">context</span>)</span><br />
-      Background manager has a path equal to its rectangular window.</td>
+      Background manager has a path equal to its rectangular window.
+We don't draw path but it is necessary for bounds for invalidate.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="source.gui.backgroundcontrol-pysrc.html#BackgroundControl.put_path_to">source&nbsp;code</a></span>
             
@@ -664,8 +682,7 @@ Understands:
     </td>
   </tr></table>
   
-  <p>x.__init__(...) initializes x; see x.__class__.__doc__ for 
-  signature</p>
+  x.__init__(...) initializes x; see x.__class__.__doc__ for signature
   <dl class="fields">
     <dt>Returns: new empty list</dt>
     <dt>Overrides:
@@ -690,8 +707,8 @@ Understands:
     </td>
   </tr></table>
   
-  <p>This control is active on given controlee. Override if any special 
-  activation.  Most controls do not override.</p>
+  This control is active on given controlee.
+Override if any special activation.  Most controls do not override.
   <dl class="fields">
     <dt>Overrides:
         gui.control.GuiControl.activate
@@ -714,33 +731,12 @@ Understands:
     </td>
   </tr></table>
   
-  <p>Overrides control.deactivate() Background control cancels timer on 
-  pointer.</p>
+  Overrides control.deactivate()
+Background control cancels timer on pointer.
   <dl class="fields">
     <dt>Overrides:
         gui.control.GuiControl.deactivate
     </dt>
-  </dl>
-</td></tr></table>
-</div>
-<a name="set_background_bounds"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_background_bounds</span>(<span class="sig-arg">self</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.gui.backgroundcontrol-pysrc.html#BackgroundControl.set_background_bounds">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Set the invisible, undrawn bounds of the background. This is a 
-  control, a drawable, has bounds even though it is not really drawn. Might
-  not be necessary?</p>
-  <dl class="fields">
   </dl>
 </td></tr></table>
 </div>
@@ -759,39 +755,18 @@ Understands:
     </td>
   </tr></table>
   
-  <p>A callback from a timer. Called when pointer has stopped moving. Point
-  is approximately coordinates of pointer when it stopped. Attempt pick 
-  (popup on mouseover.)</p>
-  <p>!!! A race.  Don't open a menu if already open.</p>
-  <p>Return True if successfully open a control, else False to continue the
-  periodic pointer timer.</p>
+  <p>A callback from a timer.
+Called when pointer has stopped moving.
+Point is approximately coordinates of pointer when it stopped.
+Attempt pick (popup on mouseover.)</p>
+<p>!!! A race.  Don't open a menu if already open.</p>
+<p>Return True if successfully open a control,
+else False to continue the periodic pointer timer.</p>
   <dl class="fields">
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
         <li><code>@dump_event</code></li>
     </ul></dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="configure_event_cb"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">configure_event_cb</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">widget</span>,
-        <span class="sig-arg">event</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.gui.backgroundcontrol-pysrc.html#BackgroundControl.configure_event_cb">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Event from window manager: window size changed. We don't care about 
-  window moves?</p>
-  <dl class="fields">
   </dl>
 </td></tr></table>
 </div>
@@ -812,13 +787,12 @@ Understands:
   </tr></table>
   
   <p>Pointer move event from GUI toolkit.</p>
-  <p>!!! Overrides default motion callback for GuiControl. Does not check 
-  for in bounds, that is done by desktop window manager.</p>
-  <p>At this juncture, the document is NOT the operand, so no need to 
-  feedback. Alternatively, we could show handles on the window frame, 
-  etc.</p>
-  <p>Event compression on mouse events not needed: ne = gdk.event_peek(), 
-  ne.free() never seems to return any events.</p>
+<p>!!! Overrides default motion callback for GuiControl.
+Does not check for in bounds, that is done by desktop window manager.</p>
+<p>At this juncture, the document is NOT the operand, so no need to feedback.
+Alternatively, we could show handles on the window frame, etc.</p>
+<p>Event compression on mouse events not needed: ne = gdk.event_peek(), ne.free()
+never seems to return any events.</p>
   <dl class="fields">
     <dt>Overrides:
         gui.control.GuiControl.motion_notify_event_cb
@@ -841,10 +815,11 @@ Understands:
     </td>
   </tr></table>
   
-  <p>Generally: left button pressed: begin drag. App logic: background 
-  control drags are pans of view. Since the background controls the 
-  document, meaning of drag is move (pan) document beneath the window. IE a
-  hand icon drag.</p>
+  Generally: left button pressed: begin drag.
+App logic: background control drags are pans of view.
+Since the background controls the document,
+meaning of drag is move (pan) document beneath the window.
+IE a hand icon drag.
   <dl class="fields">
     <dt>Overrides:
         gui.control.GuiControl.button_press_left
@@ -867,10 +842,10 @@ Understands:
     </td>
   </tr></table>
   
-  <p>This defines that the background manager accepts a left drop. From 
-  self into self: becomes self.drop() Drops from not self to self are 
-  handled differently: dropmgr calls the originating control drop() 
-  method.</p>
+  This defines that the background manager accepts a left drop.
+From self into self: becomes self.drop()
+Drops from not self to self are handled differently:
+dropmgr calls the originating control drop() method.
   <dl class="fields">
     <dt>Overrides:
         gui.control.GuiControl.button_release_left
@@ -893,8 +868,8 @@ Understands:
     </td>
   </tr></table>
   
-  <p>This defines that background manager shows traditional context menu. 
-  Controlee is document.</p>
+  This defines that background manager shows traditional context menu.
+Controlee is document.
   <dl class="fields">
     <dt>Overrides:
         gui.control.GuiControl.button_press_right
@@ -917,7 +892,7 @@ Understands:
     </td>
   </tr></table>
   
-  <p>Scroll wheel event in background is zoom op on *document*.</p>
+  Scroll wheel event in background is zoom op on <em>document</em>.
   <dl class="fields">
     <dt>Overrides:
         gui.control.GuiControl.scroll_up
@@ -963,8 +938,7 @@ Understands:
     </td>
   </tr></table>
   
-  <p>Show handle menu so user can create independent morphs at top level of
-  scheme.</p>
+  Show handle menu so user can create independent morphs at top level of scheme.
   <dl class="fields">
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
@@ -991,8 +965,7 @@ Understands:
     </td>
   </tr></table>
   
-  <p>Background control redirects ordinary keys to active text selection if
-  any.</p>
+  Background control redirects ordinary keys to active text selection if any.
   <dl class="fields">
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
@@ -1016,7 +989,7 @@ Understands:
     </td>
   </tr></table>
   
-  <p>controlee is the view ie the entire doc?? TODO</p>
+  controlee is the view ie the entire doc?? TODO
   <dl class="fields">
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
@@ -1043,7 +1016,7 @@ Understands:
     </td>
   </tr></table>
   
-  <p>animate/ghost document being dragged in the view</p>
+  animate/ghost document being dragged in the view
   <dl class="fields">
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
@@ -1107,9 +1080,10 @@ Source object can be:
     </td>
   </tr></table>
   
-  <p>!!! One of few controls to override draw. This control is not visible:
-  draw nothing, just pass. It has attributes of a drawable (size). TODO use
-  the size to implement frame controls on the background.</p>
+  !!! One of few controls to override draw.
+This control is not visible: draw nothing, just pass.
+It has attributes of a drawable (size).
+TODO use the size to implement frame controls on the background.
   <dl class="fields">
     <dt>Overrides:
         drawable.Drawable.draw
@@ -1132,8 +1106,8 @@ Source object can be:
     </td>
   </tr></table>
   
-  <p>Background manager has a path equal to its rectangular window. We 
-  don't draw path but it is necessary for bounds for invalidate.</p>
+  Background manager has a path equal to its rectangular window.
+We don't draw path but it is necessary for bounds for invalidate.
   <dl class="fields">
     <dt>Overrides:
         drawable.Drawable.put_path_to
@@ -1168,7 +1142,7 @@ Source object can be:
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Apr  2 14:28:27 2011
+    Generated by Epydoc 3.0.1 on Sun Apr  3 10:43:10 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -1,0 +1,1 @@
+''' Managers coordinate the GUI '''

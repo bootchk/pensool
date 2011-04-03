@@ -1,12 +1,13 @@
+''' MenuItem class '''
 '''
 Copyright 2010, 2011 Lloyd Konneker
 
-    This file is part of Pensool.
+This file is part of Pensool.
 
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 '''
 
 import gui.itemcontrol
@@ -20,10 +21,11 @@ import base.vector as vector
 
 class MenuItem(gui.itemcontrol.CommandItemControl):
   '''
-  A classic menu item control:
-    -appears anywhere (locatable)
-    -fixed location after appears
-    -not necessarily dissappear on mouse_exit (only on menu close)
+  A classic menu item control.
+  
+  - appears anywhere (locatable)
+  - fixed location after appears
+  - not necessarily dissappear on mouse_exit (only on menu close)
   
   For use in menus:
   
@@ -34,11 +36,10 @@ class MenuItem(gui.itemcontrol.CommandItemControl):
   -is managed
   '''
   
-  '''
-  Button release: choose menu item.
-  '''
+  
   @dump_event
   def button_release_left(self, event):
+    ''' LMB release: choose menu item. '''
     # TODO
     pass
   
@@ -99,7 +100,7 @@ class MenuItem(gui.itemcontrol.CommandItemControl):
     
     
 class IconMenuItem(MenuItem):
-  # For now a rect
+  ''' MenuItem shown by icon.  For now a rect.'''
   def __init__(self, command):
     super(MenuItem, self).__init__(command)
     
@@ -108,7 +109,7 @@ class IconMenuItem(MenuItem):
 
 
 class TextMenuItem(MenuItem):
-  
+  ''' MenuItem shown by text.'''
   def __init__(self, text, command):
     super(MenuItem, self).__init__(command)
     
