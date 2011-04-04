@@ -59,9 +59,29 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class ItemGroup</h1><p class="nomargin-top"><span class="codelink"><a href="source.gui.menu-pysrc.html#ItemGroup">source&nbsp;code</a></span></p>
 <center>
-  <div class="private"><center>  <map id="uml_class_diagram_for_source_g_17" name="uml_class_diagram_for_source_g_17">
+  <div class="private"><center>  <map id="uml_class_diagram_for_source_g_19" name="uml_class_diagram_for_source_g_19">
 <area shape="rect" href="source.gui.menutraditional.MenuGroup-class.html" title="Traditional menu, layout is:" alt="" coords="104,1083,277,1109"/>
-<area shape="rect" href="source.gui.menuhandle.StationedHandleGroup-class.html" title="Stationary HandleMenu, opening on a point." alt="" coords="171,1139,389,1165"/>
+<area shape="rect" href="source.gui.menuhandle.TrackingHandleGroup-class.html" title="Tracking (follows pointer) HandleMenu" alt="" coords="173,1139,387,1165"/>
+<area shape="rect" href="javascript:void(0);" title="override list.append to keep parent of each list element That is, hierachal model tree is digraph with bidirectional links." alt="" coords="201,665,401,684"/>
+<area shape="rect" href="javascript:void(0);" title="Draw self using context. Return bounds in DCS for later use to invalidate." alt="" coords="201,684,401,703"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.get_parent" alt="" coords="201,703,401,721"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.highlight" alt="" coords="201,721,401,740"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.pick" alt="" coords="201,740,401,759"/>
+<area shape="rect" href="javascript:void(0);" title="Put path into context. Virtual: each subclass knows its shape." alt="" coords="201,759,401,777"/>
+<area shape="rect" href="javascript:void(0);" title="Activating controls is NOT aggregate, but only on the top level. I.E. Don&#39;t activate all the controls in a tree of morphs." alt="" coords="201,777,401,796"/>
+<area shape="rect" href="javascript:void(0);" title="A container of Transformer:Drawables." alt="" coords="200,640,403,797"/>
+<area shape="rect" href="source.gui.menu.ItemGroup-class.html#active_index" title="!!! an ItemGroup has a controlee that initializes the controlees of its items. &#160;Its items can later change themselves to other controlees." alt="" coords="183,844,420,863"/>
+<area shape="rect" href="source.gui.menu.ItemGroup-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="183,865,420,884"/>
+<area shape="rect" href="source.gui.menu.ItemGroup-class.html#set_transform_from_layout_spec" title="Transform menu according to layout spec. Called on opening and on movement (slide.) A menu group transforms (except for scaling) the group of its items." alt="" coords="183,884,420,903"/>
+<area shape="rect" href="source.gui.menu.ItemGroup-class.html#open" title="Make visible at event coords. Put default item at event." alt="" coords="183,903,420,921"/>
+<area shape="rect" href="source.gui.menu.ItemGroup-class.html#layout" title="Layout (relative translation) all items in composite (group)." alt="" coords="183,921,420,940"/>
+<area shape="rect" href="source.gui.menu.ItemGroup-class.html#close" title="Close this menu. Note another menu may replace this one: caller must activate some next control, typically the background manager or another menu. Note that focus is not necessarily lost: caller must unfocus if appropriate." alt="" coords="183,940,420,959"/>
+<area shape="rect" href="source.gui.menu.ItemGroup-class.html#add" title="Append item. Overrides composite.append() make item reference its manager." alt="" coords="183,959,420,977"/>
+<area shape="rect" href="source.gui.menu.ItemGroup-class.html#do_change_item" title="The mouse has exited an item in exit_vector. Do next item or previous item or close menu." alt="" coords="183,977,420,996"/>
+<area shape="rect" href="source.gui.menu.ItemGroup-class.html#next" title="source.gui.menu.ItemGroup.next" alt="" coords="183,996,420,1015"/>
+<area shape="rect" href="source.gui.menu.ItemGroup-class.html#previous" title="source.gui.menu.ItemGroup.previous" alt="" coords="183,1015,420,1033"/>
+<area shape="rect" href="source.gui.menu.ItemGroup-class.html#__repr__" title="repr(x)" alt="" coords="183,1033,420,1052"/>
+<area shape="rect" href="source.gui.menu.ItemGroup-class.html" title="A manager of a group of control items, e.g." alt="" coords="181,827,421,1053"/>
 <area shape="rect" href="javascript:void(0);" title="hash(x)" alt="" coords="17,308,287,327"/>
 <area shape="rect" href="javascript:void(0);" title="x+y" alt="" coords="17,329,287,348"/>
 <area shape="rect" href="javascript:void(0);" title="y in x" alt="" coords="17,348,287,367"/>
@@ -78,21 +98,13 @@
 <area shape="rect" href="javascript:void(0);" title="iter(x)" alt="" coords="17,553,287,572"/>
 <area shape="rect" href="javascript:void(0);" title="stable sort IN PLACE; cmp(x, y) &#45;&gt; &#45;1, 0, 1" alt="" coords="17,591,287,609"/>
 <area shape="rect" href="javascript:void(0);" title="list() &#45;&gt; new empty list list(iterable) &#45;&gt; new list initialized from iterable&#39;s items" alt="" coords="16,291,288,611"/>
-<area shape="rect" href="javascript:void(0);" title="override list.append to keep parent of each list element That is, hierachal model tree is digraph with bidirectional links." alt="" coords="201,665,401,684"/>
-<area shape="rect" href="javascript:void(0);" title="Draw self using context. Return bounds in DCS for later use to invalidate." alt="" coords="201,684,401,703"/>
-<area shape="rect" href="javascript:void(0);" title="composite.Composite.get_parent" alt="" coords="201,703,401,721"/>
-<area shape="rect" href="javascript:void(0);" title="composite.Composite.highlight" alt="" coords="201,721,401,740"/>
-<area shape="rect" href="javascript:void(0);" title="composite.Composite.pick" alt="" coords="201,740,401,759"/>
-<area shape="rect" href="javascript:void(0);" title="Put path into context. Virtual: each subclass knows its shape." alt="" coords="201,759,401,777"/>
-<area shape="rect" href="javascript:void(0);" title="Activating controls is NOT aggregate, but only on the top level. I.E. Don&#39;t activate all the controls in a tree of morphs." alt="" coords="201,777,401,796"/>
-<area shape="rect" href="javascript:void(0);" title="A container of Transformer:Drawables." alt="" coords="200,640,403,797"/>
 <area shape="rect" href="javascript:void(0);" title="drawable.Drawable.dump" alt="" coords="353,36,548,55"/>
 <area shape="rect" href="javascript:void(0);" title="Return device coords of origin where drawn." alt="" coords="353,55,548,73"/>
 <area shape="rect" href="javascript:void(0);" title="Return an orthogonal unit vector at given point on boundary. Virtual: each subclass knows its orthogonal." alt="" coords="353,73,548,92"/>
 <area shape="rect" href="javascript:void(0);" title="Compute bounding rect in DCS of path in context as inked. !!! Note not recursive, takes path from context." alt="" coords="353,92,548,111"/>
 <area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_fill" alt="" coords="353,111,548,129"/>
 <area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_path" alt="" coords="353,129,548,148"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_stroke" alt="" coords="353,148,548,167"/>
+<area shape="rect" href="javascript:void(0);" title="Does coords hit edge of this drawable? Stroke: hit on inked, visible. Edge: not including possible interior features, just the hittable boundary. Distinguish from a bounding box, which is a rectangle in DCS." alt="" coords="353,148,548,167"/>
 <area shape="rect" href="javascript:void(0);" title="Invalidate as previously drawn. Caching drawn bounds is an optimization; alternative is to walk model branch. This is for composite and primitive drawables: every drawable has bounds." alt="" coords="353,167,548,185"/>
 <area shape="rect" href="javascript:void(0);" title="Invalidate as will be drawn (hasn&#39;t been drawn yet.) This walks a branch of model to determine bounds." alt="" coords="353,185,548,204"/>
 <area shape="rect" href="javascript:void(0);" title="Is the event in the hot area. Usually only for control subclass of drawable." alt="" coords="353,204,548,223"/>
@@ -114,24 +126,13 @@
 <area shape="rect" href="javascript:void(0);" title="Set the translation and scale (not rotation) of an object. For testing: ordinarily, transforms are set by user actions using other methods. !!! Not view altering" alt="" coords="340,547,561,565"/>
 <area shape="rect" href="javascript:void(0);" title="transformer.Transformer.zoom" alt="" coords="340,584,561,603"/>
 <area shape="rect" href="javascript:void(0);" title="Transformer between coordinate systems. Affine drawing transformation by matrix." alt="" coords="339,297,563,604"/>
-<area shape="rect" href="source.gui.menuhandle.TrackingHandleGroup-class.html" title="Tracking (follows pointer) HandleMenu" alt="" coords="440,1139,653,1165"/>
 <area shape="rect" href="source.gui.menuhandle._HandleGroup-class.html" title="A handle menu." alt="" coords="328,1083,499,1109"/>
-<area shape="rect" href="source.gui.menu.ItemGroup-class.html#active_index" title="!!! an ItemGroup has a controlee that initializes the controlees of its items. &#160;Its items can later change themselves to other controlees." alt="" coords="183,844,420,863"/>
-<area shape="rect" href="source.gui.menu.ItemGroup-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="183,865,420,884"/>
-<area shape="rect" href="source.gui.menu.ItemGroup-class.html#set_transform_from_layout_spec" title="Transform menu according to layout spec. Called on opening and on movement (slide.) A menu group transforms (except for scaling) the group of its items." alt="" coords="183,884,420,903"/>
-<area shape="rect" href="source.gui.menu.ItemGroup-class.html#open" title="Make visible at event coords. Put default item at event." alt="" coords="183,903,420,921"/>
-<area shape="rect" href="source.gui.menu.ItemGroup-class.html#layout" title="Layout (relative translation) all items in composite (group)." alt="" coords="183,921,420,940"/>
-<area shape="rect" href="source.gui.menu.ItemGroup-class.html#close" title="Close this menu. Note another menu may replace this one: caller must activate some next control, typically the background manager or another menu. Note that focus is not necessarily lost: caller must unfocus if appropriate." alt="" coords="183,940,420,959"/>
-<area shape="rect" href="source.gui.menu.ItemGroup-class.html#add" title="Append item. Overrides composite.append() make item reference its manager." alt="" coords="183,959,420,977"/>
-<area shape="rect" href="source.gui.menu.ItemGroup-class.html#do_change_item" title="The mouse has exited an item in exit_vector. Do next item or previous item or close menu." alt="" coords="183,977,420,996"/>
-<area shape="rect" href="source.gui.menu.ItemGroup-class.html#next" title="source.gui.menu.ItemGroup.next" alt="" coords="183,996,420,1015"/>
-<area shape="rect" href="source.gui.menu.ItemGroup-class.html#previous" title="source.gui.menu.ItemGroup.previous" alt="" coords="183,1015,420,1033"/>
-<area shape="rect" href="source.gui.menu.ItemGroup-class.html#__repr__" title="repr(x)" alt="" coords="183,1033,420,1052"/>
-<area shape="rect" href="source.gui.menu.ItemGroup-class.html" title="A manager of a group of control items, e.g." alt="" coords="181,827,421,1053"/>
+<area shape="rect" href="source.gui.menuhandle.StationedHandleGroup-class.html" title="Stationary HandleMenu, opening on a point." alt="" coords="437,1139,656,1165"/>
 </map>
-  <img src="uml_class_diagram_for_source_g_17.gif" alt='' usemap="#uml_class_diagram_for_source_g_17" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_source_g_19.gif" alt='' usemap="#uml_class_diagram_for_source_g_19" ismap="ismap" class="graph-without-title" />
 </center></div>
-  <div class="public" style="display:none"><center>  <map id="uml_class_diagram_for_source_g_18" name="uml_class_diagram_for_source_g_18">
+  <div class="public" style="display:none"><center>  <map id="uml_class_diagram_for_source_g_20" name="uml_class_diagram_for_source_g_20">
+<area shape="rect" href="source.gui.menutraditional.MenuGroup-class.html" title="Traditional menu, layout is:" alt="" coords="215,1083,388,1109"/>
 <area shape="rect" href="javascript:void(0);" title="hash(x)" alt="" coords="17,308,287,327"/>
 <area shape="rect" href="javascript:void(0);" title="x+y" alt="" coords="17,329,287,348"/>
 <area shape="rect" href="javascript:void(0);" title="y in x" alt="" coords="17,348,287,367"/>
@@ -156,7 +157,19 @@
 <area shape="rect" href="javascript:void(0);" title="Put path into context. Virtual: each subclass knows its shape." alt="" coords="201,759,401,777"/>
 <area shape="rect" href="javascript:void(0);" title="Activating controls is NOT aggregate, but only on the top level. I.E. Don&#39;t activate all the controls in a tree of morphs." alt="" coords="201,777,401,796"/>
 <area shape="rect" href="javascript:void(0);" title="A container of Transformer:Drawables." alt="" coords="200,640,403,797"/>
-<area shape="rect" href="source.gui.menutraditional.MenuGroup-class.html" title="Traditional menu, layout is:" alt="" coords="215,1083,388,1109"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.dump" alt="" coords="353,36,548,55"/>
+<area shape="rect" href="javascript:void(0);" title="Return device coords of origin where drawn." alt="" coords="353,55,548,73"/>
+<area shape="rect" href="javascript:void(0);" title="Return an orthogonal unit vector at given point on boundary. Virtual: each subclass knows its orthogonal." alt="" coords="353,73,548,92"/>
+<area shape="rect" href="javascript:void(0);" title="Compute bounding rect in DCS of path in context as inked. !!! Note not recursive, takes path from context." alt="" coords="353,92,548,111"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_fill" alt="" coords="353,111,548,129"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_path" alt="" coords="353,129,548,148"/>
+<area shape="rect" href="javascript:void(0);" title="Does coords hit edge of this drawable? Stroke: hit on inked, visible. Edge: not including possible interior features, just the hittable boundary. Distinguish from a bounding box, which is a rectangle in DCS." alt="" coords="353,148,548,167"/>
+<area shape="rect" href="javascript:void(0);" title="Invalidate as previously drawn. Caching drawn bounds is an optimization; alternative is to walk model branch. This is for composite and primitive drawables: every drawable has bounds." alt="" coords="353,167,548,185"/>
+<area shape="rect" href="javascript:void(0);" title="Invalidate as will be drawn (hasn&#39;t been drawn yet.) This walks a branch of model to determine bounds." alt="" coords="353,185,548,204"/>
+<area shape="rect" href="javascript:void(0);" title="Is the event in the hot area. Usually only for control subclass of drawable." alt="" coords="353,204,548,223"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.is_inbounds" alt="" coords="353,223,548,241"/>
+<area shape="rect" href="javascript:void(0);" title="Put my boundary in the context. For most drawables (e.g. circle), the path is the boundary. If NOT path is boundary, override. &#160;E.G. text has a frame. Edge is used for hit detection." alt="" coords="353,241,548,260"/>
+<area shape="rect" href="javascript:void(0);" title="Things that can be drawn (morphs, glyphs, and controls)." alt="" coords="352,11,549,261"/>
 <area shape="rect" href="javascript:void(0);" title="Return state values to be pickled." alt="" coords="340,323,561,341"/>
 <area shape="rect" href="javascript:void(0);" title="Restore state from the unpickled state values." alt="" coords="340,341,561,360"/>
 <area shape="rect" href="javascript:void(0);" title="??? This only works for controls, where the scale is equivalent to pixels in DCS." alt="" coords="340,360,561,379"/>
@@ -172,19 +185,6 @@
 <area shape="rect" href="javascript:void(0);" title="Set the translation and scale (not rotation) of an object. For testing: ordinarily, transforms are set by user actions using other methods. !!! Not view altering" alt="" coords="340,547,561,565"/>
 <area shape="rect" href="javascript:void(0);" title="transformer.Transformer.zoom" alt="" coords="340,584,561,603"/>
 <area shape="rect" href="javascript:void(0);" title="Transformer between coordinate systems. Affine drawing transformation by matrix." alt="" coords="339,297,563,604"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.dump" alt="" coords="353,36,548,55"/>
-<area shape="rect" href="javascript:void(0);" title="Return device coords of origin where drawn." alt="" coords="353,55,548,73"/>
-<area shape="rect" href="javascript:void(0);" title="Return an orthogonal unit vector at given point on boundary. Virtual: each subclass knows its orthogonal." alt="" coords="353,73,548,92"/>
-<area shape="rect" href="javascript:void(0);" title="Compute bounding rect in DCS of path in context as inked. !!! Note not recursive, takes path from context." alt="" coords="353,92,548,111"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_fill" alt="" coords="353,111,548,129"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_path" alt="" coords="353,129,548,148"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_stroke" alt="" coords="353,148,548,167"/>
-<area shape="rect" href="javascript:void(0);" title="Invalidate as previously drawn. Caching drawn bounds is an optimization; alternative is to walk model branch. This is for composite and primitive drawables: every drawable has bounds." alt="" coords="353,167,548,185"/>
-<area shape="rect" href="javascript:void(0);" title="Invalidate as will be drawn (hasn&#39;t been drawn yet.) This walks a branch of model to determine bounds." alt="" coords="353,185,548,204"/>
-<area shape="rect" href="javascript:void(0);" title="Is the event in the hot area. Usually only for control subclass of drawable." alt="" coords="353,204,548,223"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.is_inbounds" alt="" coords="353,223,548,241"/>
-<area shape="rect" href="javascript:void(0);" title="Put my boundary in the context. For most drawables (e.g. circle), the path is the boundary. If NOT path is boundary, override. &#160;E.G. text has a frame. Edge is used for hit detection." alt="" coords="353,241,548,260"/>
-<area shape="rect" href="javascript:void(0);" title="Things that can be drawn (morphs, glyphs, and controls)." alt="" coords="352,11,549,261"/>
 <area shape="rect" href="source.gui.menu.ItemGroup-class.html#active_index" title="!!! an ItemGroup has a controlee that initializes the controlees of its items. &#160;Its items can later change themselves to other controlees." alt="" coords="183,844,420,863"/>
 <area shape="rect" href="source.gui.menu.ItemGroup-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="183,865,420,884"/>
 <area shape="rect" href="source.gui.menu.ItemGroup-class.html#set_transform_from_layout_spec" title="Transform menu according to layout spec. Called on opening and on movement (slide.) A menu group transforms (except for scaling) the group of its items." alt="" coords="183,884,420,903"/>
@@ -198,7 +198,7 @@
 <area shape="rect" href="source.gui.menu.ItemGroup-class.html#__repr__" title="repr(x)" alt="" coords="183,1033,420,1052"/>
 <area shape="rect" href="source.gui.menu.ItemGroup-class.html" title="A manager of a group of control items, e.g." alt="" coords="181,827,421,1053"/>
 </map>
-  <img src="uml_class_diagram_for_source_g_18.gif" alt='' usemap="#uml_class_diagram_for_source_g_18" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_source_g_20.gif" alt='' usemap="#uml_class_diagram_for_source_g_20" ismap="ismap" class="graph-without-title" />
 </center></div>
 </center>
 <hr />
@@ -608,6 +608,9 @@ This is separate from drawing: the menu draws current item.</td>
       <code>is_inbounds</code>,
       <code>put_edge_to</code>
       </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>drawable.Drawable</code></b> (private):
+      <code>_prepare_for_picking</code>
+      </p></div>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
       <code>__delattr__</code>,
       <code>__format__</code>,
@@ -1005,7 +1008,7 @@ Change to another menu item, or close menu.
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sun Apr  3 10:43:13 2011
+    Generated by Epydoc 3.0.1 on Mon Apr  4 14:52:37 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

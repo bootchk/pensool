@@ -60,102 +60,104 @@
 <h1 class="epydoc">Class HandleItem</h1><p class="nomargin-top"><span class="codelink"><a href="source.gui.itemhandle-pysrc.html#HandleItem">source&nbsp;code</a></span></p>
 <center>
 <center>  <map id="uml_class_diagram_for_source_g_7" name="uml_class_diagram_for_source_g_7">
-<area shape="rect" href="javascript:void(0);" title="override list.append to keep parent of each list element That is, hierachal model tree is digraph with bidirectional links." alt="" coords="269,628,469,647"/>
-<area shape="rect" href="javascript:void(0);" title="Draw self using context. Return bounds in DCS for later use to invalidate." alt="" coords="269,647,469,665"/>
-<area shape="rect" href="javascript:void(0);" title="composite.Composite.get_parent" alt="" coords="269,665,469,684"/>
-<area shape="rect" href="javascript:void(0);" title="composite.Composite.highlight" alt="" coords="269,684,469,703"/>
-<area shape="rect" href="javascript:void(0);" title="Layout members. Usually based on origin and/or dimensions of group. Often overridden. Defaults to all items have same dimensions as the group. That is sensible for morphs, which have one item in a group." alt="" coords="269,703,469,721"/>
-<area shape="rect" href="javascript:void(0);" title="composite.Composite.pick" alt="" coords="269,721,469,740"/>
-<area shape="rect" href="javascript:void(0);" title="Put path into context. Virtual: each subclass knows its shape." alt="" coords="269,740,469,759"/>
-<area shape="rect" href="javascript:void(0);" title="A container of Transformer:Drawables." alt="" coords="268,603,471,760"/>
-<area shape="rect" href="javascript:void(0);" title="Return a unit vector orthogonal to self at point." alt="" coords="240,815,499,833"/>
-<area shape="rect" href="javascript:void(0);" title="insert object before index" alt="" coords="240,833,499,852"/>
-<area shape="rect" href="javascript:void(0);" title="Morph that is the root of the modeling tree." alt="" coords="240,852,499,871"/>
-<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.move_by_drag" alt="" coords="240,871,499,889"/>
-<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.move_by_drag_handle" alt="" coords="240,889,499,908"/>
-<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.resize" alt="" coords="240,908,499,927"/>
-<area shape="rect" href="javascript:void(0);" title="Assert morph is focused. Activate associated feedback." alt="" coords="240,927,499,945"/>
-<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.set_by_drag" alt="" coords="240,945,499,964"/>
-<area shape="rect" href="javascript:void(0);" title="A Morph is a Composite with associated controls. A composite of Morphs or Glyphs." alt="" coords="239,789,500,965"/>
-<area shape="rect" href="javascript:void(0);" title="Return state values to be pickled." alt="" coords="109,285,331,304"/>
-<area shape="rect" href="javascript:void(0);" title="Restore state from the unpickled state values." alt="" coords="109,304,331,323"/>
-<area shape="rect" href="javascript:void(0);" title="??? This only works for controls, where the scale is equivalent to pixels in DCS." alt="" coords="109,323,331,341"/>
-<area shape="rect" href="javascript:void(0);" title="Set my transform from my drawing specs. !!! Afterwards, retained_transform doesn&#39;t correspond until walk model tree" alt="" coords="109,341,331,360"/>
-<area shape="rect" href="javascript:void(0);" title="Get local coordinates (group GCS) of DCS point. Uses parent retained transform: only works if previously model traversed and transforms derived. Will not work for the model (the top.)" alt="" coords="109,360,331,379"/>
-<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.move_absolute" alt="" coords="109,379,331,397"/>
-<area shape="rect" href="javascript:void(0);" title="Move origin but keep other points fixed." alt="" coords="109,397,331,416"/>
-<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.move_relative" alt="" coords="109,416,331,435"/>
-<area shape="rect" href="javascript:void(0);" title="Apply my transform to the current transform in the context. FIXME and style?" alt="" coords="109,435,331,453"/>
-<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.relative_scale" alt="" coords="109,453,331,472"/>
-<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.rotate" alt="" coords="109,472,331,491"/>
-<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.scale_uniformly" alt="" coords="109,491,331,509"/>
-<area shape="rect" href="javascript:void(0);" title="Set the translation and scale (not rotation) of an object. For testing: ordinarily, transforms are set by user actions using other methods. !!! Not view altering" alt="" coords="109,509,331,528"/>
-<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.zoom" alt="" coords="109,547,331,565"/>
-<area shape="rect" href="javascript:void(0);" title="Transformer between coordinate systems. Affine drawing transformation by matrix." alt="" coords="108,260,332,567"/>
-<area shape="rect" href="javascript:void(0);" title="Morph that is not class PrimitiveMorph is not primitive. A PrimitiveMorph can be a group but only of glyphs. A non&#45;primitive morph is a group of other morphs." alt="" coords="287,1020,452,1039"/>
-<area shape="rect" href="javascript:void(0);" title="A PrimitiveMorph is a Composite of only Glyphs. The transform and style of a PrimitiveMorph defines aspect of its glyph, a unit shape. Cannot append a Morph to a PrimitiveMorph, only glyphs. TODO enforce?" alt="" coords="285,995,453,1040"/>
-<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#button_press_left" title="LMB pressed inside handle item. Handle items enact drag on LMB." alt="" coords="264,1617,475,1636"/>
-<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#button_press_right" title="RMB pressed inside handle item. Handle items enact context menu on RMB." alt="" coords="264,1636,475,1655"/>
-<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#start_drag" title="Mouse departed item with button down." alt="" coords="264,1655,475,1673"/>
-<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#mouse_move" title="Mouse moved inside this control. This defines that items decide how a handle menu behaves: can slide orthogonally, or next/previous item anti&#45;orthogonal." alt="" coords="264,1673,475,1692"/>
-<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#mouse_exit" title="Mouse exited item. This is a filtered event from super GuiControl. Assert no button down (not a drag.)" alt="" coords="264,1692,475,1711"/>
-<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#control_key_release" title="source.gui.itemhandle.HandleItem.control_key_release" alt="" coords="264,1711,475,1729"/>
-<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#bland_key_release" title="source.gui.itemhandle.HandleItem.bland_key_release" alt="" coords="264,1729,475,1748"/>
-<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#scroll_down" title="Filtered event from GuiControl: scroll wheel down in an item." alt="" coords="264,1748,475,1767"/>
-<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#pixels_off_menu_axis" title="Is mouse motion orthogonal (sideways) to menu axis? Returns count of pixels off axis. !!! Note that the sign indicates left(countercw) or right (clockwise) of the menu axis, not a direction along the coordinate system." alt="" coords="264,1767,475,1785"/>
-<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html" title="A HandleItem control is a member of a HandleMenu group. It :" alt="" coords="263,1592,476,1787"/>
-<area shape="rect" href="source.gui.itemhandleline.DrawHandleItem-class.html" title="A handle that stretches a morph from the controlee, when a drag starts within. Another control (bkgd mgr usually) gets involved when drag moves out of this item control." alt="" coords="16,1816,211,1843"/>
-<area shape="rect" href="source.gui.itemhandlecoords.MoveHandleItem-class.html" title="HandleItem that moves the controlee, when user drags. Another control is involved when a drag moves out of this item control." alt="" coords="261,1816,477,1843"/>
-<area shape="rect" href="source.gui.itemhandlecoords.ResizeHandleItem-class.html" title="HandleItem that resizes controlee, when user drags. Another control is involved when drag exits this item control." alt="" coords="528,1816,752,1843"/>
-<area shape="rect" href="javascript:void(0);" title="hash(x)" alt="" coords="384,271,653,289"/>
-<area shape="rect" href="javascript:void(0);" title="x+y" alt="" coords="384,292,653,311"/>
-<area shape="rect" href="javascript:void(0);" title="y in x" alt="" coords="384,311,653,329"/>
-<area shape="rect" href="javascript:void(0);" title="del x[y]" alt="" coords="384,329,653,348"/>
-<area shape="rect" href="javascript:void(0);" title="del x[i:j]" alt="" coords="384,348,653,367"/>
-<area shape="rect" href="javascript:void(0);" title="x==y" alt="" coords="384,367,653,385"/>
-<area shape="rect" href="javascript:void(0);" title="x&gt;=y" alt="" coords="384,385,653,404"/>
-<area shape="rect" href="javascript:void(0);" title="x.__getattribute__(&#39;name&#39;) &lt;==&gt; x.name" alt="" coords="384,404,653,423"/>
-<area shape="rect" href="javascript:void(0);" title="x[y]" alt="" coords="384,423,653,441"/>
-<area shape="rect" href="javascript:void(0);" title="x[i:j]" alt="" coords="384,441,653,460"/>
-<area shape="rect" href="javascript:void(0);" title="x&gt;y" alt="" coords="384,460,653,479"/>
-<area shape="rect" href="javascript:void(0);" title="x+=y" alt="" coords="384,479,653,497"/>
-<area shape="rect" href="javascript:void(0);" title="x*=y" alt="" coords="384,497,653,516"/>
-<area shape="rect" href="javascript:void(0);" title="iter(x)" alt="" coords="384,516,653,535"/>
-<area shape="rect" href="javascript:void(0);" title="stable sort IN PLACE; cmp(x, y) &#45;&gt; &#45;1, 0, 1" alt="" coords="384,553,653,572"/>
-<area shape="rect" href="javascript:void(0);" title="list() &#45;&gt; new empty list list(iterable) &#45;&gt; new list initialized from iterable&#39;s items" alt="" coords="383,253,655,573"/>
-<area shape="rect" href="javascript:void(0);" title="Represent by the class name" alt="" coords="231,1095,508,1113"/>
-<area shape="rect" href="javascript:void(0);" title="This control is active on given controlee. Override if any special activation. &#160;Most controls do not override." alt="" coords="231,1113,508,1132"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.button_press_event_cb" alt="" coords="231,1132,508,1151"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.button_release_event_cb" alt="" coords="231,1151,508,1169"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.continue_drag" alt="" coords="231,1169,508,1188"/>
-<area shape="rect" href="javascript:void(0);" title="Override if any special deactivation. &#160;Most controls do not override." alt="" coords="231,1188,508,1207"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.drop" alt="" coords="231,1207,508,1225"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.focus_in_event_cb" alt="" coords="231,1225,508,1244"/>
-<area shape="rect" href="javascript:void(0);" title="Is the event in the hot area? For some controls the hot area is not same as the bounding box. Can be overridden." alt="" coords="231,1244,508,1263"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.key_release_event_cb" alt="" coords="231,1263,508,1281"/>
-<area shape="rect" href="javascript:void(0);" title="Exit if not mouse still inside. Move the control to follow the mouse. Continue dragging." alt="" coords="231,1281,508,1300"/>
-<area shape="rect" href="javascript:void(0);" title="Scroll wheel inside control." alt="" coords="231,1300,508,1319"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.scroll_up" alt="" coords="231,1319,508,1337"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.take_focus" alt="" coords="231,1337,508,1356"/>
-<area shape="rect" href="javascript:void(0);" title="Base class for GUI controls i.e." alt="" coords="229,1069,509,1357"/>
-<area shape="rect" href="javascript:void(0);" title="gui.itemcontrol.ItemControl.button_release_left" alt="" coords="267,1412,472,1431"/>
-<area shape="rect" href="javascript:void(0);" title="gui.itemcontrol.ItemControl.button_release_right" alt="" coords="267,1431,472,1449"/>
-<area shape="rect" href="javascript:void(0);" title="Close my manager and relinquish control." alt="" coords="267,1449,472,1468"/>
-<area shape="rect" href="javascript:void(0);" title="gui.itemcontrol.ItemControl.set_group_manager" alt="" coords="267,1468,472,1487"/>
-<area shape="rect" href="javascript:void(0);" title="A control that is part of a group (an item in a group.) Usually a menu item. Knows its group manager. Cooperates with its group to define behavior." alt="" coords="265,1387,473,1488"/>
-<area shape="rect" href="javascript:void(0);" title="Has a menu." alt="" coords="273,1543,465,1561"/>
-<area shape="rect" href="javascript:void(0);" title="An item that popups a menu." alt="" coords="272,1517,467,1563"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.dump" alt="" coords="123,36,317,55"/>
-<area shape="rect" href="javascript:void(0);" title="Return device coords of origin where drawn." alt="" coords="123,55,317,73"/>
-<area shape="rect" href="javascript:void(0);" title="Compute bounding rect in DCS of path in context as inked. !!! Note not recursive, takes path from context." alt="" coords="123,73,317,92"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_fill" alt="" coords="123,92,317,111"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_path" alt="" coords="123,111,317,129"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_stroke" alt="" coords="123,129,317,148"/>
-<area shape="rect" href="javascript:void(0);" title="Invalidate as previously drawn. Caching drawn bounds is an optimization; alternative is to walk model branch. This is for composite and primitive drawables: every drawable has bounds." alt="" coords="123,148,317,167"/>
-<area shape="rect" href="javascript:void(0);" title="Invalidate as will be drawn (hasn&#39;t been drawn yet.) This walks a branch of model to determine bounds." alt="" coords="123,167,317,185"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.is_inbounds" alt="" coords="123,185,317,204"/>
-<area shape="rect" href="javascript:void(0);" title="Put my boundary in the context. For most drawables (e.g. circle), the path is the boundary. If NOT path is boundary, override. &#160;E.G. text has a frame. Edge is used for hit detection." alt="" coords="123,204,317,223"/>
-<area shape="rect" href="javascript:void(0);" title="Things that can be drawn (morphs, glyphs, and controls)." alt="" coords="121,11,319,224"/>
+<area shape="rect" href="javascript:void(0);" title="Morph that is not class PrimitiveMorph is not primitive. A PrimitiveMorph can be a group but only of glyphs. A non&#45;primitive morph is a group of other morphs." alt="" coords="316,1020,481,1039"/>
+<area shape="rect" href="javascript:void(0);" title="A PrimitiveMorph is a Composite of only Glyphs. The transform and style of a PrimitiveMorph defines aspect of its glyph, a unit shape. Cannot append a Morph to a PrimitiveMorph, only glyphs. TODO enforce?" alt="" coords="315,995,483,1040"/>
+<area shape="rect" href="javascript:void(0);" title="Represent by the class name" alt="" coords="260,1095,537,1113"/>
+<area shape="rect" href="javascript:void(0);" title="This control is active on given controlee. Override if any special activation. &#160;Most controls do not override." alt="" coords="260,1113,537,1132"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.button_press_event_cb" alt="" coords="260,1132,537,1151"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.button_release_event_cb" alt="" coords="260,1151,537,1169"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.continue_drag" alt="" coords="260,1169,537,1188"/>
+<area shape="rect" href="javascript:void(0);" title="Override if any special deactivation. &#160;Most controls do not override." alt="" coords="260,1188,537,1207"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.drop" alt="" coords="260,1207,537,1225"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.focus_in_event_cb" alt="" coords="260,1225,537,1244"/>
+<area shape="rect" href="javascript:void(0);" title="Is the event in the hot area? For some controls the hot area is not same as the bounding box. Can be overridden." alt="" coords="260,1244,537,1263"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.key_release_event_cb" alt="" coords="260,1263,537,1281"/>
+<area shape="rect" href="javascript:void(0);" title="Exit if not mouse still inside. Move the control to follow the mouse. Continue dragging." alt="" coords="260,1281,537,1300"/>
+<area shape="rect" href="javascript:void(0);" title="Pointer scroll wheel inside control." alt="" coords="260,1300,537,1319"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.scroll_up" alt="" coords="260,1319,537,1337"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.take_focus" alt="" coords="260,1337,537,1356"/>
+<area shape="rect" href="javascript:void(0);" title="Base class for GUI controls i.e." alt="" coords="259,1069,539,1357"/>
+<area shape="rect" href="source.gui.itemhandlecoords.MoveMorphHandleItem-class.html" title="MoveHandleItem specialized to move a morph" alt="" coords="124,1872,375,1899"/>
+<area shape="rect" href="javascript:void(0);" title="override list.append to keep parent of each list element That is, hierachal model tree is digraph with bidirectional links." alt="" coords="299,628,499,647"/>
+<area shape="rect" href="javascript:void(0);" title="Draw self using context. Return bounds in DCS for later use to invalidate." alt="" coords="299,647,499,665"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.get_parent" alt="" coords="299,665,499,684"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.highlight" alt="" coords="299,684,499,703"/>
+<area shape="rect" href="javascript:void(0);" title="Layout members. Usually based on origin and/or dimensions of group. Often overridden. Defaults to all items have same dimensions as the group. That is sensible for morphs, which have one item in a group." alt="" coords="299,703,499,721"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.pick" alt="" coords="299,721,499,740"/>
+<area shape="rect" href="javascript:void(0);" title="Put path into context. Virtual: each subclass knows its shape." alt="" coords="299,740,499,759"/>
+<area shape="rect" href="javascript:void(0);" title="A container of Transformer:Drawables." alt="" coords="297,603,500,760"/>
+<area shape="rect" href="javascript:void(0);" title="Return a unit vector orthogonal to self at point." alt="" coords="269,815,528,833"/>
+<area shape="rect" href="javascript:void(0);" title="insert object before index" alt="" coords="269,833,528,852"/>
+<area shape="rect" href="javascript:void(0);" title="Morph that is the root of the modeling tree." alt="" coords="269,852,528,871"/>
+<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.move_by_drag" alt="" coords="269,871,528,889"/>
+<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.move_by_drag_handle" alt="" coords="269,889,528,908"/>
+<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.resize" alt="" coords="269,908,528,927"/>
+<area shape="rect" href="javascript:void(0);" title="Assert morph is focused. Activate associated feedback." alt="" coords="269,927,528,945"/>
+<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.set_by_drag" alt="" coords="269,945,528,964"/>
+<area shape="rect" href="javascript:void(0);" title="A Morph is a Composite with associated controls. A composite of Morphs or Glyphs." alt="" coords="268,789,529,965"/>
+<area shape="rect" href="javascript:void(0);" title="hash(x)" alt="" coords="115,271,384,289"/>
+<area shape="rect" href="javascript:void(0);" title="x+y" alt="" coords="115,292,384,311"/>
+<area shape="rect" href="javascript:void(0);" title="y in x" alt="" coords="115,311,384,329"/>
+<area shape="rect" href="javascript:void(0);" title="del x[y]" alt="" coords="115,329,384,348"/>
+<area shape="rect" href="javascript:void(0);" title="del x[i:j]" alt="" coords="115,348,384,367"/>
+<area shape="rect" href="javascript:void(0);" title="x==y" alt="" coords="115,367,384,385"/>
+<area shape="rect" href="javascript:void(0);" title="x&gt;=y" alt="" coords="115,385,384,404"/>
+<area shape="rect" href="javascript:void(0);" title="x.__getattribute__(&#39;name&#39;) &lt;==&gt; x.name" alt="" coords="115,404,384,423"/>
+<area shape="rect" href="javascript:void(0);" title="x[y]" alt="" coords="115,423,384,441"/>
+<area shape="rect" href="javascript:void(0);" title="x[i:j]" alt="" coords="115,441,384,460"/>
+<area shape="rect" href="javascript:void(0);" title="x&gt;y" alt="" coords="115,460,384,479"/>
+<area shape="rect" href="javascript:void(0);" title="x+=y" alt="" coords="115,479,384,497"/>
+<area shape="rect" href="javascript:void(0);" title="x*=y" alt="" coords="115,497,384,516"/>
+<area shape="rect" href="javascript:void(0);" title="iter(x)" alt="" coords="115,516,384,535"/>
+<area shape="rect" href="javascript:void(0);" title="stable sort IN PLACE; cmp(x, y) &#45;&gt; &#45;1, 0, 1" alt="" coords="115,553,384,572"/>
+<area shape="rect" href="javascript:void(0);" title="list() &#45;&gt; new empty list list(iterable) &#45;&gt; new list initialized from iterable&#39;s items" alt="" coords="113,253,385,573"/>
+<area shape="rect" href="javascript:void(0);" title="Has a menu." alt="" coords="303,1543,495,1561"/>
+<area shape="rect" href="javascript:void(0);" title="An item that popups a menu." alt="" coords="301,1517,496,1563"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#button_press_left" title="LMB pressed inside handle item. Handle items enact drag on LMB." alt="" coords="293,1617,504,1636"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#button_press_right" title="RMB pressed inside handle item. Handle items enact context menu on RMB." alt="" coords="293,1636,504,1655"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#start_drag" title="Mouse departed item with button down." alt="" coords="293,1655,504,1673"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#mouse_move" title="Mouse moved inside this control. This defines that items decide how a handle menu behaves: can slide orthogonally, or next/previous item anti&#45;orthogonal." alt="" coords="293,1673,504,1692"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#mouse_exit" title="Mouse exited item. This is a filtered event from super GuiControl. Assert no button down (not a drag.)" alt="" coords="293,1692,504,1711"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#control_key_release" title="source.gui.itemhandle.HandleItem.control_key_release" alt="" coords="293,1711,504,1729"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#bland_key_release" title="source.gui.itemhandle.HandleItem.bland_key_release" alt="" coords="293,1729,504,1748"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#scroll_down" title="Filtered event from GuiControl: scroll wheel down in an item." alt="" coords="293,1748,504,1767"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#pixels_off_menu_axis" title="Is mouse motion orthogonal (sideways) to menu axis? Returns count of pixels off axis. !!! Note that the sign indicates left(countercw) or right (clockwise) of the menu axis, not a direction along the coordinate system." alt="" coords="293,1767,504,1785"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html" title="A HandleItem control is a member of a HandleMenu group. It :" alt="" coords="292,1592,505,1787"/>
+<area shape="rect" href="source.gui.itemhandlecoords.ResizeHandleItem-class.html" title="HandleItem that resizes controlee, when user drags. Another control is involved when drag exits this item control." alt="" coords="16,1816,240,1843"/>
+<area shape="rect" href="source.gui.itemhandlecoords.MoveViewHandleItem-class.html" title="MoveHandleItem specialized to move the view" alt="" coords="425,1872,668,1899"/>
+<area shape="rect" href="source.gui.itemhandlecoords.MoveHandleItem-class.html" title="HandleItem that moves the controlee, when user drags. Another control is involved when a drag moves out of this item control." alt="" coords="291,1816,507,1843"/>
+<area shape="rect" href="source.gui.itemhandleline.DrawHandleItem-class.html" title="A handle that stretches a morph from the controlee, when a drag starts within. Another control (bkgd mgr usually) gets involved when drag moves out of this item control." alt="" coords="557,1816,752,1843"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.dump" alt="" coords="451,36,645,55"/>
+<area shape="rect" href="javascript:void(0);" title="Return device coords of origin where drawn." alt="" coords="451,55,645,73"/>
+<area shape="rect" href="javascript:void(0);" title="Compute bounding rect in DCS of path in context as inked. !!! Note not recursive, takes path from context." alt="" coords="451,73,645,92"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_fill" alt="" coords="451,92,645,111"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_path" alt="" coords="451,111,645,129"/>
+<area shape="rect" href="javascript:void(0);" title="Does coords hit edge of this drawable? Stroke: hit on inked, visible. Edge: not including possible interior features, just the hittable boundary. Distinguish from a bounding box, which is a rectangle in DCS." alt="" coords="451,129,645,148"/>
+<area shape="rect" href="javascript:void(0);" title="Invalidate as previously drawn. Caching drawn bounds is an optimization; alternative is to walk model branch. This is for composite and primitive drawables: every drawable has bounds." alt="" coords="451,148,645,167"/>
+<area shape="rect" href="javascript:void(0);" title="Invalidate as will be drawn (hasn&#39;t been drawn yet.) This walks a branch of model to determine bounds." alt="" coords="451,167,645,185"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.is_inbounds" alt="" coords="451,185,645,204"/>
+<area shape="rect" href="javascript:void(0);" title="Put my boundary in the context. For most drawables (e.g. circle), the path is the boundary. If NOT path is boundary, override. &#160;E.G. text has a frame. Edge is used for hit detection." alt="" coords="451,204,645,223"/>
+<area shape="rect" href="javascript:void(0);" title="Things that can be drawn (morphs, glyphs, and controls)." alt="" coords="449,11,647,224"/>
+<area shape="rect" href="javascript:void(0);" title="Return state values to be pickled." alt="" coords="437,285,659,304"/>
+<area shape="rect" href="javascript:void(0);" title="Restore state from the unpickled state values." alt="" coords="437,304,659,323"/>
+<area shape="rect" href="javascript:void(0);" title="??? This only works for controls, where the scale is equivalent to pixels in DCS." alt="" coords="437,323,659,341"/>
+<area shape="rect" href="javascript:void(0);" title="Set my transform from my drawing specs. !!! Afterwards, retained_transform doesn&#39;t correspond until walk model tree" alt="" coords="437,341,659,360"/>
+<area shape="rect" href="javascript:void(0);" title="Get local coordinates (group GCS) of DCS point. Uses parent retained transform: only works if previously model traversed and transforms derived. Will not work for the model (the top.)" alt="" coords="437,360,659,379"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.move_absolute" alt="" coords="437,379,659,397"/>
+<area shape="rect" href="javascript:void(0);" title="Move origin but keep other points fixed." alt="" coords="437,397,659,416"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.move_relative" alt="" coords="437,416,659,435"/>
+<area shape="rect" href="javascript:void(0);" title="Apply my transform to the current transform in the context. FIXME and style?" alt="" coords="437,435,659,453"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.relative_scale" alt="" coords="437,453,659,472"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.rotate" alt="" coords="437,472,659,491"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.scale_uniformly" alt="" coords="437,491,659,509"/>
+<area shape="rect" href="javascript:void(0);" title="Set the translation and scale (not rotation) of an object. For testing: ordinarily, transforms are set by user actions using other methods. !!! Not view altering" alt="" coords="437,509,659,528"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.zoom" alt="" coords="437,547,659,565"/>
+<area shape="rect" href="javascript:void(0);" title="Transformer between coordinate systems. Affine drawing transformation by matrix." alt="" coords="436,260,660,567"/>
+<area shape="rect" href="javascript:void(0);" title="gui.itemcontrol.ItemControl.button_release_left" alt="" coords="296,1412,501,1431"/>
+<area shape="rect" href="javascript:void(0);" title="gui.itemcontrol.ItemControl.button_release_right" alt="" coords="296,1431,501,1449"/>
+<area shape="rect" href="javascript:void(0);" title="Close my manager and relinquish control." alt="" coords="296,1449,501,1468"/>
+<area shape="rect" href="javascript:void(0);" title="gui.itemcontrol.ItemControl.set_group_manager" alt="" coords="296,1468,501,1487"/>
+<area shape="rect" href="javascript:void(0);" title="A control that is part of a group (an item in a group.) Usually a menu item. Knows its group manager. Cooperates with its group to define behavior." alt="" coords="295,1387,503,1488"/>
 </map>
   <img src="uml_class_diagram_for_source_g_7.gif" alt='' usemap="#uml_class_diagram_for_source_g_7" ismap="ismap" class="graph-without-title" />
 </center>
@@ -479,6 +481,9 @@ of the menu axis, not a direction along the coordinate system.</td>
       <code>is_inbounds</code>,
       <code>put_edge_to</code>
       </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>drawable.Drawable</code></b> (private):
+      <code>_prepare_for_picking</code>
+      </p></div>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
       <code>__delattr__</code>,
       <code>__format__</code>,
@@ -779,7 +784,7 @@ OR in &quot;menu change item&quot; direction.</p>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sun Apr  3 10:43:11 2011
+    Generated by Epydoc 3.0.1 on Mon Apr  4 14:52:35 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

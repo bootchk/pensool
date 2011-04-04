@@ -65,21 +65,6 @@
 <area shape="rect" href="source.morph.morph.LineMorph-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="187,1095,368,1113"/>
 <area shape="rect" href="source.morph.morph.LineMorph-class.html#rouse_feedback" title="Assert morph is focused. Activate associated feedback." alt="" coords="187,1113,368,1132"/>
 <area shape="rect" href="source.morph.morph.LineMorph-class.html" title="source.morph.morph.LineMorph" alt="" coords="185,1069,369,1133"/>
-<area shape="rect" href="javascript:void(0);" title="Return state values to be pickled." alt="" coords="17,304,239,323"/>
-<area shape="rect" href="javascript:void(0);" title="Restore state from the unpickled state values." alt="" coords="17,323,239,341"/>
-<area shape="rect" href="javascript:void(0);" title="??? This only works for controls, where the scale is equivalent to pixels in DCS." alt="" coords="17,341,239,360"/>
-<area shape="rect" href="javascript:void(0);" title="Set my transform from my drawing specs. !!! Afterwards, retained_transform doesn&#39;t correspond until walk model tree" alt="" coords="17,360,239,379"/>
-<area shape="rect" href="javascript:void(0);" title="Get local coordinates (group GCS) of DCS point. Uses parent retained transform: only works if previously model traversed and transforms derived. Will not work for the model (the top.)" alt="" coords="17,379,239,397"/>
-<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.move_absolute" alt="" coords="17,397,239,416"/>
-<area shape="rect" href="javascript:void(0);" title="Move origin but keep other points fixed." alt="" coords="17,416,239,435"/>
-<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.move_relative" alt="" coords="17,435,239,453"/>
-<area shape="rect" href="javascript:void(0);" title="Apply my transform to the current transform in the context. FIXME and style?" alt="" coords="17,453,239,472"/>
-<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.relative_scale" alt="" coords="17,472,239,491"/>
-<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.rotate" alt="" coords="17,491,239,509"/>
-<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.scale_uniformly" alt="" coords="17,509,239,528"/>
-<area shape="rect" href="javascript:void(0);" title="Set the translation and scale (not rotation) of an object. For testing: ordinarily, transforms are set by user actions using other methods. !!! Not view altering" alt="" coords="17,528,239,547"/>
-<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.zoom" alt="" coords="17,565,239,584"/>
-<area shape="rect" href="javascript:void(0);" title="Transformer between coordinate systems. Affine drawing transformation by matrix." alt="" coords="16,279,240,585"/>
 <area shape="rect" href="javascript:void(0);" title="override list.append to keep parent of each list element That is, hierachal model tree is digraph with bidirectional links." alt="" coords="177,647,377,665"/>
 <area shape="rect" href="javascript:void(0);" title="Draw self using context. Return bounds in DCS for later use to invalidate." alt="" coords="177,665,377,684"/>
 <area shape="rect" href="javascript:void(0);" title="composite.Composite.get_parent" alt="" coords="177,684,377,703"/>
@@ -101,13 +86,28 @@
 <area shape="rect" href="javascript:void(0);" title="Compute bounding rect in DCS of path in context as inked. !!! Note not recursive, takes path from context." alt="" coords="31,73,225,92"/>
 <area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_fill" alt="" coords="31,92,225,111"/>
 <area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_path" alt="" coords="31,111,225,129"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_stroke" alt="" coords="31,129,225,148"/>
+<area shape="rect" href="javascript:void(0);" title="Does coords hit edge of this drawable? Stroke: hit on inked, visible. Edge: not including possible interior features, just the hittable boundary. Distinguish from a bounding box, which is a rectangle in DCS." alt="" coords="31,129,225,148"/>
 <area shape="rect" href="javascript:void(0);" title="Invalidate as previously drawn. Caching drawn bounds is an optimization; alternative is to walk model branch. This is for composite and primitive drawables: every drawable has bounds." alt="" coords="31,148,225,167"/>
 <area shape="rect" href="javascript:void(0);" title="Invalidate as will be drawn (hasn&#39;t been drawn yet.) This walks a branch of model to determine bounds." alt="" coords="31,167,225,185"/>
 <area shape="rect" href="javascript:void(0);" title="Is the event in the hot area. Usually only for control subclass of drawable." alt="" coords="31,185,225,204"/>
 <area shape="rect" href="javascript:void(0);" title="drawable.Drawable.is_inbounds" alt="" coords="31,204,225,223"/>
 <area shape="rect" href="javascript:void(0);" title="Put my boundary in the context. For most drawables (e.g. circle), the path is the boundary. If NOT path is boundary, override. &#160;E.G. text has a frame. Edge is used for hit detection." alt="" coords="31,223,225,241"/>
 <area shape="rect" href="javascript:void(0);" title="Things that can be drawn (morphs, glyphs, and controls)." alt="" coords="29,11,227,243"/>
+<area shape="rect" href="javascript:void(0);" title="Return state values to be pickled." alt="" coords="17,304,239,323"/>
+<area shape="rect" href="javascript:void(0);" title="Restore state from the unpickled state values." alt="" coords="17,323,239,341"/>
+<area shape="rect" href="javascript:void(0);" title="??? This only works for controls, where the scale is equivalent to pixels in DCS." alt="" coords="17,341,239,360"/>
+<area shape="rect" href="javascript:void(0);" title="Set my transform from my drawing specs. !!! Afterwards, retained_transform doesn&#39;t correspond until walk model tree" alt="" coords="17,360,239,379"/>
+<area shape="rect" href="javascript:void(0);" title="Get local coordinates (group GCS) of DCS point. Uses parent retained transform: only works if previously model traversed and transforms derived. Will not work for the model (the top.)" alt="" coords="17,379,239,397"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.move_absolute" alt="" coords="17,397,239,416"/>
+<area shape="rect" href="javascript:void(0);" title="Move origin but keep other points fixed." alt="" coords="17,416,239,435"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.move_relative" alt="" coords="17,435,239,453"/>
+<area shape="rect" href="javascript:void(0);" title="Apply my transform to the current transform in the context. FIXME and style?" alt="" coords="17,453,239,472"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.relative_scale" alt="" coords="17,472,239,491"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.rotate" alt="" coords="17,491,239,509"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.scale_uniformly" alt="" coords="17,509,239,528"/>
+<area shape="rect" href="javascript:void(0);" title="Set the translation and scale (not rotation) of an object. For testing: ordinarily, transforms are set by user actions using other methods. !!! Not view altering" alt="" coords="17,528,239,547"/>
+<area shape="rect" href="javascript:void(0);" title="transformer.Transformer.zoom" alt="" coords="17,565,239,584"/>
+<area shape="rect" href="javascript:void(0);" title="Transformer between coordinate systems. Affine drawing transformation by matrix." alt="" coords="16,279,240,585"/>
 <area shape="rect" href="javascript:void(0);" title="hash(x)" alt="" coords="292,289,561,308"/>
 <area shape="rect" href="javascript:void(0);" title="x+y" alt="" coords="292,311,561,329"/>
 <area shape="rect" href="javascript:void(0);" title="y in x" alt="" coords="292,329,561,348"/>
@@ -271,6 +271,9 @@ Activate associated feedback.</td>
       <code>is_inbounds</code>,
       <code>put_edge_to</code>
       </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>drawable.Drawable</code></b> (private):
+      <code>_prepare_for_picking</code>
+      </p></div>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
       <code>__delattr__</code>,
       <code>__format__</code>,
@@ -441,7 +444,7 @@ Note simple morphs are degenerate composites (one element) so do not get boundin
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sun Apr  3 10:43:14 2011
+    Generated by Epydoc 3.0.1 on Mon Apr  4 14:52:38 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

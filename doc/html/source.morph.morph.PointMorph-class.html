@@ -64,30 +64,13 @@
 <area shape="rect" href="source.morph.morph.PrimitiveMorph-class.html" title="A PrimitiveMorph is a Composite of only Glyphs. The transform and style of a PrimitiveMorph defines aspect of its glyph, a unit shape. Cannot append a Morph to a PrimitiveMorph, only glyphs. TODO enforce?" alt="" coords="227,1013,328,1059"/>
 <area shape="rect" href="source.morph.morph.PointMorph-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="237,1113,317,1132"/>
 <area shape="rect" href="source.morph.morph.PointMorph-class.html" title="source.morph.morph.PointMorph" alt="" coords="236,1088,319,1133"/>
-<area shape="rect" href="javascript:void(0);" title="override list.append to keep parent of each list element That is, hierachal model tree is digraph with bidirectional links." alt="" coords="177,647,377,665"/>
-<area shape="rect" href="javascript:void(0);" title="Draw self using context. Return bounds in DCS for later use to invalidate." alt="" coords="177,665,377,684"/>
-<area shape="rect" href="javascript:void(0);" title="composite.Composite.get_parent" alt="" coords="177,684,377,703"/>
-<area shape="rect" href="javascript:void(0);" title="composite.Composite.highlight" alt="" coords="177,703,377,721"/>
-<area shape="rect" href="javascript:void(0);" title="Layout members. Usually based on origin and/or dimensions of group. Often overridden. Defaults to all items have same dimensions as the group. That is sensible for morphs, which have one item in a group." alt="" coords="177,721,377,740"/>
-<area shape="rect" href="javascript:void(0);" title="composite.Composite.pick" alt="" coords="177,740,377,759"/>
-<area shape="rect" href="javascript:void(0);" title="Put path into context. Virtual: each subclass knows its shape." alt="" coords="177,759,377,777"/>
-<area shape="rect" href="javascript:void(0);" title="A container of Transformer:Drawables." alt="" coords="176,621,379,779"/>
-<area shape="rect" href="source.morph.morph.Morph-class.html#insert" title="Insert morph into this group. If self is a primitive morph, insert new group morph in hierarchy, i.e. branch. Because, if self is a primitive morph, it has a transform that shapes its glyphs but we want a distinct transform for the new group [self,morph]." alt="" coords="148,833,407,852"/>
-<area shape="rect" href="source.morph.morph.Morph-class.html#rouse_feedback" title="Assert morph is focused. Activate associated feedback." alt="" coords="148,852,407,871"/>
-<area shape="rect" href="source.morph.morph.Morph-class.html#get_orthogonal" title="Return a unit vector orthogonal to self at point." alt="" coords="148,871,407,889"/>
-<area shape="rect" href="source.morph.morph.Morph-class.html#resize" title="source.morph.morph.Morph.resize" alt="" coords="148,889,407,908"/>
-<area shape="rect" href="source.morph.morph.Morph-class.html#is_top" title="Morph that is the root of the modeling tree." alt="" coords="148,908,407,927"/>
-<area shape="rect" href="source.morph.morph.Morph-class.html#set_by_drag" title="Establish my dimensions (set transform) according to drag op from start_coords to event. My glyph is a unitary thing (unit scale, translation.) Set my transform within my parent group&#39;s coordinate system (GCS)." alt="" coords="148,927,407,945"/>
-<area shape="rect" href="source.morph.morph.Morph-class.html#move_by_drag" title="Establish my translation according to drag op of glyph by offset" alt="" coords="148,945,407,964"/>
-<area shape="rect" href="source.morph.morph.Morph-class.html#move_by_drag_handle" title="Establish my dimensions (set transform) according to drag op of handle by offset" alt="" coords="148,964,407,983"/>
-<area shape="rect" href="source.morph.morph.Morph-class.html" title="A Morph is a Composite with associated controls. A composite of Morphs or Glyphs." alt="" coords="147,808,408,984"/>
 <area shape="rect" href="source.morph.morph.HandlePoint-class.html" title="Handle that is a point." alt="" coords="235,1163,320,1189"/>
 <area shape="rect" href="javascript:void(0);" title="drawable.Drawable.dump" alt="" coords="31,36,225,55"/>
 <area shape="rect" href="javascript:void(0);" title="Return device coords of origin where drawn." alt="" coords="31,55,225,73"/>
 <area shape="rect" href="javascript:void(0);" title="Compute bounding rect in DCS of path in context as inked. !!! Note not recursive, takes path from context." alt="" coords="31,73,225,92"/>
 <area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_fill" alt="" coords="31,92,225,111"/>
 <area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_path" alt="" coords="31,111,225,129"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_stroke" alt="" coords="31,129,225,148"/>
+<area shape="rect" href="javascript:void(0);" title="Does coords hit edge of this drawable? Stroke: hit on inked, visible. Edge: not including possible interior features, just the hittable boundary. Distinguish from a bounding box, which is a rectangle in DCS." alt="" coords="31,129,225,148"/>
 <area shape="rect" href="javascript:void(0);" title="Invalidate as previously drawn. Caching drawn bounds is an optimization; alternative is to walk model branch. This is for composite and primitive drawables: every drawable has bounds." alt="" coords="31,148,225,167"/>
 <area shape="rect" href="javascript:void(0);" title="Invalidate as will be drawn (hasn&#39;t been drawn yet.) This walks a branch of model to determine bounds." alt="" coords="31,167,225,185"/>
 <area shape="rect" href="javascript:void(0);" title="Is the event in the hot area. Usually only for control subclass of drawable." alt="" coords="31,185,225,204"/>
@@ -109,6 +92,23 @@
 <area shape="rect" href="javascript:void(0);" title="Set the translation and scale (not rotation) of an object. For testing: ordinarily, transforms are set by user actions using other methods. !!! Not view altering" alt="" coords="17,528,239,547"/>
 <area shape="rect" href="javascript:void(0);" title="transformer.Transformer.zoom" alt="" coords="17,565,239,584"/>
 <area shape="rect" href="javascript:void(0);" title="Transformer between coordinate systems. Affine drawing transformation by matrix." alt="" coords="16,279,240,585"/>
+<area shape="rect" href="javascript:void(0);" title="override list.append to keep parent of each list element That is, hierachal model tree is digraph with bidirectional links." alt="" coords="177,647,377,665"/>
+<area shape="rect" href="javascript:void(0);" title="Draw self using context. Return bounds in DCS for later use to invalidate." alt="" coords="177,665,377,684"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.get_parent" alt="" coords="177,684,377,703"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.highlight" alt="" coords="177,703,377,721"/>
+<area shape="rect" href="javascript:void(0);" title="Layout members. Usually based on origin and/or dimensions of group. Often overridden. Defaults to all items have same dimensions as the group. That is sensible for morphs, which have one item in a group." alt="" coords="177,721,377,740"/>
+<area shape="rect" href="javascript:void(0);" title="composite.Composite.pick" alt="" coords="177,740,377,759"/>
+<area shape="rect" href="javascript:void(0);" title="Put path into context. Virtual: each subclass knows its shape." alt="" coords="177,759,377,777"/>
+<area shape="rect" href="javascript:void(0);" title="A container of Transformer:Drawables." alt="" coords="176,621,379,779"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#insert" title="Insert morph into this group. If self is a primitive morph, insert new group morph in hierarchy, i.e. branch. Because, if self is a primitive morph, it has a transform that shapes its glyphs but we want a distinct transform for the new group [self,morph]." alt="" coords="148,833,407,852"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#rouse_feedback" title="Assert morph is focused. Activate associated feedback." alt="" coords="148,852,407,871"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#get_orthogonal" title="Return a unit vector orthogonal to self at point." alt="" coords="148,871,407,889"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#resize" title="source.morph.morph.Morph.resize" alt="" coords="148,889,407,908"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#is_top" title="Morph that is the root of the modeling tree." alt="" coords="148,908,407,927"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#set_by_drag" title="Establish my dimensions (set transform) according to drag op from start_coords to event. My glyph is a unitary thing (unit scale, translation.) Set my transform within my parent group&#39;s coordinate system (GCS)." alt="" coords="148,927,407,945"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#move_by_drag" title="Establish my translation according to drag op of glyph by offset" alt="" coords="148,945,407,964"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html#move_by_drag_handle" title="Establish my dimensions (set transform) according to drag op of handle by offset" alt="" coords="148,964,407,983"/>
+<area shape="rect" href="source.morph.morph.Morph-class.html" title="A Morph is a Composite with associated controls. A composite of Morphs or Glyphs." alt="" coords="147,808,408,984"/>
 <area shape="rect" href="javascript:void(0);" title="hash(x)" alt="" coords="292,289,561,308"/>
 <area shape="rect" href="javascript:void(0);" title="x+y" alt="" coords="292,311,561,329"/>
 <area shape="rect" href="javascript:void(0);" title="y in x" alt="" coords="292,329,561,348"/>
@@ -254,6 +254,9 @@
       <code>is_inbounds</code>,
       <code>put_edge_to</code>
       </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>drawable.Drawable</code></b> (private):
+      <code>_prepare_for_picking</code>
+      </p></div>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
       <code>__delattr__</code>,
       <code>__format__</code>,
@@ -386,7 +389,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sun Apr  3 10:43:14 2011
+    Generated by Epydoc 3.0.1 on Mon Apr  4 14:52:38 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

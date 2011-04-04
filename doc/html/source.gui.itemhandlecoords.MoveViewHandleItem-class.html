@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>source.gui.itemhandlecoords.ResizeHandleItem</title>
+  <title>source.gui.itemhandlecoords.MoveViewHandleItem</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -40,7 +40,7 @@
         <a href="source-module.html">Package&nbsp;source</a> ::
         <a href="source.gui-module.html">Package&nbsp;gui</a> ::
         <a href="source.gui.itemhandlecoords-module.html">Module&nbsp;itemhandlecoords</a> ::
-        Class&nbsp;ResizeHandleItem
+        Class&nbsp;MoveViewHandleItem
       </span>
     </td>
     <td>
@@ -50,46 +50,43 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="source.gui.itemhandlecoords.ResizeHandleItem-class.html"
+            >]&nbsp;|&nbsp;<a href="source.gui.itemhandlecoords.MoveViewHandleItem-class.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class ResizeHandleItem</h1><p class="nomargin-top"><span class="codelink"><a href="source.gui.itemhandlecoords-pysrc.html#ResizeHandleItem">source&nbsp;code</a></span></p>
+<h1 class="epydoc">Class MoveViewHandleItem</h1><p class="nomargin-top"><span class="codelink"><a href="source.gui.itemhandlecoords-pysrc.html#MoveViewHandleItem">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_source_g_11" name="uml_class_diagram_for_source_g_11">
+<center>  <map id="uml_class_diagram_for_source_g_10" name="uml_class_diagram_for_source_g_10">
 <area shape="rect" href="javascript:void(0);" title="Morph that is not class PrimitiveMorph is not primitive. A PrimitiveMorph can be a group but only of glyphs. A non&#45;primitive morph is a group of other morphs." alt="" coords="219,1020,384,1039"/>
 <area shape="rect" href="javascript:void(0);" title="A PrimitiveMorph is a Composite of only Glyphs. The transform and style of a PrimitiveMorph defines aspect of its glyph, a unit shape. Cannot append a Morph to a PrimitiveMorph, only glyphs. TODO enforce?" alt="" coords="217,995,385,1040"/>
-<area shape="rect" href="javascript:void(0);" title="Represent by the class name" alt="" coords="173,1095,429,1113"/>
-<area shape="rect" href="javascript:void(0);" title="This control is active on given controlee. Override if any special activation. &#160;Most controls do not override." alt="" coords="173,1113,429,1132"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.button_press_event_cb" alt="" coords="173,1132,429,1151"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.button_release_event_cb" alt="" coords="173,1151,429,1169"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.continue_drag" alt="" coords="173,1169,429,1188"/>
-<area shape="rect" href="javascript:void(0);" title="Override if any special deactivation. &#160;Most controls do not override." alt="" coords="173,1188,429,1207"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.focus_in_event_cb" alt="" coords="173,1207,429,1225"/>
-<area shape="rect" href="javascript:void(0);" title="Is the event in the hot area? For some controls the hot area is not same as the bounding box. Can be overridden." alt="" coords="173,1225,429,1244"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.key_release_event_cb" alt="" coords="173,1244,429,1263"/>
-<area shape="rect" href="javascript:void(0);" title="Exit if not mouse still inside. Move the control to follow the mouse. Continue dragging." alt="" coords="173,1263,429,1281"/>
-<area shape="rect" href="javascript:void(0);" title="Pointer scroll wheel inside control." alt="" coords="173,1281,429,1300"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.scroll_up" alt="" coords="173,1300,429,1319"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.take_focus" alt="" coords="173,1319,429,1337"/>
-<area shape="rect" href="javascript:void(0);" title="Base class for GUI controls i.e." alt="" coords="172,1069,431,1339"/>
-<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#button_press_left" title="LMB pressed inside handle item. Handle items enact drag on LMB." alt="" coords="196,1585,407,1604"/>
-<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#button_press_right" title="RMB pressed inside handle item. Handle items enact context menu on RMB." alt="" coords="196,1604,407,1623"/>
-<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#start_drag" title="Mouse departed item with button down." alt="" coords="196,1623,407,1641"/>
-<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#mouse_move" title="Mouse moved inside this control. This defines that items decide how a handle menu behaves: can slide orthogonally, or next/previous item anti&#45;orthogonal." alt="" coords="196,1641,407,1660"/>
-<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#mouse_exit" title="Mouse exited item. This is a filtered event from super GuiControl. Assert no button down (not a drag.)" alt="" coords="196,1660,407,1679"/>
-<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#control_key_release" title="source.gui.itemhandle.HandleItem.control_key_release" alt="" coords="196,1679,407,1697"/>
-<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#bland_key_release" title="source.gui.itemhandle.HandleItem.bland_key_release" alt="" coords="196,1697,407,1716"/>
-<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#scroll_down" title="Filtered event from GuiControl: scroll wheel down in an item." alt="" coords="196,1716,407,1735"/>
-<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#pixels_off_menu_axis" title="Is mouse motion orthogonal (sideways) to menu axis? Returns count of pixels off axis. !!! Note that the sign indicates left(countercw) or right (clockwise) of the menu axis, not a direction along the coordinate system." alt="" coords="196,1735,407,1753"/>
-<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html" title="A HandleItem control is a member of a HandleMenu group. It :" alt="" coords="195,1560,408,1755"/>
-<area shape="rect" href="source.gui.itemhandlecoords.ResizeHandleItem-class.html#__init__" title="Has a menu." alt="" coords="163,1809,440,1828"/>
-<area shape="rect" href="source.gui.itemhandlecoords.ResizeHandleItem-class.html#drop" title="Some control was the target of a drop that started in this control. This control resizes source." alt="" coords="163,1828,440,1847"/>
-<area shape="rect" href="source.gui.itemhandlecoords.ResizeHandleItem-class.html" title="HandleItem that resizes controlee, when user drags. Another control is involved when drag exits this item control." alt="" coords="161,1784,441,1848"/>
-<area shape="rect" href="javascript:void(0);" title="An item that popups a menu." alt="" coords="204,1499,399,1531"/>
+<area shape="rect" href="javascript:void(0);" title="Represent by the class name" alt="" coords="175,1095,428,1113"/>
+<area shape="rect" href="javascript:void(0);" title="This control is active on given controlee. Override if any special activation. &#160;Most controls do not override." alt="" coords="175,1113,428,1132"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.button_press_event_cb" alt="" coords="175,1132,428,1151"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.button_release_event_cb" alt="" coords="175,1151,428,1169"/>
+<area shape="rect" href="javascript:void(0);" title="Override if any special deactivation. &#160;Most controls do not override." alt="" coords="175,1169,428,1188"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.focus_in_event_cb" alt="" coords="175,1188,428,1207"/>
+<area shape="rect" href="javascript:void(0);" title="Is the event in the hot area? For some controls the hot area is not same as the bounding box. Can be overridden." alt="" coords="175,1207,428,1225"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.key_release_event_cb" alt="" coords="175,1225,428,1244"/>
+<area shape="rect" href="javascript:void(0);" title="Exit if not mouse still inside. Move the control to follow the mouse. Continue dragging." alt="" coords="175,1244,428,1263"/>
+<area shape="rect" href="javascript:void(0);" title="Pointer scroll wheel inside control." alt="" coords="175,1263,428,1281"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.take_focus" alt="" coords="175,1281,428,1300"/>
+<area shape="rect" href="javascript:void(0);" title="Base class for GUI controls i.e." alt="" coords="173,1069,429,1301"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#button_press_left" title="LMB pressed inside handle item. Handle items enact drag on LMB." alt="" coords="196,1548,407,1567"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#button_press_right" title="RMB pressed inside handle item. Handle items enact context menu on RMB." alt="" coords="196,1567,407,1585"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#start_drag" title="Mouse departed item with button down." alt="" coords="196,1585,407,1604"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#mouse_move" title="Mouse moved inside this control. This defines that items decide how a handle menu behaves: can slide orthogonally, or next/previous item anti&#45;orthogonal." alt="" coords="196,1604,407,1623"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#mouse_exit" title="Mouse exited item. This is a filtered event from super GuiControl. Assert no button down (not a drag.)" alt="" coords="196,1623,407,1641"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#control_key_release" title="source.gui.itemhandle.HandleItem.control_key_release" alt="" coords="196,1641,407,1660"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#bland_key_release" title="source.gui.itemhandle.HandleItem.bland_key_release" alt="" coords="196,1660,407,1679"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#pixels_off_menu_axis" title="Is mouse motion orthogonal (sideways) to menu axis? Returns count of pixels off axis. !!! Note that the sign indicates left(countercw) or right (clockwise) of the menu axis, not a direction along the coordinate system." alt="" coords="196,1679,407,1697"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html" title="A HandleItem control is a member of a HandleMenu group. It :" alt="" coords="195,1523,408,1699"/>
+<area shape="rect" href="source.gui.itemhandlecoords.MoveHandleItem-class.html#continue_drag" title="animate/ghost controlee being dragged" alt="" coords="173,1753,429,1772"/>
+<area shape="rect" href="source.gui.itemhandlecoords.MoveHandleItem-class.html#drop" title="Some control was the target of a drop that started in this control. Leave the ghosted move in last position." alt="" coords="173,1772,429,1791"/>
+<area shape="rect" href="source.gui.itemhandlecoords.MoveHandleItem-class.html" title="HandleItem that moves the controlee, when user drags. Another control is involved when a drag moves out of this item control." alt="" coords="172,1728,431,1792"/>
+<area shape="rect" href="javascript:void(0);" title="An item that popups a menu." alt="" coords="204,1461,399,1493"/>
 <area shape="rect" href="javascript:void(0);" title="hash(x)" alt="" coords="17,271,287,289"/>
 <area shape="rect" href="javascript:void(0);" title="x+y" alt="" coords="17,292,287,311"/>
 <area shape="rect" href="javascript:void(0);" title="y in x" alt="" coords="17,311,287,329"/>
@@ -114,6 +111,10 @@
 <area shape="rect" href="javascript:void(0);" title="composite.Composite.pick" alt="" coords="201,721,401,740"/>
 <area shape="rect" href="javascript:void(0);" title="Put path into context. Virtual: each subclass knows its shape." alt="" coords="201,740,401,759"/>
 <area shape="rect" href="javascript:void(0);" title="A container of Transformer:Drawables." alt="" coords="200,603,403,760"/>
+<area shape="rect" href="source.gui.itemhandlecoords.MoveViewHandleItem-class.html#__init__" title="Has a menu." alt="" coords="216,1847,387,1865"/>
+<area shape="rect" href="source.gui.itemhandlecoords.MoveViewHandleItem-class.html#scroll_up" title="Zoom view out." alt="" coords="216,1865,387,1884"/>
+<area shape="rect" href="source.gui.itemhandlecoords.MoveViewHandleItem-class.html#scroll_down" title="Zoom view in." alt="" coords="216,1884,387,1903"/>
+<area shape="rect" href="source.gui.itemhandlecoords.MoveViewHandleItem-class.html" title="MoveHandleItem specialized to move the view" alt="" coords="215,1821,388,1904"/>
 <area shape="rect" href="javascript:void(0);" title="Return a unit vector orthogonal to self at point." alt="" coords="172,815,431,833"/>
 <area shape="rect" href="javascript:void(0);" title="insert object before index" alt="" coords="172,833,431,852"/>
 <area shape="rect" href="javascript:void(0);" title="Morph that is the root of the modeling tree." alt="" coords="172,852,431,871"/>
@@ -149,19 +150,17 @@
 <area shape="rect" href="javascript:void(0);" title="Set the translation and scale (not rotation) of an object. For testing: ordinarily, transforms are set by user actions using other methods. !!! Not view altering" alt="" coords="340,509,561,528"/>
 <area shape="rect" href="javascript:void(0);" title="transformer.Transformer.zoom" alt="" coords="340,547,561,565"/>
 <area shape="rect" href="javascript:void(0);" title="Transformer between coordinate systems. Affine drawing transformation by matrix." alt="" coords="339,260,563,567"/>
-<area shape="rect" href="javascript:void(0);" title="gui.itemcontrol.ItemControl.button_release_left" alt="" coords="199,1393,404,1412"/>
-<area shape="rect" href="javascript:void(0);" title="gui.itemcontrol.ItemControl.button_release_right" alt="" coords="199,1412,404,1431"/>
-<area shape="rect" href="javascript:void(0);" title="Close my manager and relinquish control." alt="" coords="199,1431,404,1449"/>
-<area shape="rect" href="javascript:void(0);" title="gui.itemcontrol.ItemControl.set_group_manager" alt="" coords="199,1449,404,1468"/>
-<area shape="rect" href="javascript:void(0);" title="A control that is part of a group (an item in a group.) Usually a menu item. Knows its group manager. Cooperates with its group to define behavior." alt="" coords="197,1368,405,1469"/>
+<area shape="rect" href="javascript:void(0);" title="gui.itemcontrol.ItemControl.button_release_left" alt="" coords="199,1356,404,1375"/>
+<area shape="rect" href="javascript:void(0);" title="gui.itemcontrol.ItemControl.button_release_right" alt="" coords="199,1375,404,1393"/>
+<area shape="rect" href="javascript:void(0);" title="Close my manager and relinquish control." alt="" coords="199,1393,404,1412"/>
+<area shape="rect" href="javascript:void(0);" title="gui.itemcontrol.ItemControl.set_group_manager" alt="" coords="199,1412,404,1431"/>
+<area shape="rect" href="javascript:void(0);" title="A control that is part of a group (an item in a group.) Usually a menu item. Knows its group manager. Cooperates with its group to define behavior." alt="" coords="197,1331,405,1432"/>
 </map>
-  <img src="uml_class_diagram_for_source_g_11.gif" alt='' usemap="#uml_class_diagram_for_source_g_11" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_source_g_10.gif" alt='' usemap="#uml_class_diagram_for_source_g_10" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
-<p>HandleItem that resizes controlee, when user drags.
-Another control is involved when drag exits this item control.</p>
-<p>Scrolling alters constraints on resize. TODO</p>
+MoveHandleItem specialized to move the view
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -186,11 +185,11 @@ Another control is involved when drag exits this item control.</p>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.gui.itemhandlecoords.ResizeHandleItem-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="source.gui.itemhandlecoords.MoveViewHandleItem-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">command</span>)</span><br />
       Has a menu.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="source.gui.itemhandlecoords-pysrc.html#ResizeHandleItem.__init__">source&nbsp;code</a></span>
+            <span class="codelink"><a href="source.gui.itemhandlecoords-pysrc.html#MoveViewHandleItem.__init__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -204,15 +203,29 @@ Another control is involved when drag exits this item control.</p>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.gui.itemhandlecoords.ResizeHandleItem-class.html#drop" class="summary-sig-name">drop</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">source</span>,
-        <span class="summary-sig-arg">event</span>,
-        <span class="summary-sig-arg">offset</span>,
-        <span class="summary-sig-arg">source_control</span>)</span><br />
-      Some control was the target of a drop that started in this control.
-This control resizes source.</td>
+          <td><span class="summary-sig"><a href="source.gui.itemhandlecoords.MoveViewHandleItem-class.html#scroll_up" class="summary-sig-name">scroll_up</a>(<span class="summary-sig-arg">*args</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      Zoom view out.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="source.gui.itemhandlecoords-pysrc.html#ResizeHandleItem.drop">source&nbsp;code</a></span>
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="source.gui.itemhandlecoords.MoveViewHandleItem-class.html#scroll_down" class="summary-sig-name">scroll_down</a>(<span class="summary-sig-arg">*args</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      Zoom view in.</td>
+          <td align="right" valign="top">
+            
             
           </td>
         </tr>
@@ -222,6 +235,13 @@ This control resizes source.</td>
   </tr>
   <tr>
     <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="source.gui.itemhandlecoords.MoveHandleItem-class.html">MoveHandleItem</a></code></b>:
+      <code><a href="source.gui.itemhandlecoords.MoveHandleItem-class.html#continue_drag">continue_drag</a></code>,
+      <code><a href="source.gui.itemhandlecoords.MoveHandleItem-class.html#drop">drop</a></code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="source.gui.itemhandlecoords.MoveHandleItem-class.html">MoveHandleItem</a></code></b> (private):
+      <code><a href="source.gui.itemhandlecoords.MoveHandleItem-class.html#_change_controlee" onclick="show_private();">_change_controlee</a></code>
+      </p></div>
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="source.gui.itemhandle.HandleItem-class.html">itemhandle.HandleItem</a></code></b>:
       <code><a href="source.gui.itemhandle.HandleItem-class.html#bland_key_release">bland_key_release</a></code>,
       <code><a href="source.gui.itemhandle.HandleItem-class.html#button_press_left">button_press_left</a></code>,
@@ -230,7 +250,6 @@ This control resizes source.</td>
       <code><a href="source.gui.itemhandle.HandleItem-class.html#mouse_exit">mouse_exit</a></code>,
       <code><a href="source.gui.itemhandle.HandleItem-class.html#mouse_move">mouse_move</a></code>,
       <code><a href="source.gui.itemhandle.HandleItem-class.html#pixels_off_menu_axis">pixels_off_menu_axis</a></code>,
-      <code><a href="source.gui.itemhandle.HandleItem-class.html#scroll_down">scroll_down</a></code>,
       <code><a href="source.gui.itemhandle.HandleItem-class.html#start_drag">start_drag</a></code>
       </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code>gui.itemcontrol.ItemControl</code></b>:
@@ -244,14 +263,12 @@ This control resizes source.</td>
       <code>activate</code>,
       <code>button_press_event_cb</code>,
       <code>button_release_event_cb</code>,
-      <code>continue_drag</code>,
       <code>deactivate</code>,
       <code>focus_in_event_cb</code>,
       <code>is_in_control_area</code>,
       <code>key_release_event_cb</code>,
       <code>motion_notify_event_cb</code>,
       <code>scroll_event_cb</code>,
-      <code>scroll_up</code>,
       <code>take_focus</code>
       </p>
     <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>gui.control.GuiControl</code></b> (private):
@@ -439,7 +456,7 @@ This control resizes source.</td>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.gui.itemhandlecoords-pysrc.html#ResizeHandleItem.__init__">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="source.gui.itemhandlecoords-pysrc.html#MoveViewHandleItem.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
@@ -457,29 +474,56 @@ or be restarted.</p>
   </dl>
 </td></tr></table>
 </div>
-<a name="drop"></a>
+<a name="scroll_up"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">drop</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">source</span>,
-        <span class="sig-arg">event</span>,
-        <span class="sig-arg">offset</span>,
-        <span class="sig-arg">source_control</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">scroll_up</span>(<span class="sig-arg">*args</span>,
+        <span class="sig-arg">**kwargs</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.gui.itemhandlecoords-pysrc.html#ResizeHandleItem.drop">source&nbsp;code</a></span>&nbsp;
+    >&nbsp;
     </td>
   </tr></table>
   
-  Some control was the target of a drop that started in this control.
-This control resizes source.
+  Zoom view out.
   <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@dump_event</code></li>
+    </ul></dd>
     <dt>Overrides:
-        gui.control.GuiControl.drop
+        gui.control.GuiControl.scroll_up
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="scroll_down"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">scroll_down</span>(<span class="sig-arg">*args</span>,
+        <span class="sig-arg">**kwargs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  Zoom view in.
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@dump_event</code></li>
+    </ul></dd>
+    <dt>Overrides:
+        gui.control.GuiControl.scroll_down
     </dt>
   </dl>
 </td></tr></table>

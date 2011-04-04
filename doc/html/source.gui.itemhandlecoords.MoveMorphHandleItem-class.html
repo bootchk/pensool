@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>source.gui.itemcontrol.ItemControl</title>
+  <title>source.gui.itemhandlecoords.MoveMorphHandleItem</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -39,8 +39,8 @@
       <span class="breadcrumbs">
         <a href="source-module.html">Package&nbsp;source</a> ::
         <a href="source.gui-module.html">Package&nbsp;gui</a> ::
-        <a href="source.gui.itemcontrol-module.html">Module&nbsp;itemcontrol</a> ::
-        Class&nbsp;ItemControl
+        <a href="source.gui.itemhandlecoords-module.html">Module&nbsp;itemhandlecoords</a> ::
+        Class&nbsp;MoveMorphHandleItem
       </span>
     </td>
     <td>
@@ -50,60 +50,42 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="source.gui.itemcontrol.ItemControl-class.html"
+            >]&nbsp;|&nbsp;<a href="source.gui.itemhandlecoords.MoveMorphHandleItem-class.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class ItemControl</h1><p class="nomargin-top"><span class="codelink"><a href="source.gui.itemcontrol-pysrc.html#ItemControl">source&nbsp;code</a></span></p>
+<h1 class="epydoc">Class MoveMorphHandleItem</h1><p class="nomargin-top"><span class="codelink"><a href="source.gui.itemhandlecoords-pysrc.html#MoveMorphHandleItem">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_source_g_5" name="uml_class_diagram_for_source_g_5">
-<area shape="rect" href="javascript:void(0);" title="Return a unit vector orthogonal to self at point." alt="" coords="148,815,407,833"/>
-<area shape="rect" href="javascript:void(0);" title="insert object before index" alt="" coords="148,833,407,852"/>
-<area shape="rect" href="javascript:void(0);" title="Morph that is the root of the modeling tree." alt="" coords="148,852,407,871"/>
-<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.move_by_drag" alt="" coords="148,871,407,889"/>
-<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.move_by_drag_handle" alt="" coords="148,889,407,908"/>
-<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.resize" alt="" coords="148,908,407,927"/>
-<area shape="rect" href="javascript:void(0);" title="Assert morph is focused. Activate associated feedback." alt="" coords="148,927,407,945"/>
-<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.set_by_drag" alt="" coords="148,945,407,964"/>
-<area shape="rect" href="javascript:void(0);" title="A Morph is a Composite with associated controls. A composite of Morphs or Glyphs." alt="" coords="147,789,408,965"/>
+<center>  <map id="uml_class_diagram_for_source_g_9" name="uml_class_diagram_for_source_g_9">
 <area shape="rect" href="javascript:void(0);" title="Morph that is not class PrimitiveMorph is not primitive. A PrimitiveMorph can be a group but only of glyphs. A non&#45;primitive morph is a group of other morphs." alt="" coords="195,1020,360,1039"/>
 <area shape="rect" href="javascript:void(0);" title="A PrimitiveMorph is a Composite of only Glyphs. The transform and style of a PrimitiveMorph defines aspect of its glyph, a unit shape. Cannot append a Morph to a PrimitiveMorph, only glyphs. TODO enforce?" alt="" coords="193,995,361,1040"/>
-<area shape="rect" href="javascript:void(0);" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="139,1095,416,1113"/>
-<area shape="rect" href="javascript:void(0);" title="Represent by the class name" alt="" coords="139,1113,416,1132"/>
-<area shape="rect" href="javascript:void(0);" title="This control is active on given controlee. Override if any special activation. &#160;Most controls do not override." alt="" coords="139,1132,416,1151"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.button_press_event_cb" alt="" coords="139,1151,416,1169"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.button_press_left" alt="" coords="139,1169,416,1188"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.button_press_right" alt="" coords="139,1188,416,1207"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.button_release_event_cb" alt="" coords="139,1207,416,1225"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.continue_drag" alt="" coords="139,1225,416,1244"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.control_key_release" alt="" coords="139,1244,416,1263"/>
-<area shape="rect" href="javascript:void(0);" title="Override if any special deactivation. &#160;Most controls do not override." alt="" coords="139,1263,416,1281"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.drop" alt="" coords="139,1281,416,1300"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.focus_in_event_cb" alt="" coords="139,1300,416,1319"/>
-<area shape="rect" href="javascript:void(0);" title="Is the event in the hot area? For some controls the hot area is not same as the bounding box. Can be overridden." alt="" coords="139,1319,416,1337"/>
-<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.take_focus" alt="" coords="139,1356,416,1375"/>
-<area shape="rect" href="javascript:void(0);" title="Base class for GUI controls i.e." alt="" coords="137,1069,417,1376"/>
-<area shape="rect" href="source.gui.itemcontrol.ItemControl-class.html#set_group_manager" title="source.gui.itemcontrol.ItemControl.set_group_manager" alt="" coords="175,1431,380,1449"/>
-<area shape="rect" href="source.gui.itemcontrol.ItemControl-class.html#button_release_left" title="source.gui.itemcontrol.ItemControl.button_release_left" alt="" coords="175,1449,380,1468"/>
-<area shape="rect" href="source.gui.itemcontrol.ItemControl-class.html#button_release_right" title="source.gui.itemcontrol.ItemControl.button_release_right" alt="" coords="175,1468,380,1487"/>
-<area shape="rect" href="source.gui.itemcontrol.ItemControl-class.html#close_manager" title="Close my manager and relinquish control." alt="" coords="175,1487,380,1505"/>
-<area shape="rect" href="source.gui.itemcontrol.ItemControl-class.html#start_drag" title="This could happen if user only wants to drag a little bit, and the item bounds are bigger than the bounds of the drag start constraint." alt="" coords="175,1505,380,1524"/>
-<area shape="rect" href="source.gui.itemcontrol.ItemControl-class.html" title="A control that is part of a group (an item in a group.) Usually a menu item. Knows its group manager. Cooperates with its group to define behavior." alt="" coords="173,1405,381,1525"/>
-<area shape="rect" href="source.gui.itemcontrol.PopupItemControl-class.html" title="An item that popups a menu." alt="" coords="129,1555,247,1581"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.dump" alt="" coords="31,36,225,55"/>
-<area shape="rect" href="javascript:void(0);" title="Return device coords of origin where drawn." alt="" coords="31,55,225,73"/>
-<area shape="rect" href="javascript:void(0);" title="Compute bounding rect in DCS of path in context as inked. !!! Note not recursive, takes path from context." alt="" coords="31,73,225,92"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_fill" alt="" coords="31,92,225,111"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_path" alt="" coords="31,111,225,129"/>
-<area shape="rect" href="javascript:void(0);" title="Does coords hit edge of this drawable? Stroke: hit on inked, visible. Edge: not including possible interior features, just the hittable boundary. Distinguish from a bounding box, which is a rectangle in DCS." alt="" coords="31,129,225,148"/>
-<area shape="rect" href="javascript:void(0);" title="Invalidate as previously drawn. Caching drawn bounds is an optimization; alternative is to walk model branch. This is for composite and primitive drawables: every drawable has bounds." alt="" coords="31,148,225,167"/>
-<area shape="rect" href="javascript:void(0);" title="Invalidate as will be drawn (hasn&#39;t been drawn yet.) This walks a branch of model to determine bounds." alt="" coords="31,167,225,185"/>
-<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.is_inbounds" alt="" coords="31,185,225,204"/>
-<area shape="rect" href="javascript:void(0);" title="Put my boundary in the context. For most drawables (e.g. circle), the path is the boundary. If NOT path is boundary, override. &#160;E.G. text has a frame. Edge is used for hit detection." alt="" coords="31,204,225,223"/>
-<area shape="rect" href="javascript:void(0);" title="Things that can be drawn (morphs, glyphs, and controls)." alt="" coords="29,11,227,224"/>
+<area shape="rect" href="javascript:void(0);" title="Represent by the class name" alt="" coords="151,1095,404,1113"/>
+<area shape="rect" href="javascript:void(0);" title="This control is active on given controlee. Override if any special activation. &#160;Most controls do not override." alt="" coords="151,1113,404,1132"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.button_press_event_cb" alt="" coords="151,1132,404,1151"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.button_release_event_cb" alt="" coords="151,1151,404,1169"/>
+<area shape="rect" href="javascript:void(0);" title="Override if any special deactivation. &#160;Most controls do not override." alt="" coords="151,1169,404,1188"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.focus_in_event_cb" alt="" coords="151,1188,404,1207"/>
+<area shape="rect" href="javascript:void(0);" title="Is the event in the hot area? For some controls the hot area is not same as the bounding box. Can be overridden." alt="" coords="151,1207,404,1225"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.key_release_event_cb" alt="" coords="151,1225,404,1244"/>
+<area shape="rect" href="javascript:void(0);" title="Exit if not mouse still inside. Move the control to follow the mouse. Continue dragging." alt="" coords="151,1244,404,1263"/>
+<area shape="rect" href="javascript:void(0);" title="Pointer scroll wheel inside control." alt="" coords="151,1263,404,1281"/>
+<area shape="rect" href="javascript:void(0);" title="gui.control.GuiControl.take_focus" alt="" coords="151,1281,404,1300"/>
+<area shape="rect" href="javascript:void(0);" title="Base class for GUI controls i.e." alt="" coords="149,1069,405,1301"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#button_press_left" title="LMB pressed inside handle item. Handle items enact drag on LMB." alt="" coords="172,1548,383,1567"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#button_press_right" title="RMB pressed inside handle item. Handle items enact context menu on RMB." alt="" coords="172,1567,383,1585"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#start_drag" title="Mouse departed item with button down." alt="" coords="172,1585,383,1604"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#mouse_move" title="Mouse moved inside this control. This defines that items decide how a handle menu behaves: can slide orthogonally, or next/previous item anti&#45;orthogonal." alt="" coords="172,1604,383,1623"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#mouse_exit" title="Mouse exited item. This is a filtered event from super GuiControl. Assert no button down (not a drag.)" alt="" coords="172,1623,383,1641"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#control_key_release" title="source.gui.itemhandle.HandleItem.control_key_release" alt="" coords="172,1641,383,1660"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#bland_key_release" title="source.gui.itemhandle.HandleItem.bland_key_release" alt="" coords="172,1660,383,1679"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html#pixels_off_menu_axis" title="Is mouse motion orthogonal (sideways) to menu axis? Returns count of pixels off axis. !!! Note that the sign indicates left(countercw) or right (clockwise) of the menu axis, not a direction along the coordinate system." alt="" coords="172,1679,383,1697"/>
+<area shape="rect" href="source.gui.itemhandle.HandleItem-class.html" title="A HandleItem control is a member of a HandleMenu group. It :" alt="" coords="171,1523,384,1699"/>
+<area shape="rect" href="source.gui.itemhandlecoords.MoveHandleItem-class.html#continue_drag" title="animate/ghost controlee being dragged" alt="" coords="149,1753,405,1772"/>
+<area shape="rect" href="source.gui.itemhandlecoords.MoveHandleItem-class.html#drop" title="Some control was the target of a drop that started in this control. Leave the ghosted move in last position." alt="" coords="149,1772,405,1791"/>
+<area shape="rect" href="source.gui.itemhandlecoords.MoveHandleItem-class.html" title="HandleItem that moves the controlee, when user drags. Another control is involved when a drag moves out of this item control." alt="" coords="148,1728,407,1792"/>
 <area shape="rect" href="javascript:void(0);" title="Return state values to be pickled." alt="" coords="17,285,239,304"/>
 <area shape="rect" href="javascript:void(0);" title="Restore state from the unpickled state values." alt="" coords="17,304,239,323"/>
 <area shape="rect" href="javascript:void(0);" title="??? This only works for controls, where the scale is equivalent to pixels in DCS." alt="" coords="17,323,239,341"/>
@@ -119,7 +101,6 @@
 <area shape="rect" href="javascript:void(0);" title="Set the translation and scale (not rotation) of an object. For testing: ordinarily, transforms are set by user actions using other methods. !!! Not view altering" alt="" coords="17,509,239,528"/>
 <area shape="rect" href="javascript:void(0);" title="transformer.Transformer.zoom" alt="" coords="17,547,239,565"/>
 <area shape="rect" href="javascript:void(0);" title="Transformer between coordinate systems. Affine drawing transformation by matrix." alt="" coords="16,260,240,567"/>
-<area shape="rect" href="source.gui.itemcontrol.CommandItemControl-class.html" title="An item that executes a command." alt="" coords="297,1555,436,1581"/>
 <area shape="rect" href="javascript:void(0);" title="override list.append to keep parent of each list element That is, hierachal model tree is digraph with bidirectional links." alt="" coords="177,628,377,647"/>
 <area shape="rect" href="javascript:void(0);" title="Draw self using context. Return bounds in DCS for later use to invalidate." alt="" coords="177,647,377,665"/>
 <area shape="rect" href="javascript:void(0);" title="composite.Composite.get_parent" alt="" coords="177,665,377,684"/>
@@ -128,6 +109,7 @@
 <area shape="rect" href="javascript:void(0);" title="composite.Composite.pick" alt="" coords="177,721,377,740"/>
 <area shape="rect" href="javascript:void(0);" title="Put path into context. Virtual: each subclass knows its shape." alt="" coords="177,740,377,759"/>
 <area shape="rect" href="javascript:void(0);" title="A container of Transformer:Drawables." alt="" coords="176,603,379,760"/>
+<area shape="rect" href="javascript:void(0);" title="An item that popups a menu." alt="" coords="180,1461,375,1493"/>
 <area shape="rect" href="javascript:void(0);" title="hash(x)" alt="" coords="292,271,561,289"/>
 <area shape="rect" href="javascript:void(0);" title="x+y" alt="" coords="292,292,561,311"/>
 <area shape="rect" href="javascript:void(0);" title="y in x" alt="" coords="292,311,561,329"/>
@@ -144,29 +126,41 @@
 <area shape="rect" href="javascript:void(0);" title="iter(x)" alt="" coords="292,516,561,535"/>
 <area shape="rect" href="javascript:void(0);" title="stable sort IN PLACE; cmp(x, y) &#45;&gt; &#45;1, 0, 1" alt="" coords="292,553,561,572"/>
 <area shape="rect" href="javascript:void(0);" title="list() &#45;&gt; new empty list list(iterable) &#45;&gt; new list initialized from iterable&#39;s items" alt="" coords="291,253,563,573"/>
+<area shape="rect" href="source.gui.itemhandlecoords.MoveMorphHandleItem-class.html#__init__" title="Has a menu." alt="" coords="192,1847,363,1865"/>
+<area shape="rect" href="source.gui.itemhandlecoords.MoveMorphHandleItem-class.html#scroll_up" title="Parent of this item&#39;s controlee becomes new controlee." alt="" coords="192,1865,363,1884"/>
+<area shape="rect" href="source.gui.itemhandlecoords.MoveMorphHandleItem-class.html#scroll_down" title="Make operand a child of composite that is at hotspot of handle menu to which this item belongs." alt="" coords="192,1884,363,1903"/>
+<area shape="rect" href="source.gui.itemhandlecoords.MoveMorphHandleItem-class.html" title="MoveHandleItem specialized to move a morph" alt="" coords="191,1821,364,1904"/>
+<area shape="rect" href="javascript:void(0);" title="Return a unit vector orthogonal to self at point." alt="" coords="148,815,407,833"/>
+<area shape="rect" href="javascript:void(0);" title="insert object before index" alt="" coords="148,833,407,852"/>
+<area shape="rect" href="javascript:void(0);" title="Morph that is the root of the modeling tree." alt="" coords="148,852,407,871"/>
+<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.move_by_drag" alt="" coords="148,871,407,889"/>
+<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.move_by_drag_handle" alt="" coords="148,889,407,908"/>
+<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.resize" alt="" coords="148,908,407,927"/>
+<area shape="rect" href="javascript:void(0);" title="Assert morph is focused. Activate associated feedback." alt="" coords="148,927,407,945"/>
+<area shape="rect" href="javascript:void(0);" title="morph.morph.Morph.set_by_drag" alt="" coords="148,945,407,964"/>
+<area shape="rect" href="javascript:void(0);" title="A Morph is a Composite with associated controls. A composite of Morphs or Glyphs." alt="" coords="147,789,408,965"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.dump" alt="" coords="31,36,225,55"/>
+<area shape="rect" href="javascript:void(0);" title="Return device coords of origin where drawn." alt="" coords="31,55,225,73"/>
+<area shape="rect" href="javascript:void(0);" title="Compute bounding rect in DCS of path in context as inked. !!! Note not recursive, takes path from context." alt="" coords="31,73,225,92"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_fill" alt="" coords="31,92,225,111"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.in_path" alt="" coords="31,111,225,129"/>
+<area shape="rect" href="javascript:void(0);" title="Does coords hit edge of this drawable? Stroke: hit on inked, visible. Edge: not including possible interior features, just the hittable boundary. Distinguish from a bounding box, which is a rectangle in DCS." alt="" coords="31,129,225,148"/>
+<area shape="rect" href="javascript:void(0);" title="Invalidate as previously drawn. Caching drawn bounds is an optimization; alternative is to walk model branch. This is for composite and primitive drawables: every drawable has bounds." alt="" coords="31,148,225,167"/>
+<area shape="rect" href="javascript:void(0);" title="Invalidate as will be drawn (hasn&#39;t been drawn yet.) This walks a branch of model to determine bounds." alt="" coords="31,167,225,185"/>
+<area shape="rect" href="javascript:void(0);" title="drawable.Drawable.is_inbounds" alt="" coords="31,185,225,204"/>
+<area shape="rect" href="javascript:void(0);" title="Put my boundary in the context. For most drawables (e.g. circle), the path is the boundary. If NOT path is boundary, override. &#160;E.G. text has a frame. Edge is used for hit detection." alt="" coords="31,204,225,223"/>
+<area shape="rect" href="javascript:void(0);" title="Things that can be drawn (morphs, glyphs, and controls)." alt="" coords="29,11,227,224"/>
+<area shape="rect" href="javascript:void(0);" title="gui.itemcontrol.ItemControl.button_release_left" alt="" coords="175,1356,380,1375"/>
+<area shape="rect" href="javascript:void(0);" title="gui.itemcontrol.ItemControl.button_release_right" alt="" coords="175,1375,380,1393"/>
+<area shape="rect" href="javascript:void(0);" title="Close my manager and relinquish control." alt="" coords="175,1393,380,1412"/>
+<area shape="rect" href="javascript:void(0);" title="gui.itemcontrol.ItemControl.set_group_manager" alt="" coords="175,1412,380,1431"/>
+<area shape="rect" href="javascript:void(0);" title="A control that is part of a group (an item in a group.) Usually a menu item. Knows its group manager. Cooperates with its group to define behavior." alt="" coords="173,1331,381,1432"/>
 </map>
-  <img src="uml_class_diagram_for_source_g_5.gif" alt='' usemap="#uml_class_diagram_for_source_g_5" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_source_g_9.gif" alt='' usemap="#uml_class_diagram_for_source_g_9" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
-<p>A control that is part of a group (an item in a group.)
-Usually a menu item.
-Knows its group manager.
-Cooperates with its group to define behavior.</p>
-<dl class="rst-docutils">
-<dt>Default behavior (should be overridden):</dt>
-<dd>Clickable (button release)
-Draggable (button press)</dd>
-<dt>Sublasses MUST override:</dt>
-<dd><dl class="rst-first rst-docutils">
-<dt>__init__ to define the contained glyph shape (an item is a morph)</dt>
-<dd>(NOT put_path_to(), which is done by the glyph)</dd>
-</dl>
-<p class="rst-last">mouse_move to define behavior under mouse movement inside item</p>
-</dd>
-</dl>
-<p>Group behavior primarily is defined by mouse_exit().</p>
-<p>Inherits GuiControl.callbacks(), draw(), __init__</p>
+MoveHandleItem specialized to move a morph
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -187,14 +181,15 @@ Draggable (button press)</dd>
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">new empty list</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="set_group_manager"></a><span class="summary-sig-name">set_group_manager</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">manager</span>)</span></td>
+          <td><span class="summary-sig"><a href="source.gui.itemhandlecoords.MoveMorphHandleItem-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">command</span>)</span><br />
+      Has a menu.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="source.gui.itemcontrol-pysrc.html#ItemControl.set_group_manager">source&nbsp;code</a></span>
+            <span class="codelink"><a href="source.gui.itemhandlecoords-pysrc.html#MoveMorphHandleItem.__init__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -208,62 +203,27 @@ Draggable (button press)</dd>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="source.gui.itemcontrol.ItemControl-class.html#button_release_left" class="summary-sig-name">button_release_left</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">event</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="source.gui.itemcontrol-pysrc.html#ItemControl.button_release_left">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="source.gui.itemcontrol.ItemControl-class.html#button_release_right" class="summary-sig-name">button_release_right</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">event</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="source.gui.itemcontrol-pysrc.html#ItemControl.button_release_right">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="close_manager"></a><span class="summary-sig-name">close_manager</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Close my manager and relinquish control.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="source.gui.itemcontrol-pysrc.html#ItemControl.close_manager">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="source.gui.itemcontrol.ItemControl-class.html#start_drag" class="summary-sig-name">start_drag</a>(<span class="summary-sig-arg">*args</span>,
+          <td><span class="summary-sig"><a href="source.gui.itemhandlecoords.MoveMorphHandleItem-class.html#scroll_up" class="summary-sig-name">scroll_up</a>(<span class="summary-sig-arg">*args</span>,
         <span class="summary-sig-arg">**kwargs</span>)</span><br />
-      This could happen if user only wants to drag a little bit,
-and the item bounds are bigger than the bounds of the
-drag start constraint.</td>
+      Parent of this item's controlee becomes new controlee.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="source.gui.itemhandlecoords.MoveMorphHandleItem-class.html#scroll_down" class="summary-sig-name">scroll_down</a>(<span class="summary-sig-arg">*args</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      Make operand a child of composite that is at hotspot of handle menu to which this item belongs.</td>
           <td align="right" valign="top">
             
             
@@ -275,27 +235,40 @@ drag start constraint.</td>
   </tr>
   <tr>
     <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="source.gui.itemhandlecoords.MoveHandleItem-class.html">MoveHandleItem</a></code></b>:
+      <code><a href="source.gui.itemhandlecoords.MoveHandleItem-class.html#continue_drag">continue_drag</a></code>,
+      <code><a href="source.gui.itemhandlecoords.MoveHandleItem-class.html#drop">drop</a></code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="source.gui.itemhandlecoords.MoveHandleItem-class.html">MoveHandleItem</a></code></b> (private):
+      <code><a href="source.gui.itemhandlecoords.MoveHandleItem-class.html#_change_controlee" onclick="show_private();">_change_controlee</a></code>
+      </p></div>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="source.gui.itemhandle.HandleItem-class.html">itemhandle.HandleItem</a></code></b>:
+      <code><a href="source.gui.itemhandle.HandleItem-class.html#bland_key_release">bland_key_release</a></code>,
+      <code><a href="source.gui.itemhandle.HandleItem-class.html#button_press_left">button_press_left</a></code>,
+      <code><a href="source.gui.itemhandle.HandleItem-class.html#button_press_right">button_press_right</a></code>,
+      <code><a href="source.gui.itemhandle.HandleItem-class.html#control_key_release">control_key_release</a></code>,
+      <code><a href="source.gui.itemhandle.HandleItem-class.html#mouse_exit">mouse_exit</a></code>,
+      <code><a href="source.gui.itemhandle.HandleItem-class.html#mouse_move">mouse_move</a></code>,
+      <code><a href="source.gui.itemhandle.HandleItem-class.html#pixels_off_menu_axis">pixels_off_menu_axis</a></code>,
+      <code><a href="source.gui.itemhandle.HandleItem-class.html#start_drag">start_drag</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>gui.itemcontrol.ItemControl</code></b>:
+      <code>button_release_left</code>,
+      <code>button_release_right</code>,
+      <code>close_manager</code>,
+      <code>set_group_manager</code>
+      </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code>gui.control.GuiControl</code></b>:
-      <code>__init__</code>,
       <code>__repr__</code>,
       <code>activate</code>,
       <code>button_press_event_cb</code>,
-      <code>button_press_left</code>,
-      <code>button_press_right</code>,
       <code>button_release_event_cb</code>,
-      <code>continue_drag</code>,
-      <code>control_key_release</code>,
       <code>deactivate</code>,
-      <code>drop</code>,
       <code>focus_in_event_cb</code>,
       <code>is_in_control_area</code>,
       <code>key_release_event_cb</code>,
       <code>motion_notify_event_cb</code>,
-      <code>mouse_exit</code>,
-      <code>mouse_move</code>,
-      <code>scroll_down</code>,
       <code>scroll_event_cb</code>,
-      <code>scroll_up</code>,
       <code>take_focus</code>
       </p>
     <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>gui.control.GuiControl</code></b> (private):
@@ -471,60 +444,44 @@ drag start constraint.</td>
   </td>
 </tr>
 </table>
-<a name="button_release_left"></a>
+<a name="__init__"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">button_release_left</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">event</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">command</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.gui.itemcontrol-pysrc.html#ItemControl.button_release_left">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="source.gui.itemhandlecoords-pysrc.html#MoveMorphHandleItem.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  
+  <p>Has a menu.</p>
+<p>After the command is executed,
+usually the parent menu (item group) is finished,
+but the higher menu may remain (if a cascading menu)
+or be restarted.</p>
   <dl class="fields">
+    <dt>Returns: new empty list</dt>
     <dt>Overrides:
-        gui.control.GuiControl.button_release_left
+        object.__init__
+        <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
 </td></tr></table>
 </div>
-<a name="button_release_right"></a>
+<a name="scroll_up"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">button_release_right</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">event</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="source.gui.itemcontrol-pysrc.html#ItemControl.button_release_right">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  
-  <dl class="fields">
-    <dt>Overrides:
-        gui.control.GuiControl.button_release_right
-    </dt>
-  </dl>
-</td></tr></table>
-</div>
-<a name="start_drag"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">start_drag</span>(<span class="sig-arg">*args</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">scroll_up</span>(<span class="sig-arg">*args</span>,
         <span class="sig-arg">**kwargs</span>)</span>
   </h3>
   </td><td align="right" valign="top"
@@ -532,16 +489,41 @@ drag start constraint.</td>
     </td>
   </tr></table>
   
-  This could happen if user only wants to drag a little bit,
-and the item bounds are bigger than the bounds of the
-drag start constraint.
+  Parent of this item's controlee becomes new controlee.
   <dl class="fields">
     <dt>Decorators:</dt>
     <dd><ul class="nomargin-top">
         <li><code>@dump_event</code></li>
     </ul></dd>
     <dt>Overrides:
-        gui.control.GuiControl.start_drag
+        gui.control.GuiControl.scroll_up
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="scroll_down"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">scroll_down</span>(<span class="sig-arg">*args</span>,
+        <span class="sig-arg">**kwargs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    >&nbsp;
+    </td>
+  </tr></table>
+  
+  Make operand a child of composite that is at hotspot of handle menu to which this item belongs.
+  <dl class="fields">
+    <dt>Decorators:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code>@dump_event</code></li>
+    </ul></dd>
+    <dt>Overrides:
+        gui.control.GuiControl.scroll_down
     </dt>
   </dl>
 </td></tr></table>
