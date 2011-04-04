@@ -1,6 +1,19 @@
 README for the Pensool application
 ==================================
 
+About
+-----
+
+Yet another 2D drawing app.  Compare to Skencil, Inkscape, XFig,  Karbon, Draw.
+
+Emphasis is on direct-manipulation GUI. Pensool keeps you focused where the mouse is in the drawing.  Pensool avoids menubars, scrollbars, tools, selections and modes.  Pensool uses handles and a new GUI technique called a handle menu: an iconic menu on the edge of symbols.  The handle menu technique is publicly disclosed at ip.com.
+
+Emphasis on portability, reusing other open source components such as pycairo.
+
+Status is strictly a development prototype, for experimentation.  Only a thin slice works and there are many bugs.  For now it is an experiment in user interface.  You can't even reopen a document that you saved, although it does save and print.
+
+See doc/UserManual.html for more discussion.
+
 Installation
 ------------
 
@@ -19,23 +32,26 @@ The directory 'doc' includes a user's manual in HTML and a 'html' directory whic
 For Programmers
 ---------------
 
-Pensool is pure python (no C extensions, yet.)
+Pensool is pure python (no C extensions, yet.)   It uses pycairo.  I used Texttest, Pyusecase, Epydoc tools in development.
 
 To generate the source code documentation.
 ++++++++++++++++++++++++++++++++++++++++++
 
-Install the tools epydoc and graphviz (the 'dot' program). Then:
+Install the tools epydoc and graphviz (the 'dot' program). 
+Also install rst2html.
+Then:
 
-cd pensool
-epydoc --graph all source/ --o doc/html
+>make docs
 
 Note that the source directory is a package (has an empty __init__.py)
 
 To run functional test
 ++++++++++++++++++++++
 
+Functional test of pensool is a work in progress.  It supports agile programming.
+
 Install the tools texttest and pyusecase.
-Follow the instructions in test/foo
+Follow the instructions in test/pyusecase/README.
 
 Then run texttest.  Choose the top level test suite.  Choose 'Run'.
 
