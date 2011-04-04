@@ -233,9 +233,8 @@ class GuiControl(morph.morph.PrimitiveMorph):
     
   
   def scroll_event_cb(self, widget, event):
-    '''
-    Scroll wheel inside control.
-    '''
+    ''' Pointer scroll wheel inside control. '''
+    print "scroll event"
     if event.direction == gdk.SCROLL_UP:
       self.scroll_up(event)
     else :

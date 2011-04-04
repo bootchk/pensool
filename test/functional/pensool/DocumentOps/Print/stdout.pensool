@@ -1,0 +1,16 @@
+Main
+
+---------- Window 'None' ----------
+Focus widget is 'GtkDrawingArea'
+A widget of type 'DrawingArea'
+-----------------------------------
+Open menu Document on Morph
+
+---------- Filechooserdialog 'Save..' ----------
+Default widget is 'gtk-save'
+
+Showing FileChooserWidget
+Button 'gtk-save' , Button 'gtk-cancel'
+------------------------------------------------
+Open menu Document on Morph
+Button release outside menu with no drag.

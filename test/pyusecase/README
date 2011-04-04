@@ -1,0 +1,71 @@
+Some Pensool modules have doctests.
+
+Pensool is also tested with Texttest/Pyusecase.
+The Functional directory here is for that purpose.
+
+Notes about testing with Texttest
+
+Installing:
+
+Standard:
+Install Texttest
+Install Pyusecase
+Create a directory for testing e.g. /home/foo/Test or ~/my_name/pensool/Functional
+In .profile export TEXTTEST_HOME=/home/foo/Test
+Run texttest and create a tested app "pensool", it creates /home/foo/Test/pensool
+ 
+Customizing Texttest for pensool:
+
+copy config.pensool from here /home/foo/Test/pensool
+(it will already exist, really edit it and add different lines:
+link_test_path:logging.pensool
+[test_data_environment]
+logging.pensool:LOG_CONF_PATH
+)
+
+A module that tells pyusecase to monitor more GTK events:
+Copy customeventwidgets.py from here to ~/local_python
+In .profile  "export PYTHONPATH=/home/foo/local_python
+
+A modified pyusecase module that playsback at recorded speed:
+
+1. Copy replayer.py from here to /pyusecase-3.xx/source/lib/usecase/
+2. Copy baseevents.py from here to /pyusecase-3.xx/source/lib/usecase/gtktoolkit/simulator
+3. Reinstall pyusecase: python setup.py install
+
+A file that configures pensool to log when you are NOT using texttest:
+(when you are using Texttest, it sets the environment variable and 
+copies logging.pensool to the sandbox.)
+Copy logging.pensool from here to some directory, say /home/foo
+(OR put in the the pwd from which you run Texttest)
+In .profile "export LOG_CONF_PATH=/home/foo/logging.pensool
+OR In .profile "export LOG_CONF_PATH=/home/foo/Test/pensool/logging.pensool
+
+An optional file that configures texttest to use editor apps you like:
+mkdir ~/.texttest
+Copy config from here to ~/.texttest
+
+To debug texttest:
+mkdir ~/.texttest/log
+Copy logging.debug from texttest distribution to above directory
+Modify logging.debug
+Logs will appear as /log/foo.diag
+
+To debug pyusecase:
+requires different command line options
+
+Other Notes:
+
+You must modify your code to:
+
+1. return False from handlers of events you want to monitor
+(possibly need stop_emission())
+
+2. do logging (if snooped events are not sufficient.)
+
+If you have defined custom widgets that you later retracted (in customwidgetevents.py):
+edit ~/Test/pensool/pyusecase_files/ui_map.conf to remove them from usecases.
+
+the contents of this directory:
+
+replayer.py is a hacked version of pyusecase/source/lib/.../replayer.py to support timed event playback.

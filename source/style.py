@@ -58,7 +58,7 @@ class Style(object):
   ''' User changeable style for a morph. '''
   def __init__(self):
     # attributes of style
-    self.pen_width = 1
+    self.pen_width = config.DEFAULT_PEN_WIDTH
     self.color = (0, 0, 0)  # black
     self.filled = False
     # other

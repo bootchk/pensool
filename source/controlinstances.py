@@ -92,7 +92,7 @@ def build_handle_menu(edit_menu, resize_menu, draw_menu):
   
   handle_control = gui.itemhandlecoords.ResizeHandleItem(resize_menu)
   handle_group.add(handle_control)
-  handle_control = gui.itemhandlecoords.MoveHandleItem(edit_menu)
+  handle_control = gui.itemhandlecoords.MoveMorphHandleItem(edit_menu)
   handle_group.add(handle_control)
   handle_control = gui.itemhandleline.DrawHandleItem(draw_menu)
   handle_group.add(handle_control)
@@ -110,8 +110,9 @@ def build_document_handle_menu(edit_menu, resize_menu, draw_menu):
   
   handle_control = gui.itemhandlecoords.ResizeHandleItem(resize_menu)
   handle_group.add(handle_control)
-  # Move item on document has different RMB context menu than on morph
-  handle_control = gui.itemhandlecoords.MoveHandleItem(document_menu)
+  # MoveItem on document has different RMB context menu 
+  # and different scrolling than MoveItem on morph
+  handle_control = gui.itemhandlecoords.MoveViewHandleItem(document_menu)
   handle_group.add(handle_control)
   handle_control = gui.itemhandleline.DrawHandleItem(draw_menu)
   handle_group.add(handle_control)

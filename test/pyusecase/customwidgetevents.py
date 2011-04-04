@@ -1,13 +1,14 @@
 '''
 Copyright 2010, 2011 Lloyd Konneker
 
-    This file is part of Pensool.
+This file is part of Pensool.
 
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+'''
+'''
 customwidgetevents.py
 
 Disclaimer: I am not an authority on Pyusecase.  I could be mistaken.  The code seems to work.
@@ -67,6 +68,8 @@ Other (record and playback time?):
 connectRecord(): connects event to gui toolkit
   Only override base class method if special connection is needed.
 
+
+To add an event class, define the class and add the class name to the customEventTypes list at the bottom.
 '''
 
 from usecase.gtktoolkit.simulator.baseevents import SignalEvent
@@ -165,9 +168,13 @@ class PointerEvent(SignalEvent):
   ''' 
   Base class for pointer events.
   Pointer event attributes: x, y, time.
-  Subclasses are Motion and Button.
-  That is, mouse move and mouse button press and release.
-  Doesn't include the scroll wheel on a mouse.
+  
+  Subclasses are
+  
+  - Motion
+  - Button press and release
+  - Scroll wheel up and down
+  
   What is in common is how we record and playback the attributes.
   '''
   def outputForScript(self, widget, *args):
@@ -220,10 +227,43 @@ class MotionEvent(PointerEvent):
     return True
 
 
+class ScrollEvent(PointerEvent):
+  ''' 
+  Pointer scroll wheel event. 
+  Specializes by capturing *direction* field of event.
+  A button press event on button 4 or greater may also be generated?
+  '''
+  signalName = 'scroll-event'
+  eventType = gtk.gdk.SCROLL
+  
+  def outputForScript(self, widget, *args):
+    ''' Tack direction arg onto args from superclass.'''
+    event = args[0]
+    # Encode, since str(event.direction) is unintelligible
+    if event.direction == gtk.gdk.SCROLL_DOWN:
+      direction = 1
+    else: # assume it is up
+      direction = 2 # Can't use "up" to encode because we are parsing ints
+    # call super for prefix, then tack on
+    return PointerEvent.outputForScript(self, widget, *args) + " " + str(direction)
+  
+  def getEmissionArgs(self, argumentString):
+    ''' Additionally give value to direction attribute of GTK event from emission args from base class '''
+    [event] = PointerEvent.getEmissionArgs(self, argumentString) # super
+    int_args = [int(x) for x in argumentString.split()] # parse and convert to list of ints
+    # decode
+    if int_args[3] == 2 :
+      event.direction = gtk.gdk.SCROLL_UP
+    else:
+      event.direction = gtk.gdk.SCROLL_DOWN
+    return [ event ]
+    
+    
+
 class PointerButtonEvent(PointerEvent):
   '''
   Base class for pointer (mouse) button events.
-  
+  Specializes by capturing *button* field of event.
   !!! Inherits shouldRecord():  recording all pointer button events
   '''
   def outputForScript(self, widget, *args):
@@ -255,10 +295,10 @@ class ButtonReleaseEvent(PointerButtonEvent):
   eventType = gtk.gdk.BUTTON_RELEASE
     
 """
-Note the following won't work.
-You can't have two event classes for the same GTK event type.
+Note you can't have two event classes for the same GTK event type.
 Pyusecase can't dispatch a GTK event
 by examining its attributes, only its type.
+So this doesn't work:
 
 class LMBPressEvent(PointerButtonEvent):
   ''' Left mouse button RMB is 1 in GTK '''
@@ -276,6 +316,6 @@ class RMBPressEvent(PointerButtonEvent):
 # Standard module attribute defining custom widget events
 # List of tuple pairs of widget types and list of events
 customEventTypes = [(gtk.DrawingArea, [ ConfigureEvent, MotionEvent, 
-  ButtonReleaseEvent, ButtonPressEvent ])]
+  ButtonReleaseEvent, ButtonPressEvent, ScrollEvent ])]
 
 

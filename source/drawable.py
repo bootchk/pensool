@@ -32,7 +32,10 @@ def picking(func):
     self.put_path_to(context) # recursive, with transforms
     # Transform point from DCS to UCS since Cairo in_foo() functions want UCS
     pointUCS = vector.Vector(*context.device_to_user(point.x, point.y))
-    return func(self, context, pointUCS)
+    # print self, pointUCS
+    value = func(self, context, pointUCS)
+    print "picking_func returning", value
+    return value
   return picking_func
 
 
@@ -235,6 +238,23 @@ class Drawable(object):
   So this is for composite and primitive drawables.
   '''
   
+  @dump_return
+  def _prepare_for_picking(self, point):
+    ''' 
+    Prepare a context for picking.
+    Fresh context since can be called outside a walk of model hierarchy.
+    Assert parent is ???
+    '''
+    # 
+    context = config.viewport.user_context()
+    if self.parent: # None if in background ctl
+      context.set_matrix(transform.copy(self.parent.retained_transform))
+    # !!! No style put to context, but insure black ink? TODO
+    self.put_path_to(context) # recursive, with transforms
+    # Transform point from DCS to UCS since Cairo in_foo() functions want UCS
+    pointUCS = vector.Vector(*context.device_to_user(point.x, point.y))
+    return context, pointUCS
+    
   @picking
   def in_path(self, context, coords):
     '''
@@ -246,17 +266,27 @@ class Drawable(object):
     # Cairo does not have in_path()
     return context.in_stroke(coords.x, coords.y)
     
-  @picking
-  def in_stroke(self, context, coords):
+  #@dump_return
+  def in_stroke(self, coords):
     '''
     Does coords hit edge of this drawable?
     Stroke: hit on inked, visible.
     Edge: not including possible interior features, just the hittable boundary.
     Distinguish from a bounding box, which is a rectangle in DCS.
     '''
-    # Use actual pen width
+    context, point = self._prepare_for_picking(coords)
+    # Assert cairo holds the path in DCS, point is in UCS
+    # Use actual pen width. This alters the context, BUT NOT the path.
     style.set_line_width(context, self.parent.style.pen_width)  # !!! After path
-    return context.in_stroke(coords.x, coords.y)
+    #print "Line width", context.get_line_width(), "Stroke extents", context.stroke_extents(), "Coords ", point, "Parent ", self.parent
+    # context.get_line_width()
+    # April 2011 lkk This cruft is here because there was flakiness:
+    # Manifests itself as not picking on scroll in the Move handle item.
+    # Not reliably reproducible: depends on what seemingly irrelevant code (like @dump_return)
+    # or the above context.get_line_width() is in place.
+    # I installed the latest cairo and pixmand (but not the latest pycairo) and now it MIGHT be working.
+    value = context.in_stroke(point.x, point.y)
+    return value
   
   #@dump_return
   @picking

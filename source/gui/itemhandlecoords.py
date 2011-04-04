@@ -4,12 +4,12 @@ Items in handle menu. Items that move and resize controlee.
 '''
 Copyright 2010, 2011 Lloyd Konneker
 
-    This file is part of Pensool.
+This file is part of Pensool.
 
-    Pensool is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+Pensool is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 '''
 
 import itemhandle
@@ -38,58 +38,15 @@ class MoveHandleItem(itemhandle.HandleItem):
     self.append(morph.glyph.RectGlyph())
     self.scale_uniformly(config.ITEM_SIZE)
   
-  
   @dump_event
   def _change_controlee(self, new_controlee):
-    '''
-    If controlee is not none, change to it.
-    None means at the top
-    '''
+    ''' If controlee is not None, change to it. None means at the top. '''
     if new_controlee:
+      logging.getLogger('pensool').debug("Change controlee " + repr(new_controlee))
       gui.manager.focus.focus(new_controlee)
       self.controlee = new_controlee
     else:
       base.alert.alert("Can't scroll up past document.")
-    
-  @dump_event
-  def scroll_down(self, event):
-    '''
-    Filtered event from GuiControl: scroll wheel down in a handle item.
-    Make operand a child of composite that is at hotspot of handle menu
-    to which this item belongs.
-    '''
-    print "Old controlee", self.controlee
-    ## OLD if len(self.controlee) > 1:
-    if self.controlee.is_top():
-      config.scheme.zoom(False, event)
-    if self.controlee.is_primitive():
-      base.alert.alert("Can't scroll down past primitive morph")
-    else:
-      # Iterate children to find first at hotspot of handle menu.
-      # TODO If more than one at hotspot?
-      # Then cycle through siblings ie walk depth first
-      for child in self.controlee:
-        print "Child ....", repr(child)
-        # TODO Too strict?  Allow jitter?
-        if child.in_path(self.group_manager.layout_spec.hotspot):
-          self._change_controlee(child)
-          return
-      # Assert one must be at this event, else we would not have opened menu.
-      raise RuntimeError("No morph found for handle menu")
-
-  
-  @dump_event
-  def scroll_up(self, event):
-    '''
-    Filtered event from GuiControl: scroll wheel UP in a handle item.
-    Parent of this item's controlee becomes new controlee.
-    '''
-    if self.controlee.is_top():
-      # FIXME hotspot of handle menu, not the event
-      config.scheme.zoom(True, event)
-    else:
-      self._change_controlee(self.controlee.parent)
-  
   
   # start_drag inherited
   
@@ -117,6 +74,61 @@ class MoveHandleItem(itemhandle.HandleItem):
     pass
     
 
+''' 
+Although the document IS a morph, a HandleMenu opened on the document
+has a mixed metaphor: it operates on the view or the document.
+Special scrolling.
+Scrolls are filtered events from GuiControl: scroll wheel UP or DOWN in a handle item.
+'''
+class MoveViewHandleItem(MoveHandleItem):
+  ''' MoveHandleItem specialized to move the view '''
+
+  def __init__(self, command):
+    MoveHandleItem.__init__(self, command)
+    
+  @dump_event
+  def scroll_up(self, event):
+    '''Zoom view out. '''
+    config.scheme.zoom(True, event)
+
+  @dump_event
+  def scroll_down(self, event):
+    ''' Zoom view in. '''
+    config.scheme.zoom(False, event)
+  
+
+class MoveMorphHandleItem(MoveHandleItem):
+  ''' MoveHandleItem specialized to move a morph '''
+
+  def __init__(self, command):
+    MoveHandleItem.__init__(self, command)
+
+  @dump_event
+  def scroll_up(self, event):
+    '''Parent of this item's controlee becomes new controlee.'''
+    if self.controlee.is_top():
+      base.alert.alert("Can't scroll up past document")
+      # TODO we could zoom the view out at this point?
+    else:
+      self._change_controlee(self.controlee.parent)
+  
+  @dump_event
+  def scroll_down(self, event):
+    '''Make operand a child of composite that is at hotspot of handle menu to which this item belongs.'''
+    if self.controlee.is_primitive():
+      base.alert.alert("Can't scroll down past primitive morph")
+    else:
+      # Iterate children to find first at hotspot of handle menu.
+      # TODO If more than one at hotspot?
+      # Then cycle through siblings ie walk depth first
+      for child in self.controlee:
+        print "Child ....", repr(child)
+        # TODO Too strict?  Allow jitter?
+        if child.in_stroke(self.group_manager.layout_spec.hotspot):
+          self._change_controlee(child)
+          return
+      # Assert one must be at this event, else we would not have opened menu.
+      raise RuntimeError("No morph found for handle menu")
 
   
 class ResizeHandleItem(itemhandle.HandleItem):

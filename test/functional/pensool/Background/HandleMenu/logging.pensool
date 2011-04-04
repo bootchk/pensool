@@ -1,0 +1,62 @@
+
+# This is the logging config file for pensool.
+# Original was from distributed source texttest/log/logging.console.
+# For use during development of your app, here: pensool.
+# Install in ~/Test/pensool or further down in the tree
+# In production, pensool should do no logging, find no config file.
+
+[logger_root]
+handlers=root
+level=INFO
+
+[handler_root]
+class=StreamHandler
+level=INFO
+args=(sys.stdout,)
+
+[handler_stdout]
+class=StreamHandler
+args=(sys.stdout,)
+#formatter=timed
+
+[formatters]
+keys=timed,debug
+
+[formatter_timed]
+format=%(asctime)s - %(message)s
+
+[formatter_debug]
+format=%(name)s %(levelname)s - %(message)s
+
+# ====== The following are enabled by default ======
+# ======= Section for standard log ======
+[logger_standard log]
+handlers=stdout
+qualname=standard log
+level=INFO
+
+# ======= Section for kill processes ======
+[logger_kill processes]
+handlers=stdout
+qualname=kill processes
+level=INFO
+
+# *************** Section for pensool ***************
+# Note this is a sibling to root, not a child of root logger
+# Therefore its name is pensool, not root.pensool
+[logger_pensool]
+handlers=stdout
+qualname=pensool
+level=DEBUG
+
+# ====== Cruft that python logging module needs ======
+[loggers]
+keys=root,standard log,kill processes,pensool
+
+[handlers]
+keys=root,stdout
+
+[formatters]
+keys=timed,debug
+
+[end]

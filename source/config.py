@@ -48,6 +48,10 @@ PENSOOL_PICK_PEN_WIDTH = 4
 PENSOOL_LINE_CAP_SQUARE = cairo.LINE_CAP_SQUARE
 '''Synonym used in picking'''
 
+DEFAULT_PEN_WIDTH = 2
+'''width of pen in pixels for drawing.'''
+'''  !!! Should review algorithms for pen width < 2, for asymmetric scaling, rounding problems '''
+
 # See gui.manager.fade
 GUI_FADE_TIME = 500
 ''' mSec delay before handles dissappear from recently focused morph.'''

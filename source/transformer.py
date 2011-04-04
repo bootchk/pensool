@@ -31,7 +31,7 @@ import base.vector as vector
 from decorators import *
 import config
 
-
+import logging
 
 
 class Transformer(drawable.Drawable):
@@ -266,7 +266,7 @@ class Transformer(drawable.Drawable):
     self.transform.translate(-user_coords.x, -user_coords.y)
     """
     self.scale *= delta
-    print "Zoomed scale is", self.scale
+    logging.getLogger('pensool').debug("Zoomed scale " + str(self.scale))
     self.derive_transform()
     
   #@dump_event

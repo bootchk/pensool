@@ -1,0 +1,37 @@
+# lkk Mar. 2011
+# This is the config file for the "root test suite" of pensool for use by Texttest.
+# Install e.g. in directory ~/Test/pensool
+# You can then reach this file under the "Config" tab of Texttest app.
+
+# Full path to the System Under Test
+executable:/home/bootch/pensool/source/pensool.py
+
+# Naming scheme to use for files for stdin,stdout and stderr
+filename_convention_scheme:standard
+
+# Expanded name to use for application
+full_name:pensool
+
+# Mode for Use-case recording (GUI, console or disabled)
+use_case_record_mode:GUI
+
+# Which Use-case recorder is being used
+use_case_recorder:pyusecase
+
+# Program to use as interpreter for the SUT
+interpreter:pyusecase
+
+# The next two are needed so that pensool can be instrumented to log 
+# additional, explicit test events beyond what Texttest snoops from the GUI toolkit
+
+# Link a test dependent "logging config file" (LCF) to the sandbox for pensool to read
+link_test_path:logging.pensool
+
+# Write the path to the LCF (in the sandbox) to and env var for pensool to read
+[test_data_environment]
+logging.pensool:LOG_CONF_PATH
+
+
+
+
+
